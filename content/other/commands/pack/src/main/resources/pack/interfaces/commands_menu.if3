@@ -1,0 +1,262 @@
+[[interface]]
+name = "interface.commands_menu"
+inherit = "interface.skill_guide"
+width = 512
+height = 334
+
+[[component]]
+name = "commands_blocker"
+type = "layer"
+x = 20
+y = 58
+width = 472
+height = 250
+no_click_through = true
+
+[[component]]
+name = "commands_panel"
+type = "rectangle"
+x = 20
+y = 58
+width = 472
+height = 250
+color = "#2B241A"
+filled = true
+
+[[component]]
+name = "title"
+type = "text"
+x = 146
+y = 10
+width = 220
+height = 20
+text = "Commands"
+font = "bold"
+line_height = 14
+h_align = "center"
+v_align = "center"
+color = "#FF981F"
+
+[[component]]
+name = "status"
+type = "text"
+x = 36
+y = 64
+width = 430
+height = 16
+text = "Commands"
+font = "small"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#D0C4A8"
+
+[[component]]
+name = "row_0"
+type = "text"
+x = 38
+y = 84
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_1"
+type = "text"
+x = 38
+y = 100
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_2"
+type = "text"
+x = 38
+y = 116
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_3"
+type = "text"
+x = 38
+y = 132
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_4"
+type = "text"
+x = 38
+y = 148
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_5"
+type = "text"
+x = 38
+y = 164
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_6"
+type = "text"
+x = 38
+y = 180
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_7"
+type = "text"
+x = 38
+y = 196
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_8"
+type = "text"
+x = 38
+y = 212
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_9"
+type = "text"
+x = 38
+y = 228
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_10"
+type = "text"
+x = 38
+y = 244
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "row_11"
+type = "text"
+x = 38
+y = 260
+width = 430
+height = 16
+text = ""
+font = "regular"
+line_height = 12
+h_align = "left"
+v_align = "center"
+color = "#FFFFFF"
+options = ["Use"]
+
+[[component]]
+name = "previous"
+type = "text"
+x = 410
+y = 286
+width = 28
+height = 18
+text = "<"
+font = "bold"
+line_height = 12
+h_align = "center"
+v_align = "center"
+color = "#FF981F"
+options = ["Previous"]
+
+[[component]]
+name = "next"
+type = "text"
+x = 448
+y = 286
+width = 28
+height = 18
+text = ">"
+font = "bold"
+line_height = 12
+h_align = "center"
+v_align = "center"
+color = "#FF981F"
+options = ["Next"]
