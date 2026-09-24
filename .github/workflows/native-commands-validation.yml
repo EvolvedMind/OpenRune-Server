@@ -30,4 +30,4 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x gradlew
       - name: Compile commands + interface pack
-        run: ./gradlew :content:other:commands:compileKotlin :content:other:commands:pack:compileKotlin --no-daemon --console=plain
+        run: ./gradlew :content:other:commands:compileKotlin :content:other:commands:commands-pack:compileKotlin --no-daemon --console=plain
