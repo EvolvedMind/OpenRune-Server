@@ -38,6 +38,15 @@ v_align = "center"
 color = "#FF981F"
 
 [[component]]
+name = "close"
+type = "layer"
+x = 470
+y = 4
+width = 38
+height = 32
+options = ["Close"]
+
+[[component]]
 name = "status"
 type = "text"
 x = 36
