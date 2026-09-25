@@ -30,6 +30,11 @@ object GamevalDumper {
         val gamevals = mutableMapOf<String, List<String>>()
 
         GameValGroupTypes.entries.forEach { group ->
+            // IFTYPES transparently resolves to the active interface-gameval archive
+            // (legacy group 13 or V2 group 14). Do not process V2 separately or custom
+            // interfaces packed into the active legacy archive will be omitted.
+            if (group == GameValGroupTypes.IFTYPES_V2) return@forEach
+
             val elements = GameValHandler.readGameVal(group, cache, rev)
 
             when (group) {
@@ -38,12 +43,12 @@ object GamevalDumper {
                         elements.mapNotNull { it.elementAs<Sprite>()?.formatSprite() }
                 }
 
-                GameValGroupTypes.IFTYPES_V2 -> {
+                GameValGroupTypes.IFTYPES -> {
                     val interfaces = elements.mapNotNull { it.elementAs<Interface>() }
                     gamevals["interfaces"] = interfaces.map { "${it.name}=${it.id}" }
                 }
 
-                GameValGroupTypes.IFTYPES -> Unit
+                GameValGroupTypes.IFTYPES_V2 -> Unit
 
                 else -> {
                     val key = group.groupName.replace("dbtables", "tables")
@@ -60,7 +65,10 @@ object GamevalDumper {
     }
 
     fun dumpComponents(cache: Cache, rev: Int) {
-        val elements = GameValHandler.readGameVal(GameValGroupTypes.IFTYPES_V2, cache = cache, rev)
+        // IFTYPES selects the actual interface-gameval archive for this cache revision.
+        // Reading IFTYPES_V2 directly misses custom interfaces whenever the active archive
+        // is the legacy IFTYPES group, which leaves component.* mappings unavailable at runtime.
+        val elements = GameValHandler.readGameVal(GameValGroupTypes.IFTYPES, cache = cache, rev)
         val data = mutableListOf<String>()
 
         elements.forEach { gameValElement ->
