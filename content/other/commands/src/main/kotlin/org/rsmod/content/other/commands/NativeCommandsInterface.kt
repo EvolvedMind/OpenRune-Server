@@ -153,7 +153,6 @@ constructor(
         val start = page * pageSize
         val selectedEntry = selectedEntry(player, entries)
 
-        ifOpenMainModal(INTERFACE)
         val search = searches[player.username].orEmpty()
         ifSetText(
             COMP_SEARCH,
@@ -221,9 +220,13 @@ constructor(
         onCommand("commands") {
             desc = "Open native commands interface"
             cheat {
-                resetView(player)
-                searches[player.username] = args.joinToString(" ").trim()
-                protectedAccess.launch(player) { renderCommands() }
+                val query = args.joinToString(" ").trim()
+                protectedAccess.launch(player) {
+                    ifOpenMainModal(INTERFACE)
+                    resetView(player)
+                    searches[player.username] = query
+                    renderCommands()
+                }
             }
         }
 
@@ -287,7 +290,11 @@ constructor(
         onIfModalButton(COMP_USE) {
             val entries = filteredCommands(player)
             val entry = selectedEntry(player, entries)
-            if (entry != null) cheatCommandMap.execute(player, entry.name, emptyList())
+            if (entry != null) {
+                val input = stringDialog("::${entry.name} - enter arguments (blank if none):").trim()
+                val args = if (input.isBlank()) emptyList() else input.split(Regex("\\s+"))
+                cheatCommandMap.execute(player, entry.name, args)
+            }
         }
     }
 }
