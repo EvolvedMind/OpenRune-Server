@@ -371,11 +371,9 @@ public object ExternalPluginLoader {
      * classloader defined, and closes that classloader. See the class docs for what this does and
      * doesn't cover.
      *
-     * Closing the classloader matters on Windows in particular: a [URLClassLoader] over a jar
-     * keeps that jar file open (and thus locked against being overwritten/deleted) until closed —
-     * merely dropping the last reference to it and waiting on GC does not release the file handle
-     * in any bounded time. Without this, rebuilding and replacing an already-loaded plugin's jar
-     * would fail with a `FileSystemException` ("used by another process") on Windows.
+     * Jar plugins run from a private shadow copy, so the authoritative source jar in `plugins/`
+     * stays replaceable while the plugin is active. Unload closes the classloader and deletes that
+     * runtime shadow before a reload creates the next one.
      */
     private fun unload(source: File, scriptContext: ScriptContext) {
         val id = sourceName(source)
