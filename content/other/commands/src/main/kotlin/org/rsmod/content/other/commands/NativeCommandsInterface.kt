@@ -185,7 +185,10 @@ constructor(
                     "<col=$color>$marker::${entry.name}</col>"
                 }
             ifSetText("component.commands_menu:row_title_$rowIndex", name)
-            ifSetText("component.commands_menu:row_desc_$rowIndex", entry?.description?.take(62).orEmpty())
+            ifSetText(
+                "component.commands_menu:row_desc_$rowIndex",
+                entry?.description?.take(62).orEmpty(),
+            )
         }
 
         ifSetText(COMP_PAGE, "${entries.size} commands  -  Page ${page + 1} / $pageCount")
@@ -196,12 +199,14 @@ constructor(
             ifSetText(COMP_DETAIL_RIGHTS, "")
         } else {
             ifSetText(COMP_DETAIL_NAME, "::${selectedEntry.name}")
-            ifSetText(COMP_DETAIL_DESC, selectedEntry.description.ifBlank { "No description." }.take(112))
+            val description = selectedEntry.description.ifBlank { "No description." }.take(112)
+            ifSetText(COMP_DETAIL_DESC, description)
+            val access =
+                selectedEntry.requiredRights?.name?.lowercase()?.replaceFirstChar { it.uppercase() }
+                    ?: "Player"
             ifSetText(
                 COMP_DETAIL_RIGHTS,
-                "Access: " +
-                    (selectedEntry.requiredRights?.name?.lowercase()?.replaceFirstChar { it.uppercase() }
-                        ?: "Player"),
+                "Access: $access",
             )
         }
     }
