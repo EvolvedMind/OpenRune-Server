@@ -5,7 +5,15 @@ name = "interface.commands_menu"
 # component.commands_menu:* mappings point at the wrong interface.
 width = 512
 height = 334
-on_load = ["clientscript.commands_menu_init", "component.commands_menu:frame", "component.commands_menu:searchbar", "component.commands_menu:clear_search", "component.commands_menu:previous", "component.commands_menu:next", "component.commands_menu:use"]
+on_load = [
+  "clientscript.commands_menu_init",
+  "component.commands_menu:frame",
+  "component.commands_menu:searchbar",
+  "component.commands_menu:clear_search",
+  "component.commands_menu:previous",
+  "component.commands_menu:next",
+  "component.commands_menu:use",
+]
 
 [[component]]
 name = "frame"
