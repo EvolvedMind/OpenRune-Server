@@ -42,6 +42,9 @@ jobs:
       # game.example.yml bumps (~monthly), so cache it across runs. The
       # gamevals .dat files ride along because buildCache requires them
       # at startup (GameValProvider loads both before any packing).
+      - name: Verify Nero-style project dependency fat jar
+        run: ./gradlew -p tools/nero-packaging-probe :plugin:verifyFatJar --no-daemon --console=plain
+
       - name: Cache game data
         id: gamecache
         uses: actions/cache@v6
