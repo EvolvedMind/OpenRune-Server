@@ -1,7 +1,10 @@
 package org.rsmod.api.net.central.embed
 
+import dev.or2.central.account.BadWordIndex
 import dev.or2.central.config.CentralConfig
+import java.time.Duration
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTimeoutPreemptively
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.rsmod.api.server.config.OpenRuneCentralGameConfig
@@ -13,6 +16,7 @@ class EmbeddedCentralRuntimeConfigTest {
         val runtime = runtimeConfig(offlineBadWords = true)
 
         assertTrue(runtime.badWords.remoteUrl.isBlank())
+        assertTimeoutPreemptively(Duration.ofSeconds(5)) { BadWordIndex(runtime).roots() }
     }
 
     @Test
