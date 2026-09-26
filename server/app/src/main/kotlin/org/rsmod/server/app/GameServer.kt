@@ -39,6 +39,7 @@ import org.rsmod.game.obj.Obj
 import org.rsmod.game.obj.ObjEntity
 import org.rsmod.game.obj.ObjScope
 import org.rsmod.map.CoordGrid
+import org.rsmod.plugin.loader.ExternalPluginLoader
 import org.rsmod.plugin.module.PluginModule
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
