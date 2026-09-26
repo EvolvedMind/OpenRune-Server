@@ -61,7 +61,7 @@ object GamevalDumper {
         GameValDat.write(File(outputDir, "gamevals.dat"), gamevals.remapNames())
 
         dumpCols(cache, rev)
-        dumpComponents(cache,rev)
+        dumpComponents(cache, rev)
     }
 
     fun dumpComponents(
