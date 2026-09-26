@@ -61,10 +61,14 @@ object GamevalDumper {
         GameValDat.write(File(outputDir, "gamevals.dat"), gamevals.remapNames())
 
         dumpCols(cache, rev)
-        dumpComponents(cache,rev)
+        dumpComponents(cache, rev)
     }
 
-    fun dumpComponents(cache: Cache, rev: Int) {
+    fun dumpComponents(
+        cache: Cache,
+        rev: Int,
+        verifySourceContracts: Boolean = false,
+    ) {
         // IFTYPES selects the actual interface-gameval archive for this cache revision.
         // Reading IFTYPES_V2 directly misses custom interfaces whenever the active archive
         // is the legacy IFTYPES group, which leaves component.* mappings unavailable at runtime.
@@ -78,6 +82,9 @@ object GamevalDumper {
             }
         }
 
+        if (verifySourceContracts) {
+            InterfaceGamevalContracts.verify(File("../content"), data)
+        }
         GeneratedGameVals.replaceTables(mapOf("component" to data))
     }
 

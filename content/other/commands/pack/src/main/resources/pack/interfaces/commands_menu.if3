@@ -1,6 +1,8 @@
 [[interface]]
 name = "interface.commands_menu"
-inherit = "interface.skill_guide"
+# Keep this interface standalone for revision 240. The current FileStore inherit merger
+# resolves an overlay back onto the inherited base id/name, which would make the
+# component.commands_menu:* mappings point at the wrong interface.
 width = 512
 height = 334
 
