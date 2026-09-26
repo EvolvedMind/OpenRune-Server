@@ -169,7 +169,7 @@ private fun buildServerCache(packTasks: List<CacheTask>, packs: PluginPacks) {
 private fun finalizeServerCache(force: Boolean = false) {
     val cache = Cache.load(File(getServerCacheLocation()).toPath())
     GamevalDumper.dumpCols(cache, revision.first)
-    GamevalDumper.dumpComponents(cache, revision.first)
+    GamevalDumper.dumpComponents(cache, revision.first, verifySourceContracts = true)
 
     val tableTypes =
         GameValHandler.readGameVal(GameValGroupTypes.TABLETYPES, cache = cache, revision.first)
