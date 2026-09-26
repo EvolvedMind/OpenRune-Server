@@ -29,15 +29,31 @@ jobs:
         run: ./gradlew :or-cache:buildCache --no-daemon --console=plain
       - name: Compile full commands content
         run: ./gradlew :content:other:commands:compileKotlin --no-daemon --console=plain
-      - name: Verify generated commands interface mappings
+      - name: Verify generated commands interface artifacts
         shell: bash
         run: |
           test -f .data/gamevals/interface.rscm
-          test -f .data/gamevals/component.rscm
+          test -f .data/gamevals-binary/gamevals_generated.dat
           grep -q '^commands_menu=' .data/gamevals/interface.rscm
-          grep -q '^commands_menu:title=' .data/gamevals/component.rscm
-          grep -q '^commands_menu:row_0=' .data/gamevals/component.rscm
-          grep -q '^commands_menu:next=' .data/gamevals/component.rscm
+          echo "Component mappings are validated by the build-time .if3 contract in :or-cache:buildCache."
+      - name: Boot server through script startup
+        shell: bash
+        run: |
+          ./gradlew generateRsa --no-daemon --console=plain
+          [ -f game.yml ] || cp game.example.yml game.yml
+          ./gradlew run -q > boot.log 2>&1 &
+          GRADLE_PID=$!
+          for i in $(seq 1 300); do
+            grep -q "Server ready in" boot.log && break
+            kill -0 $GRADLE_PID 2>/dev/null || break
+            sleep 1
+          done
+          if ! grep -q "Server ready in" boot.log; then
+            echo "Server did not reach ready state"
+            tail -80 boot.log
+            exit 1
+          fi
+          kill $GRADLE_PID 2>/dev/null || true
       - name: Verify LIVE and SERVER caches
         shell: bash
         run: |
