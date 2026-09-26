@@ -229,14 +229,10 @@ class GameServer(private val skipTypeVerificationOverride: Boolean? = null) :
         val breakdown = phases.entries.joinToString { (name, duration) -> "$name=$duration" }
         logger.info { "Server ready in $total ($breakdown)" }
 
-        // Releases plugin jars from disk locks (Windows in particular) now that boot has fully
-        // loaded everything, so they can be rebuilt/replaced on disk without ::plugindisable-ing
-        // each one first. See ExternalPluginLoader.releaseAllClassLoaders for the trade-off.
-        val released = ExternalPluginLoader.releaseAllClassLoaders()
-        if (released > 0) {
-            logger.info { "Released $released external plugin classloader(s) after boot." }
-        }
-
+        // External plugin classloaders must remain open for the lifetime of their active scripts.
+        // Event handlers and bridge/background callbacks can resolve helper classes after startup;
+        // closing the loader here turns those legitimate deferred loads into NoClassDefFoundError.
+        // Plugin replacement paths already unload/close their loader before rebuilding/reloading.
         bootstrap.awaitShutdown(shutdownHook)
     }
 
