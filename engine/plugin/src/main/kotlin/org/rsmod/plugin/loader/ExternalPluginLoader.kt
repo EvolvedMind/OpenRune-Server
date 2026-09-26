@@ -213,35 +213,17 @@ public object ExternalPluginLoader {
         }
 
     /**
-     * Closes every currently-loaded plugin's [URLClassLoader] (from boot and from [load]) so
-     * their jar files stop being held open on disk — on Windows in particular, an open
-     * `URLClassLoader` locks its jar against being overwritten/deleted (see [unload]). Call this
-     * once, right after boot finishes, so plugin jars can be rebuilt and replaced on disk while
-     * the server keeps running, without having to `::plugindisable` every plugin first.
+     * Kept only for source compatibility with callers from older builds.
      *
-     * The loaders stay tracked in [loadedClassLoaders] after this (just closed, not removed), so
-     * [unload]/[load] on any of these sources later still correctly identifies and removes their
-     * handlers by classloader identity — closing a [ClassLoader] doesn't change its identity, and
-     * repeat `close()` calls are a documented no-op.
-     *
-     * The trade-off: closing a classloader only prevents it from loading classes it *hasn't*
-     * loaded yet. A plugin's script classes and everything referenced from `startup()` are almost
-     * always already loaded by this point (a Kotlin lambda's class loads when the lambda literal
-     * is evaluated, not when its body later runs, so this covers the common case) — but a plugin
-     * that lazily reaches a helper class it hasn't touched yet after this point could fail to
-     * load it. If that's a problem for a given plugin, don't call this, or reload that plugin
-     * (fresh, unclosed classloader) after replacing its jar instead of relying on it staying open.
+     * Active plugin classloaders must stay open until [unload]. Closing them after boot is unsafe:
+     * event handlers, HTTP bridge callbacks, coroutines and other deferred work may legitimately
+     * resolve plugin helper classes later and would fail with `NoClassDefFoundError`.
      */
-    public fun releaseAllClassLoaders(): Int {
-        var released = 0
-        for (loader in loadedClassLoaders.values) {
-            if (loader is URLClassLoader) {
-                loader.close()
-                released++
-            }
-        }
-        return released
-    }
+    @Deprecated(
+        message = "Active plugin classloaders must remain open; unload the plugin instead.",
+        level = DeprecationLevel.WARNING,
+    )
+    public fun releaseAllClassLoaders(): Int = 0
 
     /** Discovers [PluginModule]s in every enabled, manifest-valid source at boot. */
     public fun loadModulesAtBoot(): List<AbstractModule> {
