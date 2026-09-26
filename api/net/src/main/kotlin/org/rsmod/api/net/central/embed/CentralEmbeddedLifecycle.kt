@@ -2,6 +2,7 @@ package org.rsmod.api.net.central.embed
 
 import com.github.michaelbull.logging.InlineLogger
 import dev.or2.central.auth.PasswordAuthConfig
+import dev.or2.central.config.CentralConfig
 import dev.or2.central.embed.OpenRuneCentralEmbeddedServer
 import dev.or2.central.util.config.centralRuntimeConfigFromJdbc
 import jakarta.inject.Inject
@@ -11,6 +12,7 @@ import java.sql.SQLException
 import org.rsmod.api.db.jdbc.EmbeddedSameInstancePostgres
 import org.rsmod.api.db.jdbc.PostgresPublicSchemaReset
 import org.rsmod.api.net.central.OpenRuneCentralWorldLink
+import org.rsmod.api.server.config.OpenRuneCentralGameConfig
 import org.rsmod.api.server.config.SameInstanceCentralConfigValidation
 import org.rsmod.api.server.config.ServerConfig
 
@@ -52,21 +54,8 @@ constructor(
 
         val usesEmbeddedJdbc = jdbcFromYaml.isEmpty()
 
-        fun buildRuntime() =
-            centralRuntimeConfigFromJdbc(
-                jdbcUrl = jdbc,
-                dbUser = dbUser,
-                dbPassword = dbPassword,
-                dbMaximumPoolSize = pg.poolSize,
-                worldLinkPort = c.linkPort,
-                httpPort = c.httpPort,
-                serverName = serverConfig.name,
-                worldLinkSoBacklog = 512,
-                loginTimingLogs = serverConfig.loginTimingLogs,
-                socialPmTraceLogs = serverConfig.socialPmTraceLogs,
-            )
-
-        val runtime = buildRuntime()
+        val runtime =
+            embeddedCentralRuntimeConfig(serverConfig, c, jdbc, dbUser, dbPassword, pg.poolSize)
         openRuneCentral.applyPasswordAuth(
             PasswordAuthConfig(
                 passwordHasher = runtime.auth.passwordHasher,
@@ -110,6 +99,34 @@ constructor(
     public fun stopIfRunning() {
         server?.stop()
         server = null
+    }
+}
+
+internal fun embeddedCentralRuntimeConfig(
+    serverConfig: ServerConfig,
+    centralConfig: OpenRuneCentralGameConfig,
+    jdbc: String,
+    dbUser: String,
+    dbPassword: String,
+    poolSize: Int,
+    offlineBadWords: Boolean = System.getenv("NERO_LOCAL_DEV_OFFLINE_BADWORDS") == "1",
+): CentralConfig {
+    val runtime = centralRuntimeConfigFromJdbc(
+        jdbcUrl = jdbc,
+        dbUser = dbUser,
+        dbPassword = dbPassword,
+        dbMaximumPoolSize = poolSize,
+        worldLinkPort = centralConfig.linkPort,
+        httpPort = centralConfig.httpPort,
+        serverName = serverConfig.name,
+        worldLinkSoBacklog = 512,
+        loginTimingLogs = serverConfig.loginTimingLogs,
+        socialPmTraceLogs = serverConfig.socialPmTraceLogs,
+    )
+    return if (offlineBadWords) {
+        runtime.copy(badWords = runtime.badWords.copy(remoteUrl = ""))
+    } else {
+        runtime
     }
 }
 
