@@ -146,7 +146,7 @@ fun buildCache(type: TaskType, force: Boolean = false) {
         buildServerCache(packTasks, packs)
     }
 
-    finalizeServerCache(force)
+    finalizeServerCache(force, verifySourceContracts = type == TaskType.BUILD)
 }
 
 private fun buildServerCache(packTasks: List<CacheTask>, packs: PluginPacks) {
@@ -166,10 +166,17 @@ private fun buildServerCache(packTasks: List<CacheTask>, packs: PluginPacks) {
     newCacheTool(TaskType.SERVER_CACHE_BUILD, serverOnly + serverTasks).initialize()
 }
 
-private fun finalizeServerCache(force: Boolean = false) {
+private fun finalizeServerCache(
+    force: Boolean = false,
+    verifySourceContracts: Boolean = false,
+) {
     val cache = Cache.load(File(getServerCacheLocation()).toPath())
     GamevalDumper.dumpCols(cache, revision.first)
-    GamevalDumper.dumpComponents(cache, revision.first, verifySourceContracts = true)
+    GamevalDumper.dumpComponents(
+        cache,
+        revision.first,
+        verifySourceContracts = verifySourceContracts,
+    )
 
     val tableTypes =
         GameValHandler.readGameVal(GameValGroupTypes.TABLETYPES, cache = cache, revision.first)
