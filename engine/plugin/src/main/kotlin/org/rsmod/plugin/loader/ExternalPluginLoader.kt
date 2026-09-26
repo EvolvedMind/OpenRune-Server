@@ -8,6 +8,7 @@ import io.github.classgraph.ClassGraph
 import java.io.File
 import java.net.URLClassLoader
 import java.util.Properties
+import java.util.UUID
 import java.util.jar.JarFile
 import org.rsmod.plugin.module.PluginModule
 import org.rsmod.plugin.scripts.PluginScript
@@ -63,8 +64,10 @@ public data class PluginStatus(
  * on each of its script instances, then every `EventBus` (unbound/keyed/suspend) subscriber, every
  * `CheatCommandMap` command, and every `EngineQueueCache` "has a script" flag whose backing
  * lambda/method-reference class (or, for the queue cache, the classloader recorded at
- * registration) came from that source's classloader is removed. The source is then re-scanned and
- * its scripts' `startup()` is re-run against fresh instances.
+ * registration) came from that source's classloader is removed. Jar sources are loaded through a
+ * private runtime shadow copy, so the authoritative jar in `plugins/` stays replaceable on Windows
+ * while the plugin is active. The source is then re-scanned and its scripts' `startup()` is re-run
+ * against fresh instances.
  *
  * This still doesn't make a reload a full undo of everything the old code did:
  * - [PluginScript.shutdown] is opt-in. The engine has no way to know about or automatically
@@ -83,6 +86,7 @@ public object ExternalPluginLoader {
 
     private val loadedSourcePaths = mutableSetOf<String>()
     private val loadedClassLoaders = mutableMapOf<String, ClassLoader>()
+    private val loadedRuntimeCopies = mutableMapOf<String, File>()
     private val loadedScripts = mutableMapOf<String, List<PluginScript>>()
     private val disabledNames = mutableSetOf<String>()
     private var stateLoaded = false
@@ -91,6 +95,17 @@ public object ExternalPluginLoader {
         DirectoryConstants.PLUGINS_PATH.toFile().apply { mkdirs() }
     }
     private val stateFile: File by lazy { File(pluginsDir, STATE_FILE_NAME) }
+    private val runtimeDir: File by lazy {
+        DirectoryConstants.DATA_PATH
+            .resolve("plugin-runtime")
+            .toFile()
+            .apply {
+                // A previous process may have left shadow jars behind. They are never authoritative;
+                // the source under plugins/ is, so start every process with a clean runtime shadow.
+                deleteRecursively()
+                mkdirs()
+            }
+    }
 
     private fun ensureStateLoaded() {
         if (stateLoaded) return
@@ -209,8 +224,26 @@ public object ExternalPluginLoader {
 
     private fun classLoaderFor(source: File): ClassLoader =
         loadedClassLoaders.getOrPut(sourceName(source)) {
-            URLClassLoader(arrayOf(source.toURI().toURL()), javaClass.classLoader)
+            newPluginClassLoader(source)
         }
+
+    private fun newPluginClassLoader(source: File): URLClassLoader {
+        val runtimeSource =
+            if (source.isDirectory) {
+                source
+            } else {
+                val id = sourceName(source)
+                val shadow =
+                    File(
+                        runtimeDir,
+                        "$id-${UUID.randomUUID()}.jar",
+                    )
+                source.copyTo(shadow, overwrite = false)
+                loadedRuntimeCopies[id] = shadow
+                shadow
+            }
+        return URLClassLoader(arrayOf(runtimeSource.toURI().toURL()), javaClass.classLoader)
+    }
 
     /**
      * Kept only for source compatibility with callers from older builds.
@@ -299,7 +332,7 @@ public object ExternalPluginLoader {
             unload(source, scriptContext)
         }
 
-        val loader = URLClassLoader(arrayOf(source.toURI().toURL()), javaClass.classLoader)
+        val loader = newPluginClassLoader(source)
         val modules = scanSourceModules(source, loader)
         val effectiveInjector =
             if (modules.isEmpty()) injector else injector.createChildInjector(modules)
@@ -355,6 +388,7 @@ public object ExternalPluginLoader {
         val commands = scriptContext.cheatCommandMap.removeByClassLoader(loader)
         val queues = scriptContext.engineQueueCache.removeByClassLoader(loader)
         (loader as? URLClassLoader)?.close()
+        loadedRuntimeCopies.remove(id)?.delete()
         loadedSourcePaths -= source.canonicalPath
         logger.info {
             "plugins/$id: unloaded - ran ${scripts.size} shutdown hook(s), removed $events " +
