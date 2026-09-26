@@ -136,11 +136,17 @@ constructor(
     }
 
     private fun selectedEntry(player: Player, entries: List<CommandEntry>): CommandEntry? {
+        val pageCount = maxOf(1, (entries.size + COMMAND_ROWS.size - 1) / COMMAND_ROWS.size)
+        val page = (pages[player.username] ?: 0).coerceIn(0, pageCount - 1)
+        val pageEntries = entries.drop(page * COMMAND_ROWS.size).take(COMMAND_ROWS.size)
         val selectedName = selected[player.username]
-        val entry = entries.firstOrNull { it.name == selectedName } ?: entries.firstOrNull()
+        val entry = pageEntries.firstOrNull { it.name == selectedName } ?: pageEntries.firstOrNull()
         if (entry != null) selected[player.username] = entry.name else selected.remove(player.username)
         return entry
     }
+
+    private fun compactDescription(description: String): String =
+        if (description.length <= 50) description else description.take(47).trimEnd() + "..."
 
     private fun ProtectedAccess.renderCommands() {
         val allVisible = visibleCommands(player)
@@ -186,7 +192,7 @@ constructor(
             ifSetText("component.commands_menu:row_title_$rowIndex", name)
             ifSetText(
                 "component.commands_menu:row_desc_$rowIndex",
-                entry?.description?.take(62).orEmpty(),
+                entry?.description?.let(::compactDescription).orEmpty(),
             )
         }
 
