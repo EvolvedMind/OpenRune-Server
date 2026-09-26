@@ -78,6 +78,7 @@ object GamevalDumper {
             }
         }
 
+        InterfaceGamevalContracts.verify(File("../content"), data)
         GeneratedGameVals.replaceTables(mapOf("component" to data))
     }
 
