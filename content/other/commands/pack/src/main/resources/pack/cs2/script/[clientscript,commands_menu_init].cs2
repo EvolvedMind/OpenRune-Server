@@ -1,0 +1,7 @@
+[clientscript,commands_menu_init](component $frame, component $searchbar, component $clear, component $previous, component $next, component $use)
+~stoneborder($frame, "Commands", 0);
+~searchbar_create($searchbar, null);
+~button_setup(null, $clear, "Clear");
+~button_setup(null, $previous, "Prev");
+~button_setup(null, $next, "Next");
+~button_setup(null, $use, "Use");
