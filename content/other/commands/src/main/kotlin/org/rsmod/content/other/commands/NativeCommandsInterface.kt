@@ -14,11 +14,9 @@ import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
 private const val INTERFACE = "interface.commands_menu"
-private const val COMP_TITLE = "component.commands_menu:title"
-private const val COMP_PLAYER = "component.commands_menu:player"
 private const val COMP_SEARCH = "component.commands_menu:search"
+private const val COMP_CLEAR_SEARCH = "component.commands_menu:clear_search"
 private const val COMP_PAGE = "component.commands_menu:page"
-private const val COMP_CLOSE = "component.commands_menu:close"
 private const val COMP_PREV = "component.commands_menu:previous"
 private const val COMP_NEXT = "component.commands_menu:next"
 private const val COMP_DETAIL_NAME = "component.commands_menu:detail_name"
@@ -35,7 +33,6 @@ private val COMMAND_ROWS =
         "component.commands_menu:row_4",
         "component.commands_menu:row_5",
         "component.commands_menu:row_6",
-        "component.commands_menu:row_7",
     )
 
 private enum class CommandCategory(val label: String, val component: String) {
@@ -157,13 +154,10 @@ constructor(
         val selectedEntry = selectedEntry(player, entries)
 
         ifOpenMainModal(INTERFACE)
-        ifSetText(COMP_TITLE, "Commands")
-        ifSetText(COMP_PLAYER, player.modLevel.name.lowercase().replaceFirstChar { it.uppercase() })
-
         val search = searches[player.username].orEmpty()
         ifSetText(
             COMP_SEARCH,
-            if (search.isBlank()) "Search: all  (::commands <text>)" else "Search: $search",
+            if (search.isBlank()) "Search commands..." else search.take(48),
         )
 
         val activeCategory = categories[player.username] ?: CommandCategory.ALL
@@ -175,35 +169,39 @@ constructor(
                     allVisible.count { it.category == category }
                 }
             val color = if (category == activeCategory) "ff981f" else "ffffff"
-            ifSetText(category.component, "<col=$color>${category.label}  $count</col>")
+            val marker = if (category == activeCategory) "> " else ""
+            ifSetText(category.component, "<col=$color>$marker${category.label}  $count</col>")
         }
 
-        COMMAND_ROWS.forEachIndexed { rowIndex, component ->
+        COMMAND_ROWS.forEachIndexed { rowIndex, _ ->
             val entry = entries.getOrNull(start + rowIndex)
-            val text =
+            val isSelected = entry != null && entry.name == selectedEntry?.name
+            val name =
                 if (entry == null) {
                     ""
                 } else {
-                    val selectedColor = if (entry.name == selectedEntry?.name) "ff981f" else "ffffff"
-                    val desc = entry.description.take(44)
-                    "<col=$selectedColor>::${entry.name}</col>   <col=d0c4a8>$desc</col>"
+                    val color = if (isSelected) "ff981f" else "ffffff"
+                    val marker = if (isSelected) "> " else ""
+                    "<col=$color>$marker::${entry.name}</col>"
                 }
-            ifSetText(component, text)
+            ifSetText("component.commands_menu:row_title_$rowIndex", name)
+            ifSetText("component.commands_menu:row_desc_$rowIndex", entry?.description?.take(62).orEmpty())
         }
 
-        ifSetText(COMP_PAGE, "${entries.size} results / page ${page + 1} of $pageCount")
+        ifSetText(COMP_PAGE, "${entries.size} commands  -  Page ${page + 1} / $pageCount")
 
         if (selectedEntry == null) {
             ifSetText(COMP_DETAIL_NAME, "")
-            ifSetText(COMP_DETAIL_DESC, "No command selected.")
+            ifSetText(COMP_DETAIL_DESC, "No commands match this search.")
             ifSetText(COMP_DETAIL_RIGHTS, "")
         } else {
             ifSetText(COMP_DETAIL_NAME, "::${selectedEntry.name}")
-            ifSetText(COMP_DETAIL_DESC, selectedEntry.description.ifBlank { "No description." })
+            ifSetText(COMP_DETAIL_DESC, selectedEntry.description.ifBlank { "No description." }.take(112))
             ifSetText(
                 COMP_DETAIL_RIGHTS,
-                selectedEntry.requiredRights?.name?.lowercase()?.replaceFirstChar { it.uppercase() }
-                    ?: "Player",
+                "Access: " +
+                    (selectedEntry.requiredRights?.name?.lowercase()?.replaceFirstChar { it.uppercase() }
+                        ?: "Player"),
             )
         }
     }
@@ -231,12 +229,19 @@ constructor(
             searches.remove(player.username)
         }
 
-        onIfModalButton(COMP_CLOSE) {
-            pages.remove(player.username)
-            categories.remove(player.username)
+        onIfModalButton(COMP_SEARCH) {
+            val query = stringDialog("Search commands:")
+            searches[player.username] = query.trim().take(64)
+            pages[player.username] = 0
             selected.remove(player.username)
+            renderCommands()
+        }
+
+        onIfModalButton(COMP_CLEAR_SEARCH) {
             searches.remove(player.username)
-            ifClose()
+            pages[player.username] = 0
+            selected.remove(player.username)
+            renderCommands()
         }
 
         for (category in CommandCategory.entries) {
