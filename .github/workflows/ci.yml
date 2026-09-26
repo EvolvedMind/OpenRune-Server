@@ -91,6 +91,22 @@ jobs:
           else
             echo "Server did not reach ready state"; tail -40 boot.log; exit 1
           fi
+
+          # "Server ready" is not enough for external plugins: deferred callbacks may resolve
+          # helper classes on later game cycles. Keep the process alive briefly and reject
+          # post-ready classloading failures before declaring the boot healthy.
+          sleep 10
+          if ! kill -0 $GRADLE_PID 2>/dev/null; then
+            echo "Server exited during the post-ready stability window"
+            tail -80 boot.log
+            exit 1
+          fi
+          if grep -Eq "NoClassDefFoundError|ClassNotFoundException" boot.log; then
+            echo "Post-ready classloading failure detected"
+            grep -E "NoClassDefFoundError|ClassNotFoundException" boot.log | tail -20
+            exit 1
+          fi
+
           kill $GRADLE_PID 2>/dev/null || true
 
       - name: Upload boot log
