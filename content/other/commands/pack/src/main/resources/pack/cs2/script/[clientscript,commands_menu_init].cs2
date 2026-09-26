@@ -4,4 +4,4 @@
 ~button_setup(null, $clear, "Clear");
 ~button_setup(null, $previous, "Prev");
 ~button_setup(null, $next, "Next");
-~button_setup(null, $use, "Use");
+~button_setup(null, $use, "Run...");
