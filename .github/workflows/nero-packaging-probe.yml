@@ -1,0 +1,63 @@
+name: Nero Packaging Regression Probe
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+      - "tools/nero-packaging-probe/**"
+      - ".github/workflows/nero-packaging-probe.yml"
+
+jobs:
+  incremental-fat-jar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: "9.0.0"
+
+      - name: Reproduce old incomplete artifact
+        shell: bash
+        run: |
+          cp tools/nero-packaging-probe/plugin/build.gradle.kts /tmp/fixed-build.gradle.kts
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("tools/nero-packaging-probe/plugin/build.gradle.kts")
+          text = path.read_text()
+          old = 'dependsOn(configurations.runtimeClasspath)'
+          new = 'dependsOn(":shared:classes")'
+          assert old in text
+          path.write_text(text.replace(old, new))
+          PY
+
+          rm -rf tools/nero-packaging-probe/shared/build tools/nero-packaging-probe/plugin/build
+          ./gradlew -p tools/nero-packaging-probe :plugin:jar --no-daemon --console=plain
+
+          if jar tf tools/nero-packaging-probe/plugin/build/libs/probe-plugin.jar |
+              grep -q 'probe/shared/StudioProtocol.class'; then
+            echo "Old broken build unexpectedly packaged the shared project"
+            exit 1
+          fi
+
+      - name: Apply fix without clean and require complete artifact
+        shell: bash
+        run: |
+          cp /tmp/fixed-build.gradle.kts tools/nero-packaging-probe/plugin/build.gradle.kts
+
+          # Deliberately do not clean. This models the user's existing incomplete jar and proves
+          # the fixed producer dependency invalidates/rebuilds that artifact in-place.
+          ./gradlew -p tools/nero-packaging-probe :plugin:verifyFatJar --no-daemon --console=plain
+
+          jar tf tools/nero-packaging-probe/plugin/build/libs/probe-plugin.jar |
+              grep -F 'probe/shared/StudioProtocol.class'
+          jar tf tools/nero-packaging-probe/plugin/build/libs/probe-plugin.jar |
+              grep -F 'probe/shared/StudioVersion.class'
