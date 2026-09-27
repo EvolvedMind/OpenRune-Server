@@ -12,9 +12,9 @@ import org.rsmod.api.npc.owner.isSpawnOwnedBy
 import org.rsmod.api.player.vars.intVarp
 import org.rsmod.api.registry.npc.NpcRegistry
 import org.rsmod.api.registry.npc.isSuccess
-import org.rsmod.game.entity.PathingEntity.Companion.INVALID_SLOT
 import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.NpcList
+import org.rsmod.game.entity.PathingEntity.Companion.INVALID_SLOT
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.player.PlayerUid
 import org.rsmod.game.inv.Inventory
@@ -189,5 +189,4 @@ class PetFollowerManager @Inject constructor(
 
     private fun remove(npc: Npc): Boolean =
         !registered(npc) || registry.del(npc).isSuccess()
-
 }
