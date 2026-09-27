@@ -4,6 +4,7 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
 import dev.openrune.types.ItemServerType
+import dev.openrune.types.MoveRestrict
 import dev.openrune.types.NpcMode
 import dev.openrune.types.varp.VarpLifetime
 import dev.openrune.types.varp.VarpTransmitLevel
@@ -26,8 +27,10 @@ import org.rsmod.game.inv.Inventory
 import org.rsmod.game.map.Direction
 import org.rsmod.game.map.collision.canStep
 import org.rsmod.game.map.collision.isZoneValid
+import org.rsmod.game.movement.RouteRequestCoord
 import org.rsmod.map.CoordGrid
 import org.rsmod.routefinder.collision.CollisionFlagMap
+import org.rsmod.routefinder.flag.CollisionFlag
 
 internal var Player.activePetItemId by intVarp("varp.active_pet")
 
@@ -123,9 +126,9 @@ class PetFollowerManager @Inject constructor(
             followers.remove(player.uid)
             return if (restore(player)) PetActionResult.Called else PetActionResult.Unavailable
         }
-        pet.teleport(collision, placement(player, pet.size))
+        pet.teleport(collision, placement(player, pet.size, pet.coords))
         pet.facePlayer(player)
-        pet.mode = NpcMode.PlayerFollow
+        pet.mode = NpcMode.None
         return PetActionResult.Called
     }
 
@@ -168,20 +171,23 @@ class PetFollowerManager @Inject constructor(
             restore(player)
             return
         }
-        if (current.mode != NpcMode.PlayerFollow) {
-            current.mode = NpcMode.PlayerFollow
-        }
-        if (current.coords == player.coords && collision.isZoneValid(player.coords)) {
-            val trailingTile =
-                trailingPlacement(
-                    collision,
-                    player.coords,
-                    trailingDirections[player.uid] ?: Direction.South,
-                    current.size,
-                )
-            if (trailingTile != null) {
+        current.mode = NpcMode.None
+        val trailingTile =
+            trailingPlacement(
+                collision,
+                player.coords,
+                trailingDirections[player.uid] ?: Direction.South,
+                current.size,
+                current.coords,
+            )
+        when {
+            trailingTile == null -> current.abortRoute()
+            current.level != player.level ||
+                current.coords.chebyshevDistance(player.coords) > MAX_FOLLOW_DISTANCE ->
                 current.teleport(collision, trailingTile)
-            }
+            current.coords == player.coords -> current.teleport(collision, trailingTile)
+            current.coords == trailingTile -> current.abortRoute()
+            else -> current.routeRequest = RouteRequestCoord(trailingTile)
         }
         current.facePlayer(player)
     }
@@ -211,7 +217,10 @@ class PetFollowerManager @Inject constructor(
         npc.respawns = false
         npc.setHunt(0)
         npc.spawnOwner = player.uid
-        npc.mode = NpcMode.PlayerFollow
+        if (npc.moveRestrict == MoveRestrict.PassThru) {
+            npc.moveRestrict = MoveRestrict.Normal
+        }
+        npc.mode = NpcMode.None
         if (!registry.add(npc).isSuccess()) {
             return null
         }
@@ -222,13 +231,14 @@ class PetFollowerManager @Inject constructor(
     private fun registered(npc: Npc): Boolean =
         npc.slotId != INVALID_SLOT && npcs[npc.slotId] === npc
 
-    private fun placement(player: Player, size: Int): CoordGrid {
+    private fun placement(player: Player, size: Int, currentPetTile: CoordGrid? = null): CoordGrid {
         updateTrailingDirection(player)
         return trailingPlacement(
             collision,
             player.coords,
             trailingDirections[player.uid] ?: Direction.South,
             size,
+            currentPetTile,
         ) ?: player.coords
     }
 
@@ -240,6 +250,10 @@ class PetFollowerManager @Inject constructor(
 
     private fun remove(npc: Npc): Boolean =
         !registered(npc) || registry.del(npc).isSuccess()
+
+    private companion object {
+        const val MAX_FOLLOW_DISTANCE = 15
+    }
 }
 
 internal fun trailingDirection(previous: CoordGrid, current: CoordGrid): Direction? {
@@ -256,13 +270,22 @@ internal fun trailingPlacement(
     origin: CoordGrid,
     preferred: Direction,
     size: Int = 1,
+    currentPetTile: CoordGrid? = null,
 ): CoordGrid? =
     Direction.entries.sortedBy { direction ->
         val difference = abs(direction.angle - preferred.angle)
         minOf(difference, 2048 - difference)
     }.firstNotNullOfOrNull { direction ->
         val destination = origin.translate(direction.xOff, direction.zOff)
-        if (collision.isZoneValid(destination) && collision.canStep(origin, direction, size)) {
+        if (
+            collision.isZoneValid(destination) &&
+                collision.canStep(
+                    origin,
+                    direction,
+                    size,
+                    extraFlag = if (destination == currentPetTile) 0 else CollisionFlag.BLOCK_NPCS,
+                )
+        ) {
             destination
         } else {
             null
