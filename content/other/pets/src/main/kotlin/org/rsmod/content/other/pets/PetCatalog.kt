@@ -24,7 +24,11 @@ internal class PetCatalog {
             val npcType = requireNotNull(ServerCacheManager.getNpc(npc.asRSCM(RSCMType.NPC))) {
                 "Pet NPC is missing from the server cache: $npc"
             }
-            add(PetType(itemType, npcType))
+            val pet = PetType(itemType, npcType)
+            requireNotNull(pet.pickupOp) {
+                "Pet NPC $npc has no Pick-up option in the server cache. Run :or-cache:buildCache."
+            }
+            add(pet)
         }
 
         val followerNpcs = ServerCacheManager.getNpcs().values

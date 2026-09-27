@@ -6,11 +6,17 @@ transmit = "Never"
 [[npc]]
 id = "npc.skillpet_fish"
 inherit = "npc.skillpet_fish"
+option1 = "Talk-to"
+option3 = "Metamorphosis"
+option4 = "Pick-up"
 isFollower = true
 blockWalk = "None"
 
 [[npc]]
 id = "npc.skillpet_fish_tempoross"
 inherit = "npc.skillpet_fish_tempoross"
+option1 = "Talk-to"
+option3 = "Metamorphosis"
+option4 = "Pick-up"
 isFollower = true
 blockWalk = "None"
