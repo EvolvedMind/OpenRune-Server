@@ -33,6 +33,7 @@ import org.rsmod.routefinder.collision.CollisionFlagMap
 import org.rsmod.routefinder.flag.CollisionFlag
 
 internal var Player.activePetItemId by intVarp("varp.active_pet")
+private var Player.followerNpcUid by intVarp("varp.follower_npc")
 
 enum class PetActionResult {
     Summoned,
@@ -64,6 +65,10 @@ class PetFollowerManager @Inject constructor(
         ) {
             "Pet varp.active_pet is missing or misconfigured in the SERVER cache. Run :or-cache:buildCache."
         }
+        val followerNpc = ServerCacheManager.getVarp("varp.follower_npc".asRSCM(RSCMType.VARP))
+        require(followerNpc != null && followerNpc.transmit != VarpTransmitLevel.Never) {
+            "The client follower varp.follower_npc is missing or not transmitted. Run :or-cache:buildCache."
+        }
     }
 
     val petTypes: List<PetType>
@@ -89,7 +94,7 @@ class PetFollowerManager @Inject constructor(
             return PetActionResult.Unavailable
         }
         player.activePetItemId = pet.item.id
-        followers[player.uid] = npc
+        track(player, npc)
         return PetActionResult.Summoned
     }
 
@@ -105,9 +110,9 @@ class PetFollowerManager @Inject constructor(
         if (!remove(npc)) {
             return PetActionResult.Unavailable
         }
-        followers.remove(player.uid)
+        untrack(player)
         if (player.invAdd(player.inv, pet.item.id, 1).failure) {
-            spawn(player, pet)?.let { followers[player.uid] = it }
+            spawn(player, pet)?.let { track(player, it) }
             return PetActionResult.Unavailable
         }
         player.activePetItemId = 0
@@ -117,13 +122,14 @@ class PetFollowerManager @Inject constructor(
     fun call(player: Player): PetActionResult {
         val pet = followers[player.uid]
         if (player.activePetItemId == 0) {
+            untrack(player)?.let(::remove)
             return PetActionResult.NoFollower
         }
         if (!collision.isZoneValid(player.coords)) {
             return PetActionResult.Unavailable
         }
         if (pet == null || !registered(pet)) {
-            followers.remove(player.uid)
+            untrack(player)
             return if (restore(player)) PetActionResult.Called else PetActionResult.Unavailable
         }
         val destination = placement(player, pet.size, pet.coords)
@@ -143,14 +149,14 @@ class PetFollowerManager @Inject constructor(
         if (!remove(npc)) {
             return false
         }
-        followers.remove(player.uid)
+        untrack(player)
         val newNpc = spawn(player, replacement)
         if (newNpc == null) {
-            spawn(player, previous)?.let { followers[player.uid] = it }
+            spawn(player, previous)?.let { track(player, it) }
             return false
         }
         player.activePetItemId = replacement.item.id
-        followers[player.uid] = newNpc
+        track(player, newNpc)
         return true
     }
 
@@ -162,16 +168,19 @@ class PetFollowerManager @Inject constructor(
         if (player.activePetItemId == 0) {
             if (current != null) {
                 remove(current)
-                followers.remove(player.uid)
             }
+            untrack(player)
             trailingDirections.remove(player.uid)
             return
         }
         updateTrailingDirection(player)
         if (current == null || !registered(current)) {
-            followers.remove(player.uid)
+            untrack(player)
             restore(player)
             return
+        }
+        if (player.followerNpcUid != current.uid.packed) {
+            player.followerNpcUid = current.uid.packed
         }
         current.mode = NpcMode.None
         val trailingTile =
@@ -186,7 +195,8 @@ class PetFollowerManager @Inject constructor(
             trailingTile == null -> {
                 current.abortRoute()
                 if (current.coords == player.coords && remove(current)) {
-                    followers.remove(player.uid)
+                    untrack(player)
+                    return
                 }
             }
             current.level != player.level ||
@@ -200,7 +210,7 @@ class PetFollowerManager @Inject constructor(
     }
 
     fun logout(player: Player) {
-        followers.remove(player.uid)?.let(::remove)
+        untrack(player)?.let(::remove)
         trailingDirections.remove(player.uid)
     }
 
@@ -215,8 +225,21 @@ class PetFollowerManager @Inject constructor(
             return false
         }
         val npc = spawn(player, pet) ?: return false
-        followers[player.uid] = npc
+        track(player, npc)
         return true
+    }
+
+    private fun track(player: Player, npc: Npc) {
+        followers[player.uid] = npc
+        player.followerNpcUid = npc.uid.packed
+    }
+
+    private fun untrack(player: Player): Npc? {
+        val npc = followers.remove(player.uid)
+        if (player.followerNpcUid != 0) {
+            player.followerNpcUid = 0
+        }
+        return npc
     }
 
     private fun spawn(player: Player, pet: PetType): Npc? {
