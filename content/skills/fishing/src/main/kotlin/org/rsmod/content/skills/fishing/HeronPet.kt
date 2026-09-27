@@ -24,8 +24,6 @@ object HeronPet {
             return
         }
         invAdd(inv, PET_OBJ, 1)
-        // TODO: spawn the heron as a follower once a pet system exists; until then it always lands
-        //  in the inventory.
-        spam("You have a funny feeling like you're being followed.")
+        spam("You have a funny feeling... Your heron is in your inventory.")
     }
 }

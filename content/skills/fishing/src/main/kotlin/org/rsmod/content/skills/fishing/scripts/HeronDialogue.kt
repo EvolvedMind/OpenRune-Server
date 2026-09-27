@@ -8,12 +8,13 @@ import org.rsmod.api.script.onOpNpc3
 import org.rsmod.api.script.onOpNpcU
 import org.rsmod.api.table.cooking.CookingFoodsRow
 import org.rsmod.api.table.fishing.FishingSpotRow
+import org.rsmod.content.other.pets.PetFollowerManager
 import org.rsmod.content.skills.fishing.HeronPet
 import org.rsmod.game.entity.Npc
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
-class HeronDialogue @Inject constructor() : PluginScript() {
+class HeronDialogue @Inject constructor(private val pets: PetFollowerManager) : PluginScript() {
     private var cachedCookedFish: Set<String>? = null
     private var cachedRawFish: Set<String>? = null
 
@@ -27,6 +28,7 @@ class HeronDialogue @Inject constructor() : PluginScript() {
 
     /** The great blue heron only eats raw fish, and is vocal about everything else. */
     private suspend fun ProtectedAccess.refuseOffering(npc: Npc, offering: ItemServerType) {
+        if (!checkOwner(npc)) return
         val name = offering.internalName
         when {
             name == EEL_SUSHI ->
@@ -67,21 +69,26 @@ class HeronDialogue @Inject constructor() : PluginScript() {
                 .mapTo(HashSet()) { it.output.internalName }
                 .also { cachedCookedFish = it }
 
-    private suspend fun ProtectedAccess.talkToHeron(npc: Npc): Unit =
+    private suspend fun ProtectedAccess.talkToHeron(npc: Npc) {
+        if (!checkOwner(npc)) return
         startDialogue(npc) {
             chatNpc(neutral, "Hop inside my mouth if you want to live!")
             chatPlayer(neutral, "I'm not falling for that... I'm not a fish! I've got more foresight than that.")
         }
+    }
 
-    private suspend fun ProtectedAccess.talkToGreatBlue(npc: Npc): Unit =
+    private suspend fun ProtectedAccess.talkToGreatBlue(npc: Npc) {
+        if (!checkOwner(npc)) return
         startDialogue(npc) {
             chatNpc(quiz, "Got any raw fish?")
             chatPlayer(quiz, "Haven't you already eaten enough Spirit flakes?")
             chatNpc(neutral, "Yes, I have. That's why I'm asking you for raw fish.")
             chatPlayer(neutral, "Sometimes I wonder whether getting stuck with you was my good luck or yours.")
         }
+    }
 
     private suspend fun ProtectedAccess.becomeGreatBlue(npc: Npc) {
+        if (!checkOwner(npc)) return
         val flakes = invTotal(inv, SPIRIT_FLAKES)
         when {
             flakes == 0 ->
@@ -105,20 +112,19 @@ class HeronDialogue @Inject constructor() : PluginScript() {
                     chatNpc(neutral, "Touché.")
                 }
             else -> {
-                invDel(inv, SPIRIT_FLAKES, FLAKES_REQUIRED)
-                invReplace(inv, HeronPet.PET_OBJ, 1, HeronPet.GREAT_BLUE_OBJ)
-                startDialogue(npc) {
-                    chatNpc(
-                        happy,
-                        "That really hit the spot! Though I feel a little blue " +
-                            "now that there are none left.",
-                    )
+                if (invDel(inv, SPIRIT_FLAKES, FLAKES_REQUIRED).failure) return
+                if (!pets.transform(player, npc, HeronPet.GREAT_BLUE_OBJ)) {
+                    invAdd(inv, SPIRIT_FLAKES, FLAKES_REQUIRED)
+                    mes("Your heron cannot change right now.")
+                    return
                 }
+                mes("Your heron turns a brilliant shade of blue.")
             }
         }
     }
 
     private suspend fun ProtectedAccess.becomeHeron(npc: Npc) {
+        if (!checkOwner(npc)) return
         val fish = rawFishInInventory()
         if (fish == null) {
             if (invTotal(inv, SPIRIT_FLAKES) > 0) {
@@ -136,9 +142,19 @@ class HeronDialogue @Inject constructor() : PluginScript() {
             startDialogue(npc) { chatNpc(angry, "Where's the fish? You don't have any!") }
             return
         }
-        invDel(inv, fish, 1)
-        invReplace(inv, HeronPet.GREAT_BLUE_OBJ, 1, HeronPet.PET_OBJ)
-        startDialogue(npc) { chatNpc(happy, "Delicious. Back to white for me, then.") }
+        if (invDel(inv, fish, 1).failure) return
+        if (!pets.transform(player, npc, HeronPet.PET_OBJ)) {
+            invAdd(inv, fish, 1)
+            mes("Your heron cannot change right now.")
+            return
+        }
+        mes("Your heron returns to its usual colour.")
+    }
+
+    private fun ProtectedAccess.checkOwner(npc: Npc): Boolean {
+        if (pets.owns(player, npc)) return true
+        mes("That is not your pet.")
+        return false
     }
 
     private fun ProtectedAccess.rawFishInInventory(): String? =

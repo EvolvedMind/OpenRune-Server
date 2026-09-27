@@ -1,0 +1,16 @@
+[[varp]]
+id = "varp.active_pet"
+scope = "Perm"
+transmit = "Never"
+
+[[npc]]
+id = "npc.skillpet_fish"
+inherit = "npc.skillpet_fish"
+isFollower = true
+blockWalk = "None"
+
+[[npc]]
+id = "npc.skillpet_fish_tempoross"
+inherit = "npc.skillpet_fish_tempoross"
+isFollower = true
+blockWalk = "None"
