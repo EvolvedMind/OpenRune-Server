@@ -3,7 +3,7 @@ package dev.openrune.codec.osrs.impl
 import dev.openrune.types.varp.VarpLifetime
 import dev.openrune.types.varp.VarpServerType
 import dev.openrune.types.varp.VarpTransmitLevel
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class VarpServerTypeCodecTest {
@@ -19,10 +19,9 @@ class VarpServerTypeCodecTest {
         val encoded =
             VarpServerTypeCodec(types = emptyMap(), custom = mapOf(petVarpId to overlay))
                 .encodeToBuffer(VarpServerType(petVarpId))
+        val decoded = VarpServerTypeCodec().loadData(petVarpId, encoded)
 
-        assertTrue(
-            encoded.asList().windowed(2).contains(listOf(4.toByte(), VarpTransmitLevel.Never.id.toByte())),
-            "The packed varp must explicitly contain transmit=Never (opcode 4) before login.",
-        )
+        assertEquals(VarpTransmitLevel.Never, decoded.transmit)
+        assertEquals(VarpLifetime.Perm, decoded.scope)
     }
 }
