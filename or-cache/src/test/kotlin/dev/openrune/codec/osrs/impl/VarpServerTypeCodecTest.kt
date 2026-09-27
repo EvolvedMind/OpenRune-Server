@@ -16,11 +16,9 @@ class VarpServerTypeCodecTest {
                 scope = VarpLifetime.Perm,
                 transmit = VarpTransmitLevel.Never,
             )
-        val buffer =
+        val encoded =
             VarpServerTypeCodec(types = emptyMap(), custom = mapOf(petVarpId to overlay))
                 .encodeToBuffer(VarpServerType(petVarpId))
-        val encoded = ByteArray(buffer.readableBytes())
-        buffer.getBytes(buffer.readerIndex(), encoded)
 
         assertTrue(
             encoded.asList().windowed(2).contains(listOf(4.toByte(), VarpTransmitLevel.Never.id.toByte())),
