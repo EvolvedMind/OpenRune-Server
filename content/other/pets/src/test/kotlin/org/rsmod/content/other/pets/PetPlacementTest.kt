@@ -11,7 +11,7 @@ import org.rsmod.routefinder.flag.CollisionFlag
 
 class PetPlacementTest {
     private val playerTile = CoordGrid(4, 4)
-    private val collision = CollisionFlagMap(arrayOfNulls(1)).apply {
+    private val collision = CollisionFlagMap(arrayOfNulls(2)).apply {
         allocateIfAbsent(playerTile.x, playerTile.z, playerTile.level)
     }
 
