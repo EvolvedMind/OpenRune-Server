@@ -5,4 +5,5 @@ plugins {
 dependencies {
     implementation(projects.api.pluginCommons)
     implementation(projects.api.registry)
+    testImplementation(projects.api.invStorage)
 }
