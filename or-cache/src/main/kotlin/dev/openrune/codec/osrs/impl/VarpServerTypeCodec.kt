@@ -24,17 +24,13 @@ class VarpServerTypeCodec(
         }
 
     override fun VarpServerType.createData() {
-        if (types == null) return
+        types?.get(id)?.let { configType = it.configType }
 
-        val varpType = types[id] ?: return
-        configType = varpType.configType
-        val customData = custom?.get(id)
-
-        if (customData != null) {
-            bitProtect = customData.bitProtect
-            configType = customData.configType
-            scope = customData.scope
-            transmit = customData.transmit
+        custom?.get(id)?.let { overlay ->
+            bitProtect = overlay.bitProtect
+            configType = overlay.configType
+            scope = overlay.scope
+            transmit = overlay.transmit
         }
     }
 

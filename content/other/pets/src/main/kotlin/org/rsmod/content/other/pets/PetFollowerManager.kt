@@ -1,9 +1,12 @@
 package org.rsmod.content.other.pets
 
+import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
 import dev.openrune.types.ItemServerType
 import dev.openrune.types.NpcMode
+import dev.openrune.types.varp.VarpLifetime
+import dev.openrune.types.varp.VarpTransmitLevel
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.invtx.invAdd
@@ -42,6 +45,17 @@ class PetFollowerManager @Inject constructor(
 ) {
     private val catalog = PetCatalog()
     private val followers = mutableMapOf<PlayerUid, Npc>()
+
+    init {
+        val varp = ServerCacheManager.getVarp("varp.active_pet".asRSCM(RSCMType.VARP))
+        require(
+            varp != null &&
+                varp.scope == VarpLifetime.Perm &&
+                varp.transmit == VarpTransmitLevel.Never,
+        ) {
+            "Pet varp.active_pet is missing or misconfigured in the SERVER cache. Run :or-cache:buildCache."
+        }
+    }
 
     val petTypes: List<PetType>
         get() = catalog.types
