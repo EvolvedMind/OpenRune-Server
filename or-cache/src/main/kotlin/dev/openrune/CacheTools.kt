@@ -32,6 +32,7 @@ import dev.openrune.impl.GameframeTable
 import dev.openrune.impl.Music
 import dev.openrune.map.packing.MapPackers
 import dev.openrune.pack.PluginPacks
+import dev.openrune.pack.verifyNpcCacheContracts
 import dev.openrune.tables.CollectionLogCategoriesTable
 import dev.openrune.tables.DidYouKnow
 import dev.openrune.tables.InstanceSettingsTable
@@ -147,6 +148,14 @@ fun buildCache(type: TaskType, force: Boolean = false) {
     }
 
     finalizeServerCache(force, verifySourceContracts = type == TaskType.BUILD)
+    if (type == TaskType.BUILD) {
+        verifyNpcCacheContracts(
+            packs,
+            File(getCacheLocation()).toPath(),
+            File(getServerCacheLocation()).toPath(),
+            revision.first,
+        )
+    }
 }
 
 private fun buildServerCache(packTasks: List<CacheTask>, packs: PluginPacks) {

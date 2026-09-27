@@ -10,6 +10,7 @@ option1 = "Talk-to"
 option3 = "Metamorphosis"
 option4 = "Pick-up"
 isFollower = true
+isInteractable = true
 blockWalk = "None"
 
 [[npc]]
@@ -19,4 +20,5 @@ option1 = "Talk-to"
 option3 = "Metamorphosis"
 option4 = "Pick-up"
 isFollower = true
+isInteractable = true
 blockWalk = "None"

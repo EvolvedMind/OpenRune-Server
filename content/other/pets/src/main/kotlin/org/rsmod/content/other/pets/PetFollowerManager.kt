@@ -126,7 +126,9 @@ class PetFollowerManager @Inject constructor(
             followers.remove(player.uid)
             return if (restore(player)) PetActionResult.Called else PetActionResult.Unavailable
         }
-        pet.teleport(collision, placement(player, pet.size, pet.coords))
+        val destination = placement(player, pet.size, pet.coords)
+            ?: return PetActionResult.Unavailable
+        pet.teleport(collision, destination)
         pet.facePlayer(player)
         pet.mode = NpcMode.None
         return PetActionResult.Called
@@ -181,7 +183,12 @@ class PetFollowerManager @Inject constructor(
                 current.coords,
             )
         when {
-            trailingTile == null -> current.abortRoute()
+            trailingTile == null -> {
+                current.abortRoute()
+                if (current.coords == player.coords && remove(current)) {
+                    followers.remove(player.uid)
+                }
+            }
             current.level != player.level ||
                 current.coords.chebyshevDistance(player.coords) > MAX_FOLLOW_DISTANCE ->
                 current.teleport(collision, trailingTile)
@@ -213,7 +220,8 @@ class PetFollowerManager @Inject constructor(
     }
 
     private fun spawn(player: Player, pet: PetType): Npc? {
-        val npc = Npc(pet.npc, placement(player, pet.npc.size))
+        val destination = placement(player, pet.npc.size) ?: return null
+        val npc = Npc(pet.npc, destination)
         npc.respawns = false
         npc.setHunt(0)
         npc.spawnOwner = player.uid
@@ -231,7 +239,7 @@ class PetFollowerManager @Inject constructor(
     private fun registered(npc: Npc): Boolean =
         npc.slotId != INVALID_SLOT && npcs[npc.slotId] === npc
 
-    private fun placement(player: Player, size: Int, currentPetTile: CoordGrid? = null): CoordGrid {
+    private fun placement(player: Player, size: Int, currentPetTile: CoordGrid? = null): CoordGrid? {
         updateTrailingDirection(player)
         return trailingPlacement(
             collision,
@@ -239,7 +247,7 @@ class PetFollowerManager @Inject constructor(
             trailingDirections[player.uid] ?: Direction.South,
             size,
             currentPetTile,
-        ) ?: player.coords
+        )
     }
 
     private fun updateTrailingDirection(player: Player) {

@@ -15,6 +15,8 @@ abstract class PluginPack {
 
     open fun validate(projectRoot: File) {}
 
+    open fun npcCacheContracts(): List<NpcCacheContract> = emptyList()
+
     open fun resourceRoot(): File? = conventionResourceRoot()
 
     fun configDirectory(): File? = resourceDirectory(CONFIGS)
@@ -68,3 +70,10 @@ abstract class PluginPack {
         const val INTERFACES = "interfaces"
     }
 }
+
+data class NpcCacheContract(
+    val internalName: String,
+    val options: Map<Int, String>,
+    val isFollower: Boolean? = null,
+    val isInteractable: Boolean? = null,
+)
