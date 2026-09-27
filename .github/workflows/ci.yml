@@ -67,6 +67,11 @@ jobs:
         if: steps.gamecache.outputs.cache-hit == 'true'
         run: ./gradlew :or-cache:buildCache :or-cache:mergePluginGamevals
 
+      - name: Verify installer configuration cache
+        run: |
+          ./gradlew install --configuration-cache --dry-run
+          ./gradlew install --configuration-cache --dry-run
+
       - name: Compile and run tests
         run: ./gradlew assemble test
 

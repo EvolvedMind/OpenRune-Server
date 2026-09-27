@@ -47,24 +47,24 @@ tasks.register("runMcp") {
     dependsOn(":tools:osrs-mcp:runMcp")
 }
 
-tasks.register<JavaExec>("install") {
+tasks.register<JavaExec>("prepareServerInstall") {
     group = "installation"
-    description = "Runs the complete RS Mod server installation task."
+    description = "Prepares the RS Mod server cache and generates its network keys."
 
     mainClass.set("org.rsmod.server.install.GameServerInstallKt")
     classpath = sourceSets["main"].runtimeClasspath
 
     dependsOn(":or-cache:freshCache")
+}
 
-    doLast {
-        copy {
-            into(rootProject.projectDir)
-            from("game.example.yml") {
-                rename { "game.yml" }
-            }
-        }
-        logger.lifecycle("Installation process completed.")
-    }
+tasks.register<Copy>("install") {
+    group = "installation"
+    description = "Runs the complete RS Mod server installation task."
+
+    dependsOn("prepareServerInstall")
+    from(layout.projectDirectory.file("game.example.yml"))
+    into(layout.projectDirectory)
+    rename("game.example.yml", "game.yml")
 }
 
 tasks.register<JavaExec>("cleanInstall") {
