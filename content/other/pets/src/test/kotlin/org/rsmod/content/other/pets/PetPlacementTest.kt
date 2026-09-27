@@ -48,8 +48,31 @@ class PetPlacementTest {
     }
 
     @Test
+    fun `placement skips an occupied trailing tile`() {
+        collision.add(4, 3, 0, CollisionFlag.BLOCK_NPCS)
+
+        assertNotEquals(CoordGrid(4, 3), trailingPlacement(collision, playerTile, Direction.South))
+        assertEquals(
+            CoordGrid(4, 3),
+            trailingPlacement(
+                collision,
+                playerTile,
+                Direction.South,
+                currentPetTile = CoordGrid(4, 3),
+            ),
+        )
+    }
+
+    @Test
     fun `heading is ignored after a teleport or level change`() {
         assertNull(trailingDirection(CoordGrid(1, 4), playerTile))
         assertNull(trailingDirection(CoordGrid(4, 3, 1), playerTile))
+    }
+
+    @Test
+    fun `placement stays within an allocated zone`() {
+        val edge = CoordGrid(7, 4)
+
+        assertNotEquals(CoordGrid(8, 4), trailingPlacement(collision, edge, Direction.East))
     }
 }
