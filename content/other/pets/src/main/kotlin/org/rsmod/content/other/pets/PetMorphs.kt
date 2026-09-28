@@ -7,6 +7,7 @@ import dev.openrune.types.ItemServerType
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.invtx.invTransaction
+import org.rsmod.api.invtx.select
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
 import org.rsmod.api.table.PetMorphsRow
