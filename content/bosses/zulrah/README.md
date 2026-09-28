@@ -22,6 +22,9 @@ three forms. Four rotations control the emergence locations, attacks, venom
 clouds, snakelings and alternating ranged/magic phase. Player combat uses the
 server's native accuracy, prayers, hit processing and venom rules. Damage, death
 and rewards are calculated from the current fight, not replayed from a capture.
+When a phase's scripted clouds, snakelings and attacks have finished, Zulrah keeps
+using normal attacks until the dive begins instead of waiting idle. A tail attack
+only starts if its windup can finish before the dive.
 
 Halberds, noxious halberds, scythes and other melee weapons with extended native
 reach can attack Zulrah from the shore. These weapons receive a three-tile melee

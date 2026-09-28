@@ -132,16 +132,21 @@ constructor(
                 }
                 continue
             }
+            if (elapsed >= fight.phaseEnd) {
+                dive(fight)
+                continue
+            }
             if (elapsed >= EMERGE_TICKS && !fight.attackable) {
                 fight.attackable = true
                 fight.boss.showAllOps()
             }
-            if (elapsed >= fight.nextAction && fight.actionIndex < fight.phase.actions.size) {
-                val action = fight.phase.actions[fight.actionIndex++]
-                performAction(fight, action)
+            if (elapsed >= fight.nextAction) {
+                val action = fight.phase.actions.getOrNull(fight.actionIndex++) ?: ZulrahAction.Attack
+                val tailWindupFits = fight.phase.form != ZulrahForm.Melee ||
+                    action != ZulrahAction.Attack || elapsed + 4 <= fight.phaseEnd
+                if (tailWindupFits) performAction(fight, action)
                 fight.nextAction += actionDelay(fight.phase, action)
             }
-            if (elapsed >= fight.phaseEnd) dive(fight)
         }
     }
 

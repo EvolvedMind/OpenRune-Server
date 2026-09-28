@@ -1,5 +1,7 @@
 package org.rsmod.content.bosses.zulrah
 
+import com.google.inject.AbstractModule
+import com.google.inject.Guice
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
@@ -21,6 +23,8 @@ import org.rsmod.api.bosses.runtime.BossExtensionRegistry
 import org.rsmod.api.bosses.runtime.EncounterRegistry
 import org.rsmod.api.combat.formulas.AccuracyFormulae
 import org.rsmod.api.combat.formulas.MaxHitFormulae
+import org.rsmod.api.combat.weapon.scripts.WeaponAttackStylesScript
+import org.rsmod.api.combat.weapon.styles.AttackStyles
 import org.rsmod.api.config.refs.params
 import org.rsmod.api.death.NpcAttackValidateResult
 import org.rsmod.api.instances.InstanceAccess
@@ -47,6 +51,7 @@ import org.rsmod.api.repo.region.RegionRepository
 import org.rsmod.api.repo.world.WorldRepository
 import org.rsmod.events.EventBus
 import org.rsmod.game.MapClock
+import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.NpcList
 import org.rsmod.game.entity.Player
@@ -55,12 +60,14 @@ import org.rsmod.game.entity.npc.NpcStateEvents
 import org.rsmod.game.hit.HitType
 import org.rsmod.game.inv.Inventory
 import org.rsmod.game.map.LocZoneStorage
+import org.rsmod.game.queue.EngineQueueCache
 import org.rsmod.game.queue.QueueCategory
 import org.rsmod.game.queue.WorldQueueList
 import org.rsmod.game.region.Region
 import org.rsmod.game.region.zone.RegionZoneCopy
 import org.rsmod.map.CoordGrid
 import org.rsmod.map.zone.ZoneKey
+import org.rsmod.plugin.scripts.ScriptContext
 import org.rsmod.routefinder.collision.CollisionFlagMap
 import org.rsmod.routefinder.flag.CollisionFlag
 import sun.misc.Unsafe
@@ -173,7 +180,7 @@ class ZulrahEncounterTest {
         val f = Fixture()
         f.start()
         f.advance(40)
-        assertEquals(1, f.player.queueList.count("queue.hit"))
+        assertEquals(1, f.pendingHits(HitType.Typeless))
         val unrelated = Any()
         f.player.queueList.add("queue.hit", QueueCategory.Strong, 10, unrelated)
         f.encounters.stop(f.session.id)
@@ -192,8 +199,30 @@ class ZulrahEncounterTest {
         assertEquals(targetedTile, f.boss().faceLockSquare)
         f.player.coords = targetedTile.translate(3, 0)
         f.advance(3)
-        assertEquals(0, f.player.queueList.count("queue.hit"))
+        assertEquals(0, f.pendingHits(HitType.Typeless))
         assertFalse(f.player.frozen)
+    }
+
+    @Test
+    fun `opening clouds are followed by regular attacks until the dive begins`() {
+        val f = Fixture()
+        f.start()
+        f.advance(15)
+        assertEquals(0, f.pendingHits(HitType.Ranged))
+        f.advance(1)
+        assertEquals(1, f.pendingHits(HitType.Ranged))
+        f.advance(2)
+        assertEquals(1, f.pendingHits(HitType.Ranged))
+        f.advance(1)
+        assertEquals(2, f.pendingHits(HitType.Ranged))
+        f.advance(6)
+        assertEquals(4, f.pendingHits(HitType.Ranged))
+        f.advance(3)
+        assertTrue(f.encounters.validate(f.player, f.boss()) is NpcAttackValidateResult.Deny)
+        assertEquals(4, f.pendingHits(HitType.Ranged))
+        f.advance(2)
+        assertTrue(f.boss().hidden)
+        assertEquals(4, f.pendingHits(HitType.Ranged))
     }
 
     @Test
@@ -250,6 +279,10 @@ class ZulrahEncounterTest {
             processedMapClock = clock.cycle
             inv = Inventory.create("inv.inv")
             worn = Inventory.create("inv.worn")
+            for (stat in listOf("stat.defence", "stat.magic", "stat.hitpoints")) {
+                statMap.setBaseLevel(stat, 99.toByte())
+                statMap.setCurrentLevel(stat, 99.toByte())
+            }
         }
         val players = PlayerList().apply { this[player.slotId] = player }
         val collision = CollisionFlagMap().apply {
@@ -290,10 +323,24 @@ class ZulrahEncounterTest {
             val deps = BossDeps(
                 FixedRandom, WorldRepository(zoneUpdates), npcRepo, players, clock,
                 WorldQueueList(), collision, EncounterRegistry(), BossExtensionRegistry(),
-                unused(AccuracyFormulae::class.java), unused(MaxHitFormulae::class.java), NoopPlayerHitModifier,
+                accuracy(), unused(MaxHitFormulae::class.java), NoopPlayerHitModifier,
             )
             encounters = ZulrahEncounterManager(deps, instances, locRepo, AiPlayerInteractions(events, players), BossCountdown(events))
             events.subscribeUnbound(NpcStateEvents.Delete::class.java) { encounters.onNpcDeleted(npc) }
+        }
+
+        private fun accuracy(): AccuracyFormulae {
+            val styles = AttackStyles()
+            with(WeaponAttackStylesScript(styles)) {
+                ScriptContext(events, CheatCommandMap(), EngineQueueCache()).startup()
+            }
+            val injector = Guice.createInjector(object : AbstractModule() {
+                override fun configure() {
+                    bind(GameRandom::class.java).toInstance(FixedRandom)
+                    bind(AttackStyles::class.java).toInstance(styles)
+                }
+            })
+            return injector.getInstance(AccuracyFormulae::class.java)
         }
 
         fun enter() = encounters.start(player, session)
@@ -304,6 +351,16 @@ class ZulrahEncounterTest {
         }
 
         fun boss(): Npc = npcs.single().also { assertNotNull(it) }
+
+        fun pendingHits(type: HitType): Int {
+            val iterator = player.queueList.iterator() ?: return 0
+            var count = 0
+            while (iterator.hasNext()) {
+                val hit = iterator.next().args as? org.rsmod.game.hit.Hit
+                if (hit?.type == type) count++
+            }
+            return count
+        }
 
         fun advance(ticks: Int) {
             repeat(ticks) {
