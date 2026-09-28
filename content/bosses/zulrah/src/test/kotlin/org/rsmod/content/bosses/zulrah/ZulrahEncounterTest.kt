@@ -49,6 +49,7 @@ import org.rsmod.api.repo.loc.LocRepository
 import org.rsmod.api.repo.npc.NpcRepository
 import org.rsmod.api.repo.region.RegionRepository
 import org.rsmod.api.repo.world.WorldRepository
+import org.rsmod.api.route.RayCastValidator
 import org.rsmod.events.EventBus
 import org.rsmod.game.MapClock
 import org.rsmod.game.cheat.CheatCommandMap
@@ -207,6 +208,14 @@ class ZulrahEncounterTest {
     fun `opening clouds are followed by regular attacks until the dive begins`() {
         val f = Fixture()
         f.start()
+        val boss = f.boss()
+        // Water blocks walking and cloud placement, but must allow the boss to fire projectiles.
+        for (dx in 0 until boss.size) for (dz in 0 until boss.size) {
+            val tile = boss.coords.translate(dx, dz)
+            f.collision.remove(tile.x, tile.z, tile.level, CollisionFlag.LOC)
+            f.collision.add(tile.x, tile.z, tile.level, CollisionFlag.BLOCK_WALK)
+        }
+        assertTrue(RayCastValidator(f.collision).hasLineOfSight(boss.coords, f.player.coords, boss.size, boss.size))
         f.advance(15)
         assertEquals(0, f.pendingHits(HitType.Ranged))
         f.advance(1)
@@ -271,6 +280,7 @@ class ZulrahEncounterTest {
         val events = EventBus()
         val player = Player().apply {
             uuid = 1L
+            observerUUID = 1L
             slotId = 1
             assignUid()
             coords = CoordGrid(3228, 3261)
