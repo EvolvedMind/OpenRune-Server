@@ -6,15 +6,14 @@ import dtx.rs.RSPreRollTable
 import dtx.rs.RSWeightedTable
 import org.rsmod.api.droptable.ChanceRollStyle
 import org.rsmod.api.droptable.DropChanceTableScope
-import org.rsmod.api.droptable.DropWeightedTableScope
 import org.rsmod.api.droptable.DropRollItem
+import org.rsmod.api.droptable.DropWeightedTableScope
 import org.rsmod.api.droptable.PendingDropItemConfig
 import org.rsmod.api.droptable.addRateFirstItem
 import org.rsmod.api.droptable.dropRollable
 import org.rsmod.api.droptable.nothing
 import org.rsmod.api.droptable.requiresRollableWrapper
 import org.rsmod.api.droptable.rsPlayerGuaranteedTable
-import dtx.rs.RSPrerollTableBuilder
 import org.rsmod.api.droptable.rsPlayerPrerollTable
 import org.rsmod.api.droptable.rsPlayerTertiaryTable
 import org.rsmod.api.droptable.rsPlayerWeightedTable
@@ -29,6 +28,9 @@ public object DropTableTomlParser {
         require(def.npcs.isNotEmpty()) {
             "Drop table '${def.id}' in '$sourcePath' must define at least one npc."
         }
+        require(def.mainRolls > 0) {
+            "Drop table '${def.id}' in '$sourcePath' must have a positive main_rolls value."
+        }
 
         return RSDropTable(
             tableIdentifier = def.id,
@@ -38,6 +40,7 @@ public object DropTableTomlParser {
             preRoll = buildPreRoll(def.preRoll, def.preRollSeparateRolls, resolver, sourcePath),
             mainTable = buildMain(def.main, resolver, sourcePath),
             tertiaries = buildTertiary(def, resolver),
+            mainRolls = def.mainRolls,
         )
     }
 
@@ -258,5 +261,4 @@ public object DropTableTomlParser {
             quest = quest,
             questMode = questMode,
         )
-
 }
