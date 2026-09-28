@@ -1,11 +1,13 @@
 package org.rsmod.api.instances.timer
 
+import org.rsmod.annotations.InternalApi
 import org.rsmod.api.instances.InstanceSession
 import org.rsmod.api.instances.SessionState
 import org.rsmod.game.entity.Npc
 
 internal data class InstanceBossRespawn(val bossName: String, val deadlineTick: Int) {
     companion object {
+        @OptIn(InternalApi::class)
         fun next(
             session: InstanceSession,
             npcs: List<Npc>,

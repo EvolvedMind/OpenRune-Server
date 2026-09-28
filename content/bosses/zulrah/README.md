@@ -55,6 +55,10 @@ apply.
 
 ## Loot
 
+Administrators can use `::testloot Zulrah` (100 kills by default) or
+`::testloot Zulrah 10`. The name is case-insensitive and resolves to Zulrah's
+ordinary native death-kill hooks, using the same configured loot table as a kill.
+
 The existing `content/drops` Zulrah table remains authoritative. One kill grants
 one scales roll, two ordinary reward rolls, and the existing separate rare and
 tertiary rolls. Collection log, loot tracker and pet hooks use the normal death

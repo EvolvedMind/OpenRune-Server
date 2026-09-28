@@ -23,7 +23,7 @@ constructor(
 ) : PluginScript() {
     override fun ScriptContext.startup() {
         onEvent<GameLifecycle.LateCycle> { players.forEach(::update) }
-        onEvent<InstancePlayerLeaveUnboundEvent> { countdown.clear(it.player, OWNER) }
+        onEvent<InstancePlayerLeaveUnboundEvent> { countdown.clear(player, OWNER) }
         onPlayerLogout { countdown.clear(player, OWNER) }
     }
 
