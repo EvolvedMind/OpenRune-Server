@@ -1,6 +1,8 @@
 package org.rsmod.content.bosses.zulrah
 
 import dev.openrune.ServerCacheManager
+import dev.openrune.rscm.RSCM.asRSCM
+import dev.openrune.rscm.RSCMType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -19,6 +21,7 @@ import org.rsmod.api.bosses.runtime.BossExtensionRegistry
 import org.rsmod.api.bosses.runtime.EncounterRegistry
 import org.rsmod.api.combat.formulas.AccuracyFormulae
 import org.rsmod.api.combat.formulas.MaxHitFormulae
+import org.rsmod.api.config.refs.params
 import org.rsmod.api.death.NpcAttackValidateResult
 import org.rsmod.api.instances.InstanceAccess
 import org.rsmod.api.instances.InstanceId
@@ -26,6 +29,8 @@ import org.rsmod.api.instances.InstanceManager
 import org.rsmod.api.instances.InstanceSession
 import org.rsmod.api.instances.InstanceSpec
 import org.rsmod.api.instances.region.InstanceAreaResolver
+import org.rsmod.api.npc.hit.modifier.NpcHitModifier
+import org.rsmod.api.npc.hit.queueHit
 import org.rsmod.api.npc.interact.AiPlayerInteractions
 import org.rsmod.api.player.hit.modifier.NoopPlayerHitModifier
 import org.rsmod.api.random.GameRandom
@@ -41,6 +46,9 @@ import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.NpcList
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
+import org.rsmod.game.hit.HitType
+import org.rsmod.game.inv.Inventory
+import org.rsmod.game.queue.QueueCategory
 import org.rsmod.game.queue.WorldQueueList
 import org.rsmod.game.region.Region
 import org.rsmod.game.region.zone.RegionZoneCopy
@@ -55,6 +63,16 @@ import sun.misc.Unsafe
 @ResourceLock("ServerCacheManager")
 class ZulrahEncounterTest {
     @Test
+    fun `all forms share native kill count and health bar metadata`() {
+        for (symbol in ZulrahCombatScript.BOSS_TYPES) {
+            val npc = ZulrahEncounterManager.type(symbol)
+            assertEquals("varp.total_snakeboss_kills".asRSCM(RSCMType.VARP), npc.param(params.killcount_varp).id)
+            assertEquals(1, npc.param(params.boss_hp_bar_mode))
+            assertEquals(500, npc.hitpoints)
+        }
+    }
+
+    @Test
     fun `joining twice creates one mapped boss without a respawn`() {
         val f = Fixture()
         f.start()
@@ -64,7 +82,7 @@ class ZulrahEncounterTest {
         assertEquals(CoordGrid(3226, 3265), boss.coords)
         assertEquals(500, boss.hitpoints)
         assertFalse(boss.respawns)
-        assertSame(NpcAttackValidateResult.Deny::class, f.encounters.validate(f.player, boss)::class)
+        assertTrue(f.encounters.validate(f.player, boss) is NpcAttackValidateResult.Deny)
         f.advance(4)
         assertSame(NpcAttackValidateResult.BypassSingleWayPvnRestriction, f.encounters.validate(f.player, boss))
     }
@@ -79,8 +97,10 @@ class ZulrahEncounterTest {
         boss.defenceLvl = 260
         boss.damageContributions.record(f.player, 213)
         boss.heroPoints(f.player, 213)
+        boss.queueHit(f.player, 40, HitType.Ranged, 10, NpcHitModifier { })
         f.advance(30)
         assertTrue(boss.hidden)
+        assertFalse("queue.hit" in boss.queueList)
         assertTrue(f.encounters.validate(f.player, boss) is NpcAttackValidateResult.Deny)
         f.advance(3)
         assertFalse(boss.hidden)
@@ -111,6 +131,34 @@ class ZulrahEncounterTest {
         f.player.pendingLogout = true
         f.advance(1)
         assertEquals(0, f.npcs.count())
+    }
+
+    @Test
+    fun `leaving cancels the actual pending tail hit while preserving unrelated damage`() {
+        val f = Fixture()
+        f.start()
+        f.advance(40)
+        assertEquals(1, f.player.queueList.count("queue.hit"))
+        val unrelated = Any()
+        f.player.queueList.add("queue.hit", QueueCategory.Strong, 10, unrelated)
+        f.encounters.stop(f.session.id)
+        assertEquals(1, f.player.queueList.count("queue.hit"))
+        assertEquals(1, f.player.queueList.removeIf { it.args === unrelated })
+        assertEquals(0, f.player.queueList.count("queue.hit"))
+    }
+
+    @Test
+    fun `moving away from the telegraphed tail avoids damage and stun`() {
+        val f = Fixture()
+        f.start()
+        f.advance(37)
+        val targetedTile = f.player.coords
+        assertTrue(f.boss().isFacingLocked)
+        assertEquals(targetedTile, f.boss().faceLockSquare)
+        f.player.coords = targetedTile.translate(3, 0)
+        f.advance(3)
+        assertEquals(0, f.player.queueList.count("queue.hit"))
+        assertFalse(f.player.frozen)
     }
 
     @Test
@@ -146,12 +194,14 @@ class ZulrahEncounterTest {
             previousCoords = coords
             currentMapClock = clock.cycle
             processedMapClock = clock.cycle
+            inv = Inventory.create("inv.inv")
+            worn = Inventory.create("inv.worn")
         }
         val players = PlayerList().apply { this[player.slotId] = player }
         val collision = CollisionFlagMap().apply {
             for (x in 3192..3344) for (z in 3192..3344) {
                 allocateIfAbsent(x, z, 0)
-                add(x, z, 0, CollisionFlag.FLOOR)
+                add(x, z, 0, CollisionFlag.LOC)
             }
         }
         val npcs = NpcList()

@@ -10,6 +10,7 @@ import org.rsmod.api.script.onAiOpPlayer2
 import org.rsmod.api.script.onEvent
 import org.rsmod.api.script.onModifyNpcHit
 import org.rsmod.api.script.onNpcQueue
+import org.rsmod.game.entity.npc.NpcStateEvents
 import org.rsmod.plugin.module.PluginModule
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
@@ -26,6 +27,7 @@ constructor(private val encounters: ZulrahEncounterManager, private val death: N
     override fun ScriptContext.startup() {
         onEvent<GameLifecycle.LateCycle> { encounters.tick() }
         onEvent<PlayerHitEvents.Impact> { encounters.onHitImpact(player, hit) }
+        onEvent<NpcStateEvents.Delete> { encounters.onNpcDeleted(npc) }
         for (symbol in BOSS_TYPES) {
             val type = ZulrahEncounterManager.type(symbol)
             onAiOpPlayer2(type) { noneMode() }

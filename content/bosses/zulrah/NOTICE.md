@@ -20,6 +20,12 @@ The first phase is the cloud-only opening. The final phase is a reset with five
 attacks and four cloud barrages. When continuing into a new rotation after that
 reset, skip the cloud-only opening (start at index 1).
 
+`safeOffsets` preserves the same source's stand/stall centers, relative to its
+north spawn's southwest anchor `(10, 12)`. Positive z is north. Each center
+reserves a three-by-three area from cloud placement. These are reference arena
+coordinates, not positions established by the Alora recording; placement must
+also respect the native map's collision and usable land.
+
 ## Reference license
 
 MIT License
@@ -43,4 +49,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

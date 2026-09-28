@@ -38,6 +38,10 @@ tertiary rolls. Collection log, loot tracker and pet hooks use the normal death
 pipeline. The configured quantities and rare probabilities have been preserved;
 they are not claimed to reproduce Alora's hidden drop rates.
 
+Zulrah's duplicate entries in the supplemental pet table are removed: the
+existing loot-table pet roll already goes through `PetDropHook`. This keeps one
+1-in-4000 pet roll per kill and leaves pet following, pickup and insurance intact.
+
 `NpcDeathKillContext.dropCoords` forwards the requested ground tile to drop-table
 hooks. Its default remains the NPC's tile for existing callers. This lets an
 over-water boss drop accessible loot without moving the NPC or bypassing death

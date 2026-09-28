@@ -24,6 +24,7 @@ import org.rsmod.api.player.hit.queueHit
 import org.rsmod.api.player.isValidTarget
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.repo.loc.LocRepository
+import org.rsmod.api.route.RayCastValidator
 import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.util.PathingEntityCommon
@@ -49,6 +50,7 @@ constructor(
 ) : NpcAttackValidateHook {
     private val fights = mutableMapOf<InstanceId, Fight>()
     private val npcFights = IdentityHashMap<Npc, Fight>()
+    private val rays = RayCastValidator(deps.collision)
 
     fun start(player: Player, session: InstanceSession) {
         if (session.id in fights || session.owner != player.uuid) return
@@ -159,24 +161,26 @@ constructor(
         if (!fight.finished && validOwner(fight) && hit.damage > 0 && effect.venom) {
             PlayerVenom.tryVenom(player)
         }
-        effect.minion?.let { removeMinion(fight, it) }
+    }
+
+    fun onNpcDeleted(npc: Npc) {
+        val fight = npcFights.remove(npc) ?: return
+        fight.minions.remove(npc)
     }
 
     fun minionAttack(npc: Npc, target: Player) {
         val fight = npcFights[npc] ?: return
         if (fight.finished || target !== fight.owner || !validOwner(fight)) return
         val minion = fight.minions[npc] ?: return
-        if (minion.attacked || deps.mapClock.cycle < minion.readyAt) return
-        minion.attacked = true
-        npc.noneMode()
-        npc.movementLocked = true
+        if (deps.mapClock.cycle < minion.readyAt) return
+        minion.readyAt = deps.mapClock.cycle + 3
         npc.anim("seq.snakeboss_pet_attack")
         val magic = npc.visType.isType("npc.snakeboss_minion_magic")
         val hitType = if (magic) HitType.Magic else HitType.Melee
         val damage = if (accuracy(npc, target, hitType)) deps.random.of(if (magic) 14 else 16) else 0
         val delay = if (magic) projectile(npc, target, "spotanim.snakeboss_minion_spell") else 1
         val hit = target.finishNpcHit(npc, delay, hitType, damage, deps.playerHitModifier)
-        fight.pendingHits[hit] = ImpactEffect(venom = true, minion = npc)
+        fight.pendingHits[hit] = ImpactEffect(venom = true)
     }
 
     private fun enterPhase(fight: Fight, initial: Boolean) {
@@ -190,6 +194,7 @@ constructor(
         npc.anim(if (initial) "seq.snakeboss_spawn" else "seq.snakeboss_emergefast")
         npc.hideAllOps()
         npc.noneMode()
+        npc.clearFacingLock()
         npc.facePlayer(fight.owner)
         fight.phaseStart = deps.mapClock.cycle
         fight.actionIndex = 0
@@ -201,6 +206,11 @@ constructor(
         )
         fight.diving = false
         fight.attackable = false
+        val safeTiles = safeTiles(fight, phase)
+        val unsafeClouds = fight.clouds.keys.filter { origin ->
+            safeTiles.any { it.chebyshevDistance(origin.translate(1, 1)) <= 2 }
+        }
+        for (origin in unsafeClouds) fight.clouds.remove(origin)?.let { locs.del(it.loc, Int.MAX_VALUE) }
     }
 
     private fun dive(fight: Fight) {
@@ -209,7 +219,10 @@ constructor(
         fight.boss.hideAllOps()
         fight.boss.anim("seq.snakeboss_sinkfast")
         schedule(fight, 2) {
-            if (fight.boss.isSlotAssigned && !fight.finished) deps.npcRepo.hide(fight.boss, 3)
+            if (fight.boss.isSlotAssigned && !fight.finished) {
+                fight.boss.clearQueue("queue.hit")
+                deps.npcRepo.hide(fight.boss, 3)
+            }
         }
     }
 
@@ -226,6 +239,7 @@ constructor(
         val player = fight.owner
         if (fight.phase.form == ZulrahForm.Melee) {
             val targetTile = player.coords
+            npc.lockFacing(targetTile)
             npc.anim(if (fight.attackIndex++ % 2 == 0) "seq.snakeboss_attack_tail_left" else "seq.snakeboss_attack_tail_right")
             schedule(fight, 3) {
                 if (player.coords.chebyshevDistance(targetTile) <= 1) {
@@ -241,6 +255,7 @@ constructor(
         val ranged = fight.phase.jadFirstRanged?.let { first -> (fight.attackIndex % 2 == 0) == first }
             ?: (fight.phase.form == ZulrahForm.Ranged || deps.random.of(4) == 0)
         fight.attackIndex++
+        if (!rays.hasLineOfSight(npc.coords, player.coords, npc.size, npc.size)) return
         val hitType = if (ranged) HitType.Ranged else HitType.Magic
         npc.anim("seq.snakeboss_attack_acidx1")
         npc.facePlayer(player)
@@ -251,7 +266,11 @@ constructor(
     }
 
     private fun launchCloud(fight: Fight) {
-        val center = randomWalkable(fight, fight.owner.coords, 5) ?: return
+        val nextPhase = fight.rotation.getOrNull(fight.phaseIndex + 1)
+        val safeTiles = safeTiles(fight, fight.phase) + nextPhase?.let { safeTiles(fight, it) }.orEmpty()
+        val center = randomWalkable(fight, fight.owner.coords, 5) { tile ->
+            safeTiles.none { it.chebyshevDistance(tile) <= 2 }
+        } ?: return
         fight.boss.anim("seq.snakeboss_attack_acidx1")
         val delay = projectile(fight.boss, center, "spotanim.snakeboss_double_orb")
         schedule(fight, delay) {
@@ -332,11 +351,26 @@ constructor(
     private fun actionDelay(phase: ZulrahPhase, action: ZulrahAction): Int =
         if (phase.form == ZulrahForm.Melee && action == ZulrahAction.Attack) 6 else 3
 
-    private fun randomWalkable(fight: Fight, center: CoordGrid, radius: Int): CoordGrid? {
+    private fun safeTiles(fight: Fight, phase: ZulrahPhase): List<CoordGrid> =
+        phase.safeOffsets.mapNotNull { (dx, dz) ->
+            nearestWalkable(resolve(fight.session, CoordGrid(2266 + dx, 3073 + dz, 0)))
+        }
+
+    private fun nearestWalkable(center: CoordGrid): CoordGrid? {
+        for (radius in 0..3) {
+            for (dx in -radius..radius) for (dz in -radius..radius) {
+                val tile = center.translate(dx, dz)
+                if (!deps.collision.isWalkBlocked(tile)) return tile
+            }
+        }
+        return null
+    }
+
+    private fun randomWalkable(fight: Fight, center: CoordGrid, radius: Int, accept: (CoordGrid) -> Boolean = { true }): CoordGrid? {
         val tiles = buildList {
             for (dx in -radius..radius) for (dz in -radius..radius) {
                 val tile = center.translate(dx, dz)
-                if (tile != fight.owner.coords && !deps.collision.isWalkBlocked(tile)) add(tile)
+                if (tile != fight.owner.coords && !deps.collision.isWalkBlocked(tile) && accept(tile)) add(tile)
             }
         }
         return tiles.takeIf { it.isNotEmpty() }?.let { it[deps.random.of(it.size)] }
@@ -386,8 +420,8 @@ constructor(
         val clouds = mutableMapOf<CoordGrid, Cloud>()
     }
 
-    private class Minion(val readyAt: Int, var attacked: Boolean = false)
-    private class ImpactEffect(val venom: Boolean = false, val minion: Npc? = null)
+    private class Minion(var readyAt: Int)
+    private class ImpactEffect(val venom: Boolean = false)
     private data class Pending(val tick: Int, val action: () -> Unit)
     private class Cloud(val loc: LocInfo, var expiresAt: Int)
 

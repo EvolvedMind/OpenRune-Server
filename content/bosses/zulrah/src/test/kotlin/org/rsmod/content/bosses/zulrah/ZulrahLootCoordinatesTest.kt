@@ -22,6 +22,7 @@ import org.rsmod.api.registry.obj.ObjRegistry
 import org.rsmod.api.registry.zone.ZoneUpdateMap
 import org.rsmod.api.repo.npc.NpcRepository
 import org.rsmod.api.repo.obj.ObjRepository
+import org.rsmod.api.table.PetDropsRow
 import org.rsmod.coroutine.GameCoroutine
 import org.rsmod.events.EventBus
 import org.rsmod.game.MapClock
@@ -35,6 +36,12 @@ import org.rsmod.routefinder.collision.CollisionFlagMap
 @Execution(ExecutionMode.SAME_THREAD)
 @ResourceLock("ServerCacheManager")
 class ZulrahLootCoordinatesTest {
+    @Test
+    fun `Zulrah pet is not rolled again by the supplemental boss pet hook`() {
+        val bosses = ZulrahCombatScript.BOSS_TYPES.map { ZulrahEncounterManager.type(it).id }.toSet()
+        assertTrue(PetDropsRow.all().none { it.npc.id in bosses })
+    }
+
     @Test
     fun `native death hook receives land tile without moving the boss from the water`() {
         val fixture = Fixture()
