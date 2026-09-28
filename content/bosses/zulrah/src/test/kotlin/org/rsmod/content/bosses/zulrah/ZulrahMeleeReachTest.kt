@@ -90,7 +90,7 @@ class ZulrahMeleeReachTest {
                     val end = route.lastOrNull()?.let { CoordGrid(it.x, it.z, it.level) } ?: ARRIVAL
                     player.coords = end
                     assertFalse(
-                        collision.isFlagged(end.x, end.z, end.level, WALK_BLOCKERS),
+                        collision[end.x, end.z, end.level] and WALK_BLOCKERS != 0,
                         "Route ended on a blocked tile: $end",
                     )
                     val attackRange = checkNotNull(reach.range(player, boss, nativeRange))

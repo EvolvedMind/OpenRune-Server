@@ -248,8 +248,8 @@ constructor(
 
     public fun detachNpc(instanceId: InstanceId, npc: Npc) {
         val removed = spawnedNpcs[instanceId]?.removeAll { it === npc } == true
-        if (removed) {
-            npcInstanceIndex.remove(npc, instanceId)
+        if (removed && npcInstanceIndex[npc] == instanceId) {
+            npcInstanceIndex.remove(npc)
         }
     }
 
