@@ -74,8 +74,8 @@ class PetFollowerManager @Inject constructor(
     val petTypes: List<PetType>
         get() = catalog.types
 
-    val unsupportedBossItems: List<ItemServerType>
-        get() = catalog.unsupportedBossItems
+    val unsupportedPetItems: List<ItemServerType>
+        get() = catalog.unsupportedItems
 
     fun summon(player: Player, inventory: Inventory, slot: Int, pet: PetType): PetActionResult {
         if (player.activePetItemId != 0 || followers[player.uid] != null) {
@@ -194,7 +194,7 @@ class PetFollowerManager @Inject constructor(
         when {
             trailingTile == null -> {
                 current.abortRoute()
-                if (current.coords == player.coords && remove(current)) {
+                if (petOverlapsPlayer(current.coords, current.size, player.coords) && remove(current)) {
                     untrack(player)
                     return
                 }
@@ -202,7 +202,7 @@ class PetFollowerManager @Inject constructor(
             current.level != player.level ||
                 current.coords.chebyshevDistance(player.coords) > MAX_FOLLOW_DISTANCE ->
                 current.teleport(collision, trailingTile)
-            current.coords == player.coords -> current.teleport(collision, trailingTile)
+            petOverlapsPlayer(current.coords, current.size, player.coords) -> current.teleport(collision, trailingTile)
             current.coords == trailingTile -> current.abortRoute()
             else -> current.routeRequest = RouteRequestCoord(trailingTile)
         }
@@ -307,18 +307,61 @@ internal fun trailingPlacement(
         val difference = abs(direction.angle - preferred.angle)
         minOf(difference, 2048 - difference)
     }.firstNotNullOfOrNull { direction ->
-        val destination = origin.translate(direction.xOff, direction.zOff)
+        val xOffset = if (direction.xOff < 0) -size else direction.xOff
+        val zOffset = if (direction.zOff < 0) -size else direction.zOff
+        val x = origin.x + xOffset
+        val z = origin.z + zOffset
+        if (size < 1 || x < 0 || z < 0 || x + size > CoordGrid.MAP_WIDTH || z + size > CoordGrid.MAP_LENGTH) {
+            return@firstNotNullOfOrNull null
+        }
+        val destination = CoordGrid(x, z, origin.level)
+        val adjacent = origin.translate(direction.xOff, direction.zOff)
+        val extraFlag = if (currentPetTile != null && petOverlapsPlayer(currentPetTile, size, adjacent)) {
+            0
+        } else {
+            CollisionFlag.BLOCK_NPCS
+        }
         if (
-            collision.isZoneValid(destination) &&
-                collision.canStep(
-                    origin,
-                    direction,
-                    size,
-                    extraFlag = if (destination == currentPetTile) 0 else CollisionFlag.BLOCK_NPCS,
-                )
+            collision.isZoneValid(adjacent) &&
+                collision.canStep(origin, direction, extraFlag = extraFlag) &&
+                clearPetFootprint(collision, destination, size, currentPetTile)
         ) {
             destination
         } else {
             null
         }
     }
+
+internal fun petOverlapsPlayer(anchor: CoordGrid, size: Int, player: CoordGrid): Boolean =
+    anchor.level == player.level &&
+        player.x in anchor.x until anchor.x + size &&
+        player.z in anchor.z until anchor.z + size
+
+private fun clearPetFootprint(
+    collision: CollisionFlagMap,
+    anchor: CoordGrid,
+    size: Int,
+    current: CoordGrid?,
+): Boolean {
+    for (x in anchor.x until anchor.x + size) {
+        for (z in anchor.z until anchor.z + size) {
+            val tile = CoordGrid(x, z, anchor.level)
+            if (!collision.isZoneValid(tile)) {
+                return false
+            }
+            val occupiedByPet = current != null && petOverlapsPlayer(current, size, tile)
+            val mask = CollisionFlag.BLOCK_WALK or CollisionFlag.LOC or CollisionFlag.GROUND_DECOR or
+                CollisionFlag.BLOCK_PLAYERS or (if (occupiedByPet) 0 else CollisionFlag.BLOCK_NPCS)
+            if (collision[x, z, anchor.level] and mask != 0) {
+                return false
+            }
+            if (x + 1 < anchor.x + size && !collision.canStep(tile, Direction.East)) {
+                return false
+            }
+            if (z + 1 < anchor.z + size && !collision.canStep(tile, Direction.North)) {
+                return false
+            }
+        }
+    }
+    return true
+}

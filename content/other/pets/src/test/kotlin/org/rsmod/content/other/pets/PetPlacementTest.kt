@@ -3,6 +3,7 @@ package org.rsmod.content.other.pets
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.rsmod.game.map.Direction
 import org.rsmod.map.CoordGrid
@@ -61,6 +62,38 @@ class PetPlacementTest {
                 currentPetTile = CoordGrid(4, 3),
             ),
         )
+    }
+
+    @Test
+    fun `large followers remain fully behind the player`() {
+        for (direction in Direction.entries) {
+            val destination = trailingPlacement(collision, playerTile, direction, size = 2)!!
+
+            assertTrue(!petOverlapsPlayer(destination, 2, playerTile), "$direction -> $destination")
+        }
+        assertEquals(CoordGrid(4, 2), trailingPlacement(collision, playerTile, Direction.South, size = 2))
+        assertEquals(CoordGrid(2, 4), trailingPlacement(collision, playerTile, Direction.West, size = 2))
+    }
+
+    @Test
+    fun `large follower rejects an object anywhere in its footprint`() {
+        collision.add(5, 2, 0, CollisionFlag.LOC)
+
+        assertNotEquals(CoordGrid(4, 2), trailingPlacement(collision, playerTile, Direction.South, size = 2))
+    }
+
+    @Test
+    fun `large follower cannot straddle a wall`() {
+        collision.add(5, 2, 0, CollisionFlag.WALL_WEST)
+
+        assertNotEquals(CoordGrid(4, 2), trailingPlacement(collision, playerTile, Direction.South, size = 2))
+    }
+
+    @Test
+    fun `large follower footprint stays in allocated zones`() {
+        val edge = CoordGrid(6, 4)
+
+        assertNotEquals(CoordGrid(7, 4), trailingPlacement(collision, edge, Direction.East, size = 2))
     }
 
     @Test

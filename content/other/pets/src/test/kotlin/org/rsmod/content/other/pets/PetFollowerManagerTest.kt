@@ -37,6 +37,38 @@ import org.rsmod.routefinder.collision.CollisionFlagMap
 @ResourceLock("ServerCacheManager")
 class PetFollowerManagerTest {
     @Test
+    fun `every available canonical pet has a usable follower and can be summoned and picked up`() {
+        val f = Fixture()
+        assertTrue(f.manager.unsupportedPetItems.isEmpty(), "Known pets must have an interactable follower with Pick-up.")
+        for (symbol in listOf(
+            "obj.skillpetwc",
+            "obj.skillpetmining",
+            "obj.skillpetagility",
+            "obj.skillpethunter_grey",
+            "obj.skillpetthieving",
+            "obj.skillpetrunecrafting_fire",
+            "obj.skillpetfarming",
+            "obj.kbdpet",
+            "obj.hell_pet",
+            "obj.bloodhound_pet",
+        )) {
+            assertTrue(f.manager.petTypes.any { it.item.id == symbol.asRSCM(RSCMType.OBJ) }, "Missing $symbol")
+        }
+        for (pet in f.manager.petTypes) {
+            f.player.inv[0] = InvObj(pet.item)
+            assertEquals(PetActionResult.Summoned, f.manager.summon(f.player, f.player.inv, 0, pet), pet.item.name)
+            val follower = f.singleFollower()
+            f.assertFollowerUid(follower)
+            assertTrue(!petOverlapsPlayer(follower.coords, follower.size, f.player.coords), pet.item.name)
+            assertEquals(pet.npc.id, follower.type.id)
+            assertEquals(PetActionResult.PickedUp, f.manager.pickUp(f.player, follower), pet.item.name)
+            assertEquals(pet.item.id, f.player.inv[0]?.id)
+            assertEquals(0, f.followerUid())
+            assertEquals(0, f.player.activePetItemId)
+        }
+    }
+
+    @Test
     fun `summon transform and pickup keep follower uid and inventory in sync`() {
         val f = Fixture()
         val fish = f.fish

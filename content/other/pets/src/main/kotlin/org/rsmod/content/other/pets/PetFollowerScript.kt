@@ -25,8 +25,10 @@ class PetFollowerScript @Inject constructor(
             }
         }
 
-        for (item in pets.unsupportedBossItems) {
-            onOpHeld5(item) { player.mes("This pet cannot follow you yet.") }
+        for (item in pets.unsupportedPetItems) {
+            onOpHeld5(item) {
+                player.mes("This pet's follower is missing from the cache. Run launcher SETUP and restart the server.")
+            }
         }
 
         for (pet in pets.petTypes.distinctBy { it.npc.id }) {
