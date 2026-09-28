@@ -1,68 +1,49 @@
 package org.rsmod.content.other.pets
 
-import dev.openrune.definition.EntityOpsBuilder
-import dev.openrune.types.ItemServerType
-import dev.openrune.types.NpcServerType
+import dev.openrune.ServerCacheManager
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode
+import org.junit.jupiter.api.parallel.ResourceLock
+import org.rsmod.content.other.pets.cats.Cats
+import org.rsmod.content.other.pets.dogs.Dogs
 
+@Execution(ExecutionMode.SAME_THREAD)
+@ResourceLock("ServerCacheManager")
 class PetCatalogTest {
     @Test
-    fun `canonical symbols distinguish pet variants with identical display names`() {
-        val beaver = ItemServerType(id = 10, name = "Beaver")
-        val oakBeaver = ItemServerType(id = 11, name = "Beaver")
-        val baseNpc = follower(20, "Beaver")
-        val oakNpc = follower(21, "Beaver")
-        val unrelatedNpc = follower(22, "Beaver")
-        val catalog = PetCatalog(
-            items = mapOf("skillpetwc" to beaver, "skillpet_wc_oak" to oakBeaver),
-            npcs = mapOf(
-                "skillpetwc" to baseNpc,
-                "skillpet_wc_oak" to oakNpc,
-                "unrelated_beaver" to unrelatedNpc,
-            ),
-        )
-
-        assertSame(baseNpc, catalog.find(beaver.id)?.npc)
-        assertSame(oakNpc, catalog.find(oakBeaver.id)?.npc)
-        assertEquals(2, catalog.types.size)
-        assertTrue(catalog.unsupportedItems.isEmpty())
+    fun `cache contains all ordinary pet cat and dog forms with native pickup options`() {
+        assertEquals(71, Pets.all.size)
+        assertEquals(182, Pets.all.sumOf { it.forms.size })
+        assertEquals(35, Cats.all.size)
+        assertEquals(72, Dogs.all.size)
+        val forms = Pets.all.flatMap { it.forms } + Cats.all.map { it.form } + Dogs.all.map { it.form }
+        assertEquals(289, forms.map { it.objId }.toSet().size)
+        for (form in forms) {
+            assertNotNull(ServerCacheManager.getItem(form.objId), form.obj)
+            val npc = checkNotNull(ServerCacheManager.getNpc(form.npcId))
+            assertTrue(npc.isFollower, form.npc)
+            assertTrue(npc.isInteractable, form.npc)
+            assertNotNull(petOpIndex(form.npc, "Pick-up"), form.npc)
+        }
     }
 
     @Test
-    fun `known pet items without usable cache npcs remain available for an explanatory handler`() {
-        val missingNpc = ItemServerType(id = 10, name = "Beaver")
-        val notFollower = ItemServerType(id = 11, name = "Heron")
-        val noPickup = ItemServerType(id = 12, name = "Rocky")
-        val catalog = PetCatalog(
-            items = mapOf("skillpetwc" to missingNpc, "skillpetfish" to notFollower, "skillpetthieving" to noPickup),
-            npcs = mapOf(
-                "skillpet_fish" to follower(21, "Heron").copy(isFollower = false),
-                "skillpet_thieving" to follower(22, "Rocky").copy(actions = EntityOpsBuilder().build()),
-            ),
-        )
-
-        assertTrue(catalog.types.isEmpty())
-        assertEquals(setOf(missingNpc.id, notFollower.id, noPickup.id), catalog.unsupportedItems.map { it.id }.toSet())
-        assertNull(catalog.find(missingNpc.id))
+    fun `every form resolves to its family without matching display names`() {
+        for (pet in Pets.all) for (form in pet.forms) {
+            assertSame(pet, Pets.forObj(form.objId)?.first)
+            assertSame(form, Pets.forNpc(form.npcId)?.second)
+        }
+        for (cat in Cats.all) assertSame(cat, Cats.forObj(cat.form.objId))
+        for (dog in Dogs.all) assertSame(dog, Dogs.forObj(dog.form.objId))
     }
 
-    @Test
-    fun `absent optional pet items do not prevent the catalog from loading`() {
-        val catalog = PetCatalog(emptyMap(), emptyMap())
-
-        assertTrue(catalog.types.isEmpty())
-        assertTrue(catalog.unsupportedItems.isEmpty())
+    companion object {
+        @JvmStatic @BeforeAll fun cache() { ServerCacheManager.init(240).close() }
     }
-
-    private fun follower(id: Int, name: String): NpcServerType = NpcServerType(
-        id = id,
-        name = name,
-        isFollower = true,
-        isInteractable = true,
-        actions = EntityOpsBuilder().op(4, "Pick-up").build(),
-    )
 }

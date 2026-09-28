@@ -5,6 +5,6 @@ plugins {
 
 dependencies {
     implementation(projects.api.pluginCommons)
-    implementation(projects.api.registry)
+    implementation(projects.content.quest)
     testImplementation(projects.api.invStorage)
 }

@@ -1,24 +1,10 @@
-[[varp]]
-id = "varp.active_pet"
-scope = "Perm"
-transmit = "Never"
+[[enum]]
+isServerOnly = true
+id = "enum.pet_categories"
+keyType = "INT"
+valueType = "STRING"
 
-[[npc]]
-id = "npc.skillpet_fish"
-inherit = "npc.skillpet_fish"
-option1 = "Talk-to"
-option3 = "Metamorphosis"
-option4 = "Pick-up"
-isFollower = true
-isInteractable = true
-blockWalk = "None"
-
-[[npc]]
-id = "npc.skillpet_fish_tempoross"
-inherit = "npc.skillpet_fish_tempoross"
-option1 = "Talk-to"
-option3 = "Metamorphosis"
-option4 = "Pick-up"
-isFollower = true
-isInteractable = true
-blockWalk = "None"
+[enum.values]
+0 = "Boss"
+1 = "Skilling"
+2 = "Other"
