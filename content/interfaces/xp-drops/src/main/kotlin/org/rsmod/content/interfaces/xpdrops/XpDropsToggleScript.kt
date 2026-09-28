@@ -2,14 +2,11 @@ package org.rsmod.content.interfaces.xpdrops
 
 import jakarta.inject.Inject
 import org.rsmod.annotations.InternalApi
-import org.rsmod.api.player.output.runClientScript
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
-import org.rsmod.api.player.ui.ifSetHide
 import org.rsmod.api.player.vars.boolVarBit
 import org.rsmod.api.script.onIfOverlayButton
 import org.rsmod.api.script.onPlayerLogin
-import org.rsmod.events.EventBus
 import org.rsmod.game.entity.Player
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
