@@ -35,9 +35,10 @@ import org.rsmod.game.loc.LocAngle
 import org.rsmod.game.loc.LocEntity
 import org.rsmod.game.loc.LocInfo
 import org.rsmod.game.loc.LocShape
-import org.rsmod.game.map.collision.isWalkBlocked
+import org.rsmod.game.map.collision.isZoneValid
 import org.rsmod.game.proj.ProjAnim
 import org.rsmod.map.CoordGrid
+import org.rsmod.routefinder.flag.CollisionFlag
 
 @Singleton
 class ZulrahEncounterManager
@@ -269,7 +270,8 @@ constructor(
         val nextPhase = fight.rotation.getOrNull(fight.phaseIndex + 1)
         val safeTiles = safeTiles(fight, fight.phase) + nextPhase?.let { safeTiles(fight, it) }.orEmpty()
         val center = randomWalkable(fight, fight.owner.coords, 5) { tile ->
-            safeTiles.none { it.chebyshevDistance(tile) <= 2 }
+            safeTiles.none { it.chebyshevDistance(tile) <= 2 } &&
+                (-1..1).all { dx -> (-1..1).all { dz -> isWalkable(tile.translate(dx, dz)) } }
         } ?: return
         fight.boss.anim("seq.snakeboss_attack_acidx1")
         val delay = projectile(fight.boss, center, "spotanim.snakeboss_double_orb")
@@ -360,7 +362,7 @@ constructor(
         for (radius in 0..3) {
             for (dx in -radius..radius) for (dz in -radius..radius) {
                 val tile = center.translate(dx, dz)
-                if (!deps.collision.isWalkBlocked(tile)) return tile
+                if (isWalkable(tile)) return tile
             }
         }
         return null
@@ -370,11 +372,16 @@ constructor(
         val tiles = buildList {
             for (dx in -radius..radius) for (dz in -radius..radius) {
                 val tile = center.translate(dx, dz)
-                if (tile != fight.owner.coords && !deps.collision.isWalkBlocked(tile) && accept(tile)) add(tile)
+                if (tile != fight.owner.coords && isWalkable(tile) && accept(tile)) add(tile)
             }
         }
         return tiles.takeIf { it.isNotEmpty() }?.let { it[deps.random.of(it.size)] }
     }
+
+    private fun isWalkable(tile: CoordGrid): Boolean =
+        deps.collision.isZoneValid(tile) &&
+            deps.collision[tile.x, tile.z, tile.level] and
+            (CollisionFlag.BLOCK_WALK or CollisionFlag.LOC or CollisionFlag.GROUND_DECOR) == 0
 
     private fun accuracy(npc: Npc, player: Player, hitType: HitType): Boolean = when (hitType) {
         HitType.Ranged -> deps.accuracy.rollRangedAccuracy(npc, player, deps.random)

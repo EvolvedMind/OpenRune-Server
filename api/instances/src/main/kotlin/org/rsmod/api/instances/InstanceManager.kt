@@ -98,6 +98,7 @@ constructor(
             if (spec.fee > 0) owner.invAdd(owner.inv, "obj.coins", spec.fee)
             return Result.Failed("No instance space available, try again shortly.")
         }
+        regionRepo.protect(region)
 
         val instanceId = allocateId()
         val session =
@@ -115,15 +116,21 @@ constructor(
         registerRegion(instanceId, region.uid)
         ownerIndex[ownerId] = instanceId
 
-        startSession(session, currentTick)
+        try {
+            startSession(session, currentTick)
 
-        val spawned = mutableListOf<Npc>()
-        if (!spec.spawnOnFirstJoin) {
-            spawnSessionNpcs(session, region, spawned, currentTick)
+            val spawned = mutableListOf<Npc>()
+            spawnedNpcs[instanceId] = spawned
+            if (!spec.spawnOnFirstJoin) {
+                spawnSessionNpcs(session, region, spawned, currentTick)
+            }
+
+            return Result.Created(session, session.enterCoord(region))
+        } catch (failure: Exception) {
+            destroy(session)
+            if (spec.fee > 0) owner.invAdd(owner.inv, "obj.coins", spec.fee)
+            throw failure
         }
-        spawnedNpcs[instanceId] = spawned
-
-        return Result.Created(session, session.enterCoord(region))
     }
 
     public fun createServerOwned(
@@ -633,7 +640,7 @@ constructor(
             regionToInstance.remove(regionId, session.id)
         }
         val region = regions.remove(session.id)
-        if (session.isServerOwned && region != null) {
+        if (region != null) {
             regionRepo.unprotect(region)
         }
         ownerIndex.remove(session.owner)

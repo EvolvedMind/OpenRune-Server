@@ -42,7 +42,7 @@ class ZulrahDeathRecoveryTest {
     @Test
     fun `native normal keep selection survives transfer into permanent recovery`() {
         val player = player()
-        val carried = (1..5).map { InvObj("obj.shark", 1, vars = it) }
+        val carried = List(5) { InvObj("obj.shark") }
         val handling = handling(player, keep = 3, untradeables = UntradeableHandling.KEEP)
         val selected = deathDrops().selectDrops(carried, DeathDropRules(), handling)
 
@@ -60,7 +60,7 @@ class ZulrahDeathRecoveryTest {
     @Test
     fun `native ultimate ironman selection stores every ordinary carried item`() {
         val player = player()
-        val carried = (1..5).map { InvObj("obj.shark", 1, vars = it) }
+        val carried = List(5) { InvObj("obj.shark") }
         val handling = handling(player, keep = 0, untradeables = UntradeableHandling.DROP)
         val selected = deathDrops().selectDrops(carried, DeathDropRules(isUIM = true), handling)
 
@@ -74,7 +74,10 @@ class ZulrahDeathRecoveryTest {
     @Test
     fun `partial reclaim preserves remaining items and vars without duplicating anything`() {
         val player = player()
-        val items = listOf(InvObj("obj.shark", 1, vars = 123), InvObj("obj.shark", 1, vars = 456))
+        val items = listOf(
+            InvObj("obj.tumekens_shadow", 1, vars = 123),
+            InvObj("obj.tumekens_shadow", 1, vars = 456),
+        )
         recovery.store(player, handling(player), result(items))
         for (slot in 0 until player.inv.size - 1) player.inv[slot] = InvObj("obj.shark")
 
@@ -97,7 +100,7 @@ class ZulrahDeathRecoveryTest {
     @Test
     fun `full inventory leaves recovery untouched`() {
         val player = player()
-        val items = listOf(InvObj("obj.shark", 1, vars = 42))
+        val items = listOf(InvObj("obj.tumekens_shadow", 1, vars = 42))
         recovery.store(player, handling(player), result(items))
         for (slot in player.inv.indices) player.inv[slot] = InvObj("obj.shark")
 
@@ -123,9 +126,23 @@ class ZulrahDeathRecoveryTest {
     }
 
     @Test
+    fun `stackable recovery transfers the full stack in one reclaim`() {
+        val player = player()
+        val coins = InvObj("obj.coins", 100_000)
+        recovery.store(player, handling(player), result(listOf(coins)))
+
+        recovery.reclaim(player)
+
+        assertEquals(coins, player.inv[0])
+        assertFalse(recovery.hasItems(player))
+        recovery.reclaim(player)
+        assertEquals(coins, player.inv[0])
+    }
+
+    @Test
     fun `marked safe death preserves the existing recovery store`() {
         val player = player()
-        val items = listOf(InvObj("obj.shark", 1, vars = 42))
+        val items = listOf(InvObj("obj.tumekens_shadow", 1, vars = 42))
         recovery.store(player, handling(player), result(items))
         player.markNextDeathSafe()
         val safeDeath = result(emptyList())

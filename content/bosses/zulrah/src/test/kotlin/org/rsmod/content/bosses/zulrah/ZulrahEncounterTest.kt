@@ -34,7 +34,11 @@ import org.rsmod.api.npc.hit.queueHit
 import org.rsmod.api.npc.interact.AiPlayerInteractions
 import org.rsmod.api.player.hit.modifier.NoopPlayerHitModifier
 import org.rsmod.api.random.GameRandom
+import org.rsmod.api.registry.loc.LocRegistry
+import org.rsmod.api.registry.loc.LocRegistryNormal
+import org.rsmod.api.registry.loc.LocRegistryRegion
 import org.rsmod.api.registry.npc.NpcRegistry
+import org.rsmod.api.registry.region.RegionRegistry
 import org.rsmod.api.registry.zone.ZoneUpdateMap
 import org.rsmod.api.repo.loc.LocRepository
 import org.rsmod.api.repo.npc.NpcRepository
@@ -48,6 +52,7 @@ import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
 import org.rsmod.game.hit.HitType
 import org.rsmod.game.inv.Inventory
+import org.rsmod.game.map.LocZoneStorage
 import org.rsmod.game.queue.QueueCategory
 import org.rsmod.game.queue.WorldQueueList
 import org.rsmod.game.region.Region
@@ -162,6 +167,25 @@ class ZulrahEncounterTest {
     }
 
     @Test
+    fun `real cloud spawn damages its footprint and exit removes both loc and pending damage`() {
+        val f = Fixture()
+        val center = CoordGrid(3233, 3261)
+        for (dx in -1..1) for (dz in -1..1) {
+            f.collision.remove(center.x + dx, center.z + dz, 0, CollisionFlag.LOC)
+        }
+        f.start()
+        f.advance(6)
+        val origin = center.translate(-1, -1)
+        assertTrue(f.locRepo.findLoc(origin, "loc.snakeboss_poisoncloud"))
+        f.player.coords = center
+        f.advance(1)
+        assertEquals(1, f.player.queueList.count("queue.hit"))
+        f.encounters.stop(f.session.id)
+        assertFalse(f.locRepo.findLoc(origin, "loc.snakeboss_poisoncloud"))
+        assertEquals(0, f.player.queueList.count("queue.hit"))
+    }
+
+    @Test
     fun `other players cannot damage another owners encounter`() {
         val f = Fixture()
         f.start()
@@ -207,6 +231,14 @@ class ZulrahEncounterTest {
         val npcs = NpcList()
         val npcRegistry = NpcRegistry(npcs, collision, events)
         val npcRepo = NpcRepository(clock, npcRegistry, npcs)
+        val zoneUpdates = ZoneUpdateMap()
+        val locStorage = LocZoneStorage()
+        val normalLocs = LocRegistryNormal(zoneUpdates, collision, locStorage)
+        val locRepo = LocRepository(
+            clock,
+            LocRegistry(locStorage, normalLocs, unused(LocRegistryRegion::class.java)),
+            unused(RegionRegistry::class.java),
+        )
         val resolver = InstanceAreaResolver()
         val instances = InstanceManager(unused(RegionRepository::class.java), npcRepo, players, events, resolver, clock, collision)
         val session: InstanceSession
@@ -226,11 +258,11 @@ class ZulrahEncounterTest {
             }
             mapField<InstanceId, Region>(instances, "regions")[session.id] = region
             val deps = BossDeps(
-                FixedRandom, WorldRepository(ZoneUpdateMap()), npcRepo, players, clock,
+                FixedRandom, WorldRepository(zoneUpdates), npcRepo, players, clock,
                 WorldQueueList(), collision, EncounterRegistry(), BossExtensionRegistry(),
                 unused(AccuracyFormulae::class.java), unused(MaxHitFormulae::class.java), NoopPlayerHitModifier,
             )
-            encounters = ZulrahEncounterManager(deps, instances, unused(LocRepository::class.java), AiPlayerInteractions(events, players))
+            encounters = ZulrahEncounterManager(deps, instances, locRepo, AiPlayerInteractions(events, players))
         }
 
         fun start() = encounters.start(player, session)

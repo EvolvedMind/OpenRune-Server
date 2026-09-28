@@ -22,6 +22,11 @@ After a kill, collect the drops on the walkable arrival tile. Leave and board
 again for a new encounter. Hazards and snakelings are removed when the fight
 ends; the private map is released when the player leaves.
 
+Private instance regions stay reserved until the instance manager destroys the
+session. This prevents a second entry in the same tick from reusing the first
+player's map before player activity has been recorded. Failed creation releases
+the reserved map and refunds any entry fee.
+
 Items selected for loss by the server's normal PvM death rules are held in a
 persistent recovery inventory. Talk to the priest in Zul-Andra to reclaim them.
 Make inventory space and repeat to claim any remainder. Reentry is blocked while

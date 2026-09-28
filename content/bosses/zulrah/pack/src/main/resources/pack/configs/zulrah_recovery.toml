@@ -2,6 +2,6 @@
 id = "inv.zulrah_recovery"
 size = 56
 scope = "Perm"
-stack = "Never"
+stack = "Normal"
 protect = false
 uimBlocked = false
