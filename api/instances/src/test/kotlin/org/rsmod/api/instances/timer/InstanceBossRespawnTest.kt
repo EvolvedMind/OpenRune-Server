@@ -35,6 +35,7 @@ import org.rsmod.game.entity.PlayerList
 import org.rsmod.game.map.LocZoneStorage
 import org.rsmod.game.region.RegionListLarge
 import org.rsmod.game.region.RegionListSmall
+import org.rsmod.game.region.RegionListWorldEntity
 import org.rsmod.map.CoordGrid
 import org.rsmod.routefinder.collision.CollisionFlagMap
 
@@ -180,6 +181,7 @@ class InstanceBossRespawnTest {
         private val regions = RegionRegistry(
             RegionListSmall(),
             RegionListLarge(),
+            RegionListWorldEntity(),
             LocRegistryNormal(ZoneUpdateMap(), collision, locZones),
             collision,
             locZones,
