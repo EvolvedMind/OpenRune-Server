@@ -7,4 +7,5 @@ dependencies {
     implementation(projects.api.pluginCommons)
     implementation(projects.content.quest)
     testImplementation(projects.api.invStorage)
+    testImplementation(projects.api.registry)
 }
