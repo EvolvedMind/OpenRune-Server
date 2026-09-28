@@ -29,6 +29,7 @@ import org.rsmod.api.instances.InstanceManager
 import org.rsmod.api.instances.InstanceSession
 import org.rsmod.api.instances.InstanceSpec
 import org.rsmod.api.instances.region.InstanceAreaResolver
+import org.rsmod.api.instances.ui.BossCountdown
 import org.rsmod.api.npc.hit.modifier.NpcHitModifier
 import org.rsmod.api.npc.hit.queueHit
 import org.rsmod.api.npc.interact.AiPlayerInteractions
@@ -50,6 +51,7 @@ import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.NpcList
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
+import org.rsmod.game.entity.npc.NpcStateEvents
 import org.rsmod.game.hit.HitType
 import org.rsmod.game.inv.Inventory
 import org.rsmod.game.map.LocZoneStorage
@@ -78,11 +80,11 @@ class ZulrahEncounterTest {
     }
 
     @Test
-    fun `joining twice creates one mapped boss without a respawn`() {
+    fun `joining twice creates one mapped boss without an engine respawn`() {
         val f = Fixture()
         f.start()
         val boss = f.boss()
-        f.start()
+        f.enter()
         assertEquals(1, f.npcs.count())
         assertEquals(CoordGrid(3226, 3265), boss.coords)
         assertEquals(500, boss.hitpoints)
@@ -90,6 +92,34 @@ class ZulrahEncounterTest {
         assertTrue(f.encounters.validate(f.player, boss) is NpcAttackValidateResult.Deny)
         f.advance(4)
         assertSame(NpcAttackValidateResult.BypassSingleWayPvnRestriction, f.encounters.validate(f.player, boss))
+    }
+
+    @Test
+    fun `entry remains empty for five seconds and duplicate joins do not reset the countdown`() {
+        val f = Fixture()
+        f.enter()
+        assertEquals(0, f.npcs.count())
+        f.advance(4)
+        f.enter()
+        f.advance(4)
+        assertEquals(0, f.npcs.count())
+        f.advance(1)
+        assertEquals(1, f.npcs.count())
+        assertEquals(500, f.boss().hitpoints)
+        assertTrue(f.encounters.validate(f.player, f.boss()) is NpcAttackValidateResult.Deny)
+    }
+
+    @Test
+    fun `leaving or logging out before first spawn cancels the waiting encounter`() {
+        for (logout in listOf(false, true)) {
+            val f = Fixture()
+            f.enter()
+            f.advance(3)
+            if (logout) f.player.pendingLogout = true else f.encounters.stop(f.session.id)
+            f.advance(30)
+            assertEquals(0, f.npcs.count())
+            assertTrue(f.instances.npcsForInstance(f.session.id).isEmpty())
+        }
     }
 
     @Test
@@ -207,7 +237,7 @@ class ZulrahEncounterTest {
         assertEquals(0, boss.hitpoints)
     }
 
-    private class Fixture {
+    internal class Fixture {
         val clock = MapClock(100)
         val events = EventBus()
         val player = Player().apply {
@@ -262,10 +292,16 @@ class ZulrahEncounterTest {
                 WorldQueueList(), collision, EncounterRegistry(), BossExtensionRegistry(),
                 unused(AccuracyFormulae::class.java), unused(MaxHitFormulae::class.java), NoopPlayerHitModifier,
             )
-            encounters = ZulrahEncounterManager(deps, instances, locRepo, AiPlayerInteractions(events, players))
+            encounters = ZulrahEncounterManager(deps, instances, locRepo, AiPlayerInteractions(events, players), BossCountdown(events))
+            events.subscribeUnbound(NpcStateEvents.Delete::class.java) { encounters.onNpcDeleted(npc) }
         }
 
-        fun start() = encounters.start(player, session)
+        fun enter() = encounters.start(player, session)
+
+        fun start() {
+            enter()
+            advance(9)
+        }
 
         fun boss(): Npc = npcs.single().also { assertNotNull(it) }
 

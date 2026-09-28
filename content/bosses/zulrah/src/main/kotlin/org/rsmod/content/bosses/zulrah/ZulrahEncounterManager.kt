@@ -16,6 +16,7 @@ import org.rsmod.api.death.NpcAttackValidateResult
 import org.rsmod.api.instances.InstanceId
 import org.rsmod.api.instances.InstanceManager
 import org.rsmod.api.instances.InstanceSession
+import org.rsmod.api.instances.ui.BossCountdown
 import org.rsmod.api.mechanics.toxins.impl.PlayerVenom
 import org.rsmod.api.npc.apPlayer2
 import org.rsmod.api.npc.interact.AiPlayerInteractions
@@ -48,14 +49,20 @@ constructor(
     private val instances: InstanceManager,
     private val locs: LocRepository,
     private val interactions: AiPlayerInteractions,
+    private val countdown: BossCountdown,
 ) : NpcAttackValidateHook {
     private val fights = mutableMapOf<InstanceId, Fight>()
+    private val waiting = mutableMapOf<InstanceId, WaitingSpawn>()
     private val npcFights = IdentityHashMap<Npc, Fight>()
     private val rays = RayCastValidator(deps.collision)
 
     fun start(player: Player, session: InstanceSession) {
-        if (session.id in fights || session.owner != player.uuid) return
+        if (session.id in fights || session.id in waiting || session.owner != player.uuid) return
         check(instances.sessionForPlayer(player) === session)
+        waitForSpawn(player, session, FIRST_SPAWN_SECONDS)
+    }
+
+    private fun spawn(player: Player, session: InstanceSession) {
         val origin = resolve(session, CoordGrid(2266, 3073, 0))
         val boss = Npc(type("npc.snakeboss_boss_ranged"), origin)
         boss.movementLocked = true
@@ -72,14 +79,30 @@ constructor(
     }
 
     fun stop(instanceId: InstanceId) {
+        waiting.remove(instanceId)?.let { countdown.clear(it.owner, COUNTDOWN_OWNER) }
         val fight = fights.remove(instanceId) ?: return
+        countdown.clear(fight.owner, COUNTDOWN_OWNER)
         fight.finished = true
         clearHazards(fight)
         npcFights.remove(fight.boss)
+        instances.detachNpc(instanceId, fight.boss)
         if (fight.boss.isSlotAssigned) deps.npcRepo.del(fight.boss, Int.MAX_VALUE)
     }
 
     fun tick() {
+        for (pending in waiting.values.toList()) {
+            if (!validOwner(pending.owner, pending.session) || !instances.canSpawnBosses(pending.owner)) {
+                stop(pending.session.id)
+                continue
+            }
+            if (deps.mapClock.cycle >= pending.spawnAt) {
+                waiting.remove(pending.session.id)
+                countdown.clear(pending.owner, COUNTDOWN_OWNER)
+                spawn(pending.owner, pending.session)
+            } else {
+                showCountdown(pending)
+            }
+        }
         for (fight in fights.values.toList()) {
             if (!validOwner(fight)) {
                 stop(fight.session.id)
@@ -156,6 +179,17 @@ constructor(
         return resolve(fight.session, CoordGrid(2268, 3069, 0))
     }
 
+    fun completeDeath(npc: Npc) {
+        val fight = fights.values.firstOrNull { it.boss === npc } ?: return
+        if (!fight.deathStarted || npc.isSlotAssigned) return
+        fights.remove(fight.session.id)
+        npcFights.remove(npc)
+        instances.detachNpc(fight.session.id, npc)
+        if (validOwner(fight) && instances.canSpawnBosses(fight.owner)) {
+            waitForSpawn(fight.owner, fight.session, RESPAWN_SECONDS)
+        }
+    }
+
     fun onHitImpact(player: Player, hit: Hit) {
         val fight = fights.values.firstOrNull { it.owner === player } ?: return
         val effect = fight.pendingHits.remove(hit) ?: return
@@ -167,6 +201,7 @@ constructor(
     fun onNpcDeleted(npc: Npc) {
         val fight = npcFights.remove(npc) ?: return
         fight.minions.remove(npc)
+        if (npc !== fight.boss || !fight.deathStarted) instances.detachNpc(fight.session.id, npc)
     }
 
     fun minionAttack(npc: Npc, target: Player) {
@@ -324,6 +359,7 @@ constructor(
     private fun removeMinion(fight: Fight, npc: Npc) {
         fight.minions.remove(npc)
         npcFights.remove(npc)
+        instances.detachNpc(fight.session.id, npc)
         if (npc.isSlotAssigned) deps.npcRepo.del(npc, Int.MAX_VALUE)
     }
 
@@ -344,7 +380,22 @@ constructor(
     }
 
     private fun validOwner(fight: Fight): Boolean =
-        fight.owner.isValidTarget() && instances.sessionForPlayer(fight.owner) === fight.session
+        validOwner(fight.owner, fight.session)
+
+    private fun validOwner(player: Player, session: InstanceSession): Boolean =
+        player.isValidTarget() && instances.sessionForPlayer(player) === session
+
+    private fun waitForSpawn(player: Player, session: InstanceSession, seconds: Int) {
+        val pending = WaitingSpawn(session, player, deps.mapClock.cycle, seconds)
+        waiting[session.id] = pending
+        showCountdown(pending)
+    }
+
+    private fun showCountdown(pending: WaitingSpawn) {
+        val elapsedMillis = (deps.mapClock.cycle - pending.startedAt) * TICK_MILLIS
+        val seconds = ((pending.seconds * 1000 - elapsedMillis + 999) / 1000).coerceAtLeast(1)
+        countdown.show(pending.owner, COUNTDOWN_OWNER, "Zulrah", pending.spawnAt - deps.mapClock.cycle, seconds)
+    }
 
     private fun schedule(fight: Fight, delay: Int, action: () -> Unit) {
         fight.pending += Pending(deps.mapClock.cycle + delay, action)
@@ -432,7 +483,15 @@ constructor(
     private data class Pending(val tick: Int, val action: () -> Unit)
     private class Cloud(val loc: LocInfo, var expiresAt: Int)
 
+    private class WaitingSpawn(val session: InstanceSession, val owner: Player, val startedAt: Int, val seconds: Int) {
+        val spawnAt = startedAt + (seconds * 1000 + TICK_MILLIS - 1) / TICK_MILLIS
+    }
+
     companion object {
+        internal const val FIRST_SPAWN_SECONDS = 5
+        internal const val RESPAWN_SECONDS = 10
+        private const val TICK_MILLIS = 600
+        private const val COUNTDOWN_OWNER = "zulrah"
         private const val EMERGE_TICKS = 4
         private const val SUBMERGE_TICKS = 5
         private const val CLOUD_DURATION = 30

@@ -7,12 +7,14 @@ import jakarta.inject.Inject
 import org.rsmod.api.instances.BossInstanceRegistry
 import org.rsmod.api.instances.InstanceArea
 import org.rsmod.api.instances.InstanceScript
+import org.rsmod.api.player.cinematic.Cinematic
 import org.rsmod.api.player.events.interact.LocEvents
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
 import org.rsmod.api.script.onCommand
 import org.rsmod.api.script.onProtectedEvent
+import org.rsmod.events.EventBus
 import org.rsmod.plugin.scripts.ScriptContext
 
 class ZulrahInstance
@@ -22,6 +24,7 @@ constructor(
     private val encounters: ZulrahEncounterManager,
     private val recovery: ZulrahDeathRecovery,
     private val protectedAccess: ProtectedAccessLauncher,
+    private val eventBus: EventBus,
 ) : InstanceScript(registry) {
     override fun settingsRow(): String = "dbrow.instance_zulrah"
 
@@ -30,6 +33,19 @@ constructor(
     override fun destroyWhenEmpty(): Boolean = true
 
     override fun ScriptContext.configure() {
+        onEnterPrelude { _, enter ->
+            try {
+                fadeOverlay(0, 255, 0, 0, FADE_TO_BLACK_CLIENT_TICKS)
+                delay(FADE_TO_BLACK_GAME_TICKS)
+                minimapHideMap()
+                enter()
+                fadeOverlay(0, 0, 0, 255, FADE_FROM_BLACK_CLIENT_TICKS)
+                delay(FADE_FROM_BLACK_GAME_TICKS)
+            } finally {
+                minimapReset()
+                Cinematic.closeFadeOverlay(player, eventBus)
+            }
+        }
         onEnterObject { enterZulrah() }
         onExitObject { defaultLeaveFlow() }
         bindBoatVariants()
@@ -85,6 +101,14 @@ constructor(
     }
 
     internal companion object {
+        private const val FADE_TO_BLACK_GAME_TICKS = 2
+        private const val FADE_FROM_BLACK_GAME_TICKS = 4
+        private const val CLIENT_TICKS_PER_GAME_TICK = 30
+        private const val FADE_TO_BLACK_CLIENT_TICKS =
+            FADE_TO_BLACK_GAME_TICKS * CLIENT_TICKS_PER_GAME_TICK
+        private const val FADE_FROM_BLACK_CLIENT_TICKS =
+            FADE_FROM_BLACK_GAME_TICKS * CLIENT_TICKS_PER_GAME_TICK
+
         val ARENA: InstanceArea.CopyRegions =
             InstanceArea.copyRegions(regionIds = listOf(9007, 9008))
 

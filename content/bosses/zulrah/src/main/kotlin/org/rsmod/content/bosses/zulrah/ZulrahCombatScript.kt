@@ -1,6 +1,7 @@
 package org.rsmod.content.bosses.zulrah
 
 import jakarta.inject.Inject
+import org.rsmod.api.combat.commons.npc.NpcMeleeRangeHook
 import org.rsmod.api.death.NpcAttackValidateHook
 import org.rsmod.api.death.NpcDeath
 import org.rsmod.api.game.process.GameLifecycle
@@ -18,6 +19,7 @@ import org.rsmod.plugin.scripts.ScriptContext
 class ZulrahCombatModule : PluginModule() {
     override fun bind() {
         addSetBinding<NpcAttackValidateHook>(ZulrahEncounterManager::class.java)
+        addSetBinding<NpcMeleeRangeHook>(ZulrahMeleeReach::class.java)
     }
 }
 
@@ -35,8 +37,12 @@ constructor(private val encounters: ZulrahEncounterManager, private val death: N
             onModifyNpcHit(type) { encounters.modifyHit(npc, hit) }
             onNpcQueue(type, "queue.death") {
                 val dropCoords = encounters.beginDeath(npc)
-                if (dropCoords != null) death.deathWithDrops(this, dropCoords)
-                else death.deathNoDrops(this)
+                if (dropCoords != null) {
+                    death.deathWithDrops(this, dropCoords)
+                    encounters.completeDeath(npc)
+                } else {
+                    death.deathNoDrops(this)
+                }
             }
         }
         for (symbol in MINION_TYPES) {

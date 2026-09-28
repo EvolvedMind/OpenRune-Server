@@ -12,15 +12,33 @@ variants and Quick-board option are supported. Administrators can use `::zulrah`
 to enter directly and `::zulrah leave` to leave. Use the existing teleport scroll
 in the arena for the ordinary exit.
 
-Each entry creates one encounter. Zulrah has 500 hitpoints shared across all
+Entry fades to black for 1.2 seconds and reveals the arena over 2.4 seconds.
+The first spawn waits five seconds from arrival, shown by the native countdown
+overlay. Server actions run on 600 ms ticks, so this delay rounds up to 5.4 seconds.
+The overlay is separate from the inventory and existing boss/instance HUDs.
+
+Zulrah has 500 hitpoints shared across all
 three forms. Four rotations control the emergence locations, attacks, venom
 clouds, snakelings and alternating ranged/magic phase. Player combat uses the
 server's native accuracy, prayers, hit processing and venom rules. Damage, death
 and rewards are calculated from the current fight, not replayed from a capture.
 
-After a kill, collect the drops on the walkable arrival tile. Leave and board
-again for a new encounter. Hazards and snakelings are removed when the fight
-ends; the private map is released when the player leaves.
+Halberds, noxious halberds, scythes and other melee weapons with extended native
+reach can attack Zulrah from the shore. These weapons receive a three-tile melee
+reach against Zulrah only, measured from the boss's footprint. Normal collision,
+line-of-sight, melee accuracy and the weapon's own hit behavior still apply.
+
+After a kill, collect the drops on the walkable arrival tile and stay for the next
+fight. The respawn countdown starts after the death animation and loot processing
+finish. A new Zulrah spawns ten seconds later (10.2 seconds on server ticks), with
+fresh health, combat state and a newly selected rotation. Existing ground loot
+remains available. The two delay settings live in `ZulrahEncounterManager`.
+Hazards and snakelings are removed when the fight ends; departure, death or logout
+cancels pending spawns and releases the private map through the instance lifecycle.
+
+Other instances with native respawning bosses also show the countdown overlay,
+using each boss's existing respawn deadline. Their configured respawn times remain
+unchanged. Pets, minions and bosses in the ordinary world do not create this HUD.
 
 Private instance regions stay reserved until the instance manager destroys the
 session. This prevents a second entry in the same tick from reusing the first
@@ -86,5 +104,7 @@ Importing or previewing the capture scene is unnecessary.
 
 Before enabling this encounter for a public world, play through entry, all forms,
 the alternating phase, dodging, victory, accessible loot, exit, death/reclaim and
-logout in the target client. Automated cache and runtime tests do not establish
+logout in the target client. Also check halberd/scythe attacks from the shore,
+successive kills without leaving, and departure during both countdowns.
+Automated cache and runtime tests do not establish
 the final animation appearance or live-client timing.

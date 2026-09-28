@@ -6,6 +6,7 @@ import dev.openrune.rscm.RSCMType
 import dev.openrune.types.NpcServerType
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import java.util.IdentityHashMap
 import java.util.concurrent.atomic.AtomicLong
 import org.rsmod.api.instances.events.InstanceEndedEvent
 import org.rsmod.api.instances.events.InstancePlayerJoinEvent
@@ -58,9 +59,7 @@ constructor(
     private val playerIndex = HashMap<Long, InstanceId>()
     private val spawnedNpcs = HashMap<InstanceId, MutableList<Npc>>()
 
-    // Keyed by slot, not uid: `changeType`/transmog reassigns an npc's uid, which would
-    // otherwise orphan this entry under the pre-transmog uid for the rest of the npc's life.
-    private val npcInstanceIndex = HashMap<Int, InstanceId>()
+    private val npcInstanceIndex = IdentityHashMap<Npc, InstanceId>()
 
     public sealed interface Result {
         public data class Created(val session: InstanceSession, val enter: CoordGrid) : Result
@@ -226,7 +225,7 @@ constructor(
     public fun contributionsFor(id: InstanceId): DamageContributions? =
         sessionForId(id)?.damageContributions
 
-    public fun instanceForNpc(npc: Npc): InstanceId? = npcInstanceIndex[npc.slotId]
+    public fun instanceForNpc(npc: Npc): InstanceId? = npcInstanceIndex[npc]
 
     public fun npcsForInstance(id: InstanceId): List<Npc> = spawnedNpcs[id] ?: emptyList()
 
@@ -245,6 +244,13 @@ constructor(
     public fun attachNpc(instanceId: InstanceId, npc: Npc) {
         spawnedNpcs.getOrPut(instanceId) { mutableListOf() }.add(npc)
         indexNpc(instanceId, npc)
+    }
+
+    public fun detachNpc(instanceId: InstanceId, npc: Npc) {
+        val removed = spawnedNpcs[instanceId]?.removeAll { it === npc } == true
+        if (removed) {
+            npcInstanceIndex.remove(npc, instanceId)
+        }
     }
 
     public fun registerSessionNpc(player: Player, npc: Npc): Boolean {
@@ -751,13 +757,11 @@ constructor(
 
     private fun indexNpc(instanceId: InstanceId, npc: Npc) {
         if (!npc.isSlotAssigned) return
-        npcInstanceIndex[npc.slotId] = instanceId
+        npcInstanceIndex[npc] = instanceId
     }
 
     private fun untagAndDelete(npc: Npc) {
-        if (npc.isSlotAssigned) {
-            npcInstanceIndex.remove(npc.slotId)
-        }
+        npcInstanceIndex.remove(npc)
         if (!npc.isSlotAssigned) {
             return
         }
