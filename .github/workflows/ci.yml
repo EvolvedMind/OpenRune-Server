@@ -65,7 +65,19 @@ jobs:
 
       - name: Rebuild sources from cached game data
         if: steps.gamecache.outputs.cache-hit == 'true'
-        run: ./gradlew :or-cache:buildCache :or-cache:mergePluginGamevals
+        run: ./gradlew :or-cache:mergePluginGamevals :or-cache:buildCache
+
+      - name: Verify upgrade from legacy pet gamevals
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('.data/gamevals/enum.rscm')
+          lines = path.read_text().splitlines()
+          lines = [line for line in lines if line.partition('=')[0].strip() != 'heron_pet_chance']
+          lines.append('heron_pet_chance=65473')
+          path.write_text('\n'.join(lines) + '\n')
+          PY
+          ./gradlew :or-cache:mergePluginGamevals :or-cache:buildCache
 
       - name: Compile and run tests
         run: ./gradlew assemble test
