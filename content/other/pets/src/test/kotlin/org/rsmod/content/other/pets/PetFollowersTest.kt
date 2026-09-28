@@ -147,12 +147,19 @@ class PetFollowersTest {
         f.collision.add(f.player.coords.x, f.player.coords.z, 0, CollisionFlag.BLOCK_PLAYERS)
         val movement = NpcMovementProcessor(f.collision, StepFactory(f.collision), f.events)
         repeat(10) {
-            f.clock.tick()
             f.player.currentMapClock = f.clock.cycle
+            f.player.processedMapClock = f.clock.cycle
             npc.currentMapClock = f.clock.cycle
-            assertTrue(f.events.publish(GameLifecycle.LateCycle))
+            npc.processedMapClock = f.clock.cycle
+            npc.previousCoords = npc.coords
             movement.process(npc)
             assertFalse(petOverlapsPlayer(npc.coords, npc.size, f.player.coords))
+            f.clock.tick()
+            assertTrue(f.events.publish(GameLifecycle.LateCycle))
+            assertFalse(petOverlapsPlayer(npc.coords, npc.size, f.player.coords))
+            npc.pendingStepCount = 0
+            npc.pendingTeleport = false
+            npc.pendingTelejump = false
         }
         assertEquals(CoordGrid(3204, 3203), npc.coords)
     }
