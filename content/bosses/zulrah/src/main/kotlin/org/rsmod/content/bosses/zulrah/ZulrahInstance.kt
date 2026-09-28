@@ -44,6 +44,7 @@ constructor(
             } finally {
                 minimapReset()
                 Cinematic.closeFadeOverlay(player, eventBus)
+                manager.cancelPendingEntry(player, worldClock.cycle)
             }
         }
         onEnterObject { enterZulrah() }
