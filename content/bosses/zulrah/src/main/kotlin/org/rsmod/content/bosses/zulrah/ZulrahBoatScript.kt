@@ -28,7 +28,6 @@ import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
-
 internal class ZulrahBoatScript @Inject constructor(
     private val instances: InstanceManager,
     private val eventBus: EventBus,
