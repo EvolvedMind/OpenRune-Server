@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.content.other.pets)
     implementation(libs.fastutil)
     implementation(libs.simmetrics.core)
     implementation(projects.api.areaChecker)

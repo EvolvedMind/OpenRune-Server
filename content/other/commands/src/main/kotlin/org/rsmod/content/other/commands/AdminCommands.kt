@@ -650,7 +650,8 @@ constructor(
                 )
                 return
             }
-            val typeId = "npc.${args[0]}".asRSCM()
+            val npcName = if (args[0].equals("zulrah", ignoreCase = true)) "snakeboss_boss_ranged" else args[0]
+            val typeId = "npc.$npcName".asRSCM()
             val type = ServerCacheManager.getNpc(typeId)
             if (type == null) {
                 player.mes("That npc does not exist: npc.${args[0]}")
