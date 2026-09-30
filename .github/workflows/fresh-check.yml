@@ -62,4 +62,5 @@ jobs:
           name: Fresh-server-verification
           path: |
             boot.log
+            server/app/build/libs/server.jar
             content/other/pets/build/test-results/test/*.xml

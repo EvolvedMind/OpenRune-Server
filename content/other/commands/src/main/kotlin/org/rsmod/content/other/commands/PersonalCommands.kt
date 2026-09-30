@@ -27,7 +27,7 @@ constructor(
     override fun ScriptContext.startup() {
         onCommand("zulrah", "Teleport to the Zul-Andra boat", ::zulrah)
         onCommand("pets", "List pet names: ::pets [page]", ::pets)
-        onCommand("pet", "Spawn a follower: ::pet key [form] or ::pet item_symbol", ::pet)
+        onCommand("petspawn", "Spawn a follower: ::petspawn key [form] or ::petspawn item_symbol", ::petSpawn)
         onCommand("allpets", "Give pets to your bank: ::allpets [forms]", ::allPets)
         onCommand("petcall", "Call your current follower", ::petCall)
         onCommand("petpickup", "Put your current follower in your inventory", ::petPickup)
@@ -48,16 +48,16 @@ constructor(
             player.mes("Use ::pets 1 through $pages.")
             return
         }
-        player.mes("Pets $page/$pages. Use ::pet key [form-number], starting at 1.")
+        player.mes("Pets $page/$pages. Use ::petspawn key [form-number], starting at 1.")
         for (entry in entries.drop((page - 1) * PAGE_SIZE).take(PAGE_SIZE)) {
             player.mes("${entry.key}: ${entry.name} (${entry.forms.size} forms)")
         }
-        player.mes("Cats/dogs: use ::pet item_symbol, matching the native item name.")
+        player.mes("Cats/dogs: use ::petspawn item_symbol, matching the native item name.")
     }
 
-    private fun pet(cheat: Cheat): Unit = with(cheat) {
+    private fun petSpawn(cheat: Cheat): Unit = with(cheat) {
         if (args.isEmpty()) {
-            player.mes("Use ::pets to list keys, then ::pet key [form-number].")
+            player.mes("Use ::pets to list keys, then ::petspawn key [form-number].")
             return
         }
         val numbered = args.size > 1 && args.last().toIntOrNull() != null
