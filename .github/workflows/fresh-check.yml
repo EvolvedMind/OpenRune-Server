@@ -8,6 +8,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,10 +18,48 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+      - uses: actions/cache@v4
+        id: gamecache
+        with:
+          path: |
+            .data/cache
+            .data/xteas.json
+            .data/gamevals-binary
+          key: fresh-gamecache-240-${{ hashFiles('game.example.yml') }}
       - name: Prepare revision 240 cache and generated API
         run: |
-          ./gradlew :or-cache:freshCache --no-daemon --stacktrace
+          if [ '${{ steps.gamecache.outputs.cache-hit }}' != 'true' ]; then
+            ./gradlew :or-cache:freshCache --no-daemon --stacktrace
+          fi
           ./gradlew :or-cache:mergePluginGamevals --no-daemon --stacktrace
           ./gradlew :or-cache:buildCache --no-daemon --stacktrace
       - name: Compile additions and run pet regression tests
         run: ./gradlew :content:bosses:zulrah:compileKotlin :content:other:commands:compileKotlin :content:other:pets:test --no-daemon --stacktrace
+      - name: Build full server
+        run: ./gradlew :server:app:shadowJar generateRsa --no-daemon --stacktrace
+      - name: Boot server to ready
+        run: |
+          cp game.example.yml game.yml
+          ./gradlew run -q > boot.log 2>&1 &
+          GRADLE_PID=$!
+          for i in $(seq 1 300); do
+            grep -q 'Server ready in' boot.log && break
+            kill -0 $GRADLE_PID 2>/dev/null || break
+            sleep 1
+          done
+          if grep -q 'Server ready in' boot.log; then
+            grep 'Server ready in' boot.log
+          else
+            tail -60 boot.log
+            exit 1
+          fi
+          kill $GRADLE_PID 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Fresh-server-verification
+          path: |
+            boot.log
+            content/other/pets/build/test-results/test/*.xml

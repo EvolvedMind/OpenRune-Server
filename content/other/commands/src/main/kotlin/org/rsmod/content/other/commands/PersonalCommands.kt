@@ -55,7 +55,7 @@ constructor(
         player.mes("Cats/dogs: use ::pet item_symbol, matching the native item name.")
     }
 
-    private fun pet(cheat: Cheat) = with(cheat) {
+    private fun pet(cheat: Cheat): Unit = with(cheat) {
         if (args.isEmpty()) {
             player.mes("Use ::pets to list keys, then ::pet key [form-number].")
             return
