@@ -20,7 +20,7 @@ import org.rsmod.game.movement.RouteRequestPathingEntity
 import org.rsmod.game.vars.VarPlayerIntMap
 import org.rsmod.utils.bits.getBits
 
-public class NpcInteractions @Inject constructor(private val eventBus: EventBus) {
+public class NpcInteractions @Inject constructor(private val eventBus: EventBus, private val contextual: ContextualInteractions = ContextualInteractions()) {
     public fun interact(player: Player, npc: Npc, op: InteractionOp) {
         val opTrigger = hasOpTrigger(player, npc, op)
         val apTrigger = hasApTrigger(player, npc, op)
@@ -43,6 +43,7 @@ public class NpcInteractions @Inject constructor(private val eventBus: EventBus)
         op: InteractionOp,
         type: NpcServerType = npc.visType,
     ): OpEvent? {
+        contextual.npc(player, npc, op)?.let { return it }
         val multiNpcType = multiNpc(type, player.vars)
         if (multiNpcType != null) {
             val multiNpcTrigger = opTrigger(player, npc, op, multiNpcType)

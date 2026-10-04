@@ -269,3 +269,15 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - Upstream conflict risk: NPC hit-processing order, player damage rolls and death/drop
   context signatures. Prefer equivalent upstream opt-in hooks if introduced; retain
   isolation, applied-damage and reward-selection regressions when migrating.
+
+## Treasure Trail interaction hooks (2026-10-04, unreleased)
+
+- api/player ContextualInteractions, ContextualOpEvents, NpcInteractions and
+  LocInteractions: player-specific selectors may override only matching operations.
+  Unmatched operations retain their previous routing. Selectors are removed by the
+  owning plugin shutdown hook. No clue IDs or rules are embedded in core dispatch.
+- PlayerDigEvent and BarrowsScript: publish a dig only after ruling out a Barrows
+  mound. Barrows' existing mound handling is unchanged. The clue handler marks only
+  a matching dig as handled; all other digs keep the original message.
+- Validation of catalog/puzzle/box code passes; interaction fallback and live
+  startup still need validation. See docs/custom/treasure-trails.md. Not released.

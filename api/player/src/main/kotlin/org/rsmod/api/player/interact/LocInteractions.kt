@@ -25,7 +25,7 @@ import org.rsmod.utils.bits.getBits
 
 public class LocInteractions
 @Inject
-constructor(private val boundValidator: BoundValidator, private val eventBus: EventBus) {
+constructor(private val boundValidator: BoundValidator, private val eventBus: EventBus, private val contextual: ContextualInteractions = ContextualInteractions()) {
     public fun interact(
         player: Player,
         loc: BoundLocInfo,
@@ -62,6 +62,7 @@ constructor(private val boundValidator: BoundValidator, private val eventBus: Ev
         type: ObjectServerType = ServerCacheManager.getObject(loc.id)!!,
         base: BoundLocInfo = loc,
     ): OpEvent? {
+        contextual.loc(player, loc, op)?.let { return it }
         val multiLoc = multiLoc(loc, type, player.vars)
         if (multiLoc != null) {
             val multiLocType = ServerCacheManager.getObject(multiLoc.id)!!
