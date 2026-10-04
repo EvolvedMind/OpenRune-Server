@@ -82,7 +82,7 @@ internal class TrailInteractionScript @Inject constructor(
         for (row in active.clue.fields.ints("challenge")) {
             val fields = progress.catalog.fields(row)
             if (fields.table == "cluehelper_challenge_box") {
-                if (active.state.phase != 2) {
+                if (active.state.phase != 2 || TrailPuzzleItems.owned(player, active.state) == null) {
                     val light = when (active.state.phase) { 1 -> false; 6 -> true; else -> fields.string("description").contains("light") }
                     puzzles.show(this, active, light)
                     return
@@ -105,7 +105,8 @@ internal class TrailInteractionScript @Inject constructor(
             player.mes("This is locked. Find the key described by your clue.")
             return
         }
-        if (progress.advance(player, player.inv, active.slot, active.item, keys)) {
+        val puzzle = if (active.state.phase == 2) listOfNotNull(TrailPuzzleItems.owned(player, active.state)) else emptyList()
+        if (progress.advance(player, player.inv, active.slot, active.item, keys + puzzle)) {
             player.mes(if (active.state.completed + 1 == active.state.total) "You have completed the trail and found a reward casket!" else "You find another clue. Your Treasure Trail continues.")
         }
     }

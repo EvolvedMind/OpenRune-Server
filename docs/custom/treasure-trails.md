@@ -13,6 +13,9 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 - Location/NPC/dig dispatch, equipment/stat checks, numeric challenge answers,
   key consumption and kill-based key collection.
 - Sliding and light puzzle logic, native interfaces and item-owned board state.
+- Physical puzzle boxes are issued atomically, reopen from inventory and remain
+  associated with their clue after item serialization. Hand-in consumes only the
+  matching box; a full inventory cannot partially issue a puzzle or change its phase.
 - Guardian ownership and kill association, emote ordering/Uri and hot/cold devices.
 - Music clues check the requested currently playing track at Cecilia. Charlie's
   eight hand-ins consume the requested item atomically. Three Sherlock gathering
@@ -24,7 +27,7 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 ## Required before release
 
 - Finish and exercise Sherlock/Charlie tasks, Falo assignment, torn master parts,
-  physical puzzle boxes/reopening, map-art associations and Watson exchange.
+  map-art associations and Watson exchange. Exercise physical puzzle UI in-game.
 - Complete Mimic eligibility, private encounter, retries, mechanics and reward bonus.
 - Verify guardian combat styles/animations, quest restrictions, step selection,
   completion counters, and full-inventory/reconnect/death paths end to end.
@@ -35,7 +38,8 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 ## Validation so far
 
-15 focused tests pass (boxes/state/catalog, puzzle invariants, reward data and
+18 focused tests pass (boxes/state/catalog, puzzle invariants and physical box
+ownership/capacity/reopening, reward data and
 6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
 contextual selector isolation/unregistration). The storage test caught and fixed
 automatic unnoting caused by an Always-stack inventory: escrow uses Normal stacking.

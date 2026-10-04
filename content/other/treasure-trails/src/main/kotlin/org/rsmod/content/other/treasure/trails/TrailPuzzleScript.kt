@@ -26,14 +26,23 @@ internal class TrailPuzzleScript @Inject constructor(private val progress: Trail
         onIfClose("interface.trail_slidepuzzle") { open.remove(player) }
         onIfClose("interface.light_puzzle") { open.remove(player) }
         onPlayerLogout { open.remove(player) }
+        for (type in TrailPuzzleItems.types) onOpHeld1(type) {
+            val box = it.inventory[it.slot] ?: return@onOpHeld1
+            val match = player.inv.objs.mapIndexedNotNull { slot, item ->
+                val state = item?.let(progress::state) ?: return@mapIndexedNotNull null
+                if (TrailPuzzleItems.owner(state) != box.vars) return@mapIndexedNotNull null
+                ActiveTrail(slot, item, state, progress.catalog.clues.getValue(state.row))
+            }.firstOrNull()
+            if (match == null) { mes("You need the matching clue scroll to use this puzzle box."); return@onOpHeld1 }
+            if (match.state.phase == 2) { mes("This puzzle is solved. Return it to the person who gave it to you."); return@onOpHeld1 }
+            show(this, match, box.id == "obj.light_puzzle_box".asRSCM())
+        }
     }
     fun show(access: ProtectedAccess, active: ActiveTrail, light: Boolean) = with(access) {
         var item = player.inv[active.slot] ?: return@with
         if (item !== active.item) return@with
-        if (active.state.phase !in listOf(1, 6)) {
-            if (!progress.phase(player, active.slot, item, if (light) 6 else 1)) return@with
-            item = player.inv[active.slot] ?: return@with
-        }
+        if (!TrailPuzzleItems.give(player, active, light)) { mes("You need an inventory space for the puzzle box."); return@with }
+        item = player.inv[active.slot] ?: return@with
         val state = progress.state(item) ?: return@with
         if (state.phase !in listOf(1, 6)) return@with
         val image = if (active.clue.tier == TrailTier.MASTER) 4 + state.row % 3 else 1 + state.row % 3
@@ -71,6 +80,7 @@ internal class TrailPuzzleScript @Inject constructor(private val progress: Trail
         val session = open[player] ?: return null
         val item = player.inv[session.slot] ?: return null
         if (progress.state(item)?.encode() != session.owner) return null
+        if (TrailPuzzleItems.owned(player, progress.state(item)!!) == null) return null
         return session
     }
     private fun ProtectedAccess.move(slot: Int) {

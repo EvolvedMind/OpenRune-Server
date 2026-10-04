@@ -226,3 +226,5 @@ Branch feature/treasure-trails. Kraken alias added to testloot with 1-1000 valid
 ## 2026-10-04 - Full Treasure Trails scope confirmed
 
 User explicitly requests full hunts, steps and puzzles, with master Mimic chance. Scroll boxes produce clue scrolls. Foundation and 11 focused tests pass; catalog contains 997 records but this is not gameplay completion. Pending: remaining challenge flows, Mimic encounter, runtime/cache integration and installer. See docs/custom/treasure-trails.md. No merge or live install.
+
+2026-10-04 - Treasure Trails chunk: physical sliding/light puzzle boxes now retain clue ownership, reopen from inventory and are consumed by exact slot at hand-in. Atomic full-inventory issuance and stale-reference protection verified; 18 clue tests pass. Maps, remaining tasks, Mimic and live/cache validation still pending; no release or merge.

@@ -55,10 +55,12 @@ class TrailProgress @Inject constructor(val catalog: TrailCatalog, private val r
     }
     fun replace(player: Player, inventory: Inventory, slot: Int, original: InvObj, output: InvObj, consume: List<InvObj> = emptyList()): Boolean {
         if (inventory[slot] !== original) return false
+        val exactSlots = consume.filter { it.vars != 0 }.associateWith { item -> inventory.objs.indexOfFirst { it === item } }
+        if (exactSlots.values.any { it < 0 }) return false
         return player.invTransaction(inventory) {
             val target = select(inventory)
             delete(target, original.id, 1, slot)
-            for (item in consume) delete(target, item.id, item.count)
+            for (item in consume) delete(target, item.id, item.count, exactSlots[item])
             add(target, output.id, output.count, output.vars, if (original.count == 1) slot else null)
         }.success
     }
