@@ -3,8 +3,8 @@ package org.rsmod.content.other.treasure.trails
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
-import org.rsmod.api.player.events.interact.ContextualNpcOp
 import org.rsmod.api.player.events.interact.ContextualLocOp
+import org.rsmod.api.player.events.interact.ContextualNpcOp
 import org.rsmod.api.player.interact.ContextualInteractions
 import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.Player
@@ -29,6 +29,7 @@ class TrailRoutingTest {
         routing.npc("test") { _, _, _ -> event }
         assertSame(event, routing.npc(owner, target, InteractionOp.Op1))
     }
+
     @Test fun `unmatched loc routes remain available to existing handlers after unload`() {
         val routing = ContextualInteractions()
         val owner = Player()
