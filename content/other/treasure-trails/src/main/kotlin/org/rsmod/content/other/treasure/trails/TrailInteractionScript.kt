@@ -51,6 +51,13 @@ internal class TrailInteractionScript @Inject constructor(
         }
     }
     private suspend fun ProtectedAccess.resolve(active: ActiveTrail) {
+        if (active.state.row == TrailCatalog.sherlockIntro) {
+            if (progress.assignSherlock(player, active.slot, active.item)) {
+                val assigned = progress.state(player.inv[active.slot]!!)!!
+                mes(progress.catalog.clues.getValue(assigned.row).text)
+            }
+            return
+        }
         val missing = requirements.missing(player, active.clue)
         if (missing != null) { mes(missing); return }
         if (active.clue.kind == "music") {

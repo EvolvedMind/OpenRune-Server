@@ -22,7 +22,10 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 - Guardian ownership and kill association, emote ordering/Uri and hot/cold devices.
 - Music clues check the requested currently playing track at Cecilia. Charlie's
   eight hand-ins consume the requested item atomically. Three Sherlock gathering
-  tasks use successful skilling events after assignment; the other tasks remain pending.
+  tasks and two crafting tasks use successful skilling events after assignment.
+  Elite Sherlock introductions assign a persistent task without advancing the trail;
+  revisiting or reloading cannot reroll that assignment. Remaining tasks are tracked in
+  [clue-task-coverage.md](clue-task-coverage.md).
 - 66 weighted reward tables with 743 named cache items. Persistent pending reward
   inventory is separate from Barrows' temporary display inventory.
 - `::cluerewards` retrieves pending rewards; collection log integration.
@@ -31,7 +34,8 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 - Finish and exercise Sherlock/Charlie tasks, Falo assignment, torn master parts,
   map-art associations and Watson exchange. Exercise physical puzzle UI in-game.
-- Complete Mimic eligibility, private encounter, retries, mechanics and reward bonus.
+- Complete Mimic eligibility, private encounter, retries, mechanics and reward bonus
+  last, after clue gameplay, as requested by the user.
 - Verify guardian combat styles/animations, quest restrictions, step selection,
   completion counters, and full-inventory/reconnect/death paths end to end.
 - Apply and audit cache patches, test persistent reward storage with real packed
@@ -41,11 +45,14 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 ## Validation so far
 
-19 focused tests pass (18-test suite plus the corrected map-interface test run
-separately): boxes/state/catalog, puzzle invariants and physical box
+22 clue tests and 16 crafting tests pass: boxes/state/catalog, puzzle invariants and physical box
 ownership/capacity/reopening, reward data and
 6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
 contextual selector isolation/unregistration, native map content and Close script.
+Sherlock tests cover persistent elite assignment without advancing or rerolling,
+correct post-assignment products, bonus/wrong/zero products and skill requirements.
+Crafting tests verify success events occur after actual output insertion, never on
+missing ingredients or failed insertion, alongside the existing boss-item recipes.
 The storage test caught and fixed
 automatic unnoting caused by an Always-stack inventory: escrow uses Normal stacking.
 These tests do not establish

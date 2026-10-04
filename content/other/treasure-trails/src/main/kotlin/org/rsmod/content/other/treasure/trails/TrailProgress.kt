@@ -53,6 +53,14 @@ class TrailProgress @Inject constructor(val catalog: TrailCatalog, private val r
         val state = state(original) ?: return false
         return replace(player, player.inv, slot, original, original.copy(count = 1, vars = state.copy(phase = phase).encode()))
     }
+    fun assignSherlock(player: Player, slot: Int, original: InvObj): Boolean {
+        val state = state(original) ?: return false
+        if (state.row != TrailCatalog.sherlockIntro) return false
+        val tasks = catalog.clues.values.filter { it.tier == TrailTier.ELITE && it.kind == "skillchallenge" }
+        val task = tasks[random.of(tasks.size)]
+        val assigned = state.copy(row = task.row, phase = TrailSkillChallenges.ASSIGNED)
+        return replace(player, player.inv, slot, original, original.copy(vars = assigned.encode()))
+    }
     fun replace(player: Player, inventory: Inventory, slot: Int, original: InvObj, output: InvObj, consume: List<InvObj> = emptyList()): Boolean {
         if (inventory[slot] !== original) return false
         val exactSlots = consume.filter { it.vars != 0 }.associateWith { item -> inventory.objs.indexOfFirst { it === item } }

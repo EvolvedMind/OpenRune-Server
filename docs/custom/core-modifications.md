@@ -279,5 +279,10 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - PlayerDigEvent and BarrowsScript: publish a dig only after ruling out a Barrows
   mound. Barrows' existing mound handling is unchanged. The clue handler marks only
   a matching dig as handled; all other digs keep the original message.
+- SkillingProductSource gains a Crafting source. CraftingWorker publishes the existing
+  SkillingActionCompleteEvent only after successful output insertion and XP processing,
+  before any blocking result dialogue. Failed recipes and failed inventory insertion
+  do not publish success. No clue identifiers enter crafting or the player API.
+  Conflict risk: preserve event ordering if upstream restructures crafting transactions.
 - Validation of catalog/puzzle/box code passes; interaction fallback and live
   startup still need validation. See docs/custom/treasure-trails.md. Not released.

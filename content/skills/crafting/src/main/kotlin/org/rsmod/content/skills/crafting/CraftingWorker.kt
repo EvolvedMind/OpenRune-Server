@@ -4,6 +4,9 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
 import jakarta.inject.Inject
+import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
+import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.output.ChatType
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.craftingLvl
@@ -243,6 +246,13 @@ suspend fun ProtectedAccess.craftOnce(product: CraftingProduct): Boolean {
 
     advanceCraftingXp(CraftingConstants.STAT_CRAFTING, product.xp)
     product.extraXp.forEach { advanceCraftingXp(it.stat, it.xp) }
+    publish(SkillingActionCompleteEvent(player, SkillingActionContext.Product(
+        skill = CraftingConstants.STAT_CRAFTING,
+        item = product.output,
+        count = product.outputCount,
+        experienceGranted = product.xp / CraftingConstants.FINE_XP_DIVISOR,
+        source = SkillingProductSource.Crafting,
+    )))
     val resultDialogue = product.resultDialogue
     if (resultDialogue != null) {
         objbox(product.output, resultDialogue)
