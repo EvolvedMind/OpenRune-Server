@@ -16,6 +16,9 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 - Physical puzzle boxes are issued atomically, reopen from inventory and remain
   associated with their clue after item serialization. Hand-in consumes only the
   matching box; a full inventory cannot partially issue a puzzle or change its phase.
+- Eight explicitly named cache map interfaces are linked to their matching clue
+  items (easy 006, hard 006-007, medium 008-012). Remaining map associations are
+  unresolved; map clue coverage is not complete.
 - Guardian ownership and kill association, emote ordering/Uri and hot/cold devices.
 - Music clues check the requested currently playing track at Cecilia. Charlie's
   eight hand-ins consume the requested item atomically. Three Sherlock gathering
@@ -38,10 +41,12 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 ## Validation so far
 
-18 focused tests pass (boxes/state/catalog, puzzle invariants and physical box
+19 focused tests pass (18-test suite plus the corrected map-interface test run
+separately): boxes/state/catalog, puzzle invariants and physical box
 ownership/capacity/reopening, reward data and
 6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
-contextual selector isolation/unregistration). The storage test caught and fixed
+contextual selector isolation/unregistration, native map content and Close script.
+The storage test caught and fixed
 automatic unnoting caused by an Always-stack inventory: escrow uses Normal stacking.
 These tests do not establish
 complete gameplay support or prove runtime dependency injection/startup.

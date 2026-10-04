@@ -38,6 +38,13 @@ internal class TrailScrollScript @Inject constructor(
             return
         }
         VarPlayerIntMapSetter.set(player, "varp.cluehelper_infobox_clue", state.row)
+        if (clue.kind == "map") {
+            val modal = TrailMaps.interfaces[progress.catalog.item(clue)]
+            if (modal != null) {
+                ifOpenMain(modal)
+                return
+            }
+        }
         ifOpenMain("interface.trail_cluetext")
         val text = when (clue.kind) {
             "anagram" -> "This anagram reveals who to speak to next:<br><br>${clue.text}"
