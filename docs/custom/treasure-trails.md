@@ -52,6 +52,16 @@ Kraken command suite: 17 tests passed separately.
   https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/hotcold/HotColdTemperature.java
 - Device behavior: https://oldschool.runescape.wiki/w/Strange_device
 
+## Mimic asset investigation (encounter not implemented yet)
+
+Read-only scan of the existing server map cache confirmed the strange casket
+(`loc.trail_mimic_enabler`, 34733) at (1645,3569,1), with Search as its first option.
+The arena keyhole object (34727) is at (2719,4311,1), with Use and Exit options.
+Arena wall/corner objects 34720-34732 occupy the same region. Use these actual
+map objects when implementing entry and instance placement; do not infer a new
+location or replace the map. Boss/minion assets are already present, but their
+encounter logic and animation configuration still need implementation/validation.
+
 ## Compatibility
 
 `inv.trail_pending_rewards` is permanent and owns undelivered rewards.
