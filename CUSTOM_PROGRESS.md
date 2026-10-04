@@ -218,3 +218,7 @@ User confirmed perfect and authorized merge. Accepted runtime 1e4f7f7e4, install
 ## 2026-10-04 - Spirit shields and Zulrah item crafting
 
 Implemented spirit shield blessing/sigils, blowpipe assembly, existing serpentine helm and toxic weapon recipes, enhanced/ornamented tridents, mutagen variants, scale dismantling and reversible component separation. Native atomic inventory transactions preserve ingredients on failure. 60 focused tests, formatting, full server build and isolated startup/bridge/shutdown pass. User authorized merge; new recipe in-game verification remains pending. Installer: outputs/boss-item-crafting-20261004. See docs/custom/boss-item-crafting.md.
+
+## 2026-10-04 - Treasure Trails (IN PROGRESS)
+
+Branch feature/treasure-trails. Kraken alias added to testloot with 1-1000 validation; commands tests pass. Clue assets and drop transforms exist, but no active clue completion/reward/Mimic implementation was found. Requested scope: scroll boxes, correct rewards and Mimic; full step-by-step trails versus direct reward opening awaits user clarification. No clue completion claim or merge yet.
