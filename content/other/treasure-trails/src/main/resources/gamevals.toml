@@ -1,0 +1,9 @@
+[gamevals.param]
+trail_cluehelper_row = 623
+trail_equipment_group = 258
+
+[gamevals.enum]
+trail_puzzle_images = 1864
+
+[gamevals.inv]
+trail_pending_rewards = 63190

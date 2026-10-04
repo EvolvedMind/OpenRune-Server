@@ -222,3 +222,7 @@ Implemented spirit shield blessing/sigils, blowpipe assembly, existing serpentin
 ## 2026-10-04 - Treasure Trails (IN PROGRESS)
 
 Branch feature/treasure-trails. Kraken alias added to testloot with 1-1000 validation; commands tests pass. Clue assets and drop transforms exist, but no active clue completion/reward/Mimic implementation was found. Requested scope: scroll boxes, correct rewards and Mimic; full step-by-step trails versus direct reward opening awaits user clarification. No clue completion claim or merge yet.
+
+## 2026-10-04 - Full Treasure Trails scope confirmed
+
+User explicitly requests full hunts, steps and puzzles, with master Mimic chance. Scroll boxes produce clue scrolls. Foundation and 11 focused tests pass; catalog contains 997 records but this is not gameplay completion. Pending: remaining challenge flows, Mimic encounter, runtime/cache integration and installer. See docs/custom/treasure-trails.md. No merge or live install.
