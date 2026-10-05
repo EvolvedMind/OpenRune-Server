@@ -278,3 +278,7 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Validation: 54 Treasure Trails tests, 3 Cooking tests, 2 Thieving tests and 3 Fletching tests passed. Full cache/server build successful; isolated startup, game port, Nero bridge/catalog and graceful shutdown passed against the candidate JAR/cache. Installer/rollback regression tests passed.
 - Test distribution: outputs/clues-test-20261005/INSTALLEREN.cmd, with read-only CONTROLEREN.cmd and TERUGZETTEN.cmd. The package verifies baseline and payload hashes and preserves a checkpoint of replaced software/cache files; player database is excluded.
 - Updated CONTENT_INVENTORY.md and preserved the expanded main-branch roadmap. Active branch: feature/treasure-trails. This is a test candidate, not a complete clue release; no merge or accepted runtime installation performed.
+
+### 2026-10-05 - Clue commands corrected; clue development parked
+- Bare ::cluetest box/casket/scroll now supply beginner items. Help uses square brackets because the client interprets angle brackets as markup. Explicit tiers remain supported.
+- Validation: 55 Treasure Trails tests pass, including all three bare commands. Clues remain 40/60 skill tasks; remaining clue work and Mimic are parked at the user request. Next work: NPC combat-effect HUD, then reviewed upstream Doom integration.

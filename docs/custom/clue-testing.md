@@ -20,6 +20,7 @@ update the currently installed server by themselves.
 | `::cluerewards` | Existing command to collect pending casket rewards after freeing inventory space. |
 
 Tiers: `beginner`, `easy`, `medium`, `hard`, `elite`, `master`.
+Box, casket and scroll default to beginner when the tier is omitted.
 Box/casket quantity defaults to one and must be between 1 and 28.
 The task index is the suffix of the native `cluehelper_skillchallenge_<tier>_<index>`
 row; the indexed task may still be incomplete. Consult [task coverage](clue-task-coverage.md).
