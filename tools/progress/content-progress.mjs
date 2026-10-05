@@ -517,6 +517,11 @@ fs.writeFileSync(P('CONTENT_INVENTORY.md'), [
   '',
   '**For tested fork status and roadmap, read [PROGRESS.md](PROGRESS.md).**',
   '',
+  ...(fs.existsSync(P('content/other/treasure-trails/build.gradle.kts')) ? [
+    '**Treasure Trails is in development, not complete.** See [task coverage](docs/custom/clue-task-coverage.md)',
+    'and [clue test commands](docs/custom/clue-testing.md) for the current implementation and remaining work.',
+    '',
+  ] : []),
   legend,
   '',
   headline,

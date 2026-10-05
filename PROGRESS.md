@@ -1,6 +1,6 @@
 # OpenRune fork progress
 
-Updated **2026-10-04**. This is the human-reviewed progress entry point.
+Updated **2026-10-05**. This is the human-reviewed progress entry point.
 The automatic scanner writes [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md), never this file.
 A symbol, pet or drop table does not establish a playable or verified boss.
 
@@ -23,6 +23,7 @@ It is preserved unchanged during repository organization.
 | Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
+| Treasure Trails | IN DEVELOPMENT / NOT RELEASED; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Research only; no active encounter/delve system |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
