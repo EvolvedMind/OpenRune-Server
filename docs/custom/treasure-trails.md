@@ -99,3 +99,7 @@ Barrows retains its existing use of that inventory. Closing a clue interface nev
 clears Barrows' display inventory. The clue puzzle inventory becomes permanent.
 Contextual selectors unregister on plugin shutdown; unmatched interactions follow
 their original route. No live server installation has been performed.
+
+### Herblore clue production hooks (2026-10-05)
+
+Finished potion and barbarian mix production now publish completion after successful inventory output. Sherlock accepts super defence (normal or chemistry extra dose), anti-venom doses 1-4, and a freshly made ranging mix. Buying, spawning, decanting, or merely possessing a potion does not publish this event. Assignment, wrong-product, bonus-product and return-to-Sherlock state checks are covered by clue tests. Actual queued brewing and live UI acceptance remain to be validated. Mimic remains last.

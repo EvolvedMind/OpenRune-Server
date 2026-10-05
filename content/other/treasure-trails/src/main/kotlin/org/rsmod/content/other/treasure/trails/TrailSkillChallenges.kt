@@ -22,7 +22,7 @@ internal class TrailSkillChallenges @Inject constructor(
             for (active in targets.active(player)) {
                 if (active.clue.kind != "skillchallenge" || active.state.phase != ASSIGNED) continue
                 val expected = products[active.state.row] ?: continue
-                if (product.skill != expected.first || product.item.asRSCM() != expected.second.asRSCM()) continue
+                if (product.skill != expected.first || product.item.asRSCM() !in (alternatives[active.state.row] ?: setOf(expected.second)).map { it.asRSCM() }) continue
                 if (requirements.missing(player, active.clue) != null) continue
                 if (!TrailSkillOutfits.matches(player, active.state.row)) continue
                 if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
@@ -32,8 +32,17 @@ internal class TrailSkillChallenges @Inject constructor(
     companion object {
         const val ASSIGNED = 9
         const val COMPLETED = 10
+        internal val alternatives by lazy {
+            mapOf(
+                "dbrow.cluehelper_skillchallenge_elite_6".asRSCM() to setOf("obj.3dose2defense", "obj.4dose2defense"),
+                "dbrow.cluehelper_skillchallenge_master_10".asRSCM() to (1..4).map { "obj.antivenom$it" }.toSet(),
+            )
+        }
         internal val products by lazy {
             mapOf(
+                "dbrow.cluehelper_skillchallenge_elite_6".asRSCM() to ("stat.herblore" to "obj.3dose2defense"),
+                "dbrow.cluehelper_skillchallenge_master_10".asRSCM() to ("stat.herblore" to "obj.antivenom4"),
+                "dbrow.cluehelper_skillchallenge_master_15".asRSCM() to ("stat.herblore" to "obj.brutal_2doserangerspotion"),
                 "dbrow.cluehelper_skillchallenge_elite_8".asRSCM() to ("stat.crafting" to "obj.dragonhide_body"),
                 "dbrow.cluehelper_skillchallenge_elite_13".asRSCM() to ("stat.mining" to "obj.mithril_ore"),
                 "dbrow.cluehelper_skillchallenge_elite_15".asRSCM() to ("stat.fishing" to "obj.raw_shark"),

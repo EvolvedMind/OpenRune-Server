@@ -236,3 +236,8 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 2026-10-05 - Treasure Trails master gathering chunk: runite/prospector, anglerfish/angler and redwood/lumberjack task completion is checked on real primary production with required worn slots. Mixed supported variants and Varrock armour 4 substitution included. 24 clue tests pass, including each missing slot, inventory-only gear and bonus rejection. Task coverage updated. Mimic remains last; no installation or merge.
 
 2026-10-05 - Treasure Trails Sherlock combat chunk: ordinary dust devil, Slayer Tower nechryael and overworld lizardman shaman task kills use the existing credited-player death hook. Assignment and requirements are enforced; completion awaits return to Sherlock. 27 clue tests pass offline with cached dependencies; no dependency updates. Superior/raid variants still require validation. Mimic remains last; no installation or merge.
+
+### 2026-10-05 - Treasure Trails: Herblore challenges
+- Added successful brewing hooks for assigned super defence, anti-venom and ranging mix tasks, including valid dose variants.
+- Herblore compilation passed; 28 clue tests passed (clues-herblore-retest.log).
+- Actual queued brewing and in-game validation still pending. No install or merge. Mimic remains last.

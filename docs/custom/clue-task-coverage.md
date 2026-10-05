@@ -19,7 +19,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Elite | Catch a mottled eel with aerial fishing in Lake Molch. | Pending. |
 | Elite | Score a goal in skullball. | Pending. |
 | Elite | Complete a lap of Ape atoll agility course. | Pending. |
-| Elite | Create a super defence potion. | Pending. |
+| Elite | Create a super defence potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Elite | Steal from a chest in Ardougne Castle. | Pending. |
 | Elite | Craft a green dragonhide body. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | String a yew longbow. | Pending. |
@@ -48,12 +48,12 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Burn a magic log. | Pending. |
 | Master | Burn a redwood log. | Pending. |
 | Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | Pending. |
-| Master | Mix an anti-venom potion. | Pending. |
+| Master | Mix an anti-venom potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Steal a gem from the Ardougne market. | Pending. |
 | Master | Pickpocket an elf. | Pending. |
 | Master | Bind a blood rune at the Blood Altar. | Pending. |
-| Master | Mix a ranging mix potion. | Pending. |
+| Master | Mix a ranging mix potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Fletch a rune dart. | Pending. |
 | Master | Cremate a set of fiyr remains. | Pending. |
 | Master | Dissect a sacred eel. | Pending. |
@@ -67,7 +67,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Catch a tecu salamander. | Pending. |
 
 The production-event implementation currently covers six gathering tasks and
-two crafting tasks. Elite Sherlock assignment retains the current trail step.
+two crafting tasks and three Herblore tasks. Elite Sherlock assignment retains the current trail step.
 Inventory safety and task-state tests are separate from live gameplay acceptance.
 
 Outfit checks run when the product is awarded. Each required slot must be worn.

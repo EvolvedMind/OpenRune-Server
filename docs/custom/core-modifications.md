@@ -286,3 +286,5 @@ calls retain their default. Boundary regressions cover both modifiers together.
   Conflict risk: preserve event ordering if upstream restructures crafting transactions.
 - Validation of catalog/puzzle/box code passes; interaction fallback and live
   startup still need validation. See docs/custom/treasure-trails.md. Not released.
+
+- 2026-10-05: `SkillingProductSource.Herblore` identifies successful finished-potion and barbarian-mix output events for assigned Sherlock challenges. Existing ingredient, chemistry and XP behaviour is retained.

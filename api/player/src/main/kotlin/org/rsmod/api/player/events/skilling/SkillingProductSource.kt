@@ -6,6 +6,8 @@ import org.rsmod.game.loc.BoundLocInfo
 
 public sealed class SkillingProductSource {
 
+    public data object Herblore : SkillingProductSource()
+
     public data object Crafting : SkillingProductSource()
 
     public data class Mining(

@@ -110,12 +110,32 @@ class TrailSkillChallengesTest {
         assertFalse(TrailSkillOutfits.matches(f.player, row))
     }
 
+    @Test fun `Herblore tasks accept brewed doses only after assignment`() {
+        for ((row, expected) in TrailSkillChallenges.products.filterValues { it.first == "stat.herblore" }) {
+            for (item in TrailSkillChallenges.alternatives[row] ?: setOf(expected.second)) {
+                val f = Fixture()
+                f.clue(row, 0)
+                f.product(item, "stat.herblore")
+                assertEquals(0, f.state().phase)
+                assertTrue(f.progress.phase(f.player, 0, f.player.inv[0]!!, 9))
+                f.product("obj.antivenom+4", "stat.herblore")
+                f.product(item, "stat.crafting")
+                f.product(item, "stat.herblore", bonus = true)
+                assertEquals(9, f.state().phase)
+                f.product(item, "stat.herblore")
+                assertEquals(10, f.state().phase)
+                assertEquals(2, f.state().completed)
+            }
+        }
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
         val player = Player().apply {
             inv = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.inv".asRSCM())), arrayOfNulls(28))
             worn = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.worn".asRSCM())), arrayOfNulls(14))
+            statMap.setCurrentLevel("stat.herblore", 99)
             statMap.setCurrentLevel("stat.crafting", 99)
             statMap.setCurrentLevel("stat.mining", 99)
             statMap.setCurrentLevel("stat.fishing", 99)
