@@ -391,6 +391,40 @@ function renderTables(categories) {
   return L.join('\n')
 }
 
+function renderRoadmap(roadmap) {
+  const L = ['### Roadmap / Ideas', '']
+  L.push('Status: ' + RED + ' not added · 🟡 started / parked · ' + GREEN + ' added')
+  L.push('')
+
+  const categories = roadmap.categories ?? {
+    bosses: { label: 'Bosses' },
+    minigames: { label: 'Minigames' },
+    other: { label: 'Other' },
+  }
+
+  for (const [key, meta] of Object.entries(categories)) {
+    const items = (roadmap.items ?? []).filter((item) => item.category === key)
+    if (!items.length) continue
+    L.push('#### ' + meta.label)
+    L.push('')
+    L.push('| | Item | Summary | Details |')
+    L.push('|---|---|---|---|')
+    for (const item of items) {
+      const status = roadmap.statuses?.[item.status] ?? { icon: RED, label: item.status ?? 'unknown' }
+      const details = '<details><summary>Open</summary><ul>'
+        + (item.details ?? []).map((d) => '<li>' + d.replace(/\|/g, '&#124;') + '</li>').join('')
+        + '</ul></details>'
+      L.push('| ' + status.icon + ' | **' + item.title + '** | '
+        + String(item.summary ?? '').replace(/\|/g, '&#124;') + ' | ' + details + ' |')
+    }
+    L.push('')
+  }
+
+  L.push('_Add new ideas or parked work in `tools/progress/roadmap.json`; this table is generated automatically._')
+  L.push('')
+  return L.join('\n')
+}
+
 function renderModules(modules) {
   const L = ['### All content modules', '']
   L.push('Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradle.kts`.')
@@ -438,6 +472,7 @@ function injectReadme(block) {
 // ---------------------------------------------------------------- main
 
 const spec = JSON.parse(fs.readFileSync(P('tools', 'progress', 'features.json'), 'utf8'))
+const roadmap = JSON.parse(fs.readFileSync(P('tools', 'progress', 'roadmap.json'), 'utf8'))
 const modules = listModules()
 const implRefs = scanReferences()
 const { symbols: npcSymbols, byName: npcsByName } = loadNpcs()
@@ -532,6 +567,7 @@ fs.writeFileSync(P('CONTENT_INVENTORY.md'), [
   '',
   renderTables(categories),
   renderMechanics(categories),
+  renderRoadmap(roadmap),
   renderModules(modules),
   '---',
   '',
