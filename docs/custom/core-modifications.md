@@ -288,3 +288,5 @@ calls retain their default. Boundary regressions cover both modifiers together.
   startup still need validation. See docs/custom/treasure-trails.md. Not released.
 
 - 2026-10-05: `SkillingProductSource.Herblore` identifies successful finished-potion and barbarian-mix output events for assigned Sherlock challenges. Existing ingredient, chemistry and XP behaviour is retained.
+
+- 2026-10-05: `LogBurnedEvent` reports successful ground-log ignition after fire creation and XP, for assigned Firemaking clues. Failed attempts and chopping logs do not emit it. Campfire tending is not included.

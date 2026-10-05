@@ -4,6 +4,7 @@ import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.interact.HeldEquipEvents
+import org.rsmod.api.player.events.skilling.LogBurnedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.output.mes
@@ -29,6 +30,14 @@ internal class TrailSkillChallenges @Inject constructor(
             }
         }
 
+        onEvent<LogBurnedEvent> {
+            for (active in targets.active(player)) {
+                if (active.state.phase != ASSIGNED || burning[active.state.row] != log) continue
+                if (requirements.missing(player, active.clue) != null) continue
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+            }
+        }
+
         onEvent<SkillingActionCompleteEvent> {
             val product = context as? SkillingActionContext.Product ?: return@onEvent
             if (product.isBonus || product.count <= 0) return@onEvent
@@ -45,6 +54,13 @@ internal class TrailSkillChallenges @Inject constructor(
     companion object {
         const val ASSIGNED = 9
         const val COMPLETED = 10
+        internal val burning by lazy {
+            mapOf(
+                "dbrow.cluehelper_skillchallenge_elite_18".asRSCM() to "obj.yew_logs",
+                "dbrow.cluehelper_skillchallenge_master_7".asRSCM() to "obj.magic_logs",
+                "dbrow.cluehelper_skillchallenge_master_8".asRSCM() to "obj.redwood_logs",
+            )
+        }
         internal val alternatives by lazy {
             mapOf(
                 "dbrow.cluehelper_skillchallenge_elite_6".asRSCM() to setOf("obj.3dose2defense", "obj.4dose2defense"),

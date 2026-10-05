@@ -246,3 +246,8 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Dragon scimitar task completes after assigned, successful equip; removal and wrong weapons do not count.
 - Native inventory equip transaction tested. All 29 clue tests pass (clues-equip-retest.log).
 - Task coverage: 15/60 completion hooks; 45 incomplete. Live acceptance and remaining clue systems pending; Mimic last.
+
+### 2026-10-05 - Treasure Trails: ground-fire tasks
+- Added successful ground-log ignition event and assigned yew, magic and redwood task completion.
+- Firemaking compilation passed; all 30 clue tests pass (clues-firemaking-test.log).
+- 18/60 task rows have completion hooks, 42 incomplete. Queued ignition, campfire compatibility and live acceptance pending. Mimic last.

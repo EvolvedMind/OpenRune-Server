@@ -10,6 +10,7 @@ import org.junit.jupiter.api.parallel.ResourceLock
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
 import org.rsmod.api.player.events.interact.HeldEquipEvents
+import org.rsmod.api.player.events.skilling.LogBurnedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.events.skilling.SkillingProductSource
@@ -156,12 +157,35 @@ class TrailSkillChallengesTest {
         assertEquals("obj.dragon_scimitar".asRSCM(), f.player.worn[Wearpos.RightHand.slot]!!.id)
     }
 
+    @Test fun `burning challenges require the assigned log and successful burn event`() {
+        for ((row, log) in TrailSkillChallenges.burning) {
+            val f = Fixture()
+            f.clue(row, 0)
+            f.events.publish(LogBurnedEvent(f.player, log))
+            assertEquals(0, f.state().phase)
+            assertTrue(f.progress.phase(f.player, 0, f.player.inv[0]!!, 9))
+            f.events.publish(LogBurnedEvent(f.player, "obj.logs"))
+            f.product(log, "stat.woodcutting")
+            assertEquals(9, f.state().phase)
+            f.player.statMap.setCurrentLevel("stat.firemaking", 1)
+            f.events.publish(LogBurnedEvent(f.player, log))
+            assertEquals(9, f.state().phase)
+            f.player.statMap.setCurrentLevel("stat.firemaking", 99)
+            f.events.publish(LogBurnedEvent(f.player, log))
+            assertEquals(10, f.state().phase)
+            assertEquals(2, f.state().completed)
+            f.events.publish(LogBurnedEvent(f.player, log))
+            assertEquals(10, f.state().phase)
+        }
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
         val player = Player().apply {
             inv = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.inv".asRSCM())), arrayOfNulls(28))
             worn = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.worn".asRSCM())), arrayOfNulls(14))
+            statMap.setCurrentLevel("stat.firemaking", 99)
             statMap.setCurrentLevel("stat.herblore", 99)
             statMap.setCurrentLevel("stat.crafting", 99)
             statMap.setCurrentLevel("stat.mining", 99)

@@ -3,9 +3,9 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 15 of 60 task rows have completion hooks
-(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment).
-The other 45 remain incomplete, including 8 Charlie hand-ins without full
+Current implementation coverage: 18 of 60 task rows have completion hooks
+(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment, 3 Firemaking).
+The other 42 remain incomplete, including 8 Charlie hand-ins without full
 assignment/self-production enforcement. These counts are not live acceptance.
 
 | Tier | Task | Current support |
@@ -36,7 +36,7 @@ assignment/self-production enforcement. These counts are not live acceptance.
 | Elite | Catch a raw shark. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | Cut a yew log. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | Fix a magical lamp in Dorgesh-Kaan. | Pending. |
-| Elite | Burn a yew log. | Pending. |
+| Elite | Burn a yew log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
 | Elite | Cook a swordfish | Pending. |
 | Elite | Craft multiple cosmic runes from a single essence. | Pending. |
 | Elite | Plant a watermelon seed. | Pending. |
@@ -50,8 +50,8 @@ assignment/self-production enforcement. These counts are not live acceptance.
 | Master | Slay a Nechryael in the Slayer Tower. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Kill the spiritual, magic and godly whilst representing their own god. | Pending. |
 | Master | Create an unstrung dragonstone amulet at a furnace. | Assigned-task production event implemented; requires return to Sherlock. |
-| Master | Burn a magic log. | Pending. |
-| Master | Burn a redwood log. | Pending. |
+| Master | Burn a magic log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
+| Master | Burn a redwood log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
 | Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | Pending. |
 | Master | Mix an anti-venom potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
