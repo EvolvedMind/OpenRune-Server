@@ -24,7 +24,8 @@
         "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
         "Keep High Alch and Low Alch values independent from GE prices.",
         "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Improved Item Examine",
@@ -36,7 +37,8 @@
         "Add a value line with GE value, High Alch value and Low Alch value.",
         "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
         "Resolve noted items to the appropriate underlying item values where required."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Collection Log Reward Broadcasts",
@@ -48,7 +50,8 @@
         "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
         "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
         "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!"
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Notification Queue",
@@ -61,7 +64,8 @@
         "Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.",
         "Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.",
         "Clear or discard pending notifications safely on logout or invalid player state."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Own Grand Exchange",
@@ -71,7 +75,8 @@
         "Build the server's own Grand Exchange after the temporary OSRS price feed is in place.",
         "Make completed trades the authoritative source for this server's market prices.",
         "Swap the <code>MarketPrices</code> implementation without changing Examine or other price consumers."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Weapon Special Attacks",
@@ -82,7 +87,8 @@
         "94 registrations remain deferred.",
         "Do not resume automatically; continue only when this roadmap item is intentionally selected again.",
         "Preserve the accepted weapon baseline and existing regression coverage while parked."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Doom of Mokhaiotl",
@@ -92,7 +98,8 @@
         "Research and supporting drop/pet data exist.",
         "No active Doom encounter or delve progression is installed yet.",
         "Resume as a focused boss project when selected from the roadmap."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Revision 241 Upgrade",
@@ -102,7 +109,8 @@
         "Review client, protocol, cache, Boss DSL and custom encounter compatibility before adoption.",
         "Do not automatically merge or upgrade the accepted revision 240 runtime.",
         "Resume only as a deliberate compatibility project."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Tormented Demons — Complete",
@@ -113,7 +121,8 @@
         "Verify combat mechanics, special behaviours, targeting, drops, kill/death handling and cleanup.",
         "Integrate Collection Log, loot tracking and any required progression hooks.",
         "Add focused regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Cerberus — Complete",
@@ -124,7 +133,8 @@
         "Cover core attacks, special mechanics, summoned hazards/entities, arena flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Vorkath — Complete",
@@ -135,7 +145,8 @@
         "Cover standard attacks, special phases/mechanics, hazards, spawn/cleanup and death flow.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Kalphite Queen — Complete",
@@ -146,7 +157,8 @@
         "Cover both combat forms/phases, attack styles, arena flow, transitions, targeting and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Yama — Complete",
@@ -157,7 +169,8 @@
         "Cover all core attacks, special mechanics, hazards/entities, phase transitions and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add focused regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Abyssal Sire — Complete",
@@ -168,7 +181,8 @@
         "Cover respiratory systems, transitions, summoned entities, attacks, hazards, movement and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Alchemical Hydra — Complete",
@@ -179,7 +193,8 @@
         "Cover phase transitions, vent interactions, attack rotations, special mechanics, hazards and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Fight Caves — Complete",
@@ -190,7 +205,8 @@
         "Cover spawn sequencing, wave state, NPC cleanup, death/leave handling and restart flow.",
         "Integrate rewards, Collection Log, completion state and any required unlocks.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "The Inferno — Complete",
@@ -201,7 +217,8 @@
         "Cover pillars, spawn sequencing, special wave mechanics, death/leave handling and cleanup.",
         "Integrate rewards, Collection Log, completion state and any required unlocks.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Giant Mole — Complete",
@@ -212,7 +229,8 @@
         "Cover targeting, movement, combat, death flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Grotesque Guardians — Complete",
@@ -223,7 +241,8 @@
         "Cover phase transitions, special attacks, arena state, death flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "The Gauntlet — Complete",
@@ -234,7 +253,8 @@
         "Implement Crystalline Hunllef and Corrupted Hunllef encounters with full mechanics.",
         "Integrate rewards, Collection Log, completion state and mode-specific handling.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Fortis Colosseum — Complete",
@@ -245,7 +265,8 @@
         "Implement Sol Heredit and supporting encounter mechanics.",
         "Integrate rewards, Collection Log, completion state and streak/progression handling.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Moons of Peril — Complete",
@@ -256,7 +277,8 @@
         "Cover dungeon/room flow, phase mechanics, hazards, death/leave handling and cleanup.",
         "Integrate rewards, Collection Log and completion progression.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Nex — Complete",
@@ -267,7 +289,8 @@
         "Cover minions, attack rotations, special mechanics, arena handling, death flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "The Nightmare — Complete",
@@ -278,7 +301,8 @@
         "Cover pillars/totems, special attacks, group scaling where applicable, arena state and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Royal Titans — Complete",
@@ -289,7 +313,8 @@
         "Cover both bosses, attack rotations, phase mechanics, hazards, death handling and cleanup.",
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Puro-Puro — Complete",
@@ -300,7 +325,8 @@
         "Cover required Hunter tools, success/failure logic, rewards and respawn behaviour.",
         "Integrate Collection Log and any relevant clue/reward hooks.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Wintertodt — Complete",
@@ -311,7 +337,8 @@
         "Cover solo/group behaviour, round lifecycle, contribution and failure conditions.",
         "Integrate rewards, Collection Log and completion tracking.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Giants' Foundry — Complete",
@@ -322,7 +349,8 @@
         "Cover temperature/quality mechanics, actions, mistakes and completion scoring.",
         "Integrate rewards, progression and Collection Log where applicable.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Guardians of the Rift — Complete",
@@ -333,7 +361,8 @@
         "Cover catalytic/elemental balance, guardian creation, failure and completion conditions.",
         "Integrate points, rewards, Collection Log and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Mahogany Homes — Complete",
@@ -344,7 +373,8 @@
         "Cover material usage, NPC dialogue, rewards and contract cycling.",
         "Integrate points, rewards and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Mastering Mixology — Complete",
@@ -355,7 +385,8 @@
         "Cover mistakes, timing, points and repeatable session behaviour.",
         "Integrate rewards, Collection Log and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Pest Control — Complete",
@@ -366,7 +397,8 @@
         "Cover NPC waves, portal shields, failure/success states and participation checks.",
         "Integrate commendation points, rewards, Collection Log and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Tithe Farm — Complete",
@@ -377,7 +409,8 @@
         "Cover plant death, scoring, session limits and reset flow.",
         "Integrate points, rewards, Collection Log and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Vale Totems — Complete",
@@ -388,7 +421,8 @@
         "Cover required objects/NPCs, timing, rewards and reset behaviour.",
         "Integrate Collection Log and relevant progression hooks.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Mage Training Arena — Complete",
@@ -399,7 +433,8 @@
         "Cover point currencies, spell requirements, room resets and reward purchases.",
         "Integrate rewards, Collection Log and progression.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Forestry — Complete",
@@ -410,7 +445,8 @@
         "Cover event-specific NPCs/objects, rewards, currencies and participation rules.",
         "Integrate Collection Log and progression where applicable.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Hunter Guild — Complete",
@@ -421,7 +457,8 @@
         "Cover task rerolls/blocks where applicable, rewards and progression.",
         "Integrate Collection Log and Hunter-related unlocks.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Revenants — Complete",
@@ -432,7 +469,8 @@
         "Cover bracelet interactions, ether mechanics, unique drops and Wilderness behaviour.",
         "Integrate drops, Collection Log, loot tracking and relevant risk/reward systems.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Obor — Complete",
@@ -443,7 +481,8 @@
         "Cover combat mechanics, entrance/key flow, death handling and cleanup.",
         "Integrate native drops, Collection Log, kill count and rewards.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Brutus — Complete",
@@ -454,7 +493,8 @@
         "Cover attack mechanics, arena behaviour, death flow and cleanup.",
         "Integrate native drops, Collection Log and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Chaos Elemental — Complete",
@@ -465,7 +505,8 @@
         "Cover teleport/displacement mechanics, equipment disruption, targeting, death flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and Wilderness reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Chaos Fanatic — Complete",
@@ -476,7 +517,8 @@
         "Cover special attacks, targeting, Wilderness rules, death flow and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Deranged Archaeologist — Complete",
@@ -487,7 +529,8 @@
         "Cover standard and special attacks, targeting, death flow and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Dagannoth Kings — Complete",
@@ -498,7 +541,8 @@
         "Cover lair access, aggression, respawns, overlapping fights and cleanup.",
         "Integrate native drops, Collection Log, kill counts and rewards.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "The Hueycoatl — Complete",
@@ -509,7 +553,8 @@
         "Cover group mechanics, phases, special attacks, hazards, death flow and cleanup.",
         "Integrate native drops, Collection Log, kill count and rewards.",
         "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Sarachnis — Complete",
@@ -520,7 +565,8 @@
         "Cover web/root mechanics, adds, attack rotations, death flow and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Shellbane Gryphon — Complete",
@@ -531,7 +577,8 @@
         "Cover core attacks, special mechanics, phase/state handling, death flow and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Tempoross — Complete",
@@ -542,7 +589,8 @@
         "Cover fires, waves, tethering, solo/group flow, failure and completion conditions.",
         "Integrate points, rewards, Collection Log and completion tracking.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Thermonuclear Smoke Devil — Complete",
@@ -553,7 +601,8 @@
         "Cover attack mechanics, arena flow, death handling and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Vet'ion & Calvar'ion — Complete",
@@ -564,7 +613,8 @@
         "Cover Wilderness/singles-plus differences, arena flow, respawns, death handling and cleanup.",
         "Integrate native drops, Collection Log and kill counts.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "bosses"
     },
     {
       "title": "Zalcano — Complete",
@@ -575,7 +625,8 @@
         "Cover group contribution, hazards, respawns, failure and completion conditions.",
         "Integrate rewards, Collection Log and completion tracking.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Warriors' Guild Cyclopes & Defenders — Complete",
@@ -587,7 +638,8 @@
         "Track player-specific defender eligibility/progression correctly.",
         "Integrate Collection Log and reward handling.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Aerial Fishing — Complete",
@@ -598,7 +650,8 @@
         "Cover bait/resources, success rates, rewards and repeatable activity flow.",
         "Integrate pearls/rewards, Collection Log and progression where applicable.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "minigames"
     },
     {
       "title": "Random Events — Complete",
@@ -610,7 +663,8 @@
         "Handle instancing/teleports/return positions safely where events require them.",
         "Integrate Collection Log or unique rewards where applicable.",
         "Add framework and event-specific regression tests plus in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Achievements — Complete",
@@ -622,7 +676,8 @@
         "Integrate relevant diaries/achievement categories and server progression systems.",
         "Use the shared notification queue for unlock/completion popups where appropriate.",
         "Add regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     },
     {
       "title": "Combat Tasks — Complete",
@@ -634,7 +689,19 @@
         "Implement tier progression, point totals, rewards and unlock effects.",
         "Integrate completion chat messages and queued notifications.",
         "Add task-specific regression tests and in-game acceptance checks before marking added."
-      ]
+      ],
+      "category": "other"
     }
-  ]
+  ],
+  "categories": {
+    "bosses": {
+      "label": "Bosses"
+    },
+    "minigames": {
+      "label": "Minigames"
+    },
+    "other": {
+      "label": "Other"
+    }
+  }
 }
