@@ -200,42 +200,22 @@ here so it at least shows up. Nothing is ticked until someone claims it.
 
 </details>
 
-### TO-DO — Economy, Examine & Collection Log notifications
+### Roadmap / Ideas
 
-- [ ] **OSRS GE prices**
-  - Add an OSRS market-price provider behind the existing `MarketPrices` interface.
-  - Cache prices server-side and refresh periodically; never request prices per player action.
-  - Keep `DefaultMarketPrices` / `uncert(type).cost` as fallback when no live price is available.
-  - Keep High Alch and Low Alch values independent from GE prices.
-  - Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.
+Status: 🔴 not added · 🟡 started / parked · 🟢 added
 
-- [ ] **Improved item Examine**
-  - Right-click **Examine** keeps the normal item description.
-  - Also show **GE value + High Alch value + Low Alch value**.
-  - Centralize the value formatting so inventory, bank, shop, price checker and ground-item examines stay consistent.
-  - Resolve noted items to the appropriate underlying item values where required.
+| | Item | Summary | Details |
+|---|---|---|---|
+| 🔴 | **OSRS GE Prices** | Use live OSRS market prices through the existing MarketPrices abstraction. | <details><summary>Open</summary><ul><li>Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.</li><li>Cache prices server-side and refresh periodically; never request prices per player action.</li><li>Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.</li><li>Keep High Alch and Low Alch values independent from GE prices.</li><li>Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.</li></ul></details> |
+| 🔴 | **Improved Item Examine** | Show the normal description plus GE, High Alch and Low Alch values. | <details><summary>Open</summary><ul><li>Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.</li><li>Preserve the normal item description.</li><li>Add a value line with GE value, High Alch value and Low Alch value.</li><li>Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.</li><li>Resolve noted items to the appropriate underlying item values where required.</li></ul></details> |
+| 🔴 | **Collection Log Reward Broadcasts** | Broadcast Collection Log uniques and pets server-wide when obtained. | <details><summary>Open</summary><ul><li>Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.</li><li>Broadcast every qualifying obtain, including repeat obtains.</li><li>Keep the personal 'New item added to your collection log' message only for first-time unlocks.</li><li>Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.</li><li>Example: [Collection Log] Bram received an Araxyte fang from Araxxor!</li></ul></details> |
+| 🔴 | **Notification Queue** | Queue client notifications so multiple unlock popups display one after another. | <details><summary>Open</summary><ul><li>Add a reusable per-player FIFO notification queue.</li><li>Route Collection Log clientscript 3343 popups through the queue.</li><li>Multiple new items from one kill or reward must display sequentially instead of overwriting one another.</li><li>Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.</li><li>Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.</li><li>Clear or discard pending notifications safely on logout or invalid player state.</li></ul></details> |
+| 🔴 | **Own Grand Exchange** | Eventually replace external OSRS guide prices with the server's own economy. | <details><summary>Open</summary><ul><li>Build the server's own Grand Exchange after the temporary OSRS price feed is in place.</li><li>Make completed trades the authoritative source for this server's market prices.</li><li>Swap the <code>MarketPrices</code> implementation without changing Examine or other price consumers.</li></ul></details> |
+| 🟡 | **Weapon Special Attacks** | Accepted checkpoint is preserved; remaining special attacks are intentionally parked. | <details><summary>Open</summary><ul><li>Current accepted checkpoint has 191 of 285 special-energy item registrations covered.</li><li>94 registrations remain deferred.</li><li>Do not resume automatically; continue only when this roadmap item is intentionally selected again.</li><li>Preserve the accepted weapon baseline and existing regression coverage while parked.</li></ul></details> |
+| 🟡 | **Doom of Mokhaiotl** | Research exists, but the encounter/delve gameplay is parked. | <details><summary>Open</summary><ul><li>Research and supporting drop/pet data exist.</li><li>No active Doom encounter or delve progression is installed yet.</li><li>Resume as a focused boss project when selected from the roadmap.</li></ul></details> |
+| 🟡 | **Revision 241 Upgrade** | Upstream review is deferred; no automatic protocol/cache/runtime upgrade. | <details><summary>Open</summary><ul><li>Review client, protocol, cache, Boss DSL and custom encounter compatibility before adoption.</li><li>Do not automatically merge or upgrade the accepted revision 240 runtime.</li><li>Resume only as a deliberate compatibility project.</li></ul></details> |
 
-  Target:
-  ```text
-  A weapon from the abyss.
-  GE: 1,482,000 gp | HA: 72,000 gp | LA: 48,000 gp
-  ```
-
-- [ ] **Collection Log reward broadcasts**
-  - Treat Collection Log membership as the source of truth for important rewards; do not maintain a separate unique/pet whitelist.
-  - Every qualifying Collection Log obtain should generate a server-wide chat broadcast, including repeat obtains.
-  - Keep the existing personal "New item added to your collection log" message only for first-time unlocks.
-  - Pass reward-source context where available so broadcasts can identify the boss, minigame, raid, chest or activity.
-  - Example: `[Collection Log] Bram received an Araxyte fang from Araxxor!`
-
-- [ ] **Notification queue**
-  - Add a reusable per-player FIFO notification queue.
-  - Route Collection Log clientscript `3343` popups through the queue.
-  - Multiple new items from one kill/reward must display sequentially instead of later popups overwriting earlier ones.
-  - Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.
-  - Make the queue reusable for Combat Achievements, Achievement Diaries, quests and other notifications.
-  - Safely clear/discard pending notifications on logout or invalid player state.
-  - Add regression tests for multiple Collection Log unlocks in one reward cycle.
+_Add new ideas or parked work in `tools/progress/roadmap.json`; this table is generated automatically._
 
 ### All content modules
 
