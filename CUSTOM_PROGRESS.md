@@ -272,3 +272,9 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Corrected Juna and Mage of Zamorak outfits to count three matching worn items rather than require every slot from the cache lists.
 - Coverage now 38/60 skill tasks; 22 skill tasks remain, plus outstanding map/puzzle/special cryptic routes and live validation. Mimic remains last and is not implemented.
 - Validation: 47 clue tests pass (work/clues-locations-outfits.log, BUILD SUCCESSFUL), plus the previously passing 3 unchanged Fletching tests. No accepted runtime installation, push or merge.
+### 2026-10-05 - Clue 40/60 test candidate
+- Added assigned Ardougne gem-stall theft and sacred-eel dissection. Coverage: 40/60 skill-task rows; 20 remain, plus outstanding world/map/puzzle routes and live acceptance. Mimic remains last and is not implemented.
+- Added administrator ::cluekit and ::cluetest commands for tools, tier boxes, initialized scrolls, task fixtures and reward caskets. Inventory transactions preserve existing items; normal skill requirements apply.
+- Validation: 54 Treasure Trails tests, 3 Cooking tests, 2 Thieving tests and 3 Fletching tests passed. Full cache/server build successful; isolated startup, game port, Nero bridge/catalog and graceful shutdown passed against the candidate JAR/cache. Installer/rollback regression tests passed.
+- Test distribution: outputs/clues-test-20261005/INSTALLEREN.cmd, with read-only CONTROLEREN.cmd and TERUGZETTEN.cmd. The package verifies baseline and payload hashes and preserves a checkpoint of replaced software/cache files; player database is excluded.
+- Updated CONTENT_INVENTORY.md and preserved the expanded main-branch roadmap. Active branch: feature/treasure-trails. This is a test candidate, not a complete clue release; no merge or accepted runtime installation performed.

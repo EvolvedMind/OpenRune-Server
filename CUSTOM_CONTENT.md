@@ -34,3 +34,5 @@ paused. See the combat document.
 Corporeal Beast: CUSTOM using native combat and loot APIs; [implementation and validation](docs/custom/corporeal-beast.md).
 
 Spirit shields and Zulrah item assembly: [recipes, dismantling and validation](docs/custom/boss-item-crafting.md).
+
+Treasure Trails: CUSTOM using native clue cache rows, interfaces, inventory transactions and skilling events. Development milestone: 40/60 skill-task handlers; remaining routes and Mimic are not complete. See [implementation](docs/custom/treasure-trails.md), [coverage](docs/custom/clue-task-coverage.md) and [administrator test commands](docs/custom/clue-testing.md).
