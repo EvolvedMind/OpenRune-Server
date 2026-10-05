@@ -41,6 +41,14 @@ internal class TrailRequirements @Inject constructor(private val catalog: TrailC
         }
         for (row in clue.fields.ints("outfit")) {
             val outfit = catalog.fields(row)
+            if (row in threeGodItems) {
+                val count = slots.count { (name, slot) ->
+                    val item = player.worn[slot]
+                    item != null && (item.id in outfit.ints("wearpos_$name") || group(item.id) in outfit.ints("wearpos_param_$name"))
+                }
+                if (count < 3) return outfit.string("description")
+                continue
+            }
             for ((name, slot) in slots) {
                 val ids = outfit.ints("wearpos_$name")
                 val groups = outfit.ints("wearpos_param_$name")
@@ -53,5 +61,9 @@ internal class TrailRequirements @Inject constructor(private val catalog: TrailC
         return null
     }
     private fun group(item: Int) = (ServerCacheManager.getItem(item)?.paramsRaw?.get("param.trail_equipment_group".asRSCM()) as? Number)?.toInt()
+    private val threeGodItems by lazy { setOf(
+        "dbrow.cluehelper_outfit_cryptic_master_juna".asRSCM(),
+        "dbrow.cluehelper_outfit_cryptic_master_mage_of_zamorak".asRSCM(),
+    ) }
     private val slots = mapOf("hat" to 0, "back" to 1, "front" to 2, "rhand" to 3, "torso" to 4, "lhand" to 5, "legs" to 7, "hands" to 9, "feet" to 10, "ring" to 12, "quiver" to 13)
 }

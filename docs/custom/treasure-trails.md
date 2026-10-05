@@ -125,3 +125,13 @@ Live acceptance remains pending. Remaining skill actions, quest/location require
 The blood-altar extension recognizes successful blood-rune output from the two native Blood Altars, excluding Ourania, missing altar identity and zero consumed essence. Boxes now reject a duplicate tier held in inventory or bank without consuming the box. Quest requirements use the existing server policy (including virtual completions), with Making History checked for master hot/cold searches and the cached stage threshold checked for Lletya.
 
 Validation for this expansion: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log. These checks do not replace live gameplay acceptance.
+
+### Location and outfit checks (2026-10-05)
+
+The whip challenge checks actual worn state on equip, the existing Slayer Tower area, and an ordinary abyssal demon on the same floor within ten tiles. Accepted weapon variants follow [RuneLite SkillChallengeClue](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/SkillChallengeClue.java). The ten-tile proximity rule still needs live parity validation; it is not an assertion of an extracted OSRS server boundary.
+
+The light-orb challenge uses the existing native Crafting recipe (empty light orb plus cave goblin wire). The production event must occur at level 0, x 2701-2707, z 5345-5354, inside the public bank room. Bounds were checked against cache-240 booths and surrounding walls (work/clue-bank-map.log); the exact clue-script boundary still requires live acceptance. Making an empty orb, working outside the room or on another floor does not complete it.
+
+Juna and the Mage of Zamorak count three appropriate worn items using the cache outfit lists. The prior generic slot loop incorrectly required every listed slot. Inventory-only items and two worn pieces are rejected; ordinary exact outfits retain their slot requirements.
+
+Location/outfit validation: all 47 clue tests pass in work/clues-locations-outfits.log. The unchanged Fletching module's 3 tests passed in the preceding validation.

@@ -11,6 +11,7 @@ import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.script.onEvent
+import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
@@ -73,11 +74,14 @@ internal class TrailSkillChallenges @Inject constructor(
                 if (product.skill != expected.first || product.item.asRSCM() !in (alternatives[active.state.row] ?: setOf(expected.second)).map { it.asRSCM() }) continue
                 if (requirements.missing(player, active.clue) != null) continue
                 if (!TrailSkillOutfits.matches(player, active.state.row)) continue
+                if (active.state.row == lightOrbTask && !inDorgeshBank(player.coords)) continue
                 if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes(if (active.state.row in TrailCharlie.products) "You have made Charlie's requested item. Take it and your clue back to him." else "You have completed Sherlock's challenge. Return to him with your clue.")
             }
         }
     }
     companion object {
+        val lightOrbTask get() = "dbrow.cluehelper_skillchallenge_master_22".asRSCM()
+        fun inDorgeshBank(coords: CoordGrid): Boolean = coords.level == 0 && coords.x in 2701..2707 && coords.z in 5345..5354
         const val ASSIGNED = 9
         const val COMPLETED = 10
         internal val burning by lazy {
@@ -95,6 +99,7 @@ internal class TrailSkillChallenges @Inject constructor(
         }
         internal val products by lazy {
             mapOf(
+                lightOrbTask to ("stat.crafting" to "obj.dorgesh_light_bulb"),
                 "dbrow.cluehelper_skillchallenge_elite_nickel".asRSCM() to ("stat.mining" to "obj.nickel_ore"),
                 "dbrow.cluehelper_skillchallenge_elite_9".asRSCM() to ("stat.fletching" to "obj.yew_longbow"),
                 "dbrow.cluehelper_skillchallenge_master_16".asRSCM() to ("stat.fletching" to "obj.rune_dart"),

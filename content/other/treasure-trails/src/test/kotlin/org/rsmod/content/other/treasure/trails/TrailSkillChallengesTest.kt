@@ -379,6 +379,23 @@ class TrailSkillChallengesTest {
         }
     }
 
+    @Test fun `light orb must be assembled inside the ground floor Dorgesh Kaan bank`() {
+        val f = Fixture()
+        f.clue(TrailSkillChallenges.lightOrbTask, 9)
+        val bank = org.rsmod.map.CoordGrid(2702, 5348, 0)
+        for (coords in listOf(org.rsmod.map.CoordGrid(2709, 5348, 0), org.rsmod.map.CoordGrid(2702, 5348, 1), org.rsmod.map.CoordGrid(2702, 5340, 0))) {
+            f.player.coords = coords
+            f.product("obj.dorgesh_light_bulb")
+            assertEquals(9, f.state().phase)
+        }
+        f.player.coords = bank
+        f.product("obj.dorgesh_lightbulb_nofilament")
+        assertEquals(9, f.state().phase)
+        f.product("obj.dorgesh_light_bulb")
+        assertEquals(10, f.state().phase)
+        assertEquals(2, f.state().completed)
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
@@ -404,6 +421,7 @@ class TrailSkillChallengesTest {
             with(TrailSkillChallenges(progress, TrailTargets(progress), TrailRequirements(progress.catalog))) { script.startup() }
         }
         fun clue(row: Int, phase: Int) {
+            if (row == TrailSkillChallenges.lightOrbTask) player.coords = org.rsmod.map.CoordGrid(2702, 5348, 0)
             val clue = progress.catalog.clues.getValue(row)
             player.inv[0] = InvObj(checkNotNull(ServerCacheManager.getItem(progress.catalog.item(clue))), 1, TrailState(row, 6, 2, phase).encode())
         }

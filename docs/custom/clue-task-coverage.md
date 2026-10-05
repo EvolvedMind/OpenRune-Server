@@ -3,10 +3,10 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 36 of 60 task rows have completion handling
-(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment, 3 Firemaking,
+Current implementation coverage: 38 of 60 task rows have completion handling
+(6 gathering, 3 crafting, 3 Herblore, 3 combat, 2 equipment, 3 Firemaking,
 3 Runecrafting, 8 Charlie hand-ins, 3 Cooking/Smithing, 2 Fletching,
-1 Chivalry, 1 nickel). The other 24 remain incomplete. These counts describe
+1 Chivalry, 1 nickel). The other 22 remain incomplete. These counts describe
 code and focused tests, not live acceptance or complete supporting skills.
 
 Charlie accepts items from any source following assignment. Self-production is
@@ -48,7 +48,7 @@ The previous audit's self-production requirement was incorrect.
 | Elite | Activate the Chivalry prayer. | Direct and quick-prayer activation events; requires prayer actually enabled after assignment. |
 | Elite | Smith a tier 2 or above Shayzien platebody. | Pending. |
 | Elite | Mine some nickel. | Existing mining output hook recognizes nickel ore; assignment checks tested. |
-| Master | Equip an abyssal whip in front of the abyssal demons of the Slayer Tower. | Pending. |
+| Master | Equip an abyssal whip in front of the abyssal demons of the Slayer Tower. | Assigned equip event checks worn weapon, Slayer Tower area, same-floor abyssal demon within 10 tiles. Whip/ornament/tentacle variants tested; proximity parity and live acceptance pending. |
 | Master | Smith a runite med helm. | Successful smithing output event implemented; assignment checks tested. |
 | Master | Teleport to a spirit tree you planted yourself. | Pending. |
 | Master | Create a Barrows teleport tablet. | Pending. |
@@ -70,7 +70,7 @@ The previous audit's self-production requirement was incorrect.
 | Master | Kill a lizardman shaman. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Assigned-task production event and worn outfit checks implemented. |
-| Master | Craft a light orb in the Dorgesh-Kaan bank. | Pending. |
+| Master | Craft a light orb in the Dorgesh-Kaan bank. | Existing wire-and-orb recipe output checked inside the ground-floor bank; outside/floor/wrong-product tests. Live acceptance pending. |
 | Master | Kill a reanimated abyssal. | Pending. |
 | Master | Kill a Fiyr shade inside Mort'tons shade catacombs. | Pending. |
 | Master | Combine the torn clue scroll parts. | Pending. |

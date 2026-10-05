@@ -266,3 +266,9 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Validation: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log (BUILD SUCCESSFUL). Git diff check clean for this scope.
 - Skill changes committed separately as c412b8ace. Remaining: 24 skill tasks, outstanding map/puzzle/world validation and other coverage gaps documented in docs/custom/clue-task-coverage.md. Mimic has NOT started; it remains last.
 - Accepted installation, main and remote branches unchanged. No installer, push or merge.
+### 2026-10-05 - Location-sensitive clues and god outfits (local)
+- Added the assigned whip-equip challenge with worn-state, Slayer Tower, same-plane and nearby abyssal-demon checks, including accepted whip/tentacle variants.
+- Added the light-orb crafting task using the existing recipe and cache-verified public Dorgesh-Kaan bank room. Exact proximity/boundary parity remains a live acceptance item.
+- Corrected Juna and Mage of Zamorak outfits to count three matching worn items rather than require every slot from the cache lists.
+- Coverage now 38/60 skill tasks; 22 skill tasks remain, plus outstanding map/puzzle/special cryptic routes and live validation. Mimic remains last and is not implemented.
+- Validation: 47 clue tests pass (work/clues-locations-outfits.log, BUILD SUCCESSFUL), plus the previously passing 3 unchanged Fletching tests. No accepted runtime installation, push or merge.
