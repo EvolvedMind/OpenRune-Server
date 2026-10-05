@@ -717,19 +717,6 @@
         "Add seasonal lifecycle tools: start, reset, migration/archive, highscores and reward handoff.",
         "Add extensive regression tests because League modifiers touch combat, skills, drops, shops and progression globally."
       ]
-    },
-    {
-      "title": "Sailing — Complete",
-      "status": "not_added",
-      "category": "other",
-      "summary": "Build Sailing into a complete skill with progression, activities, rewards and world integration.",
-      "details": [
-        "Implement Sailing as a full skill with XP, levels, unlocks and persistent progression.",
-        "Cover ship ownership/control, navigation, ports, sea regions, activities, encounters and required interfaces.",
-        "Integrate resources, rewards, Collection Log/progression hooks and any Sailing-specific equipment or upgrades.",
-        "Keep the implementation modular so Sailing content can expand without tightly coupling it to unrelated systems.",
-        "Add focused regression tests and in-game acceptance checks before marking added."
-      ]
     }
   ],
   "categories": {
