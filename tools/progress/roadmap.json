@@ -180,6 +180,105 @@
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ]
+    },
+    {
+      "title": "Fight Caves — Complete",
+      "status": "not_added",
+      "summary": "Build the TzHaar Fight Cave into a complete playable wave-based minigame.",
+      "details": [
+        "Implement the complete wave progression and TzTok-Jad encounter.",
+        "Cover spawn sequencing, wave state, NPC cleanup, death/leave handling and restart flow.",
+        "Integrate rewards, Collection Log, completion state and any required unlocks.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "The Inferno — Complete",
+      "status": "not_added",
+      "summary": "Build the Inferno into a complete playable end-game wave challenge.",
+      "details": [
+        "Implement full wave progression through TzKal-Zuk.",
+        "Cover pillars, spawn sequencing, special wave mechanics, death/leave handling and cleanup.",
+        "Integrate rewards, Collection Log, completion state and any required unlocks.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Giant Mole — Complete",
+      "status": "not_added",
+      "summary": "Build Giant Mole into a complete playable boss encounter.",
+      "details": [
+        "Implement the complete Giant Mole fight, burrow/teleport behaviour and arena logic.",
+        "Cover targeting, movement, combat, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Grotesque Guardians — Complete",
+      "status": "not_added",
+      "summary": "Build the Grotesque Guardians into a complete multi-phase boss encounter.",
+      "details": [
+        "Implement Dawn and Dusk with the complete multi-phase encounter flow.",
+        "Cover phase transitions, special attacks, arena state, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "The Gauntlet — Complete",
+      "status": "not_added",
+      "summary": "Build The Gauntlet into a complete preparation-and-boss minigame.",
+      "details": [
+        "Implement preparation phase, resource gathering, room generation/flow and timer handling.",
+        "Implement Crystalline Hunllef and Corrupted Hunllef encounters with full mechanics.",
+        "Integrate rewards, Collection Log, completion state and mode-specific handling.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Fortis Colosseum — Complete",
+      "status": "not_added",
+      "summary": "Build Fortis Colosseum into a complete wave and reward challenge.",
+      "details": [
+        "Implement wave progression, modifiers/invocations and arena state.",
+        "Implement Sol Heredit and supporting encounter mechanics.",
+        "Integrate rewards, Collection Log, completion state and streak/progression handling.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Moons of Peril — Complete",
+      "status": "not_added",
+      "summary": "Build Moons of Peril into a complete encounter and reward loop.",
+      "details": [
+        "Implement Blood Moon, Blue Moon and Eclipse Moon encounters.",
+        "Cover dungeon/room flow, phase mechanics, hazards, death/leave handling and cleanup.",
+        "Integrate rewards, Collection Log and completion progression.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Nex — Complete",
+      "status": "not_added",
+      "summary": "Build Nex into a complete multi-phase group boss encounter.",
+      "details": [
+        "Implement all Nex phases and phase transitions.",
+        "Cover minions, attack rotations, special mechanics, arena handling, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add group encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "The Nightmare — Complete",
+      "status": "not_added",
+      "summary": "Build The Nightmare into a complete multi-phase group boss encounter.",
+      "details": [
+        "Implement the complete Nightmare encounter and all major phase mechanics.",
+        "Cover pillars/totems, special attacks, group scaling where applicable, arena state and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add group encounter/regression tests and in-game acceptance checks before marking added."
+      ]
     }
   ]
 }
