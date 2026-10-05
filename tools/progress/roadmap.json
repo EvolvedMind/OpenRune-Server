@@ -136,6 +136,50 @@
         "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ]
+    },
+    {
+      "title": "Kalphite Queen — Complete",
+      "status": "not_added",
+      "summary": "Build the Kalphite Queen into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Kalphite Queen encounter rather than relying on drop-table or cache presence.",
+        "Cover both combat forms/phases, attack styles, arena flow, transitions, targeting and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Yama — Complete",
+      "status": "not_added",
+      "summary": "Build Yama into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Yama encounter and any required encounter progression or arena flow.",
+        "Cover all core attacks, special mechanics, hazards/entities, phase transitions and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add focused regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Abyssal Sire — Complete",
+      "status": "not_added",
+      "summary": "Build Abyssal Sire into a complete playable boss encounter.",
+      "details": [
+        "Implement the complete Abyssal Sire encounter across all phases.",
+        "Cover respiratory systems, transitions, summoned entities, attacks, hazards, movement and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Alchemical Hydra — Complete",
+      "status": "not_added",
+      "summary": "Build Alchemical Hydra into a complete playable boss encounter.",
+      "details": [
+        "Implement the complete Alchemical Hydra fight and arena lifecycle.",
+        "Cover phase transitions, vent interactions, attack rotations, special mechanics, hazards and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
     }
   ]
 }
