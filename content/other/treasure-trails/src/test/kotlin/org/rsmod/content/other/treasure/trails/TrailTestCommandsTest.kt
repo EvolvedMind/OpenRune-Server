@@ -27,7 +27,8 @@ class TrailTestCommandsTest {
         val weapon = InvObj("obj.abyssal_whip")
         f.player.inv[0] = weapon
         f.run("cluekit")
-        assertSame(weapon, f.player.inv[0])
+        // Inventory transactions copy values; preserving the item does not require object identity.
+        assertEquals(weapon, f.player.inv[0])
         for (tool in TrailTestCommands.kit) assertEquals(1, f.player.inv.count(tool))
         assertTrue(f.player.worn.objs.all { it == null })
         for (slot in 10..27) f.player.inv[slot] = InvObj("obj.abyssal_whip")
