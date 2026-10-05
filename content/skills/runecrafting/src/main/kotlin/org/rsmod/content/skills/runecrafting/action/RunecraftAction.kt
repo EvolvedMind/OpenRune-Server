@@ -47,6 +47,7 @@ object RunecraftAction {
         rune: RunecraftingRunesRow,
         xpMods: XpModifiers,
         ouraniaAltar: Boolean = false,
+        altar: String? = null,
     ) {
         if (!canCraftRune(rune)) {
             return
@@ -64,11 +65,11 @@ object RunecraftAction {
             }
 
         if (daeyaltEssCount > 0) {
-            craftDaeyaltEssence(rune, xpMods, daeyaltEssCount, ouraniaAltar)
+            craftDaeyaltEssence(rune, xpMods, daeyaltEssCount, ouraniaAltar, altar)
             return
         }
 
-        craftStandardEssence(rune, xpMods, validEssence, ouraniaAltar)
+        craftStandardEssence(rune, xpMods, validEssence, ouraniaAltar, altar)
     }
 
     private suspend fun ProtectedAccess.craftDaeyaltEssence(
@@ -76,6 +77,7 @@ object RunecraftAction {
         xpMods: XpModifiers,
         daeyaltEssCount: Int,
         ouraniaAltar: Boolean,
+        altar: String?,
     ) {
         if (invDel(inv, DAEYALT_ESSENCE, daeyaltEssCount).failure) {
             return
@@ -100,6 +102,7 @@ object RunecraftAction {
             xpMods,
             ouraniaAltar,
             produced,
+            altar,
         )
     }
 
@@ -108,6 +111,7 @@ object RunecraftAction {
         xpMods: XpModifiers,
         validEssence: Set<String>,
         ouraniaAltar: Boolean,
+        altar: String?,
     ) {
         val runeEssCount = if (RUNE_ESSENCE in validEssence) inv.count(RUNE_ESSENCE) else 0
         val pureEssCount = if (PURE_ESSENCE in validEssence) inv.count(PURE_ESSENCE) else 0
@@ -163,6 +167,7 @@ object RunecraftAction {
             xpMods,
             ouraniaAltar,
             produced,
+            altar,
         )
     }
 
@@ -173,6 +178,7 @@ object RunecraftAction {
         xpMods: XpModifiers,
         ouraniaAltar: Boolean,
         producedRunes: Int? = null,
+        altar: String? = null,
     ) {
         val level = player.baseRunecraftingLvl
         val baseMultiplier = getBonusMultiplier(rune.output.internalName, level).toInt()
@@ -194,7 +200,7 @@ object RunecraftAction {
         val output = invAdd(inv, rune.output.internalName, totalRunes)
         advanceRunecraftingXp(xp, xpMods)
         if (output.success && essenceConsumed > 0) {
-            publish(RunesCraftedEvent(player, rune.output.internalName, essenceConsumed, baseMultiplier, ouraniaAltar))
+            publish(RunesCraftedEvent(player, rune.output.internalName, essenceConsumed, baseMultiplier, ouraniaAltar, altar))
         }
     }
 

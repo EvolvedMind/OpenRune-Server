@@ -10,4 +10,5 @@ public data class RunesCraftedEvent(
     public val essenceConsumed: Int,
     public val baseMultiplier: Int,
     public val ourania: Boolean,
+    public val altar: String? = null,
 ) : UnboundEvent

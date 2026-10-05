@@ -8,6 +8,12 @@ public sealed class SkillingProductSource {
 
     public data object Herblore : SkillingProductSource()
 
+    public data object Cooking : SkillingProductSource()
+
+    public data object Smithing : SkillingProductSource()
+
+    public data object Fletching : SkillingProductSource()
+
     public data object Crafting : SkillingProductSource()
 
     public data class Mining(
