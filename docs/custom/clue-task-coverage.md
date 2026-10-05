@@ -49,7 +49,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Burn a redwood log. | Pending. |
 | Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | Pending. |
 | Master | Mix an anti-venom potion. | Pending. |
-| Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Pending. |
+| Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Steal a gem from the Ardougne market. | Pending. |
 | Master | Pickpocket an elf. | Pending. |
 | Master | Bind a blood rune at the Blood Altar. | Pending. |
@@ -58,14 +58,20 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Cremate a set of fiyr remains. | Pending. |
 | Master | Dissect a sacred eel. | Pending. |
 | Master | Kill a lizardman shaman. | Pending. |
-| Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Pending. |
-| Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Pending. |
+| Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Assigned-task production event and worn outfit checks implemented. |
+| Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Craft a light orb in the Dorgesh-Kaan bank. | Pending. |
 | Master | Kill a reanimated abyssal. | Pending. |
 | Master | Kill a Fiyr shade inside Mort'tons shade catacombs. | Pending. |
 | Master | Combine the torn clue scroll parts. | Pending. |
 | Master | Catch a tecu salamander. | Pending. |
 
-The production-event implementation currently covers three gathering tasks and
+The production-event implementation currently covers six gathering tasks and
 two crafting tasks. Elite Sherlock assignment retains the current trail step.
 Inventory safety and task-state tests are separate from live gameplay acceptance.
+
+Outfit checks run when the product is awarded. Each required slot must be worn.
+Supported variants include golden prospector, Varrock armour 4 as the mining top,
+spirit angler and forestry pieces, including mixed sets. Bonus products do not count.
+References: [Varrock armour substitution](https://github.com/runelite/runelite/issues/12023),
+[Lumberjack and Forestry](https://oldschool.runescape.wiki/w/Lumberjack_outfit).

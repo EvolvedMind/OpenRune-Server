@@ -66,6 +66,50 @@ class TrailSkillChallengesTest {
         assertEquals(9, f.state().phase)
     }
 
+    @Test fun `master gathering requires every outfit piece worn at the time of production`() {
+        for ((row, outfit) in TrailSkillOutfits.sets) {
+            val expected = TrailSkillChallenges.products.getValue(row)
+            for (missingSlot in outfit.keys) {
+                val f = Fixture()
+                f.clue(row, 9)
+                for ((slot, ids) in outfit) f.player.worn[slot] = InvObj(checkNotNull(ServerCacheManager.getItem(ids.first())))
+                f.player.inv[1] = f.player.worn[missingSlot]
+                f.player.worn[missingSlot] = null
+                f.product(expected.second, expected.first)
+                assertEquals(9, f.state().phase, "Missing worn slot $missingSlot for row $row")
+                f.player.worn[missingSlot] = f.player.inv[1]
+                f.player.inv[1] = null
+                f.product(expected.second, expected.first, bonus = true)
+                assertEquals(9, f.state().phase)
+                f.product(expected.second, expected.first)
+                assertEquals(10, f.state().phase)
+                assertEquals(2, f.state().completed)
+                for (slot in outfit.keys) f.player.worn[slot] = null
+                assertEquals(10, f.state().phase)
+            }
+        }
+    }
+
+    @Test fun `mixed outfit variants are accepted but lesser Varrock armour is not`() {
+        for ((row, outfit) in TrailSkillOutfits.sets) {
+            for ((changedSlot, alternatives) in outfit) for (alternative in alternatives) {
+                val f = Fixture()
+                f.clue(row, 9)
+                for ((slot, ids) in outfit) f.player.worn[slot] = InvObj(checkNotNull(ServerCacheManager.getItem(ids.first())))
+                f.player.worn[changedSlot] = InvObj(checkNotNull(ServerCacheManager.getItem(alternative)))
+                assertTrue(TrailSkillOutfits.matches(f.player, row))
+                val expected = TrailSkillChallenges.products.getValue(row)
+                f.product(expected.second, expected.first)
+                assertEquals(10, f.state().phase)
+            }
+        }
+        val f = Fixture()
+        val row = "dbrow.cluehelper_skillchallenge_master_11".asRSCM()
+        for ((slot, ids) in TrailSkillOutfits.sets.getValue(row)) f.player.worn[slot] = InvObj(checkNotNull(ServerCacheManager.getItem(ids.first())))
+        f.player.worn[4] = InvObj("obj.varrock_armour_hard")
+        assertFalse(TrailSkillOutfits.matches(f.player, row))
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
@@ -73,6 +117,9 @@ class TrailSkillChallengesTest {
             inv = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.inv".asRSCM())), arrayOfNulls(28))
             worn = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.worn".asRSCM())), arrayOfNulls(14))
             statMap.setCurrentLevel("stat.crafting", 99)
+            statMap.setCurrentLevel("stat.mining", 99)
+            statMap.setCurrentLevel("stat.fishing", 99)
+            statMap.setCurrentLevel("stat.woodcutting", 99)
         }
         init {
             val script = ScriptContext(events, CheatCommandMap(), EngineQueueCache())

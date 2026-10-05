@@ -21,11 +21,14 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
   unresolved; map clue coverage is not complete.
 - Guardian ownership and kill association, emote ordering/Uri and hot/cold devices.
 - Music clues check the requested currently playing track at Cecilia. Charlie's
-  eight hand-ins consume the requested item atomically. Three Sherlock gathering
+  eight hand-ins consume the requested item atomically. Six Sherlock gathering
   tasks and two crafting tasks use successful skilling events after assignment.
   Elite Sherlock introductions assign a persistent task without advancing the trail;
   revisiting or reloading cannot reroll that assignment. Remaining tasks are tracked in
   [clue-task-coverage.md](clue-task-coverage.md).
+- Master runite, anglerfish and redwood tasks require all outfit pieces in their
+  correct worn slots at production time, supporting mixed accepted variants.
+  Bonus products do not complete tasks; removing gear afterwards preserves success.
 - 66 weighted reward tables with 743 named cache items. Persistent pending reward
   inventory is separate from Barrows' temporary display inventory.
 - `::cluerewards` retrieves pending rewards; collection log integration.
@@ -45,12 +48,15 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 ## Validation so far
 
-22 clue tests and 16 crafting tests pass: boxes/state/catalog, puzzle invariants and physical box
+24 clue tests pass; the previous crafting regression run passed 16 tests. Coverage:
+boxes/state/catalog, puzzle invariants and physical box
 ownership/capacity/reopening, reward data and
 6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
 contextual selector isolation/unregistration, native map content and Close script.
 Sherlock tests cover persistent elite assignment without advancing or rerolling,
 correct post-assignment products, bonus/wrong/zero products and skill requirements.
+Outfit cases cover every missing slot, inventory-only equipment, accepted mixed
+variants, Varrock armour substitution and persisted completion after unequipping.
 Crafting tests verify success events occur after actual output insertion, never on
 missing ingredients or failed insertion, alongside the existing boss-item recipes.
 The storage test caught and fixed

@@ -24,6 +24,7 @@ internal class TrailSkillChallenges @Inject constructor(
                 val expected = products[active.state.row] ?: continue
                 if (product.skill != expected.first || product.item.asRSCM() != expected.second.asRSCM()) continue
                 if (requirements.missing(player, active.clue) != null) continue
+                if (!TrailSkillOutfits.matches(player, active.state.row)) continue
                 if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
             }
         }
@@ -38,6 +39,9 @@ internal class TrailSkillChallenges @Inject constructor(
                 "dbrow.cluehelper_skillchallenge_elite_15".asRSCM() to ("stat.fishing" to "obj.raw_shark"),
                 "dbrow.cluehelper_skillchallenge_elite_16".asRSCM() to ("stat.woodcutting" to "obj.yew_logs"),
                 "dbrow.cluehelper_skillchallenge_master_6".asRSCM() to ("stat.crafting" to "obj.unstrung_dragonstone_amulet"),
+                "dbrow.cluehelper_skillchallenge_master_11".asRSCM() to ("stat.mining" to "obj.runite_ore"),
+                "dbrow.cluehelper_skillchallenge_master_20".asRSCM() to ("stat.fishing" to "obj.raw_anglerfish"),
+                "dbrow.cluehelper_skillchallenge_master_21".asRSCM() to ("stat.woodcutting" to "obj.redwood_logs"),
             )
         }
     }
