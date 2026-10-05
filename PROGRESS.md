@@ -28,14 +28,6 @@ It is preserved unchanged during repository organization.
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 
 
-## Implemented bosses
-
-- [x] Zulrah — active custom encounter.
-- [x] Araxxor — implemented and user accepted.
-- [x] Corporeal Beast — implemented.
-- [x] Kraken — implemented.
-- [x] Barrows — implemented and user accepted.
-
 **[Detailed status, origins, NOW / NEXT / LATER / BACKLOG](CUSTOM_PROGRESS.md)**
 
 [Custom inventory](CUSTOM_CONTENT.md) ? [Operating manual](OpenRune_Fork_Development_Workflow.md)
