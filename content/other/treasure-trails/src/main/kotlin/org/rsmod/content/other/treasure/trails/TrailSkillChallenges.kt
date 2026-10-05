@@ -1,7 +1,9 @@
 package org.rsmod.content.other.treasure.trails
 
 import dev.openrune.rscm.RSCM.asRSCM
+import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
+import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.output.mes
@@ -16,6 +18,17 @@ internal class TrailSkillChallenges @Inject constructor(
     private val requirements: TrailRequirements,
 ) : PluginScript() {
     override fun ScriptContext.startup() {
+        onEvent<HeldEquipEvents.WearposChange> {
+            if (wearpos != Wearpos.RightHand || objType.id != "obj.dragon_scimitar".asRSCM()) return@onEvent
+            // WearposChange also reports items being removed. Require the new worn state.
+            if (player.worn[wearpos.slot]?.id != objType.id) return@onEvent
+            for (active in targets.active(player)) {
+                if (active.state.row != "dbrow.cluehelper_skillchallenge_elite_0".asRSCM() || active.state.phase != ASSIGNED) continue
+                if (requirements.missing(player, active.clue) != null) continue
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+            }
+        }
+
         onEvent<SkillingActionCompleteEvent> {
             val product = context as? SkillingActionContext.Product ?: return@onEvent
             if (product.isBonus || product.count <= 0) return@onEvent

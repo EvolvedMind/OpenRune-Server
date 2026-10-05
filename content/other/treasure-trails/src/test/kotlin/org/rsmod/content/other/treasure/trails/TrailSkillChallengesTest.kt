@@ -2,15 +2,19 @@ package org.rsmod.content.other.treasure.trails
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
+import dev.openrune.util.Wearpos
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.ResourceLock
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
+import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.events.skilling.SkillingProductSource
+import org.rsmod.api.player.worn.HeldEquipOp
+import org.rsmod.api.player.worn.HeldEquipResult
 import org.rsmod.api.random.DefaultGameRandom
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
@@ -127,6 +131,29 @@ class TrailSkillChallengesTest {
                 assertEquals(2, f.state().completed)
             }
         }
+    }
+
+    @Test fun `equipping the scimitar through the inventory transaction completes only an assigned task`() {
+        val f = Fixture()
+        f.player.statMap.setBaseLevel("stat.attack", 99.toByte())
+        f.player.statMap.setCurrentLevel("stat.attack", 99)
+        f.clue("dbrow.cluehelper_skillchallenge_elite_0".asRSCM(), 0)
+        f.player.inv[1] = InvObj("obj.dragon_scimitar")
+        assertTrue(HeldEquipOp(f.events).equip(f.player, 1, f.player.inv) is HeldEquipResult.Success)
+        assertEquals(0, f.state().phase)
+        assertTrue(f.progress.phase(f.player, 0, f.player.inv[0]!!, 9))
+        val scimitar = f.player.worn[Wearpos.RightHand.slot]!!
+        f.player.worn[Wearpos.RightHand.slot] = null
+        f.events.publish(HeldEquipEvents.WearposChange(f.player, Wearpos.RightHand, checkNotNull(ServerCacheManager.getItem(scimitar.id))))
+        assertEquals(9, f.state().phase)
+        f.player.inv[1] = InvObj("obj.abyssal_whip")
+        assertTrue(HeldEquipOp(f.events).equip(f.player, 1, f.player.inv) is HeldEquipResult.Success)
+        assertEquals(9, f.state().phase)
+        f.player.inv[1] = scimitar
+        assertTrue(HeldEquipOp(f.events).equip(f.player, 1, f.player.inv) is HeldEquipResult.Success)
+        assertEquals(10, f.state().phase)
+        assertEquals(2, f.state().completed)
+        assertEquals("obj.dragon_scimitar".asRSCM(), f.player.worn[Wearpos.RightHand.slot]!!.id)
     }
 
     private class Fixture {

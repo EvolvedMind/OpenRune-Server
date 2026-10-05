@@ -3,6 +3,11 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
+Current implementation coverage: 15 of 60 task rows have completion hooks
+(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment).
+The other 45 remain incomplete, including 8 Charlie hand-ins without full
+assignment/self-production enforcement. These counts are not live acceptance.
+
 | Tier | Task | Current support |
 |---|---|---|
 | Beginner | I need to give Charlie a cooked trout. | Hand-in consumes the item; assignment and self-production enforcement pending. |
@@ -13,7 +18,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Beginner | I need to give Charlie one iron dagger. | Hand-in consumes the item; assignment and self-production enforcement pending. |
 | Beginner | I need to give Charlie a leather body. | Hand-in consumes the item; assignment and self-production enforcement pending. |
 | Beginner | I need to give Charlie some leather chaps. | Hand-in consumes the item; assignment and self-production enforcement pending. |
-| Elite | Equip a Dragon Scimitar. | Pending. |
+| Elite | Equip a Dragon Scimitar. | Native equip transaction hook; assignment and removal checks tested. |
 | Elite | Enchant a piece of dragonstone jewellery. | Pending. |
 | Elite | Craft a nature rune. | Pending. |
 | Elite | Catch a mottled eel with aerial fishing in Lake Molch. | Pending. |

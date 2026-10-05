@@ -241,3 +241,8 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Added successful brewing hooks for assigned super defence, anti-venom and ranging mix tasks, including valid dose variants.
 - Herblore compilation passed; 28 clue tests passed (clues-herblore-retest.log).
 - Actual queued brewing and in-game validation still pending. No install or merge. Mimic remains last.
+
+### 2026-10-05 - Treasure Trails: equipment challenge
+- Dragon scimitar task completes after assigned, successful equip; removal and wrong weapons do not count.
+- Native inventory equip transaction tested. All 29 clue tests pass (clues-equip-retest.log).
+- Task coverage: 15/60 completion hooks; 45 incomplete. Live acceptance and remaining clue systems pending; Mimic last.
