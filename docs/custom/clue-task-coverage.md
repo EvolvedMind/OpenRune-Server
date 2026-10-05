@@ -3,9 +3,9 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 18 of 60 task rows have completion hooks
-(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment, 3 Firemaking).
-The other 42 remain incomplete, including 8 Charlie hand-ins without full
+Current implementation coverage: 20 of 60 task rows have completion hooks
+(6 gathering, 2 crafting, 3 Herblore, 3 combat, 1 equipment, 3 Firemaking, 2 Runecrafting).
+The other 40 remain incomplete, including 8 Charlie hand-ins without full
 assignment/self-production enforcement. These counts are not live acceptance.
 
 | Tier | Task | Current support |
@@ -20,7 +20,7 @@ assignment/self-production enforcement. These counts are not live acceptance.
 | Beginner | I need to give Charlie some leather chaps. | Hand-in consumes the item; assignment and self-production enforcement pending. |
 | Elite | Equip a Dragon Scimitar. | Native equip transaction hook; assignment and removal checks tested. |
 | Elite | Enchant a piece of dragonstone jewellery. | Pending. |
-| Elite | Craft a nature rune. | Pending. |
+| Elite | Craft a nature rune. | Standard altar output hook; cosmic requires base multiplier >= 2. Live acceptance pending. |
 | Elite | Catch a mottled eel with aerial fishing in Lake Molch. | Pending. |
 | Elite | Score a goal in skullball. | Pending. |
 | Elite | Complete a lap of Ape atoll agility course. | Pending. |
@@ -38,7 +38,7 @@ assignment/self-production enforcement. These counts are not live acceptance.
 | Elite | Fix a magical lamp in Dorgesh-Kaan. | Pending. |
 | Elite | Burn a yew log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
 | Elite | Cook a swordfish | Pending. |
-| Elite | Craft multiple cosmic runes from a single essence. | Pending. |
+| Elite | Craft multiple cosmic runes from a single essence. | Standard altar output hook; cosmic requires base multiplier >= 2. Live acceptance pending. |
 | Elite | Plant a watermelon seed. | Pending. |
 | Elite | Activate the Chivalry prayer. | Pending. |
 | Elite | Smith a tier 2 or above Shayzien platebody. | Pending. |

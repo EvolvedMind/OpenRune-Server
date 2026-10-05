@@ -251,3 +251,8 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Added successful ground-log ignition event and assigned yew, magic and redwood task completion.
 - Firemaking compilation passed; all 30 clue tests pass (clues-firemaking-test.log).
 - 18/60 task rows have completion hooks, 42 incomplete. Queued ignition, campfire compatibility and live acceptance pending. Mimic last.
+
+### 2026-10-05 - Treasure Trails: nature and cosmic altar tasks
+- Successful altar output now reports essence and base multiplier. Nature and double-cosmic tasks complete after assignment.
+- Runecrafting compilation passed; all 31 clue tests pass (clues-runecrafting-test.log).
+- 20/60 task rows have completion hooks, 40 incomplete. Blood altar and live altar validation pending. Mimic last.

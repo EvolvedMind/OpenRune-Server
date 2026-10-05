@@ -5,6 +5,7 @@ import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.events.skilling.LogBurnedEvent
+import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.output.mes
@@ -25,6 +26,20 @@ internal class TrailSkillChallenges @Inject constructor(
             if (player.worn[wearpos.slot]?.id != objType.id) return@onEvent
             for (active in targets.active(player)) {
                 if (active.state.row != "dbrow.cluehelper_skillchallenge_elite_0".asRSCM() || active.state.phase != ASSIGNED) continue
+                if (requirements.missing(player, active.clue) != null) continue
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+            }
+        }
+
+        onEvent<RunesCraftedEvent> {
+            if (ourania || essenceConsumed <= 0 || baseMultiplier <= 0) return@onEvent
+            val row = when {
+                rune == "obj.nature_rune" -> "dbrow.cluehelper_skillchallenge_elite_2".asRSCM()
+                rune == "obj.cosmic_rune" && baseMultiplier >= 2 -> "dbrow.cluehelper_skillchallenge_elite_20".asRSCM()
+                else -> return@onEvent
+            }
+            for (active in targets.active(player)) {
+                if (active.state.row != row || active.state.phase != ASSIGNED) continue
                 if (requirements.missing(player, active.clue) != null) continue
                 if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
             }

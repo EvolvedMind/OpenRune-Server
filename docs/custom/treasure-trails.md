@@ -107,3 +107,7 @@ Finished potion and barbarian mix production now publish completion after succes
 ### Firemaking clue hooks (2026-10-05)
 
 Yew, magic and redwood Sherlock tasks listen to successful ground-log ignition. Both existing tinderbox and bow paths reach this completion point; unsuccessful attempts do not. Assignment, wrong log, skill requirements and idempotent completion are tested through the event bus. Actual queued ignition, campfire compatibility and live acceptance still need validation.
+
+### Runecrafting clue hooks (2026-10-05)
+
+Nature and multiple-cosmic tasks observe successful standard/daeyalt altar output. Cosmic requires a base multiplier of at least two, not merely a batch containing multiple runes. Assignment, wrong rune, zero essence, Ourania exclusion and single-multiplier batch rejection are tested through the event bus. Actual altar interaction and live acceptance remain pending. The master blood-altar task is still incomplete.

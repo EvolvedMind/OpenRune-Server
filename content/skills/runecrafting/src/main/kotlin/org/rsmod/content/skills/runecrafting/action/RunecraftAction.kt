@@ -2,16 +2,17 @@ package org.rsmod.content.skills.runecrafting.action
 
 import dev.openrune.types.ItemServerType
 import kotlin.math.floor
+import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.baseRunecraftingLvl
 import org.rsmod.api.stats.xpmod.XpModifiers
 import org.rsmod.api.table.ComboruneRecipeRow
 import org.rsmod.api.table.runecrafting.RunecraftingRunesRow
 import org.rsmod.content.skills.runecrafting.essencepouch.EssencePouch
-import org.rsmod.content.skills.runecrafting.items.BloodEssence
-import org.rsmod.content.skills.runecrafting.items.BloodEssence.applyBloodRuneBonus
 import org.rsmod.content.skills.runecrafting.items.BindingNecklace.consumeChargeAfterCombo
 import org.rsmod.content.skills.runecrafting.items.BindingNecklace.isWearing
+import org.rsmod.content.skills.runecrafting.items.BloodEssence
+import org.rsmod.content.skills.runecrafting.items.BloodEssence.applyBloodRuneBonus
 import org.rsmod.content.skills.runecrafting.items.RaimentsOfTheEye.applyBonus
 import org.rsmod.content.skills.runecrafting.magic.MagicImbue.isActive
 
@@ -190,8 +191,11 @@ object RunecraftAction {
             }
         }
 
-        invAdd(inv, rune.output.internalName, totalRunes)
+        val output = invAdd(inv, rune.output.internalName, totalRunes)
         advanceRunecraftingXp(xp, xpMods)
+        if (output.success && essenceConsumed > 0) {
+            publish(RunesCraftedEvent(player, rune.output.internalName, essenceConsumed, baseMultiplier, ouraniaAltar))
+        }
     }
 
     private suspend fun ProtectedAccess.canCraftRune(rune: RunecraftingRunesRow): Boolean {

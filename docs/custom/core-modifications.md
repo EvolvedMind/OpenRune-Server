@@ -290,3 +290,5 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - 2026-10-05: `SkillingProductSource.Herblore` identifies successful finished-potion and barbarian-mix output events for assigned Sherlock challenges. Existing ingredient, chemistry and XP behaviour is retained.
 
 - 2026-10-05: `LogBurnedEvent` reports successful ground-log ignition after fire creation and XP, for assigned Firemaking clues. Failed attempts and chopping logs do not emit it. Campfire tending is not included.
+
+- 2026-10-05: `RunesCraftedEvent` reports successful standard/daeyalt altar output, consumed essence and base rune multiplier for assigned clues. Bonus runes are not mistaken for a multiple-runes-per-essence level multiplier.
