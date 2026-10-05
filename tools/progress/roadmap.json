@@ -103,6 +103,39 @@
         "Do not automatically merge or upgrade the accepted revision 240 runtime.",
         "Resume only as a deliberate compatibility project."
       ]
+    },
+    {
+      "title": "Tormented Demons — Complete",
+      "status": "not_added",
+      "summary": "Complete the Tormented Demons encounter and supporting mechanics.",
+      "details": [
+        "Finish Tormented Demons as a complete playable encounter.",
+        "Verify combat mechanics, special behaviours, targeting, drops, kill/death handling and cleanup.",
+        "Integrate Collection Log, loot tracking and any required progression hooks.",
+        "Add focused regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Cerberus — Complete",
+      "status": "not_added",
+      "summary": "Build Cerberus into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Cerberus encounter rather than relying on drop-table or cache presence.",
+        "Cover core attacks, special mechanics, summoned hazards/entities, arena flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Vorkath — Complete",
+      "status": "not_added",
+      "summary": "Build Vorkath into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Vorkath fight and arena lifecycle.",
+        "Cover standard attacks, special phases/mechanics, hazards, spawn/cleanup and death flow.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ]
     }
   ]
 }
