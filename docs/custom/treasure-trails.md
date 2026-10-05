@@ -29,6 +29,11 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 - Master runite, anglerfish and redwood tasks require all outfit pieces in their
   correct worn slots at production time, supporting mixed accepted variants.
   Bonus products do not complete tasks; removing gear afterwards preserves success.
+- Sherlock combat tasks recognize ordinary dust devils, Slayer Tower nechryaels
+  and overworld lizardman shamans through the existing death kill-credit hook.
+  Only the credited player's assigned task is marked complete. The Nechryael task
+  checks the NPC's location through the shared area checker. Superior and raid
+  variants remain unvalidated.
 - 66 weighted reward tables with 743 named cache items. Persistent pending reward
   inventory is separate from Barrows' temporary display inventory.
 - `::cluerewards` retrieves pending rewards; collection log integration.
@@ -48,7 +53,7 @@ The accepted boss/item-crafting runtime is unchanged. This branch is not a relea
 
 ## Validation so far
 
-24 clue tests pass; the previous crafting regression run passed 16 tests. Coverage:
+27 clue tests pass; the previous crafting regression run passed 16 tests. Coverage:
 boxes/state/catalog, puzzle invariants and physical box
 ownership/capacity/reopening, reward data and
 6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
@@ -57,6 +62,8 @@ Sherlock tests cover persistent elite assignment without advancing or rerolling,
 correct post-assignment products, bonus/wrong/zero products and skill requirements.
 Outfit cases cover every missing slot, inventory-only equipment, accepted mixed
 variants, Varrock armour substitution and persisted completion after unequipping.
+Combat task tests cover assignment, credited-player isolation, ordinary NPC variants,
+wrong NPCs, Slayer requirements, repeated kills and NPC-based tower area checks.
 Crafting tests verify success events occur after actual output insertion, never on
 missing ingredients or failed insertion, alongside the existing boss-item recipes.
 The storage test caught and fixed

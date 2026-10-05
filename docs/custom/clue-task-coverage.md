@@ -23,7 +23,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Elite | Steal from a chest in Ardougne Castle. | Pending. |
 | Elite | Craft a green dragonhide body. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | String a yew longbow. | Pending. |
-| Elite | Slay a dust devil. | Pending. |
+| Elite | Slay a dust devil. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Elite | Catch a black warlock. | Pending. |
 | Elite | Catch a red chinchompa. | Pending. |
 | Elite | Mine a mithril ore. | Assigned-task production event implemented; requires return to Sherlock. |
@@ -42,7 +42,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Smith a runite med helm. | Pending. |
 | Master | Teleport to a spirit tree you planted yourself. | Pending. |
 | Master | Create a Barrows teleport tablet. | Pending. |
-| Master | Slay a Nechryael in the Slayer Tower. | Pending. |
+| Master | Slay a Nechryael in the Slayer Tower. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Kill the spiritual, magic and godly whilst representing their own god. | Pending. |
 | Master | Create an unstrung dragonstone amulet at a furnace. | Assigned-task production event implemented; requires return to Sherlock. |
 | Master | Burn a magic log. | Pending. |
@@ -57,7 +57,7 @@ the entire Treasure Trails feature is playable. Mimic is scheduled last.
 | Master | Fletch a rune dart. | Pending. |
 | Master | Cremate a set of fiyr remains. | Pending. |
 | Master | Dissect a sacred eel. | Pending. |
-| Master | Kill a lizardman shaman. | Pending. |
+| Master | Kill a lizardman shaman. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Craft a light orb in the Dorgesh-Kaan bank. | Pending. |
@@ -75,3 +75,7 @@ Supported variants include golden prospector, Varrock armour 4 as the mining top
 spirit angler and forestry pieces, including mixed sets. Bonus products do not count.
 References: [Varrock armour substitution](https://github.com/runelite/runelite/issues/12023),
 [Lumberjack and Forestry](https://oldschool.runescape.wiki/w/Lumberjack_outfit).
+
+Combat task hooks use the death system's credited player, not nearby players.
+They mark the assigned task complete and retain the current clue step until return
+to Sherlock. Superior Slayer and raid-specific variants still require validation.

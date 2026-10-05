@@ -23,6 +23,7 @@ class TrailModule : PluginModule() {
         addSetBinding<NpcAttackValidateHook>(TrailGuardAttackHook::class.java)
         addSetBinding<NpcDeathKillHook>(TrailGuardKillHook::class.java)
         addSetBinding<NpcDeathKillHook>(TrailTargetKillHook::class.java)
+        addSetBinding<NpcDeathKillHook>(TrailSkillKillHook::class.java)
         addSetBinding<PlayerDeathCleanupHook>(TrailGuardDeathHook::class.java)
     }
 }
