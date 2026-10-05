@@ -201,12 +201,195 @@ class TrailSkillChallengesTest {
         }
     }
 
+    @Test fun `Charlie assigns once and accepts existing unnoted items only after assignment`() {
+        val intro = Fixture()
+        intro.clue(TrailCatalog.charlieIntro, 0)
+        assertTrue(intro.progress.assignCharlie(intro.player, 0, intro.player.inv[0]!!))
+        val assigned = intro.state()
+        assertTrue(assigned.row in TrailCharlie.products)
+        assertEquals(9, assigned.phase)
+        assertEquals(2, assigned.completed)
+        assertFalse(intro.progress.assignCharlie(intro.player, 0, intro.player.inv[0]!!))
+        assertEquals(assigned, intro.state())
+        for ((row, expected) in TrailCharlie.products) {
+            val f = Fixture()
+            f.clue(row, 0)
+            f.product(expected.second, expected.first)
+            assertEquals(0, f.state().phase)
+            assertTrue(f.progress.phase(f.player, 0, f.player.inv[0]!!, 9))
+            fun active() = TrailTargets(f.progress).active(f.player).single()
+            assertFalse(TrailCharlie.handIn(f.progress, f.player, active()))
+            f.player.inv[1] = InvObj(expected.second.replace("obj.", "obj.cert_"))
+            assertFalse(TrailCharlie.handIn(f.progress, f.player, active()))
+            f.player.inv[1] = InvObj(expected.second)
+            assertTrue(TrailCharlie.handIn(f.progress, f.player, active()))
+            assertEquals(3, f.state().completed)
+            assertEquals(0, f.player.inv.count(expected.second))
+        }
+    }
+
+    @Test fun `smithing and cooking challenges reject wrong and bonus products`() {
+        for ((row, expected) in TrailSkillChallenges.products.filterValues { it.first in setOf("stat.cooking", "stat.smithing") }) {
+            val f = Fixture()
+            f.clue(row, 9)
+            f.product("obj.burnt_swordfish", expected.first)
+            f.product(expected.second, expected.first, bonus = true)
+            assertEquals(9, f.state().phase)
+            f.product(expected.second, expected.first)
+            assertEquals(10, f.state().phase)
+        }
+    }
+
+    @Test fun `Falo assigns a persistent riddle and requires the correct item group`() {
+        val f = Fixture()
+        f.clue(TrailCatalog.faloIntro, 0)
+        assertTrue(f.progress.assignFalo(f.player, 0, f.player.inv[0]!!))
+        val assigned = f.state()
+        assertEquals("falobard", f.progress.catalog.clues.getValue(assigned.row).kind)
+        assertEquals(2, assigned.completed)
+        assertFalse(f.progress.assignFalo(f.player, 0, f.player.inv[0]!!))
+        assertEquals(assigned, f.state())
+        val clue = f.progress.catalog.clues.getValue("dbrow.cluehelper_falobard_master_0".asRSCM())
+        val requirements = TrailRequirements(f.progress.catalog)
+        assertNotNull(requirements.missing(f.player, clue))
+        f.player.inv[1] = InvObj("obj.dragon_scimitar")
+        assertNull(requirements.missing(f.player, clue))
+        assertEquals(1, f.player.inv.count("obj.dragon_scimitar"))
+    }
+
+    @Test fun `Watson stores one clue per tier and preserves deposits until a master fits`() {
+        val f = Fixture()
+        val watson = TrailWatson(f.progress)
+        for ((slot, tier) in TrailWatson.tiers.withIndex()) {
+            val clue = f.progress.catalog.forTier(tier).first()
+            f.player.inv[slot] = InvObj(checkNotNull(ServerCacheManager.getItem(f.progress.catalog.item(clue))))
+        }
+        assertEquals(4, watson.deposit(f.player))
+        assertEquals(0, watson.deposit(f.player))
+        for (slot in 0..27) f.player.inv[slot] = InvObj("obj.abyssal_whip")
+        assertFalse(watson.claim(f.player))
+        for (tier in TrailWatson.tiers) assertEquals(1, f.player.vars[TrailWatson.flag(tier)])
+        f.player.inv[0] = null
+        assertTrue(watson.claim(f.player))
+        assertEquals(1, f.player.inv.count("obj.trail_clue_master"))
+        assertFalse(watson.claim(f.player))
+        for (tier in TrailWatson.tiers) assertEquals(0, f.player.vars[TrailWatson.flag(tier)])
+    }
+
+    @Test fun `Watson accepts partial deposits but keeps duplicate tiers and blocks banked masters`() {
+        val f = Fixture()
+        val watson = TrailWatson(f.progress)
+        val clue = f.progress.catalog.forTier(TrailTier.EASY).first()
+        val item = InvObj(checkNotNull(ServerCacheManager.getItem(f.progress.catalog.item(clue))))
+        f.player.inv[0] = item
+        f.player.inv[1] = item.copy()
+        assertEquals(1, watson.deposit(f.player))
+        assertEquals(1, f.player.inv.objs.count { it?.id == item.id })
+        assertEquals(0, watson.deposit(f.player))
+        assertFalse(watson.claim(f.player))
+        for (tier in TrailWatson.tiers) org.rsmod.api.player.vars.VarPlayerIntMapSetter.set(f.player, TrailWatson.flag(tier), 1)
+        val bank = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.bank".asRSCM())), arrayOfNulls(800))
+        bank[0] = InvObj("obj.trail_clue_master")
+        f.player.invMap["inv.bank"] = bank
+        assertFalse(watson.claim(f.player))
+        for (tier in TrailWatson.tiers) assertEquals(1, f.player.vars[TrailWatson.flag(tier)])
+    }
+
+    @Test fun `Chivalry must actually be enabled after assignment`() {
+        val f = Fixture()
+        f.clue("dbrow.cluehelper_skillchallenge_elite_22".asRSCM(), 9)
+        val event = org.rsmod.api.player.events.skilling.PrayerActivatedEvent(f.player, "varbit.prayer_chivalry")
+        f.events.publish(event)
+        assertEquals(9, f.state().phase)
+        org.rsmod.api.player.vars.VarPlayerIntMapSetter.set(f.player, "varbit.prayer_chivalry", 1)
+        f.events.publish(event)
+        assertEquals(10, f.state().phase)
+    }
+
+    @Test fun `nickel and fletching products complete their assigned tasks`() {
+        for (row in listOf("dbrow.cluehelper_skillchallenge_elite_nickel", "dbrow.cluehelper_skillchallenge_elite_9", "dbrow.cluehelper_skillchallenge_master_16")) {
+            val f = Fixture()
+            f.clue(row.asRSCM(), 9)
+            val expected = TrailSkillChallenges.products.getValue(row.asRSCM())
+            f.product(expected.second, expected.first)
+            assertEquals(10, f.state().phase)
+        }
+    }
+
+    @Test fun `hot cold introductions assign a search without completing a step or rerolling`() {
+        for (row in TrailCatalog.hotColdIntros) {
+            val f = Fixture()
+            f.clue(row, 0)
+            val original = f.player.inv[0]!!
+            assertTrue(f.progress.assignHotCold(f.player, 0, original))
+            val state = f.state()
+            val clue = f.progress.catalog.clues.getValue(state.row)
+            assertEquals("hotcold", clue.kind)
+            assertEquals(2, state.completed)
+            assertEquals(6, state.total)
+            assertEquals(1, f.player.inv.count("obj.${clue.tier.key}_device"))
+            assertFalse(f.progress.assignHotCold(f.player, 0, original))
+            assertFalse(f.progress.assignHotCold(f.player, 0, f.player.inv[0]!!))
+            assertEquals(state, f.state())
+        }
+    }
+
+    @Test fun `hot cold assignment is atomic when inventory is full and resets an existing device`() {
+        val f = Fixture()
+        f.clue("dbrow.cluehelper_cryptic_beginner_reldo".asRSCM(), 0)
+        for (slot in 1..27) f.player.inv[slot] = InvObj("obj.abyssal_whip")
+        val original = f.player.inv[0]!!
+        assertFalse(f.progress.assignHotCold(f.player, 0, original))
+        assertSame(original, f.player.inv[0])
+        f.player.inv[1] = InvObj("obj.beginner_device", 1, 12345)
+        assertTrue(f.progress.assignHotCold(f.player, 0, original))
+        assertEquals(0, f.player.inv[1]!!.vars)
+        assertEquals(1, f.player.inv.count("obj.beginner_device"))
+    }
+
+    @Test fun `blood rune task requires a real blood altar and successful assigned output`() {
+        for (altar in listOf("loc.archeus_altar_blood", "loc.blood_altar")) {
+            val f = Fixture()
+            f.clue("dbrow.cluehelper_skillchallenge_master_14".asRSCM(), 9)
+            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, false))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, true, altar))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 0, 1, false, altar))
+            assertEquals(9, f.state().phase)
+            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, false, altar))
+            assertEquals(10, f.state().phase)
+            assertEquals(2, f.state().completed)
+        }
+    }
+
+    @Test fun `hot cold and Lletya requirements respect the server quest policy`() {
+        val previous = org.rsmod.content.quest.manager.QuestRequirements.activePolicy()
+        try {
+            val f = Fixture()
+            val requirements = TrailRequirements(f.progress.catalog)
+            val jorral = f.progress.catalog.clues.getValue("dbrow.cluehelper_cryptic_master_jorral".asRSCM())
+            val lletya = f.progress.catalog.clues.values.first { "dbrow.cluehelper_requirement_quest_lletya".asRSCM() in it.requirements }
+            org.rsmod.content.quest.manager.QuestRequirements.install(org.rsmod.content.quest.manager.QuestRequirementPolicy(org.rsmod.content.quest.manager.QuestRequirementMode.RespectProgress))
+            assertNotNull(requirements.missing(f.player, jorral))
+            assertNotNull(requirements.missing(f.player, lletya))
+            org.rsmod.content.quest.manager.QuestRequirements.install(org.rsmod.content.quest.manager.QuestRequirementPolicy(org.rsmod.content.quest.manager.QuestRequirementMode.VirtualCompletions, setOf("quest_makinghistory", "quest_mourningsendpart1")))
+            assertNull(requirements.missing(f.player, jorral))
+            assertNull(requirements.missing(f.player, lletya))
+        } finally {
+            org.rsmod.content.quest.manager.QuestRequirements.install(previous)
+        }
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
         val player = Player().apply {
             inv = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.inv".asRSCM())), arrayOfNulls(28))
             worn = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.worn".asRSCM())), arrayOfNulls(14))
+            statMap.setCurrentLevel("stat.prayer", 99)
+            statMap.setCurrentLevel("stat.defence", 99)
+            statMap.setCurrentLevel("stat.fletching", 99)
+            statMap.setCurrentLevel("stat.cooking", 99)
+            statMap.setCurrentLevel("stat.smithing", 99)
             statMap.setCurrentLevel("stat.runecrafting", 99)
             statMap.setCurrentLevel("stat.firemaking", 99)
             statMap.setCurrentLevel("stat.herblore", 99)

@@ -256,3 +256,13 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Successful altar output now reports essence and base multiplier. Nature and double-cosmic tasks complete after assignment.
 - Runecrafting compilation passed; all 31 clue tests pass (clues-runecrafting-test.log).
 - 20/60 task rows have completion hooks, 40 incomplete. Blood altar and live altar validation pending. Mimic last.
+
+### 2026-10-05 - Clue assignments and skill expansion (local, not released)
+- Skill task coverage increased from 20/60 to 36/60: Charlie's eight assigned hand-ins, cooking/smithing, yew-longbow/rune-dart Fletching, Chivalry, nickel and Blood Altar output.
+- Charlie accepts items from any source after assignment (Jagex 2022 rule); the older self-production requirement in historical notes is superseded.
+- Falo assigns a persistent riddle. Watson stores partial tier deposits and preserves them when a master cannot be delivered.
+- Hot/cold introductions now assign a search and device atomically instead of completing the step. Full inventory and repeat-talk checks pass.
+- Boxes preserve their contents when a same-tier clue is held or banked. Making History and cached Lletya requirements follow the existing quest policy.
+- Validation: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log (BUILD SUCCESSFUL). Git diff check clean for this scope.
+- Skill changes committed separately as c412b8ace. Remaining: 24 skill tasks, outstanding map/puzzle/world validation and other coverage gaps documented in docs/custom/clue-task-coverage.md. Mimic has NOT started; it remains last.
+- Accepted installation, main and remote branches unchanged. No installer, push or merge.

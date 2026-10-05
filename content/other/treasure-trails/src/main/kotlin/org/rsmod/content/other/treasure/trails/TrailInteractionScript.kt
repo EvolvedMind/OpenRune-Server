@@ -1,7 +1,6 @@
 package org.rsmod.content.other.treasure.trails
 
 import dev.openrune.ServerCacheManager
-import dev.openrune.rscm.RSCM.asRSCM
 import jakarta.inject.Inject
 import org.rsmod.api.music.MusicRepository
 import org.rsmod.api.player.events.PlayerDigEvent
@@ -51,6 +50,33 @@ internal class TrailInteractionScript @Inject constructor(
         }
     }
     private suspend fun ProtectedAccess.resolve(active: ActiveTrail) {
+        if (active.state.row in TrailCatalog.hotColdIntros) {
+            val missing = requirements.missing(player, active.clue)
+            if (missing != null) { mes(missing); return }
+            if (progress.assignHotCold(player, active.slot, active.item))
+                mes("Feel your strange device as you travel, then dig where it shakes.")
+            else mes("Make an inventory space for the strange device.")
+            return
+        }
+        if (active.state.row == TrailCatalog.faloIntro) {
+            if (progress.assignFalo(player, active.slot, active.item)) {
+                val assigned = progress.state(player.inv[active.slot]!!)!!
+                mes(progress.catalog.clues.getValue(assigned.row).text)
+            }
+            return
+        }
+        if (active.clue.kind == "falobard" && active.state.phase == 0) {
+            progress.phase(player, active.slot, active.item, TrailSkillChallenges.ASSIGNED)
+            mes(active.clue.text)
+            return
+        }
+        if (active.state.row == TrailCatalog.charlieIntro) {
+            if (progress.assignCharlie(player, active.slot, active.item)) {
+                val assigned = progress.state(player.inv[active.slot]!!)!!
+                mes(progress.catalog.clues.getValue(assigned.row).text)
+            }
+            return
+        }
         if (active.state.row == TrailCatalog.sherlockIntro) {
             if (progress.assignSherlock(player, active.slot, active.item)) {
                 val assigned = progress.state(player.inv[active.slot]!!)!!
@@ -68,12 +94,10 @@ internal class TrailInteractionScript @Inject constructor(
             }
         }
         if (active.clue.kind == "skillchallenge") {
-            val charlie = charlieItems[active.state.row]
-            if (charlie != null) {
-                if (player.inv.count(charlie) == 0) { mes(active.clue.text); return }
-                if (progress.advance(player, player.inv, active.slot, active.item, listOf(InvObj(charlie)))) {
-                    mes("Charlie accepts your item and hands you the next part of your Treasure Trail.")
-                }
+            if (active.state.row in TrailCharlie.products) {
+                if (active.state.phase == 0) progress.phase(player, active.slot, active.item, TrailSkillChallenges.ASSIGNED)
+                if (TrailCharlie.handIn(progress, player, active)) mes("Charlie accepts your item and hands you the next part of your Treasure Trail.")
+                else mes(active.clue.text + " Bring the requested item back to Charlie.")
                 return
             }
             if (active.state.phase == TrailSkillChallenges.COMPLETED) {
@@ -119,9 +143,5 @@ internal class TrailInteractionScript @Inject constructor(
     }
     companion object {
         private const val KEY = 0x545241494cL
-        private val charlieItems by lazy {
-            listOf("trout", "pike", "raw_herring", "raw_trout", "iron_ore", "iron_dagger", "leather_armour", "leather_chaps")
-                .mapIndexed { index, item -> "dbrow.cluehelper_skillchallenge_beginner_$index".asRSCM() to "obj.$item" }.toMap()
-        }
     }
 }

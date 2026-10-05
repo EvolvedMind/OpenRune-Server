@@ -19,11 +19,24 @@ class TrailProgress @Inject constructor(val catalog: TrailCatalog, private val r
     }
     fun openBox(player: Player, inventory: Inventory, slot: Int, tier: TrailTier): Boolean {
         val original = inventory[slot] ?: return false
-        if (original.id != tier.box) return false
+        if (original.id != tier.box || ownsClue(player, tier)) return false
         val clue = choose(tier)
         val state = TrailState(clue.row, random.of(tier.steps))
         return replace(player, inventory, slot, original, InvObj(checkNotNull(ServerCacheManager.getItem(catalog.item(clue))), 1, state.encode()))
     }
+    fun ownsClue(player: Player, tier: TrailTier): Boolean =
+        (player.invMap.values + listOf(player.inv)).any { inventory ->
+            inventory.objs.filterNotNull().any { item ->
+                val clueTier = state(item)?.let { catalog.clues.getValue(it.row).tier }
+                    ?: catalog.itemRows[item.id]?.let { catalog.clues.getValue(it).tier }
+                    ?: when (item.id) {
+                        "obj.trail_clue_beginner".asRSCM() -> TrailTier.BEGINNER
+                        "obj.trail_clue_master".asRSCM() -> TrailTier.MASTER
+                        else -> null
+                    }
+                clueTier == tier
+            }
+        }
     fun state(item: InvObj): TrailState? {
         val state = TrailState.decode(item.vars)
         if (state != null && catalog.clues.containsKey(state.row) && catalog.item(catalog.clues.getValue(state.row)) == item.id) return state
@@ -52,6 +65,37 @@ class TrailProgress @Inject constructor(val catalog: TrailCatalog, private val r
     fun phase(player: Player, slot: Int, original: InvObj, phase: Int): Boolean {
         val state = state(original) ?: return false
         return replace(player, player.inv, slot, original, original.copy(count = 1, vars = state.copy(phase = phase).encode()))
+    }
+    fun assignHotCold(player: Player, slot: Int, original: InvObj): Boolean {
+        if (player.inv[slot] !== original) return false
+        val state = state(original) ?: return false
+        if (state.row !in TrailCatalog.hotColdIntros) return false
+        val tier = catalog.clues.getValue(state.row).tier
+        val rows = catalog.clues.values.filter { it.kind == "hotcold" && it.tier == tier }
+        val assigned = state.copy(row = rows[random.of(rows.size)].row, phase = 0)
+        val device = "obj.${tier.key}_device".asRSCM()
+        val deviceSlot = player.inv.objs.indexOfFirst { it?.id == device }
+        return player.invTransaction(player.inv) {
+            val inventory = select(player.inv)
+            delete(inventory, original.id, 1, slot)
+            add(inventory, original.id, 1, assigned.encode(), slot)
+            if (deviceSlot >= 0) delete(inventory, device, 1, deviceSlot)
+            add(inventory, device, 1, 0, deviceSlot.takeIf { it >= 0 })
+        }.success
+    }
+    fun assignFalo(player: Player, slot: Int, original: InvObj): Boolean {
+        val state = state(original) ?: return false
+        if (state.row != TrailCatalog.faloIntro) return false
+        val rows = catalog.clues.values.filter { it.kind == "falobard" }
+        val assigned = state.copy(row = rows[random.of(rows.size)].row, phase = TrailSkillChallenges.ASSIGNED)
+        return replace(player, player.inv, slot, original, original.copy(vars = assigned.encode()))
+    }
+    fun assignCharlie(player: Player, slot: Int, original: InvObj): Boolean {
+        val state = state(original) ?: return false
+        if (state.row != TrailCatalog.charlieIntro) return false
+        val rows = TrailCharlie.products.keys.toList()
+        val assigned = state.copy(row = rows[random.of(rows.size)], phase = TrailSkillChallenges.ASSIGNED)
+        return replace(player, player.inv, slot, original, original.copy(vars = assigned.encode()))
     }
     fun assignSherlock(player: Player, slot: Int, original: InvObj): Boolean {
         val state = state(original) ?: return false

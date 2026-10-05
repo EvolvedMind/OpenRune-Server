@@ -110,4 +110,18 @@ Yew, magic and redwood Sherlock tasks listen to successful ground-log ignition. 
 
 ### Runecrafting clue hooks (2026-10-05)
 
-Nature and multiple-cosmic tasks observe successful standard/daeyalt altar output. Cosmic requires a base multiplier of at least two, not merely a batch containing multiple runes. Assignment, wrong rune, zero essence, Ourania exclusion and single-multiplier batch rejection are tested through the event bus. Actual altar interaction and live acceptance remain pending. The master blood-altar task is still incomplete.
+Nature and multiple-cosmic tasks observe successful standard/daeyalt altar output. Cosmic requires a base multiplier of at least two, not merely a batch containing multiple runes. Assignment, wrong rune, zero essence, Ourania exclusion and single-multiplier batch rejection are tested through the event bus. Actual altar interaction and live acceptance remain pending. The master blood-altar task is covered by the later altar-identity extension below.
+
+### Assignment and skill expansion (2026-10-05)
+
+Charlie now assigns one of eight requests without advancing the trail. Hand-in accepts unnoted items from any source, following Jagex's 30 November 2022 change; historical notes requesting self-production are superseded. Falo assigns a riddle and checks its equipment group without consuming the shown item. Watson stores partial tier deposits and only clears them after successfully delivering a master clue. Banked masters and full inventories preserve the deposit.
+
+Cooking/smithing success events connect swordfish, mithril 2h swords and rune med helms. The initial Fletching module implements yew-longbow stringing and rune-dart feathering with atomic inventory transactions, level requirements and production events. This does not implement the entire Fletching skill. Chivalry activation and nickel mining have task completion hooks.
+
+Hot/cold introductions assign a search location and device atomically, retain the completed-step count, and cannot reroll by repeating the conversation. Existing devices have their previous reading cleared for a new assignment. Failed inventory insertion retains the introduction. Random clue selection enters these searches through their NPC introduction rather than bypassing it.
+
+Live acceptance remains pending. Remaining skill actions, quest/location requirements, native map associations and full puzzle routes must still be completed before Mimic. No installer or accepted runtime was changed.
+
+The blood-altar extension recognizes successful blood-rune output from the two native Blood Altars, excluding Ourania, missing altar identity and zero consumed essence. Boxes now reject a duplicate tier held in inventory or bank without consuming the box. Quest requirements use the existing server policy (including virtual completions), with Making History checked for master hot/cold searches and the cached stage threshold checked for Lletya.
+
+Validation for this expansion: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log. These checks do not replace live gameplay acceptance.

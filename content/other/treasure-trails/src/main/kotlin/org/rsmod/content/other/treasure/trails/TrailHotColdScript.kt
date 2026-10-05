@@ -44,14 +44,14 @@ internal class TrailHotColdScript @Inject constructor(
         }
         contextual.npc("trail-device") { player, npc, op ->
             val tier = when (npc.visType.id) {
-                "npc.makinghistory_jorral".asRSCM() -> TrailTier.MASTER
+                "npc.makinghistory_jorral".asRSCM(), "npc.trail_watson".asRSCM(), "npc.trail_watson_pre_talk".asRSCM(), "npc.trail_watson_post_talk".asRSCM() -> TrailTier.MASTER
                 "npc.reldo_normal".asRSCM(), "npc.reldo".asRSCM(), "npc.reldo_withbook".asRSCM() -> TrailTier.BEGINNER
                 else -> null
             }
             if (tier != null && op == InteractionOp.Op1 && targets.active(player).any { it.clue.kind == "hotcold" && it.clue.tier == tier }) ContextualNpcOp(npc, KEY) else null
         }
         onProtectedEvent<ContextualNpcOp>(KEY) {
-            val tier = if (it.npc.visType.id == "npc.makinghistory_jorral".asRSCM()) TrailTier.MASTER else TrailTier.BEGINNER
+            val tier = if (it.npc.visType.id in listOf("npc.reldo_normal", "npc.reldo", "npc.reldo_withbook").map { name -> name.asRSCM() }) TrailTier.BEGINNER else TrailTier.MASTER
             val item = "obj.${tier.key}_device"
             if (player.inv.count(item) > 0) mes("Use your strange device to feel how close you are to the treasure.")
             else if (player.invAdd(player.inv, item, 1).success) mes("You receive a strange device. Feel it as you travel to locate the treasure.")

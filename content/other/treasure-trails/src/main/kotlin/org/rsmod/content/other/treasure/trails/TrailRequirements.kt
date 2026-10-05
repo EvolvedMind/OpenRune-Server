@@ -7,14 +7,23 @@ import dev.openrune.rscm.RSCMType
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.player.stat.stat
+import org.rsmod.content.quest.manager.Quest
+import org.rsmod.content.quest.manager.QuestRequirements
 import org.rsmod.game.entity.Player
 
 @Singleton
 internal class TrailRequirements @Inject constructor(private val catalog: TrailCatalog) {
     fun missing(player: Player, clue: TrailClue): String? {
+        if (clue.tier == TrailTier.MASTER && (clue.kind == "hotcold" || clue.row in TrailCatalog.hotColdIntros) &&
+            !QuestRequirements.hasCompleted(player, "quest_makinghistory")) return "Complete Making History before starting this search."
         for (row in clue.requirements) {
             val f = catalog.fields(row)
             when (f.table) {
+                "cluehelper_requirement_quest" -> {
+                    val key = RSCM.getReverseMapping(RSCMType.DBROW, f.int("quest")).removePrefix("dbrow.")
+                    if (!QuestRequirements.hasCompleted(player, key) &&
+                        (Quest.get(key)?.getQuestStage(player) ?: 0) < f.int("varstate")) return f.string("description")
+                }
                 "cluehelper_requirement_stat" -> {
                     val stat = RSCM.getReverseMapping(RSCMType.STAT, f.int("stat"))
                     if (player.stat(stat) < f.int("level")) return "You need level ${f.int("level")} ${stat.removePrefix("stat.")} for this clue."

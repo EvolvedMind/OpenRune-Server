@@ -31,9 +31,16 @@ class TrailCatalog {
         TrailTier.MASTER -> "obj.trail_clue_master".asRSCM()
         else -> checkNotNull(rowItems[if (clue.tier == TrailTier.ELITE && clue.kind == "skillchallenge") sherlockIntro else clue.row]) { "No scroll item for clue ${clue.row}" }
     }
-    fun forTier(tier: TrailTier) = clues.values.filter { it.tier == tier && (tier == TrailTier.BEGINNER || tier == TrailTier.MASTER || rowItems.containsKey(it.row)) }
+    fun forTier(tier: TrailTier) = clues.values.filter { it.tier == tier && !(tier == TrailTier.BEGINNER && it.kind == "skillchallenge") && it.kind != "falobard" && it.kind != "hotcold" && (tier == TrailTier.BEGINNER || tier == TrailTier.MASTER || rowItems.containsKey(it.row)) }
     fun fields(row: Int) = TrailFields(checkNotNull(ServerCacheManager.getDbrow(row)))
     companion object {
+        val hotColdIntros get() = setOf(
+            "dbrow.cluehelper_cryptic_beginner_reldo".asRSCM(),
+            "dbrow.cluehelper_cryptic_master_jorral".asRSCM(),
+            "dbrow.cluehelper_cryptic_master_watson".asRSCM(),
+        )
+        val faloIntro get() = "dbrow.cluehelper_cryptic_master_falo_the_bard".asRSCM()
+        val charlieIntro get() = "dbrow.cluehelper_cryptic_beginner_charlie_the_tramp".asRSCM()
         val sherlockIntro get() = "dbrow.cluehelper_cryptic_elite_sherlock".asRSCM()
         val kinds = listOf("anagram", "map", "cipher", "coordinate", "cryptic", "emote", "fairyring", "falobard", "hotcold", "music", "skillchallenge")
     }

@@ -70,6 +70,27 @@ class TrailBoxesTest {
             }
         }
     }
+
+    @Test fun `a held or banked clue blocks another box of its tier without consuming it`() {
+        for (tier in TrailTier.entries) {
+            val f = Fixture()
+            f.player.inv[0] = InvObj(checkNotNull(ServerCacheManager.getItem(tier.box)), 2)
+            f.open()
+            val box = f.player.inv[0]!!
+            assertFalse(f.progress.openBox(f.player, f.player.inv, 0, tier))
+            assertSame(box, f.player.inv[0])
+            val clueSlot = f.player.inv.objs.indexOfFirst { it != null && it.id != tier.box }
+            val bank = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.bank".asRSCM())), arrayOfNulls(800))
+            bank[0] = f.player.inv[clueSlot]!!.copy(vars = 0)
+            f.player.invMap["inv.bank"] = bank
+            f.player.inv[clueSlot] = null
+            assertFalse(f.progress.openBox(f.player, f.player.inv, 0, tier))
+            assertSame(box, f.player.inv[0])
+            bank[0] = null
+            assertTrue(f.progress.openBox(f.player, f.player.inv, 0, tier))
+        }
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))

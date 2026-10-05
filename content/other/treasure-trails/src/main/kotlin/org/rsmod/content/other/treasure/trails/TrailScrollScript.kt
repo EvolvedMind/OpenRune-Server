@@ -17,7 +17,8 @@ internal class TrailScrollScript @Inject constructor(
 ) : PluginScript() {
     override fun ScriptContext.startup() {
         for (tier in TrailTier.entries) onOpHeld1("obj.league_clue_box_${tier.key}") {
-            if (!progress.openBox(player, it.inventory, it.slot, tier)) mes("You need more inventory space to open this scroll box.")
+            if (progress.ownsClue(player, tier)) mes("You already have a ${tier.key} clue scroll. Finish or discard it first.")
+            else if (!progress.openBox(player, it.inventory, it.slot, tier)) mes("You need more inventory space to open this scroll box.")
         }
         val ids = progress.catalog.itemRows.keys + listOf("obj.trail_clue_beginner".asRSCM(), "obj.trail_clue_master".asRSCM())
         for (id in ids.distinct()) {

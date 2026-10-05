@@ -5,6 +5,7 @@ import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.events.skilling.LogBurnedEvent
+import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
 import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
@@ -31,9 +32,19 @@ internal class TrailSkillChallenges @Inject constructor(
             }
         }
 
+        onEvent<PrayerActivatedEvent> {
+            if (prayer != "varbit.prayer_chivalry" || player.vars[prayer] == 0) return@onEvent
+            for (active in targets.active(player)) {
+                if (active.state.row != "dbrow.cluehelper_skillchallenge_elite_22".asRSCM() || active.state.phase != ASSIGNED) continue
+                if (requirements.missing(player, active.clue) != null) continue
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+            }
+        }
+
         onEvent<RunesCraftedEvent> {
             if (ourania || essenceConsumed <= 0 || baseMultiplier <= 0) return@onEvent
             val row = when {
+                rune == "obj.blood_rune" && altar in setOf("loc.archeus_altar_blood", "loc.blood_altar") -> "dbrow.cluehelper_skillchallenge_master_14".asRSCM()
                 rune == "obj.nature_rune" -> "dbrow.cluehelper_skillchallenge_elite_2".asRSCM()
                 rune == "obj.cosmic_rune" && baseMultiplier >= 2 -> "dbrow.cluehelper_skillchallenge_elite_20".asRSCM()
                 else -> return@onEvent
@@ -58,11 +69,11 @@ internal class TrailSkillChallenges @Inject constructor(
             if (product.isBonus || product.count <= 0) return@onEvent
             for (active in targets.active(player)) {
                 if (active.clue.kind != "skillchallenge" || active.state.phase != ASSIGNED) continue
-                val expected = products[active.state.row] ?: continue
+                val expected = products[active.state.row] ?: TrailCharlie.products[active.state.row] ?: continue
                 if (product.skill != expected.first || product.item.asRSCM() !in (alternatives[active.state.row] ?: setOf(expected.second)).map { it.asRSCM() }) continue
                 if (requirements.missing(player, active.clue) != null) continue
                 if (!TrailSkillOutfits.matches(player, active.state.row)) continue
-                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes(if (active.state.row in TrailCharlie.products) "You have made Charlie's requested item. Take it and your clue back to him." else "You have completed Sherlock's challenge. Return to him with your clue.")
             }
         }
     }
@@ -84,6 +95,12 @@ internal class TrailSkillChallenges @Inject constructor(
         }
         internal val products by lazy {
             mapOf(
+                "dbrow.cluehelper_skillchallenge_elite_nickel".asRSCM() to ("stat.mining" to "obj.nickel_ore"),
+                "dbrow.cluehelper_skillchallenge_elite_9".asRSCM() to ("stat.fletching" to "obj.yew_longbow"),
+                "dbrow.cluehelper_skillchallenge_master_16".asRSCM() to ("stat.fletching" to "obj.rune_dart"),
+                "dbrow.cluehelper_skillchallenge_elite_19".asRSCM() to ("stat.cooking" to "obj.swordfish"),
+                "dbrow.cluehelper_skillchallenge_elite_14".asRSCM() to ("stat.smithing" to "obj.mithril_2h_sword"),
+                "dbrow.cluehelper_skillchallenge_master_1".asRSCM() to ("stat.smithing" to "obj.rune_med_helm"),
                 "dbrow.cluehelper_skillchallenge_elite_6".asRSCM() to ("stat.herblore" to "obj.3dose2defense"),
                 "dbrow.cluehelper_skillchallenge_master_10".asRSCM() to ("stat.herblore" to "obj.antivenom4"),
                 "dbrow.cluehelper_skillchallenge_master_15".asRSCM() to ("stat.herblore" to "obj.brutal_2doserangerspotion"),

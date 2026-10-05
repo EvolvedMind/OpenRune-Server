@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.api.repo)
     implementation(projects.api.death)
     implementation(projects.api.music)
+    implementation(projects.content.quest)
     implementation(projects.content.interfaces.collectionLog)
     implementation(projects.content.interfaces.emotes)
     testImplementation(projects.api.invStorage)

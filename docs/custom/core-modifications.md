@@ -292,3 +292,6 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - 2026-10-05: `LogBurnedEvent` reports successful ground-log ignition after fire creation and XP, for assigned Firemaking clues. Failed attempts and chopping logs do not emit it. Campfire tending is not included.
 
 - 2026-10-05: `RunesCraftedEvent` reports successful standard/daeyalt altar output, consumed essence and base rune multiplier for assigned clues. Bonus runes are not mistaken for a multiple-runes-per-essence level multiplier.
+
+- 2026-10-05: Cooking and Smithing publish successful product output; Fletching has a new source for its two initial native recipes. Failed insertions and burnt cooking outputs do not announce success. PrayerActivatedEvent is published after enabling a prayer, including quick prayers; consumers verify the resulting enabled varbit.
+- 2026-10-05: RunesCraftedEvent carries the altar symbol. The master blood task can distinguish genuine blood-altar production from unrelated or synthetic rune output.
