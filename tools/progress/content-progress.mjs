@@ -391,6 +391,10 @@ function renderTables(categories) {
   return L.join('\n')
 }
 
+function renderTodoSection() {
+  return "### TO-DO — Economy, Examine & Collection Log notifications\n\n- [ ] **OSRS GE prices**\n  - Add an OSRS market-price provider behind the existing `MarketPrices` interface.\n  - Cache prices server-side and refresh periodically; never request prices per player action.\n  - Keep `DefaultMarketPrices` / `uncert(type).cost` as fallback when no live price is available.\n  - Keep High Alch and Low Alch values independent from GE prices.\n  - Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.\n\n- [ ] **Improved item Examine**\n  - Right-click **Examine** keeps the normal item description.\n  - Also show **GE value + High Alch value + Low Alch value**.\n  - Centralize the value formatting so inventory, bank, shop, price checker and ground-item examines stay consistent.\n  - Resolve noted items to the appropriate underlying item values where required.\n\n  Target:\n  ```text\n  A weapon from the abyss.\n  GE: 1,482,000 gp | HA: 72,000 gp | LA: 48,000 gp\n  ```\n\n- [ ] **Collection Log reward broadcasts**\n  - Treat Collection Log membership as the source of truth for important rewards; do not maintain a separate unique/pet whitelist.\n  - Every qualifying Collection Log obtain should generate a server-wide chat broadcast, including repeat obtains.\n  - Keep the existing personal \"New item added to your collection log\" message only for first-time unlocks.\n  - Pass reward-source context where available so broadcasts can identify the boss, minigame, raid, chest or activity.\n  - Example: `[Collection Log] Bram received an Araxyte fang from Araxxor!`\n\n- [ ] **Notification queue**\n  - Add a reusable per-player FIFO notification queue.\n  - Route Collection Log clientscript `3343` popups through the queue.\n  - Multiple new items from one kill/reward must display sequentially instead of later popups overwriting earlier ones.\n  - Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.\n  - Make the queue reusable for Combat Achievements, Achievement Diaries, quests and other notifications.\n  - Safely clear/discard pending notifications on logout or invalid player state.\n  - Add regression tests for multiple Collection Log unlocks in one reward cycle.\n\n"
+}
+
 function renderModules(modules) {
   const L = ['### All content modules', '']
   L.push('Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradle.kts`.')
@@ -527,6 +531,7 @@ fs.writeFileSync(P('CONTENT_INVENTORY.md'), [
   '',
   renderTables(categories),
   renderMechanics(categories),
+  renderTodoSection(),
   renderModules(modules),
   '---',
   '',
