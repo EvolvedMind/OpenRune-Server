@@ -84,6 +84,17 @@ internal object ThievingTables {
     val stalls: List<Stall> =
         listOf(
             Stall(
+                loc = "loc.gemthiefstall",
+                emptyLoc = "loc.market",
+                level = 75,
+                xp = 408.0,
+                restockTicks = 100,
+                owners = listOf("npc.gem_merchant_ardougne"),
+                guards = listOf("npc.knight_of_ardougne", "npc.knight_of_ardougne2", "npc.knight_of_ardougne_f", "npc.paladin", "npc.paladin2", "npc.paladin_variant01", "npc.paladin_variant02", "npc.paladin_f", "npc.paladin_f_variant01", "npc.hero", "npc.hero_f", "npc.hero_variant01"),
+                attemptMessage = "You attempt to steal a gem from the stall.",
+                loot = LootTable(listOf(105 to Loot("obj.uncut_sapphire"), 17 to Loot("obj.uncut_emerald"), 5 to Loot("obj.uncut_ruby"), 1 to Loot("obj.uncut_diamond"))),
+            ),
+            Stall(
                 loc = "loc.seed_stall",
                 emptyLoc = null,
                 level = 27,

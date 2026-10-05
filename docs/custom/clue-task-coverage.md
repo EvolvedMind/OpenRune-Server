@@ -3,10 +3,10 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 38 of 60 task rows have completion handling
+Current implementation coverage: 40 of 60 task rows have completion handling
 (6 gathering, 3 crafting, 3 Herblore, 3 combat, 2 equipment, 3 Firemaking,
 3 Runecrafting, 8 Charlie hand-ins, 3 Cooking/Smithing, 2 Fletching,
-1 Chivalry, 1 nickel). The other 22 remain incomplete. These counts describe
+1 Chivalry, 1 nickel, 1 stall theft, 1 eel dissection). The other 20 remain incomplete. These counts describe
 code and focused tests, not live acceptance or complete supporting skills.
 
 Charlie accepts items from any source following assignment. Self-production is
@@ -60,13 +60,13 @@ The previous audit's self-production requirement was incorrect.
 | Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | Pending. |
 | Master | Mix an anti-venom potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
-| Master | Steal a gem from the Ardougne market. | Pending. |
+| Master | Steal a gem from the Ardougne market. | Native stall theft with level, loot, inventory and restock handling; completion checks the successful theft source and cache-verified Ardougne stall tile. Live acceptance pending. |
 | Master | Pickpocket an elf. | Pending. |
 | Master | Bind a blood rune at the Blood Altar. | Successful output with verified altar identity; Kourend and true Blood Altar accepted. Live acceptance pending. |
 | Master | Mix a ranging mix potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Fletch a rune dart. | Native feathering recipe and successful output event implemented; partial batches and rollback tested. |
 | Master | Cremate a set of fiyr remains. | Pending. |
-| Master | Dissect a sacred eel. | Pending. |
+| Master | Dissect a sacred eel. | Knife-on-eel production with level-dependent scales and Cooking XP; atomic replacement and source-specific assigned-task completion. Native eel fishing is separate outstanding skill support. Live acceptance pending. |
 | Master | Kill a lizardman shaman. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Assigned-task production event and worn outfit checks implemented. |

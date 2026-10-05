@@ -9,6 +9,7 @@ import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
 import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.script.onEvent
 import org.rsmod.map.CoordGrid
@@ -75,11 +76,18 @@ internal class TrailSkillChallenges @Inject constructor(
                 if (requirements.missing(player, active.clue) != null) continue
                 if (!TrailSkillOutfits.matches(player, active.state.row)) continue
                 if (active.state.row == lightOrbTask && !inDorgeshBank(player.coords)) continue
+                if (active.state.row == sacredEelTask && product.source != SkillingProductSource.SacredEel) continue
+                if (active.state.row == gemStallTask) {
+                    val source = product.source as? SkillingProductSource.ThievingStall ?: continue
+                    if (source.loc != "loc.gemthiefstall" || source.coords != CoordGrid(2667, 3303, 0)) continue
+                }
                 if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes(if (active.state.row in TrailCharlie.products) "You have made Charlie's requested item. Take it and your clue back to him." else "You have completed Sherlock's challenge. Return to him with your clue.")
             }
         }
     }
     companion object {
+        val sacredEelTask get() = "dbrow.cluehelper_skillchallenge_master_18".asRSCM()
+        val gemStallTask get() = "dbrow.cluehelper_skillchallenge_master_12".asRSCM()
         val lightOrbTask get() = "dbrow.cluehelper_skillchallenge_master_22".asRSCM()
         fun inDorgeshBank(coords: CoordGrid): Boolean = coords.level == 0 && coords.x in 2701..2707 && coords.z in 5345..5354
         const val ASSIGNED = 9
@@ -93,12 +101,15 @@ internal class TrailSkillChallenges @Inject constructor(
         }
         internal val alternatives by lazy {
             mapOf(
+                gemStallTask to setOf("obj.uncut_sapphire", "obj.uncut_emerald", "obj.uncut_ruby", "obj.uncut_diamond"),
                 "dbrow.cluehelper_skillchallenge_elite_6".asRSCM() to setOf("obj.3dose2defense", "obj.4dose2defense"),
                 "dbrow.cluehelper_skillchallenge_master_10".asRSCM() to (1..4).map { "obj.antivenom$it" }.toSet(),
             )
         }
         internal val products by lazy {
             mapOf(
+                sacredEelTask to ("stat.cooking" to "obj.snakeboss_scale"),
+                gemStallTask to ("stat.thieving" to "obj.uncut_sapphire"),
                 lightOrbTask to ("stat.crafting" to "obj.dorgesh_light_bulb"),
                 "dbrow.cluehelper_skillchallenge_elite_nickel".asRSCM() to ("stat.mining" to "obj.nickel_ore"),
                 "dbrow.cluehelper_skillchallenge_elite_9".asRSCM() to ("stat.fletching" to "obj.yew_longbow"),

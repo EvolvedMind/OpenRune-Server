@@ -135,3 +135,29 @@ The light-orb challenge uses the existing native Crafting recipe (empty light or
 Juna and the Mage of Zamorak count three appropriate worn items using the cache outfit lists. The prior generic slot loop incorrectly required every listed slot. Inventory-only items and two worn pieces are rejected; ordinary exact outfits retain their slot requirements.
 
 Location/outfit validation: all 47 clue tests pass in work/clues-locations-outfits.log. The unchanged Fletching module's 3 tests passed in the preceding validation.
+
+### Forty skill tasks: gem theft and sacred eels (2026-10-05)
+
+The Ardougne gem stall now uses the existing theft/spotter flow with level 75,
+408 base XP, a 100-tick restock, and sapphire/emerald/ruby/diamond weights
+105/17/5/1. Successful insertion publishes the stall symbol and coordinates.
+Sherlock's master task accepts only the native `loc.gemthiefstall` at
+2667,3303,0 (verified against revision-240 map data in `work/clue-market-map.log`).
+The restock timer is rechecked after the animation to prevent simultaneous
+attempts awarding multiple gems from the same stock.
+
+Knife-on-sacred-eel opens the standard skill production menu and atomically
+replaces one eel with scales, retaining the knife. Cooking 72 is required.
+Scale ranges are 3-5, 4-6, 5-7, 6-8 and 7-9 at levels 72, 80, 88, 96 and 104;
+base XP is 100 plus 3 per scale. A distinct dissection source prevents unrelated
+Zulrah dismantling or spawned scales from completing the task. Both tasks require
+assignment and retain the current step until returning to Sherlock.
+
+References: [Jagex's May 2024 stall rebalance](https://secure.runescape.com/m=news/project-rebalance-skilling--poll-81-mta-changes?oldschool=1),
+[gem stall rates and Jagex attribution](https://osrsindex.com/wiki/gem-stall?site=osrs_wiki),
+[eel production and Mod Ash's level-band clarification](https://osrsindex.com/wiki/sacred-eel?site=osrs_wiki).
+
+Scope is task completion and these production actions, not the entire Thieving
+or Fishing skill. Sacred-eel fishing access/spot mechanics, live stall spotting,
+UI/timing acceptance and exact engine behaviour remain live validation items.
+Twenty skill tasks and the other documented trail gaps remain before Mimic.

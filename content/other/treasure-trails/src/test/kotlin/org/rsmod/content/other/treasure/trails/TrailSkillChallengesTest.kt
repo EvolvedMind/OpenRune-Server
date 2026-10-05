@@ -229,7 +229,7 @@ class TrailSkillChallengesTest {
     }
 
     @Test fun `smithing and cooking challenges reject wrong and bonus products`() {
-        for ((row, expected) in TrailSkillChallenges.products.filterValues { it.first in setOf("stat.cooking", "stat.smithing") }) {
+        for ((row, expected) in TrailSkillChallenges.products.filter { it.key != TrailSkillChallenges.sacredEelTask && it.value.first in setOf("stat.cooking", "stat.smithing") }) {
             val f = Fixture()
             f.clue(row, 9)
             f.product("obj.burnt_swordfish", expected.first)
@@ -396,6 +396,56 @@ class TrailSkillChallengesTest {
         assertEquals(2, f.state().completed)
     }
 
+    @Test fun `sacred eel credit requires dissection after assignment not other scales`() {
+        val f = Fixture()
+        fun dissect(count: Int = 6, bonus: Boolean = false) = f.events.publish(SkillingActionCompleteEvent(f.player,
+            SkillingActionContext.Product("stat.cooking", "obj.snakeboss_scale", count, 118.0, SkillingProductSource.SacredEel, bonus)))
+        f.clue(TrailSkillChallenges.sacredEelTask, 0)
+        dissect()
+        assertEquals(0, f.state().phase)
+        f.progress.phase(f.player, 0, f.player.inv[0]!!, 9)
+        f.product("obj.snakeboss_scale", "stat.cooking")
+        dissect(0)
+        dissect(bonus = true)
+        assertEquals(9, f.state().phase)
+        f.player.statMap.setCurrentLevel("stat.cooking", 71)
+        dissect()
+        assertEquals(9, f.state().phase)
+        f.player.statMap.setCurrentLevel("stat.cooking", 72)
+        dissect()
+        assertEquals(10, f.state().phase)
+        assertEquals(2, f.state().completed)
+        dissect()
+        assertEquals(2, f.state().completed)
+    }
+
+    @Test fun `all four stolen gems count only at the Ardougne stall after assignment`() {
+        val tile = org.rsmod.map.CoordGrid(2667, 3303, 0)
+        for (gem in TrailSkillChallenges.alternatives.getValue(TrailSkillChallenges.gemStallTask)) {
+            val f = Fixture()
+            fun steal(loc: String = "loc.gemthiefstall", coords: org.rsmod.map.CoordGrid = tile, count: Int = 1, bonus: Boolean = false) =
+                f.events.publish(SkillingActionCompleteEvent(f.player, SkillingActionContext.Product("stat.thieving", gem, count, 408.0, SkillingProductSource.ThievingStall(loc, coords), bonus)))
+            f.clue(TrailSkillChallenges.gemStallTask, 0)
+            steal()
+            assertEquals(0, f.state().phase)
+            f.progress.phase(f.player, 0, f.player.inv[0]!!, 9)
+            f.product(gem, "stat.thieving")
+            steal("loc.seed_stall")
+            steal(coords = org.rsmod.map.CoordGrid(2667, 3303, 1))
+            steal(coords = org.rsmod.map.CoordGrid(2869, 10204, 0))
+            steal(count = 0)
+            steal(bonus = true)
+            assertEquals(9, f.state().phase)
+            f.player.statMap.setCurrentLevel("stat.thieving", 74)
+            steal()
+            assertEquals(9, f.state().phase)
+            f.player.statMap.setCurrentLevel("stat.thieving", 75)
+            steal()
+            assertEquals(10, f.state().phase)
+            assertEquals(2, f.state().completed)
+        }
+    }
+
     private class Fixture {
         val events = EventBus()
         val progress = TrailProgress(TrailCatalog(), DefaultGameRandom(42))
@@ -406,6 +456,7 @@ class TrailSkillChallengesTest {
             statMap.setCurrentLevel("stat.defence", 99)
             statMap.setCurrentLevel("stat.fletching", 99)
             statMap.setCurrentLevel("stat.cooking", 99)
+            statMap.setCurrentLevel("stat.thieving", 99)
             statMap.setCurrentLevel("stat.smithing", 99)
             statMap.setCurrentLevel("stat.runecrafting", 99)
             statMap.setCurrentLevel("stat.firemaking", 99)

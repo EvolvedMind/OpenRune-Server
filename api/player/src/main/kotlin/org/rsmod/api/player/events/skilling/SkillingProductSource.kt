@@ -3,8 +3,13 @@ package org.rsmod.api.player.events.skilling
 import dev.openrune.types.ItemServerType
 import org.rsmod.api.table.mining.MiningRocksRow
 import org.rsmod.game.loc.BoundLocInfo
+import org.rsmod.map.CoordGrid
 
 public sealed class SkillingProductSource {
+
+    public data object SacredEel : SkillingProductSource()
+
+    public data class ThievingStall(public val loc: String, public val coords: CoordGrid) : SkillingProductSource()
 
     public data object Herblore : SkillingProductSource()
 
