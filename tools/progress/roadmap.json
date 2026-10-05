@@ -1,0 +1,108 @@
+{
+  "statuses": {
+    "not_added": {
+      "icon": "🔴",
+      "label": "not added"
+    },
+    "started": {
+      "icon": "🟡",
+      "label": "started / parked"
+    },
+    "added": {
+      "icon": "🟢",
+      "label": "added"
+    }
+  },
+  "items": [
+    {
+      "title": "OSRS GE Prices",
+      "status": "not_added",
+      "summary": "Use live OSRS market prices through the existing MarketPrices abstraction.",
+      "details": [
+        "Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.",
+        "Cache prices server-side and refresh periodically; never request prices per player action.",
+        "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
+        "Keep High Alch and Low Alch values independent from GE prices.",
+        "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing."
+      ]
+    },
+    {
+      "title": "Improved Item Examine",
+      "status": "not_added",
+      "summary": "Show the normal description plus GE, High Alch and Low Alch values.",
+      "details": [
+        "Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.",
+        "Preserve the normal item description.",
+        "Add a value line with GE value, High Alch value and Low Alch value.",
+        "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
+        "Resolve noted items to the appropriate underlying item values where required."
+      ]
+    },
+    {
+      "title": "Collection Log Reward Broadcasts",
+      "status": "not_added",
+      "summary": "Broadcast Collection Log uniques and pets server-wide when obtained.",
+      "details": [
+        "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
+        "Broadcast every qualifying obtain, including repeat obtains.",
+        "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
+        "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
+        "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!"
+      ]
+    },
+    {
+      "title": "Notification Queue",
+      "status": "not_added",
+      "summary": "Queue client notifications so multiple unlock popups display one after another.",
+      "details": [
+        "Add a reusable per-player FIFO notification queue.",
+        "Route Collection Log clientscript 3343 popups through the queue.",
+        "Multiple new items from one kill or reward must display sequentially instead of overwriting one another.",
+        "Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.",
+        "Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.",
+        "Clear or discard pending notifications safely on logout or invalid player state."
+      ]
+    },
+    {
+      "title": "Own Grand Exchange",
+      "status": "not_added",
+      "summary": "Eventually replace external OSRS guide prices with the server's own economy.",
+      "details": [
+        "Build the server's own Grand Exchange after the temporary OSRS price feed is in place.",
+        "Make completed trades the authoritative source for this server's market prices.",
+        "Swap the <code>MarketPrices</code> implementation without changing Examine or other price consumers."
+      ]
+    },
+    {
+      "title": "Weapon Special Attacks",
+      "status": "started",
+      "summary": "Accepted checkpoint is preserved; remaining special attacks are intentionally parked.",
+      "details": [
+        "Current accepted checkpoint has 191 of 285 special-energy item registrations covered.",
+        "94 registrations remain deferred.",
+        "Do not resume automatically; continue only when this roadmap item is intentionally selected again.",
+        "Preserve the accepted weapon baseline and existing regression coverage while parked."
+      ]
+    },
+    {
+      "title": "Doom of Mokhaiotl",
+      "status": "started",
+      "summary": "Research exists, but the encounter/delve gameplay is parked.",
+      "details": [
+        "Research and supporting drop/pet data exist.",
+        "No active Doom encounter or delve progression is installed yet.",
+        "Resume as a focused boss project when selected from the roadmap."
+      ]
+    },
+    {
+      "title": "Revision 241 Upgrade",
+      "status": "started",
+      "summary": "Upstream review is deferred; no automatic protocol/cache/runtime upgrade.",
+      "details": [
+        "Review client, protocol, cache, Boss DSL and custom encounter compatibility before adoption.",
+        "Do not automatically merge or upgrade the accepted revision 240 runtime.",
+        "Resume only as a deliberate compatibility project."
+      ]
+    }
+  ]
+}
