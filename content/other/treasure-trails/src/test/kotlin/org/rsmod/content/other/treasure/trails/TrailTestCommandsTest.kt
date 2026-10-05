@@ -39,6 +39,17 @@ class TrailTestCommandsTest {
         assertEquals(Rights.ADMINISTRATOR, f.commands.commands.getValue("cluetest").requiredRights)
     }
 
+    @Test fun `bare actions supply beginner items instead of only showing help`() {
+        val f = Fixture()
+        f.run("cluetest", "box")
+        f.run("cluetest", "casket")
+        f.run("cluetest", "scroll")
+        val tier = TrailTier.entries.first { it.key == "beginner" }
+        assertEquals(1, f.player.inv.objs.filterNotNull().filter { it.id == tier.box }.sumOf { it.count })
+        assertEquals(1, f.player.inv.objs.filterNotNull().filter { it.id == tier.casket }.sumOf { it.count })
+        assertEquals(tier, f.progress.catalog.clues.getValue(f.states().single().row).tier)
+    }
+
     @Test fun `all tiers provide matching boxes caskets and initialized scrolls`() {
         for (tier in TrailTier.entries) {
             val f = Fixture()

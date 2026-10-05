@@ -37,14 +37,14 @@ internal class TrailTestCommands @Inject constructor(
             "kit" -> if (args.size == 1) give(player, kit.map { InvObj(it) }) else help(player)
             "info" -> if (args.size == 1) info(player) else help(player)
             "box", "casket" -> {
-                val tier = tier(args.getOrNull(1))
-                val count = if (args.size == 2) 1 else args.getOrNull(2)?.toIntOrNull()
-                if (args.size !in 2..3 || tier == null || count == null || count !in 1..28) return help(player)
+                val tier = tier(args.getOrNull(1) ?: "beginner")
+                val count = if (args.size <= 2) 1 else args.getOrNull(2)?.toIntOrNull()
+                if (args.size !in 1..3 || tier == null || count == null || count !in 1..28) return help(player)
                 give(player, listOf(InvObj(checkNotNull(ServerCacheManager.getItem(if (action == "box") tier.box else tier.casket)), count)))
             }
             "scroll" -> {
-                val tier = tier(args.getOrNull(1))
-                if (args.size !in 2..3 || tier == null) return help(player)
+                val tier = tier(args.getOrNull(1) ?: "beginner")
+                if (args.size !in 1..3 || tier == null) return help(player)
                 val kind = args.getOrNull(2)?.lowercase()
                 val candidates = progress.catalog.forTier(tier).filter { kind == null || it.kind == kind }
                 if (candidates.isEmpty()) { player.mes("No starting clues of that kind for ${tier.key}."); return }
@@ -99,7 +99,7 @@ internal class TrailTestCommands @Inject constructor(
 
     private fun info(player: Player) {
         val active = player.inv.objs.filterNotNull().mapNotNull { progress.state(it) }
-        if (active.isEmpty()) { player.mes("No initialized clue in your inventory. Open a scroll box or use ::cluetest scroll <tier>."); return }
+        if (active.isEmpty()) { player.mes("No initialized clue in your inventory. Open a scroll box or use ::cluetest scroll [tier]."); return }
         for (state in active) {
             val clue = progress.catalog.clues.getValue(state.row)
             player.mes("${clue.tier.key} ${clue.kind}: row ${state.row}, step ${state.completed + 1}/${state.total}, phase ${state.phase}.")
@@ -108,9 +108,9 @@ internal class TrailTestCommands @Inject constructor(
     }
 
     private fun help(player: Player) {
-        player.mes("::cluekit | ::cluetest box <tier> [1-28] | ::cluetest casket <tier> [1-28]")
-        player.mes("::cluetest scroll <tier> [kind] | ::cluetest task <tier> <index> | ::cluetest info")
-        player.mes("::cluetest eel / ::cluetest gem: assigned one-step tests. Tiers: beginner, easy, medium, hard, elite, master.")
+        player.mes("::cluekit | ::cluetest box [tier] [1-28] | ::cluetest casket [tier] [1-28]")
+        player.mes("::cluetest scroll [tier] [kind] | ::cluetest task [tier] [index] | ::cluetest info")
+        player.mes("::cluetest eel / ::cluetest gem: assigned one-step tests. Tiers: beginner (default), easy, medium, hard, elite, master.")
     }
 
     private fun tier(value: String?) = TrailTier.entries.firstOrNull { it.key == value?.lowercase() }
