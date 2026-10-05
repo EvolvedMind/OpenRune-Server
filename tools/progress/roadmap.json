@@ -691,6 +691,32 @@
         "Add task-specific regression tests and in-game acceptance checks before marking added."
       ],
       "category": "other"
+    },
+    {
+      "title": "Sailing Skill — Complete",
+      "status": "not_added",
+      "category": "other",
+      "summary": "Build Sailing into a complete playable skill with progression, activities and rewards.",
+      "details": [
+        "Implement Sailing progression, XP, level requirements and persistent state.",
+        "Cover ship access/control, core sailing interactions, activities, navigation and failure/success flows.",
+        "Integrate rewards, Collection Log and other skill/progression hooks where applicable.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ]
+    },
+    {
+      "title": "Leagues — Complete",
+      "status": "not_added",
+      "category": "other",
+      "summary": "Build a complete seasonal Leagues game mode with tasks, points, unlocks and resettable progression.",
+      "details": [
+        "Implement a separate League profile/ruleset without corrupting the permanent main-game profile.",
+        "Add task definitions, task completion tracking, League points, tiers and unlocks.",
+        "Implement relic/passive systems and League-specific XP/drop/progression modifiers.",
+        "Support region/content restrictions where required by the selected League rules.",
+        "Add seasonal lifecycle tools: start, reset, migration/archive, highscores and reward handoff.",
+        "Add extensive regression tests because League modifiers touch combat, skills, drops, shops and progression globally."
+      ]
     }
   ],
   "categories": {
