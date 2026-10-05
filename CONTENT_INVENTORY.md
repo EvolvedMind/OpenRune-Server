@@ -51,17 +51,17 @@ the module table at the bottom before reading a 0 as "nothing exists".
 |---|---|---|---|
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Amoxliatl.png/48px-Amoxliatl.png?01b12" height="20" alt=""> [Amoxliatl](content/bosses/amoxliatl) | 363 loc | [wiki](https://oldschool.runescape.wiki/w/Amoxliatl) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Artio.png/48px-Artio.png?bfba7" height="20" alt=""> Artio | no module, code in content/bosses/callisto | [wiki](https://oldschool.runescape.wiki/w/Artio) |
-| 🟢 | Araxxor | [implemented module](content/bosses/araxxor) | [wiki](https://oldschool.runescape.wiki/w/Araxxor) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Araxxor.png/48px-Araxxor.png?35d2e" height="20" alt=""> [Araxxor](content/bosses/araxxor) | 1.085 loc | [wiki](https://oldschool.runescape.wiki/w/Araxxor) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Barrows_minigame.png/48px-Barrows_minigame.png?f7aaf" height="20" alt=""> [Barrows](content/bosses/barrows) | 1.564 loc | [wiki](https://oldschool.runescape.wiki/w/Barrows) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Callisto.png/48px-Callisto.png?bfba7" height="20" alt=""> [Callisto](content/bosses/callisto) | 569 loc | [wiki](https://oldschool.runescape.wiki/w/Callisto) |
-| 🟢 | Corporeal Beast | [implemented module](content/bosses/corporeal-beast) | [wiki](https://oldschool.runescape.wiki/w/Corporeal_Beast) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Corporeal_Beast.png/48px-Corporeal_Beast.png?52ebb" height="20" alt=""> [Corporeal Beast](content/bosses/corporeal-beast) | 350 loc | [wiki](https://oldschool.runescape.wiki/w/Corporeal_Beast) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Commander_Zilyana.png/48px-Commander_Zilyana.png?c5eaa" height="20" alt=""> [Commander Zilyana](content/bosses/zilyana) | 165 loc | [wiki](https://oldschool.runescape.wiki/w/Commander_Zilyana) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Duke_Sucellus.png/48px-Duke_Sucellus.png?d588a" height="20" alt=""> [Duke Sucellus](content/bosses/duke-sucellus) | 1.244 loc | [wiki](https://oldschool.runescape.wiki/w/Duke_Sucellus) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Gemstone_Crab.png/48px-Gemstone_Crab.png?79415" height="20" alt=""> [Gemstone Crab](content/bosses/gemstone-crab) | 659 loc | [wiki](https://oldschool.runescape.wiki/w/Gemstone_Crab) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/General_Graardor.png/48px-General_Graardor.png?4dd90" height="20" alt=""> [General Graardor](content/bosses/graardor) | 166 loc | [wiki](https://oldschool.runescape.wiki/w/General_Graardor) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/K%27ril_Tsutsaroth.png/48px-K%27ril_Tsutsaroth.png?73bda" height="20" alt=""> [K'ril Tsutsaroth](content/bosses/kril) | 191 loc | [wiki](https://oldschool.runescape.wiki/w/K'ril_Tsutsaroth) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/King_Black_Dragon.png/48px-King_Black_Dragon.png?d25f0" height="20" alt=""> [King Black Dragon](content/bosses/kbd) | 143 loc | [wiki](https://oldschool.runescape.wiki/w/King_Black_Dragon) |
-| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Kraken.png/48px-Kraken.png?a4955" height="20" alt=""> Kraken | no module, code in content/other/pets | [wiki](https://oldschool.runescape.wiki/w/Kraken) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Kraken.png/48px-Kraken.png?a4955" height="20" alt=""> [Kraken](content/bosses/kraken) | 362 loc | [wiki](https://oldschool.runescape.wiki/w/Kraken) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Kree%27arra.png/48px-Kree%27arra.png?ba75c" height="20" alt=""> [Kree'arra](content/bosses/kreearra) | 229 loc | [wiki](https://oldschool.runescape.wiki/w/Kree'arra) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Phantom_Muspah_%28ranged%29.png/48px-Phantom_Muspah_%28ranged%29.png?9cf6a" height="20" alt=""> [Phantom Muspah](content/bosses/muspah) | 1.263 loc | [wiki](https://oldschool.runescape.wiki/w/Phantom_Muspah) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Scurrius.png/48px-Scurrius.png?e66a5" height="20" alt=""> [Scurrius](content/bosses/scurrius) | 403 loc | [wiki](https://oldschool.runescape.wiki/w/Scurrius) |
@@ -233,8 +233,11 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `areas/wilderness` | 19 | 1.397 | 0 | 0 | 2026-09-28 |
 | `areas/zeah` | 3 | 234 | 0 | 0 | 2026-08-18 |
 | `bosses/amoxliatl` | 2 | 363 | 0 | 0 | 2026-09-29 |
+| `bosses/araxxor` | 9 | 1.085 | 8 | 0 | 2026-10-04 |
 | `bosses/barrows` | 15 | 1.564 | 1 | 0 | 2026-09-28 |
 | `bosses/callisto` | 2 | 569 | 0 | 0 | 2026-09-29 |
+| `bosses/corporeal-beast` | 4 | 344 | 3 | 0 | 2026-10-04 |
+| `bosses/corporeal-beast/pack` | 1 | 6 | 0 | 0 | 2026-10-04 |
 | `bosses/demonic-gorilla` | 1 | 308 | 0 | 0 | 2026-09-04 |
 | `bosses/duke-sucellus` | 3 | 1.244 | 0 | 0 | 2026-10-01 |
 | `bosses/gemstone-crab` | 6 | 659 | 0 | 0 | 2026-09-28 |
@@ -242,6 +245,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `bosses/kbd` | 2 | 143 | 0 | 1 | 2026-07-07 |
 | `bosses/kreearra` | 2 | 229 | 0 | 0 | 2026-08-03 |
 | `bosses/kril` | 2 | 191 | 0 | 0 | 2026-08-03 |
+| `bosses/kraken` | 4 | 362 | 2 | 0 | 2026-10-04 |
 | `bosses/leviathan` | 8 | 1.402 | 0 | 0 | 2026-09-29 |
 | `bosses/muspah` | 4 | 1.263 | 0 | 0 | 2026-09-29 |
 | `bosses/scurrius` | 2 | 403 | 0 | 0 | 2026-07-07 |
