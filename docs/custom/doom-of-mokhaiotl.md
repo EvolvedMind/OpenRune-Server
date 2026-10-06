@@ -62,5 +62,6 @@ parked at 40/60; Mimic is not implemented.
 The release evidence records the exact JAR/cache/plugin hashes and isolated
 startup results. The existing concurrent database-close warning remains a
 separate persistence follow-up (#281); process cleanup is verified, save/drain
-ordering is not certified by this encounter test. This is a candidate awaiting live encounter and visual acceptance;
-source integration is not a claim that every animation has been visually certified.
+ordering is not certified by this encounter test. The user accepted the tested encounter/HUD package and approved merge on
+2026-10-06;
+this acceptance is not a claim of exhaustive OSRS parity.

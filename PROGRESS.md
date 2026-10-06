@@ -4,13 +4,14 @@ Updated **2026-10-06**. This is the human-reviewed progress entry point.
 The automatic scanner writes [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md), never this file.
 A symbol, pet or drop table does not establish a playable or verified boss.
 
-**Accepted runtime:** revision 240, server `f7c349c0e`, Nero Studio `0efcb039`.
-It is preserved unchanged during repository organization.
+**Accepted runtime:** revision 240, server `f40f4d951`, Nero Studio `b29d93c`.
+User accepted the Doom/HUD test package and approved merge on 2026-10-06.
+Earlier recovery checkpoints remain preserved.
 [Exact recovery baseline](docs/custom/baseline.md).
 
 | Area | Actual status |
 |---|---|
-| Current playable build | User-accepted; 121 selected server tests + 86 Nero tests; isolated boot and server GitHub CI passed |
+| Current playable build | User-accepted Doom/HUD package; 326 selected server tests + 89 Nero tests and isolated startup pass |
 | Pets, commands, max cape, timers | Implemented; covered regression cases verified |
 | Monster/pet/skill/quest interfaces | Implemented; remaining visual edge cases listed in the detailed progress |
 | All weapon specials | USER-ACCEPTED CHECKPOINT / REMAINDER PAUSED; 191/285 registered; 94 still missing; registration does not certify full mechanics |
@@ -23,9 +24,9 @@ It is preserved unchanged during repository organization.
 | Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
-| Treasure Trails | IN DEVELOPMENT / NOT RELEASED; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
-| Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; live acceptance pending |
-| NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; live visuals pending |
+| Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
+| Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGE APPROVED |
+| NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGE APPROVED |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 

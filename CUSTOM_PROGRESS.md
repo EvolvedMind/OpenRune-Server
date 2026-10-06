@@ -1,12 +1,12 @@
 # EvolvedMind OpenRune progress
 
-Updated: 2026-10-04. The user has accepted the current runtime and explicitly requires
+Updated: 2026-10-06. The user has accepted the current runtime and explicitly requires
 it to be preserved. The completed organization pass changed documentation and Git references,
 not gameplay, cache, plugins or the installed package.
 
-**Current accepted server:** `f7c349c0edff7b4b9c9194b4c2d78fa80a777760` (accepted Araxxor completion build, revision 240).
+**Current accepted server:** `f40f4d951fb7e08df715952879a15314a4f85639` (user-accepted Doom test package, revision 240).
 Previous weapons baseline: `6168204ee3992a3e00f6906e34200d4cff3e95f4`.
-**Paired Nero Studio:** `0efcb039c539a469a1dab2c4c654c61ecf41aa51`.
+**Paired Nero Studio:** `b29d93cabe7b6d064430bba688f3a9e7903267fb`.
 [Baseline / test evidence](docs/custom/baseline.md) ? [Branch audit](docs/custom/branch-audit-20261003.md)
 
 ## Status meaning
@@ -35,7 +35,7 @@ PLANNED / NOT STARTED describe future work, not functionality in the current bui
 | Other existing boss modules | IMPLEMENTED / NEEDS TESTING | UPSTREAM; selected custom timer integration | Amoxliatl, Callisto, demonic gorilla, Duke, gemstone crab, KBD, Leviathan, Muspah, Scurrius, Spindel, tormented demon, Vardorvis, Whisperer |
 | Araxxor | VERIFIED / USER ACCEPTED (PR #16) | CUSTOM | Completion f7c349c0e accepted by user; completion adds impact reflection, max-hit rules, native acid ball, Slayer gates and Harvest/Destroy rewards; see docs/custom/araxxor.md |
 | Barrows | VERIFIED / USER ACCEPTED | UPSTREAM | User reports encounter works perfectly; ::testloot barrows exercises the native chest reward calculation |
-| Doom of Mokhaiotl | NOT STARTED encounter | CUSTOM research + upstream drop/pet data | Archived research exists; a drop table does not constitute a boss fight |
+| Doom of Mokhaiotl | VERIFIED / USER ACCEPTED; merge approved | UPSTREAM + CUSTOM EXTENSIONS | Complete integrated delve encounter and ::testloot; 326 selected server tests and isolated startup; accepted 2026-10-06 |
 
 ## Systems
 
@@ -81,7 +81,7 @@ PLANNED / NOT STARTED describe future work, not functionality in the current bui
 
 ### BACKLOG
 
-- Doom encounter/delve progression after Araxxor priorities are resolved.
+- Doom is now user accepted; select the next feature only on user instruction.
 - Reassess old Zulrah item recovery and personal pet helper commands.
 
 ## Upstream review queue
@@ -295,3 +295,9 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - The isolated startup passes with zero exit and scoped process/database cleanup; it also reproduces the pre-existing concurrent DB-close warning. Save/drain ordering is not certified here. Upstream #281 is documented as a separate persistence follow-up.
 
 - Remote repository instructions were preserved through a documentation-only merge. Packaged server commit f40f4d951 and Nero b29d93c remain the exact validated runtime; subsequent changes affect documentation only.
+
+### 2026-10-06 - Doom and NPC stat HUD user accepted
+- User reports perfect and explicitly authorizes merge of the tested package: server f40f4d951, Nero b29d93c. Preserve this gameplay checkpoint.
+- PR #23 carries Doom and the existing clue milestone to server main; Nero PR #11 carries the accepted Studio basis and the new stat HUD to Nero main.
+- Clues remain parked at 40/60 and Mimic remains unimplemented; accepting this package does not declare full clue completion. Remaining specials and other backlog features stay parked.
+- Latest main roadmap grouping and AgentCraft Observatory planning are preserved. Validation remains 326 selected server tests, 89 Nero tests and isolated startup, plus installer/checkpoint/hash evidence. Existing shutdown warning remains separate.
