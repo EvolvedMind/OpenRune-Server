@@ -12,9 +12,18 @@ Persoonlijke modulaire OpenRune/RSMod/Alter-fork; behoud custom gameplay en de g
 - `CONTENT_INVENTORY.md` is gegenereerd (~64 KB): nooit volledig lezen of handmatig bewerken; alleen gericht `rg`/grep gebruiken.
 - Runtime blijft revisie **240**: geen protocol-, cache- of revisie-upgrades. Bestaande cache voor content opnieuw pakken mag; behoud de gekoppelde client.
 - Wijzig geen bestaande modules buiten de opdracht; signaleer noodzakelijke scope-uitbreiding. Hervat geparkeerde features alleen op gebruikersopdracht.
-- Geen automatische upstream-merge, oude branchimport of vervanging van live JAR/cache/playerdata. Vergelijk overlap voordat implementaties worden gecombineerd.
+- Behoud geaccepteerde checkpoints; geen vervanging van live JAR/cache/playerdata zonder installatieopdracht.
 - Delegeer alleen afgebakende onafhankelijke deeltaken met beperkte context; vermijd dubbele verkenning.
 - Bij gewijzigde featurestatus: werk de relevante status/notitie bij met branch/commit, wat werkt, exacte tests/resultaten, open punten en eerstvolgende stap.
+
+## Nieuwe content: eerst upstream controleren
+
+- Zoek vóór nieuwe content of een grote uitbreiding gericht in de eigen repo, de [officiële OpenRune-repo](https://github.com/OpenRune/OpenRune-Server) én de [pull requests](https://github.com/OpenRune/OpenRune-Server/pulls), op naam en relevante aliassen.
+- Controleer open/draft én gesloten PRs, inclusief niet-gemergede voorstellen. Lees relevante code/diffs en beschikbare reviews/testresultaten; ontbrekend op main betekent niet dat er geen bruikbare implementatie is.
+- Vergelijk met onze bestaande modules: mechanics, native integraties (drops, Collection Log, kill count, instances/cleanup), tests en revisie-240-compatibiliteit. Upstream is niet automatisch beter of compleet.
+- Kies bewust: eigen implementatie behouden, bruikbare delen aanpassen/hergebruiken, of ontbrekende delen zelf bouwen. Licht de keuze kort toe en behoud bronvermelding/licentie.
+- Geen automatische merge of ongecontroleerde PR-/branchimport. Behoud custom gedrag, voorkom dubbele handlers en blijf op revisie 240; neem alleen beoordeelde wijzigingen binnen de opdracht over en test de integratie.
+- Leg bronlink/PR, commit en hergebruikbesluit vast in de relevante feature-notitie; gebruik dit bij hervatten en controleer alleen relevante wijzigingen. Bij onbereikbare bronnen: meld de onvoltooide controle; claim niet dat content ontbreekt.
 
 ## Architectuurkaart
 
