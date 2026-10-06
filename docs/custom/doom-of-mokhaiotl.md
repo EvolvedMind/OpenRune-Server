@@ -28,7 +28,9 @@ and restored on leaving. Admin delve selection is available only in dev mode.
 `DoomRewards` is the single native drop-table roll path for kills and samples:
 delve conditions, bonuses, transforms, quantity scaling and guaranteed demon
 tears all apply. Uniques use the upstream table gates and rates. Real kills update
-Doom counters; test rolls do not change counters, collection log or run state.
+Doom counters. Test rolls preserve counters and run state. On user request (2026-10-06),
+`::testloot doom` registers successfully spawned Collection Log rewards, including repeats;
+`::doomsim` remains an unlogged simulation. Both preserve earned/claimed reward piles.
 
 Both reward inventories are persistent, stacked, server-only 40-slot piles. The
 native steel/stone reward interface has a 40-slot scrolling item grid. Complete

@@ -25,7 +25,8 @@
         "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
         "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
         "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!",
-        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
+        "User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged."
       ],
       "category": "quick_wins"
     },
@@ -40,7 +41,8 @@
         "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
         "Resolve noted items to the appropriate underlying item values where required.",
         "Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic.",
-        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
+        "User-requested compact display (2026-10-06): native blue info icon, name/description; green GE, blue High Alch, red Low Alch. Game messages suppress duplicate client price output. Notes and exact stack totals preserved; targeted tests pass."
       ],
       "category": "quick_wins"
     },
@@ -81,7 +83,7 @@
         "Upstream PR #275 / fc10877fd adapted to a dedicated revision-240 module and cache pack, preserving accepted custom bosses and weapons.",
         "Delves 1-8/deep 9+, native entry, attacks/hazards, larvae, shield/beam, demonbane, burrowing, acid/venom and holy water.",
         "Atomic persistent loot/chest flow, native scrolling reward models, death/leave cleanup, counters and Collection Log.",
-        "Administrator ::testdoom and ::testloot doom [count] [delve]; test samples preserve run and progress.",
+        "Administrator ::testdoom and ::testloot doom [count] [delve]; testloot preserves run/counters but now counts successfully spawned Collection Log rewards; doomsim stays unlogged.",
         "326 selected server tests, 89 Nero tests, cache/JAR contracts and isolated startup pass; packaged f40f4d951 / Nero b29d93c accepted by user.",
         "Existing concurrent database-close warning stays a separate persistence follow-up; no blanket upstream merge or revision upgrade."
       ],

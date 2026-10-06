@@ -14,12 +14,16 @@ The accepted Doom/HUD checkpoint and parked clues/specials remain preserved.
   history and popups remain first-unlock only and respect the existing personal setting.
 - Native NPC drops, Barrows, Doom's committed reward stash, existing key chests and clue
   caskets pass their source. Standalone/skilling pets now also use the grant API. Pet table
-  interception suppresses duplicate grants; reclaims do not announce new obtains. Test-loot
-  samples retain their existing behaviour and do not fabricate Collection Log progress.
+  interception suppresses duplicate grants; reclaims do not announce new obtains.
+  On user request, `::testloot doom` and its aliases now log successfully spawned samples.
+  `::doomsim` remains an unlogged simulation; active Doom run, escrow and kill counts stay intact.
 - All existing inventory, bank, ground, worn, shop and price-checker Examine consumers use
-  the same server output: original description, then GE / High Alch / Low Alch. Stack totals
-  are shown explicitly, notes use underlying values, and non-alchable items show N/A.
-  This no longer depends on enhanced-client price toggles. Large totals use exact arithmetic.
+  the same two compact server messages: native blue info icon, item name and original
+  description; then GE in green, High Alch in blue and Low Alch in red. Stack quantities
+  appear next to the name, values are stack totals, notes use underlying values, and
+  non-alchable items show N/A. Ordinary game messages prevent RuneLite Examine handlers
+  from appending a duplicate price row. Large totals use exact arithmetic. The info icon
+  is verified frame 15 of our unchanged revision-240 `mod_icons` sprite group.
 - `ClientScripts.notificationDisplay` enqueues rather than immediately overwriting script
   3343. A native late-cycle consumer displays one FIFO entry every fourteen game ticks,
   with the existing notification colour and interface. Script 3348 terminates the old timer.
@@ -62,11 +66,14 @@ Rev-240 notification scripts 3343/3346/3347/3348 were inspected in our coupled c
 1. `::testnotify`: three sample popups in order. This administrator command changes no
    account progression. Log out while waiting; remaining samples must disappear.
 2. Examine an Abyssal whip and a noted stack in inventory/bank and on the ground; also
-   Examine shop stock and a price-checker entry. Description plus GE/HA/LA should match.
+   Examine shop stock and a price-checker entry. Exactly two messages should show the info
+   icon/name/description and the green/blue/red GE/HA/LA values, without an extra client price row.
 3. Obtain a real Collection Log drop twice. Both obtains broadcast their NPC name, while
    only the first unlock sends personal new-item chat/popup. Two clients can verify scope.
 4. Open a real multi-unique reward or several fresh caskets; new popups must play in order.
-   An already unlocked item sends no new popup. `::testloot` samples intentionally do not log.
+   An already unlocked item sends no new popup. `::testloot doom 1000 8` now registers
+   successfully spawned Collection Log rewards; repeating it increases existing counts.
+   `::doomsim` still leaves the log unchanged.
 5. Check prices after startup and again after a refresh. Offline startup remains playable
    with cache values. In-game timing/visual acceptance is the user's final check.
 
@@ -91,3 +98,26 @@ Test package: `outputs/small-extensions-20261006/INSTALLEREN.cmd`, with its own 
 checkpoint and `CONTROLEREN.cmd` / `TERUGZETTEN.cmd`. The baseline hash check covered
 781 accepted Doom/HUD files. No live installation or merge performed. Final installer
 preflight and the packaged hashes are checked before handing off; in-game acceptance remains.
+
+## User-requested fixes (2026-10-06)
+
+The installed four-extension baseline matched all 821 prerequisite/target hashes before
+preparing this update. Doom test samples now call the central Collection Log service only
+after the Boolean ground-registration API succeeds; rejected spawns never create obtains.
+All four actual Doom uniques are tested against real revision-240 Collection Log enums,
+including repeat counts, source broadcasts and preservation of both persistent loot piles.
+The native pickup handler performs no extra Collection Log grant. No encounter changes.
+
+Fix commits: Examine `f53d4e760`, Doom testloot `84803569e`.
+
+63 targeted tests pass: player output 5, Collection Log 5, Doom 34 and commands 19
+(no failures/errors/skips). The earlier 150-test extension baseline is recorded above.
+The full runtime JAR build passes. Fresh isolated startup `gameplay-smoke-ba06211e` verifies
+all native plugin construction, the game listener, paired Nero endpoints and live price refresh.
+Exit code is zero and the temporary database PID is gone. The previously documented
+database-close ordering warning remains a separate follow-up. New JAR SHA-256: `92756d50b9fbf0194c462639080070020901420fd01868a7328925320ddccb54`.
+
+Updated test package: `outputs/small-extensions-fixes-20261006/INSTALLEREN.cmd`,
+with checkpoint `outputs/checkpoint-20261006-voor-small-extensions-fixes`.
+Read-only installer preflight and artifact hashes are checked before handing off.
+PR #24 remains a draft; in-game acceptance and merge are pending.
