@@ -1,0 +1,2 @@
+[clientscript,doom_loot_scroll](component $component, int $wheel)
+if_setscrollpos(if_getscrollx($component), calc(if_getscrolly($component) + $wheel * 36), $component);

@@ -138,7 +138,7 @@ class AltarEvents @Inject constructor(
         }
 
         onOpLoc1(altar.altarObject.internalName) {
-            craftRune(altar.rune, xpMods)
+            craftRune(altar.rune, xpMods, altar = altar.altarObject.internalName)
         }
     }
 

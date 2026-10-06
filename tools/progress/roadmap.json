@@ -71,19 +71,17 @@
     },
     {
       "title": "Doom of Mokhaiotl",
-      "status": "started",
-      "summary": "Upstream implementation available via <a href=\"https://github.com/OpenRune/OpenRune-Server/pull/275\">PR #275</a> (merged 2026-10-05). Local integration remains parked; remaining effort needs a compatibility/gap review, not a from-scratch estimate.",
+      "status": "added",
+      "summary": "User accepted the complete integrated Doom encounter and approved merge on 2026-10-06.",
       "details": [
-        "Local research and supporting drop/pet data exist. Verify the current branch/worktree and PROGRESS.md before resuming; this roadmap change does not establish an installed or accepted Doom encounter.",
-        "Source: <a href=\"https://github.com/OpenRune/OpenRune-Server/pull/275\">OpenRune/OpenRune-Server PR #275</a>; availability checked 2026-10-06. Merged 2026-10-05 at <code>fc10877fd39600637506de645f584467c11039c3</code>; PR head <code>3d8c01ebab0685488999e13263412a58af488490</code>.",
-        "Reuse candidate includes encounter attacks, acid/larvae/burrow/shield mechanics, delves, instances, loot/statistics, respawn handling and tests. Available code is not proof of completeness in this fork.",
-        "The PR also changes shared BossDSL, combat, death/respawn, drops, NPC processing, player/network state and some weapon/cache data. Do not copy only the boss directory or blindly merge/cherry-pick all 57 changed files.",
-        "First compare our existing APIs and accepted revision-240 runtime against the pinned source. Separate Doom-specific code, required compatibility changes and unrelated changes; retain custom implementations where appropriate.",
-        "Then port only reviewed compatible parts in an isolated branch/worktree. Verify native drops, Collection Log, kill count, delve progression, death/logout/leave cleanup and revision-240 client/cache compatibility.",
-        "Run focused Doom tests and regressions for accepted Zulrah, Corporeal Beast, Araxxor and Barrows plus any affected shared systems. Report untested mechanics explicitly; in-game acceptance remains with the owner.",
-        "Resume only when the owner selects Doom. No automatic upstream merge, runtime upgrade, installation or deployment; estimate remaining work after the dependency review."
+        "Upstream PR #275 / fc10877fd adapted to a dedicated revision-240 module and cache pack, preserving accepted custom bosses and weapons.",
+        "Delves 1-8/deep 9+, native entry, attacks/hazards, larvae, shield/beam, demonbane, burrowing, acid/venom and holy water.",
+        "Atomic persistent loot/chest flow, native scrolling reward models, death/leave cleanup, counters and Collection Log.",
+        "Administrator ::testdoom and ::testloot doom [count] [delve]; test samples preserve run and progress.",
+        "326 selected server tests, 89 Nero tests, cache/JAR contracts and isolated startup pass; packaged f40f4d951 / Nero b29d93c accepted by user.",
+        "Existing concurrent database-close warning stays a separate persistence follow-up; no blanket upstream merge or revision upgrade."
       ],
-      "category": "upstream_review"
+      "category": "completed"
     },
     {
       "title": "Thermonuclear Smoke Devil — Complete",
@@ -807,6 +805,18 @@
         "Run relevant regression checks when an approved new feature changes shared systems used by this encounter."
       ],
       "category": "completed"
+    },
+    {
+      "title": "Treasure Trails and Mimic",
+      "status": "started",
+      "summary": "Clues in development: 40/60 skill tasks implemented; Mimic is last and not implemented.",
+      "details": [
+        "Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.",
+        "40 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href=\"docs/custom/clue-task-coverage.md\">task coverage</a>.",
+        "Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>. See <a href=\"docs/custom/clue-testing.md\">test commands</a>.",
+        "This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished."
+      ],
+      "category": "parked"
     }
   ],
   "categories": {

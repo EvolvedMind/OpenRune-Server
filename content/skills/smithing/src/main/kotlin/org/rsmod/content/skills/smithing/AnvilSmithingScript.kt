@@ -3,6 +3,9 @@ package org.rsmod.content.skills.smithing
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCMType
 import jakarta.inject.Inject
+import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
+import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.smithingLvl
 import org.rsmod.api.player.vars.intVarBit
@@ -209,6 +212,7 @@ class AnvilSmithingScript @Inject constructor(private val xpMods: XpModifiers) :
             spam(forgedMessage(meta))
             val xp = meta.barCount * meta.bar.smithxp * xpMods.get(player, "stat.smithing")
             statAdvance("stat.smithing", xp.toDouble())
+            publish(SkillingActionCompleteEvent(player, SkillingActionContext.Product("stat.smithing", meta.product.internalName, meta.numProduced, xp.toDouble(), SkillingProductSource.Smithing)))
         }
     }
 

@@ -269,3 +269,60 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - Upstream conflict risk: NPC hit-processing order, player damage rolls and death/drop
   context signatures. Prefer equivalent upstream opt-in hooks if introduced; retain
   isolation, applied-damage and reward-selection regressions when migrating.
+
+## Treasure Trail interaction hooks (2026-10-04, unreleased)
+
+- api/player ContextualInteractions, ContextualOpEvents, NpcInteractions and
+  LocInteractions: player-specific selectors may override only matching operations.
+  Unmatched operations retain their previous routing. Selectors are removed by the
+  owning plugin shutdown hook. No clue IDs or rules are embedded in core dispatch.
+- PlayerDigEvent and BarrowsScript: publish a dig only after ruling out a Barrows
+  mound. Barrows' existing mound handling is unchanged. The clue handler marks only
+  a matching dig as handled; all other digs keep the original message.
+- SkillingProductSource gains a Crafting source. CraftingWorker publishes the existing
+  SkillingActionCompleteEvent only after successful output insertion and XP processing,
+  before any blocking result dialogue. Failed recipes and failed inventory insertion
+  do not publish success. No clue identifiers enter crafting or the player API.
+  Conflict risk: preserve event ordering if upstream restructures crafting transactions.
+- Validation of catalog/puzzle/box code passes; interaction fallback and live
+  startup still need validation. See docs/custom/treasure-trails.md. Not released.
+
+- 2026-10-05: `SkillingProductSource.Herblore` identifies successful finished-potion and barbarian-mix output events for assigned Sherlock challenges. Existing ingredient, chemistry and XP behaviour is retained.
+
+- 2026-10-05: `LogBurnedEvent` reports successful ground-log ignition after fire creation and XP, for assigned Firemaking clues. Failed attempts and chopping logs do not emit it. Campfire tending is not included.
+
+- 2026-10-05: `RunesCraftedEvent` reports successful standard/daeyalt altar output, consumed essence and base rune multiplier for assigned clues. Bonus runes are not mistaken for a multiple-runes-per-essence level multiplier.
+
+- 2026-10-05: Cooking and Smithing publish successful product output; Fletching has a new source for its two initial native recipes. Failed insertions and burnt cooking outputs do not announce success. PrayerActivatedEvent is published after enabling a prayer, including quick prayers; consumers verify the resulting enabled varbit.
+- 2026-10-05: RunesCraftedEvent carries the altar symbol. The master blood task can distinguish genuine blood-altar production from unrelated or synthetic rune output.
+- 2026-10-05: SkillingProductSource adds SacredEel and ThievingStall (native loc symbol and coordinates). These use the existing product-completion event after successful inventory output and XP. This lets clue consumers distinguish dissection from dismantling, and Ardougne theft from other gem sources. No clue rules are embedded in the player API or skill producers. Preserve source identity and post-commit ordering when adapting upstream changes.
+
+## Doom prerequisites (2026-10-06, candidate)
+
+- `api/bosses`: reviewed upstream expanded DSL for timers, multi-spec registration,
+  hit-context conditions, projectile timing and bound tile sets. Existing stats
+  and selector parameters and EachTile references remain source-compatible; their
+  previous metadata semantics are retained. Custom dragonfire absorption remains.
+  Per-encounter cancellation prevents effects from surviving deleted NPC slots.
+- `engine/game/HitBuilder`: readonly cached weapon/secondary accessors; custom
+  impact transforms and exactly-once completion remain unchanged.
+- `api/player`: extracted existing overhead clearing into a reusable helper; the
+  prior timed lock calls the same helper and retains its expiry behaviour.
+- `api/combat`: opt-in NPC attackable-on-cooldown param for shield mechanics;
+  default NPCs and player-target paths retain their existing cooldown rule.
+  DemonbaneChecks classifies Doom shield hits without replacing special attacks.
+- `api/death`: multibound optional respawn-coordinate hooks; no matching hook
+  uses the original death spawn/randomization. The Doom module owns loot loss.
+- `engine/game/Player`, `api/net/rsprot`: nullable per-player NPC view distance;
+  null preserves the standard distance. Instance scripts reset it on leave.
+- `api/instances/InstanceScript`: opt-in fresh-run prelude. Default false preserves
+  existing rejoin behaviour; custom manager NPC detach/ownership hooks are retained.
+- `api/drop-table-plugin`: symbol overload resolves the same NPC registry; no
+  default-table or accepted testloot behaviour is replaced.
+- Generic hit-modifier godmode handling and NPC pending-facing reset follow the
+  scoped upstream prerequisites. No generic Doom IDs enter engine dispatch.
+
+Conflict risk: encounter scheduling, hit snapshots, death/instance ordering and
+cache params. Keep the existing boss/weapon regression suites and new Doom suites
+when reconciling later upstream updates. See doom-of-mokhaiotl.md and the dated
+upstream review for scope and live acceptance limits.

@@ -161,6 +161,9 @@ constructor(
     private fun ProtectedAccess.finishDig(mound: BarrowsBrother?) {
         resetAnim()
         if (mound == null) {
+            val dig = org.rsmod.api.player.events.PlayerDigEvent(player)
+            eventBus.publish(dig)
+            if (dig.handled) return
             mes("You dig a hole in the ground... but find nothing.")
             return
         }

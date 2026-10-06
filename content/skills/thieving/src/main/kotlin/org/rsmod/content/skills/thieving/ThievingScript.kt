@@ -66,11 +66,11 @@ constructor(
         }
         anim(STALL_SEQ)
         delay(2)
-        val loot = stall.loot.roll(random)
-        val count = random.of(loot.min, loot.max)
-        invAdd(inv, loot.obj, count)
+        // Another player may have emptied this stall while the animation was running.
+        if (restockingUntil.getOrDefault(loc.coords, 0) > mapClock) return
+        val reward = awardStallLoot(stall, loc.coords) ?: return
+        val (loot, count) = reward
         mes("You steal ${describe(loot.obj, count)}.")
-        statAdvance(THIEVING, stall.xp)
         restock(loc, stall)
     }
 
@@ -100,10 +100,9 @@ constructor(
     }
 
     private fun ProtectedAccess.restock(loc: BoundLocInfo, stall: Stall) {
+        restockingUntil[loc.coords] = mapClock + stall.restockTicks
         if (stall.emptyLoc != null) {
             locRepo.change(loc, stall.emptyLoc, stall.restockTicks)
-        } else {
-            restockingUntil[loc.coords] = mapClock + stall.restockTicks
         }
     }
 

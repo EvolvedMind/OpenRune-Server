@@ -3,6 +3,7 @@ package org.rsmod.content.interfaces.prayer.tab.scripts
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCMType
 import jakarta.inject.Inject
+import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
 import org.rsmod.api.player.output.ClientScripts
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.output.soundSynth
@@ -84,6 +85,7 @@ private constructor(
         }
         disableCollisions(prayer)
         vars[prayer.enabled] = 1
+        publish(PrayerActivatedEvent(player, prayer.enabled))
         soundSynth(prayer.sound)
         enablePrayerDrain()
         enablePrayerStatRegen(prayer)

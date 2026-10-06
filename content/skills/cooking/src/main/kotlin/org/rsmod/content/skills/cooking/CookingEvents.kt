@@ -1,6 +1,9 @@
 package org.rsmod.content.skills.cooking
 
 import jakarta.inject.Inject
+import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
+import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.cookingLvl
 import org.rsmod.api.script.onOpContentLoc1
@@ -204,9 +207,10 @@ class CookingEvents @Inject constructor(
             invAdd(inv, food.burnt.internalName, 1)
             mes("You accidentally burn the ${food.raw.name}.")
         } else {
-            invAdd(inv, food.cooked.internalName, 1)
+            val output = invAdd(inv, food.cooked.internalName, 1)
             val xpModifier = xpMods.get(player, "stat.cooking")
             statAdvance("stat.cooking", food.xp.toDouble() * xpModifier)
+            if (output.success) publish(SkillingActionCompleteEvent(player, SkillingActionContext.Product("stat.cooking", food.cooked.internalName, 1, food.xp.toDouble() * xpModifier, SkillingProductSource.Cooking)))
             mes("You successfully cook the ${food.raw.name}.")
         }
     }

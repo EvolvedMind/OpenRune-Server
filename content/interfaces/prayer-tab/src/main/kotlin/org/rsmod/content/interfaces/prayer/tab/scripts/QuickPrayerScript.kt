@@ -5,6 +5,7 @@ import dev.openrune.types.aconverted.interf.IfButtonOp
 import dev.openrune.types.aconverted.interf.IfSubType
 import jakarta.inject.Inject
 import org.rsmod.api.config.constants
+import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.overheadProtectionPrayerVarbits
 import org.rsmod.api.player.overheadsLocked
@@ -127,6 +128,7 @@ constructor(
 
         for (prayer in grantedPrayers) {
             vars[prayer.enabled] = 1
+            publish(PrayerActivatedEvent(player, prayer.enabled))
             soundSynth(prayer.sound)
             enablePrayerStatRegen(prayer)
             if (prayer.overhead != null) {

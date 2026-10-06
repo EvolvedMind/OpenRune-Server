@@ -2,6 +2,7 @@ package org.rsmod.content.other.commands
 
 import com.github.michaelbull.logging.InlineLogger
 import com.google.inject.Injector
+import org.rsmod.content.bosses.doom.DoomTestLoot
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCM.asRSCM
@@ -660,6 +661,17 @@ constructor(
                 )
                 return
             }
+            if (args[0].lowercase() in setOf("doom", "mokhaiotl", "doom_of_mokhaiotl", "dom_boss")) {
+                val count = if (args.size == 1) 100 else args[1].toIntOrNull()
+                val level = if (args.size <= 2) 8 else args[2].toIntOrNull()
+                if (args.size > 3 || count == null || count !in 1..1000 || level == null || level !in 1..1000) {
+                    player.mes("Use ::testloot doom [count: 1-1000] [delve: 1-1000]. Defaults: 100 rolls, delve 8.")
+                    return
+                }
+                injector.getInstance(DoomTestLoot::class.java).generate(player, count, level)
+                player.mes("Generated Doom loot x$count at delve $level. Active run and rewards preserved.")
+                return
+            }
             if (args[0].equals("barrows", ignoreCase = true)) {
                 val count = if (args.size == 1) 100 else args[1].toIntOrNull()
                 if (args.size > 2 || count == null || count !in 1..1000) {
@@ -673,12 +685,13 @@ constructor(
             val npcName =
                 when (args[0].lowercase()) {
                     "zulrah" -> "snakeboss_boss_ranged"
+                    "kraken" -> "slayer_kraken_boss"
                     "corp", "corporeal", "corporeal_beast" -> "corp_beast"
                     else -> args[0]
                 }
-            if (npcName == "corp_beast" && (args.size > 2 ||
+            if (npcName in setOf("corp_beast", "slayer_kraken_boss") && (args.size > 2 ||
                 (args.size == 2 && args[1].toIntOrNull() !in 1..1000))) {
-                player.mes("Use as ::testloot corp [count: 1-1000] (default: 100)")
+                player.mes("Use as ::testloot ${args[0]} [count: 1-1000] (default: 100)")
                 return
             }
             val typeId = "npc.$npcName".asRSCM()

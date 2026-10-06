@@ -1,7 +1,7 @@
 # EvolvedMind custom content
 
-Runtime baseline: **OpenRune revision 240**, server `f7c349c0e`, Nero Studio
-`0efcb039`. [Exact baseline and validation](docs/custom/baseline.md).
+Runtime baseline: **OpenRune revision 240**, server `f40f4d951`, Nero Studio
+`b29d93c`. [Exact baseline and validation](docs/custom/baseline.md).
 [Current progress](CUSTOM_PROGRESS.md) is the status authority; file existence is
 not evidence that every mechanic is complete.
 
@@ -19,7 +19,7 @@ not evidence that every mechanic is complete.
 | External plugin loading and interface mappings | UPSTREAM + CUSTOM EXTENSIONS | `engine/plugin`, `or-cache`, `server/app` | [Core modifications](docs/custom/core-modifications.md) |
 | Object library, native loot value display | CUSTOM Nero integration | Separate Nero Studio repository | [Architecture](docs/custom/architecture.md) |
 | Araxxor encounter | CUSTOM, completion accepted by user (PR #16) | `content/bosses/araxxor`, capture inspection | [Araxxor](docs/custom/araxxor.md) |
-| Doom research | CUSTOM research, no active encounter | Archived branch history | [Research](docs/custom/research.md) |
+| Doom of Mokhaiotl | UPSTREAM + CUSTOM EXTENSIONS; user accepted | `content/bosses/doom-of-mokhaiotl` and `pack` | [Doom](docs/custom/doom-of-mokhaiotl.md), [upstream review](docs/custom/upstream-review-20261006.md) |
 
 Upstream: https://github.com/OpenRune/OpenRune-Server
 Fork: https://github.com/EvolvedMind/OpenRune-Server
@@ -34,3 +34,5 @@ paused. See the combat document.
 Corporeal Beast: CUSTOM using native combat and loot APIs; [implementation and validation](docs/custom/corporeal-beast.md).
 
 Spirit shields and Zulrah item assembly: [recipes, dismantling and validation](docs/custom/boss-item-crafting.md).
+
+Treasure Trails: CUSTOM using native clue cache rows, interfaces, inventory transactions and skilling events. Development milestone: 40/60 skill-task handlers; remaining routes and Mimic are not complete. See [implementation](docs/custom/treasure-trails.md), [coverage](docs/custom/clue-task-coverage.md) and [administrator test commands](docs/custom/clue-testing.md).

@@ -1,12 +1,12 @@
 # EvolvedMind OpenRune progress
 
-Updated: 2026-10-04. The user has accepted the current runtime and explicitly requires
+Updated: 2026-10-06. The user has accepted the current runtime and explicitly requires
 it to be preserved. The completed organization pass changed documentation and Git references,
 not gameplay, cache, plugins or the installed package.
 
-**Current accepted server:** `f7c349c0edff7b4b9c9194b4c2d78fa80a777760` (accepted Araxxor completion build, revision 240).
+**Current accepted server:** `f40f4d951fb7e08df715952879a15314a4f85639` (user-accepted Doom test package, revision 240).
 Previous weapons baseline: `6168204ee3992a3e00f6906e34200d4cff3e95f4`.
-**Paired Nero Studio:** `0efcb039c539a469a1dab2c4c654c61ecf41aa51`.
+**Paired Nero Studio:** `b29d93cabe7b6d064430bba688f3a9e7903267fb`.
 [Baseline / test evidence](docs/custom/baseline.md) ? [Branch audit](docs/custom/branch-audit-20261003.md)
 
 ## Status meaning
@@ -35,7 +35,7 @@ PLANNED / NOT STARTED describe future work, not functionality in the current bui
 | Other existing boss modules | IMPLEMENTED / NEEDS TESTING | UPSTREAM; selected custom timer integration | Amoxliatl, Callisto, demonic gorilla, Duke, gemstone crab, KBD, Leviathan, Muspah, Scurrius, Spindel, tormented demon, Vardorvis, Whisperer |
 | Araxxor | VERIFIED / USER ACCEPTED (PR #16) | CUSTOM | Completion f7c349c0e accepted by user; completion adds impact reflection, max-hit rules, native acid ball, Slayer gates and Harvest/Destroy rewards; see docs/custom/araxxor.md |
 | Barrows | VERIFIED / USER ACCEPTED | UPSTREAM | User reports encounter works perfectly; ::testloot barrows exercises the native chest reward calculation |
-| Doom of Mokhaiotl | NOT STARTED encounter | CUSTOM research + upstream drop/pet data | Archived research exists; a drop table does not constitute a boss fight |
+| Doom of Mokhaiotl | VERIFIED / USER ACCEPTED; merge approved | UPSTREAM + CUSTOM EXTENSIONS | Complete integrated delve encounter and ::testloot; 326 selected server tests and isolated startup; accepted 2026-10-06 |
 
 ## Systems
 
@@ -81,7 +81,7 @@ PLANNED / NOT STARTED describe future work, not functionality in the current bui
 
 ### BACKLOG
 
-- Doom encounter/delve progression after Araxxor priorities are resolved.
+- Doom is now user accepted; select the next feature only on user instruction.
 - Reassess old Zulrah item recovery and personal pet helper commands.
 
 ## Upstream review queue
@@ -218,3 +218,86 @@ User confirmed perfect and authorized merge. Accepted runtime 1e4f7f7e4, install
 ## 2026-10-04 - Spirit shields and Zulrah item crafting
 
 Implemented spirit shield blessing/sigils, blowpipe assembly, existing serpentine helm and toxic weapon recipes, enhanced/ornamented tridents, mutagen variants, scale dismantling and reversible component separation. Native atomic inventory transactions preserve ingredients on failure. 60 focused tests, formatting, full server build and isolated startup/bridge/shutdown pass. User authorized merge; new recipe in-game verification remains pending. Installer: outputs/boss-item-crafting-20261004. See docs/custom/boss-item-crafting.md.
+
+## 2026-10-04 - Treasure Trails (IN PROGRESS)
+
+Branch feature/treasure-trails. Kraken alias added to testloot with 1-1000 validation; commands tests pass. Clue assets and drop transforms exist, but no active clue completion/reward/Mimic implementation was found. Requested scope: scroll boxes, correct rewards and Mimic; full step-by-step trails versus direct reward opening awaits user clarification. No clue completion claim or merge yet.
+
+## 2026-10-04 - Full Treasure Trails scope confirmed
+
+User explicitly requests full hunts, steps and puzzles, with master Mimic chance. Scroll boxes produce clue scrolls. Foundation and 11 focused tests pass; catalog contains 997 records but this is not gameplay completion. Pending: remaining challenge flows, Mimic encounter, runtime/cache integration and installer. See docs/custom/treasure-trails.md. No merge or live install.
+
+2026-10-04 - Treasure Trails chunk: physical sliding/light puzzle boxes now retain clue ownership, reopen from inventory and are consumed by exact slot at hand-in. Atomic full-inventory issuance and stale-reference protection verified; 18 clue tests pass. Maps, remaining tasks, Mimic and live/cache validation still pending; no release or merge.
+
+2026-10-04 - Treasure Trails map chunk: linked eight cache-named map clues to their existing native interfaces. Verified drawable map models and clientscript Close actions. 18 existing tests passed; new map test passed separately after correcting its legacy close-button assumption. Remaining maps, task coverage and Mimic remain unfinished; accepted runtime untouched.
+
+2026-10-04 - Treasure Trails Sherlock chunk: elite introductions now assign and persist a task without advancing or rerolling. Added successful-crafting completion events and green dragonhide body / unstrung dragonstone amulet task tracking. 22 clue tests and 16 crafting tests pass, including existing fang, spirit-shield and Zulrah crafting. Detailed task coverage: docs/custom/clue-task-coverage.md. Mimic is last per user instruction. No installation or merge.
+
+2026-10-05 - Treasure Trails master gathering chunk: runite/prospector, anglerfish/angler and redwood/lumberjack task completion is checked on real primary production with required worn slots. Mixed supported variants and Varrock armour 4 substitution included. 24 clue tests pass, including each missing slot, inventory-only gear and bonus rejection. Task coverage updated. Mimic remains last; no installation or merge.
+
+2026-10-05 - Treasure Trails Sherlock combat chunk: ordinary dust devil, Slayer Tower nechryael and overworld lizardman shaman task kills use the existing credited-player death hook. Assignment and requirements are enforced; completion awaits return to Sherlock. 27 clue tests pass offline with cached dependencies; no dependency updates. Superior/raid variants still require validation. Mimic remains last; no installation or merge.
+
+### 2026-10-05 - Treasure Trails: Herblore challenges
+- Added successful brewing hooks for assigned super defence, anti-venom and ranging mix tasks, including valid dose variants.
+- Herblore compilation passed; 28 clue tests passed (clues-herblore-retest.log).
+- Actual queued brewing and in-game validation still pending. No install or merge. Mimic remains last.
+
+### 2026-10-05 - Treasure Trails: equipment challenge
+- Dragon scimitar task completes after assigned, successful equip; removal and wrong weapons do not count.
+- Native inventory equip transaction tested. All 29 clue tests pass (clues-equip-retest.log).
+- Task coverage: 15/60 completion hooks; 45 incomplete. Live acceptance and remaining clue systems pending; Mimic last.
+
+### 2026-10-05 - Treasure Trails: ground-fire tasks
+- Added successful ground-log ignition event and assigned yew, magic and redwood task completion.
+- Firemaking compilation passed; all 30 clue tests pass (clues-firemaking-test.log).
+- 18/60 task rows have completion hooks, 42 incomplete. Queued ignition, campfire compatibility and live acceptance pending. Mimic last.
+
+### 2026-10-05 - Treasure Trails: nature and cosmic altar tasks
+- Successful altar output now reports essence and base multiplier. Nature and double-cosmic tasks complete after assignment.
+- Runecrafting compilation passed; all 31 clue tests pass (clues-runecrafting-test.log).
+- 20/60 task rows have completion hooks, 40 incomplete. Blood altar and live altar validation pending. Mimic last.
+
+### 2026-10-05 - Clue assignments and skill expansion (local, not released)
+- Skill task coverage increased from 20/60 to 36/60: Charlie's eight assigned hand-ins, cooking/smithing, yew-longbow/rune-dart Fletching, Chivalry, nickel and Blood Altar output.
+- Charlie accepts items from any source after assignment (Jagex 2022 rule); the older self-production requirement in historical notes is superseded.
+- Falo assigns a persistent riddle. Watson stores partial tier deposits and preserves them when a master cannot be delivered.
+- Hot/cold introductions now assign a search and device atomically instead of completing the step. Full inventory and repeat-talk checks pass.
+- Boxes preserve their contents when a same-tier clue is held or banked. Making History and cached Lletya requirements follow the existing quest policy.
+- Validation: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log (BUILD SUCCESSFUL). Git diff check clean for this scope.
+- Skill changes committed separately as c412b8ace. Remaining: 24 skill tasks, outstanding map/puzzle/world validation and other coverage gaps documented in docs/custom/clue-task-coverage.md. Mimic has NOT started; it remains last.
+- Accepted installation, main and remote branches unchanged. No installer, push or merge.
+### 2026-10-05 - Location-sensitive clues and god outfits (local)
+- Added the assigned whip-equip challenge with worn-state, Slayer Tower, same-plane and nearby abyssal-demon checks, including accepted whip/tentacle variants.
+- Added the light-orb crafting task using the existing recipe and cache-verified public Dorgesh-Kaan bank room. Exact proximity/boundary parity remains a live acceptance item.
+- Corrected Juna and Mage of Zamorak outfits to count three matching worn items rather than require every slot from the cache lists.
+- Coverage now 38/60 skill tasks; 22 skill tasks remain, plus outstanding map/puzzle/special cryptic routes and live validation. Mimic remains last and is not implemented.
+- Validation: 47 clue tests pass (work/clues-locations-outfits.log, BUILD SUCCESSFUL), plus the previously passing 3 unchanged Fletching tests. No accepted runtime installation, push or merge.
+### 2026-10-05 - Clue 40/60 test candidate
+- Added assigned Ardougne gem-stall theft and sacred-eel dissection. Coverage: 40/60 skill-task rows; 20 remain, plus outstanding world/map/puzzle routes and live acceptance. Mimic remains last and is not implemented.
+- Added administrator ::cluekit and ::cluetest commands for tools, tier boxes, initialized scrolls, task fixtures and reward caskets. Inventory transactions preserve existing items; normal skill requirements apply.
+- Validation: 54 Treasure Trails tests, 3 Cooking tests, 2 Thieving tests and 3 Fletching tests passed. Full cache/server build successful; isolated startup, game port, Nero bridge/catalog and graceful shutdown passed against the candidate JAR/cache. Installer/rollback regression tests passed.
+- Test distribution: outputs/clues-test-20261005/INSTALLEREN.cmd, with read-only CONTROLEREN.cmd and TERUGZETTEN.cmd. The package verifies baseline and payload hashes and preserves a checkpoint of replaced software/cache files; player database is excluded.
+- Updated CONTENT_INVENTORY.md and preserved the expanded main-branch roadmap. Active branch: feature/treasure-trails. This is a test candidate, not a complete clue release; no merge or accepted runtime installation performed.
+
+### 2026-10-05 - Clue commands corrected; clue development parked
+- Bare ::cluetest box/casket/scroll now supply beginner items. Help uses square brackets because the client interprets angle brackets as markup. Explicit tiers remain supported.
+- Validation: 55 Treasure Trails tests pass, including all three bare commands. Clues remain 40/60 skill tasks; remaining clue work and Mimic are parked at the user request. Next work: NPC combat-effect HUD, then reviewed upstream Doom integration.
+
+### 2026-10-06 - Doom integration and NPC stat HUD test candidate
+- Integrated upstream fc10877fd into a dedicated Doom module/pack: delves 1-8/deep 9+, rotations, rocks/shockwaves, larvae, demonic shield/beam, burrow rush/slams, acid/venom and holy water; native instance entry and reward/chest interfaces. Existing accepted boss scripts, weapon rules and revision 240 remain in place.
+- Added ::testdoom and ::testloot doom [count] [delve], with a shared native roller that preserves active run/escrow/counters/log during sampling. Persistent 40-slot stacked reward piles and scrolling item models use strict atomic roll/stash transactions. Death loses only the active run pile; prior claimed loot remains.
+- Nero native infoboxes report real current/base NPC combat-stat levels, with authenticated immutable snapshots and stale/target/session guards. Stat icons show drains/boosts and exact hover values. Poison/freeze and bespoke phase markers remain outside this stat-level HUD.
+- Clue item command fix is included; clues stay parked at 40/60 and Mimic remains last/unimplemented.
+- Validation: 326 selected server tests and 89 Nero client/server-plugin tests pass; cache build and real revision-240 symbol/client-script contracts pass; server JAR and external-plugin contract pass. Isolated startup verifies real bridge/catalog, continuously refreshed NPC effects/respawn snapshots, game listener and process/database cleanup against exact JAR/cache/plugin hashes.
+- Startup testing found and fixed duplicate injection constructors and a bridge endpoint-prefix mismatch; production-injector and real HTTP tests prevent recurrence. Live encounter timing/animations and HUD visuals still require user acceptance.
+- Previous installed baseline verified read-only: 684 files, zero hash differences. Test distribution: outputs/doom-update-20261006/INSTALLEREN.cmd, hash preflight, checkpoint and TERUGZETTEN.cmd; player database excluded. No live installation or main merge performed.
+- Work is split into API prerequisites, Doom encounter/storage, commands, injector fix and documentation commits. Upstream review and deferred optional changes are in docs/custom/upstream-review-20261006.md.
+- The isolated startup passes with zero exit and scoped process/database cleanup; it also reproduces the pre-existing concurrent DB-close warning. Save/drain ordering is not certified here. Upstream #281 is documented as a separate persistence follow-up.
+
+- Remote repository instructions were preserved through a documentation-only merge. Packaged server commit f40f4d951 and Nero b29d93c remain the exact validated runtime; subsequent changes affect documentation only.
+
+### 2026-10-06 - Doom and NPC stat HUD user accepted
+- User reports perfect and explicitly authorizes merge of the tested package: server f40f4d951, Nero b29d93c. Preserve this gameplay checkpoint.
+- PR #23 carries Doom and the existing clue milestone to server main; Nero PR #11 carries the accepted Studio basis and the new stat HUD to Nero main.
+- Clues remain parked at 40/60 and Mimic remains unimplemented; accepting this package does not declare full clue completion. Remaining specials and other backlog features stay parked.
+- Latest main roadmap grouping and AgentCraft Observatory planning are preserved. Validation remains 326 selected server tests, 89 Nero tests and isolated startup, plus installer/checkpoint/hash evidence. Existing shutdown warning remains separate.

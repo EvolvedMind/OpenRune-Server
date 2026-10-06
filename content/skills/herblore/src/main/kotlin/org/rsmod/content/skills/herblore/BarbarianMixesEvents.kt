@@ -4,6 +4,9 @@ import org.rsmod.api.config.Constants
 import org.rsmod.api.invtx.invAdd
 import org.rsmod.api.invtx.invDel
 import org.rsmod.api.player.events.interact.HeldUEvents
+import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
+import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.script.onOpHeldU
 import org.rsmod.api.script.onPlayerQueueWithArgs
@@ -148,6 +151,14 @@ class BarbarianMixesEvents : PluginScript() {
         if (mix.xp > 0) {
             statAdvance("stat.herblore", mix.xp.toDouble())
         }
+
+        publish(SkillingActionCompleteEvent(player, SkillingActionContext.Product(
+            skill = "stat.herblore",
+            item = mix.barbarianMix.internalName,
+            count = 1,
+            experienceGranted = mix.xp.toDouble(),
+            source = SkillingProductSource.Herblore,
+        )))
 
         val mixName = mix.barbarianMix.name
         mes("You add the ingredient to the potion.")

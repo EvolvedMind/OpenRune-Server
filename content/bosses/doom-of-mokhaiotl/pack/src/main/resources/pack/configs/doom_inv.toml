@@ -1,0 +1,18 @@
+[[inventory]]
+isServerOnly = true
+id = "inv.dom_lootpile"
+inherit = "inv.dom_lootpile"
+scope = "Perm"
+size = 40
+stack = "Always"
+protect = false
+
+
+[[inventory]]
+isServerOnly = true
+id = "inv.dom_lootpile_during"
+inherit = "inv.dom_lootpile_during"
+scope = "Perm"
+size = 40
+stack = "Always"
+protect = false

@@ -1,0 +1,15 @@
+[[inventory]]
+isServerOnly = true
+id = "inv.trail_puzzleinv"
+inherit = "inv.trail_puzzleinv"
+scope = "Perm"
+protect = true
+
+[[inventory]]
+isServerOnly = true
+id = "inv.trail_pending_rewards"
+inherit = "inv.trail_rewardinv"
+scope = "Perm"
+protect = true
+size = 28
+stack = "Normal"

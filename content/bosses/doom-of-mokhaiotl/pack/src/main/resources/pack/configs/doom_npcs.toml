@@ -1,0 +1,110 @@
+[[npc]]
+id = "npc.dom_boss"
+inherit = "npc.dom_boss"
+huntMode = 8
+huntRange = 20
+attackRange = 20
+defaultMode = "None"
+maxRange = 40
+[npc.params]
+"param.demon"=1
+"param.headbar"="headbar.health_120"
+"param.boss_hp_bar_mode"=2
+"param.boss_hp_bar_colour_back"=13107200
+"param.boss_hp_bar_colour_sliding"=36864
+"param.boss_hp_bar_colour_remaining"=51200
+
+
+[[npc]]
+id = "npc.dom_boss_shielded"
+inherit = "npc.dom_boss_shielded"
+huntMode = 8
+huntRange = 20
+attackRange = 20
+defaultMode = "None"
+maxRange = 40
+[npc.params]
+"param.demon"=1
+"param.headbar"="headbar.shield_120"
+"param.boss_hp_bar_mode"=2
+"param.boss_hp_bar_colour_back"=8224
+"param.boss_hp_bar_colour_sliding"=39032
+"param.boss_hp_bar_colour_remaining"=53416
+
+
+[[npc]]
+id = "npc.dom_boss_burrowed"
+inherit = "npc.dom_boss_burrowed"
+huntMode = 8
+huntRange = 20
+attackRange = 20
+defaultMode = "None"
+maxRange = 40
+[npc.params]
+"param.demon"=1
+"param.headbar"="headbar.health_120"
+"param.boss_hp_bar_mode"=2
+
+
+[[npc]]
+id = "npc.dom_demonic_energy"
+inherit = "npc.dom_demonic_energy"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_demonic_energy_range"
+inherit = "npc.dom_demonic_energy_range"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_demonic_energy_mage"
+inherit = "npc.dom_demonic_energy_mage"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_demonic_energy_melee"
+inherit = "npc.dom_demonic_energy_melee"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_demonic_energy_giant_mage"
+inherit = "npc.dom_demonic_energy_giant_mage"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_demonic_energy_giant_range"
+inherit = "npc.dom_demonic_energy_giant_range"
+defaultMode = "None"
+[npc.params]
+"param.attackable_on_cooldown"=true
+"param.demon"=1
+
+
+[[npc]]
+id = "npc.dom_shockwave_path_node"
+inherit = "npc.dom_shockwave_path_node"
+defaultMode = "None"
+moveRestrict = "NoMove"
+[npc.params]
+"param.attackable_on_cooldown"=true
+

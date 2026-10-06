@@ -1,5 +1,6 @@
 package org.rsmod.game.hit
 
+import dev.openrune.ServerCacheManager
 import dev.openrune.types.ItemServerType
 
 public class HitBuilder(
@@ -28,6 +29,10 @@ public class HitBuilder(
     public var penetration: Int = 0
 
     public val impactEffects: HitImpactEffects = HitImpactEffects()
+
+    public fun righthandType(): ItemServerType? = righthandType?.let { ServerCacheManager.getItem(it) }
+
+    public fun secondaryType(): ItemServerType? = secondaryType?.let { ServerCacheManager.getItem(it) }
 
     public fun isRighthandObj(type: ItemServerType): Boolean = type.id == righthandType
 

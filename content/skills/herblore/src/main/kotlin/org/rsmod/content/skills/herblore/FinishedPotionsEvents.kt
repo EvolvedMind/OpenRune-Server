@@ -3,6 +3,9 @@ package org.rsmod.content.skills.herblore
 import jakarta.inject.Inject
 import org.rsmod.api.config.Constants
 import org.rsmod.api.player.events.interact.HeldUDefaultEvents
+import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
+import org.rsmod.api.player.events.skilling.SkillingActionContext
+import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.random.GameRandom
 import org.rsmod.api.script.onOpHeldU
@@ -184,6 +187,14 @@ class FinishedPotionsEvents @Inject constructor(private val random: GameRandom) 
         if (potion.xp > 0) {
             statAdvance("stat.herblore", potion.xp.toDouble())
         }
+
+        publish(SkillingActionCompleteEvent(player, SkillingActionContext.Product(
+            skill = "stat.herblore",
+            item = output,
+            count = 1,
+            experienceGranted = potion.xp.toDouble(),
+            source = SkillingProductSource.Herblore,
+        )))
 
         val itemForMessage = if (potion.secondaries.size > 1) {
             potion.unfPot
