@@ -13,6 +13,13 @@ import org.rsmod.game.entity.Npc
 import org.rsmod.map.CoordGrid
 
 class EncounterRegistryTest {
+    @org.junit.jupiter.api.Test
+    fun `registry starts through the production injector`() {
+        val injector = com.google.inject.Guice.createInjector()
+        val first = injector.getInstance(EncounterRegistry::class.java)
+        org.junit.jupiter.api.Assertions.assertSame(first, injector.getInstance(EncounterRegistry::class.java))
+    }
+
     private val type = NpcServerType(id = 1, name = "Boss", size = 1, hitpoints = 100)
     private val easy = spec("easy")
     private val hard = spec("hard")

@@ -7,7 +7,9 @@ import org.rsmod.game.MapClock
 import org.rsmod.game.entity.Npc
 
 @Singleton
-class EncounterRegistry @Inject constructor(private val mapClock: MapClock = MapClock()) {
+class EncounterRegistry @Inject constructor(private val mapClock: MapClock) {
+    constructor() : this(MapClock())
+
     private class Registration(val specs: Collection<BossSpec>, val default: BossSpec?)
 
     private val encounters = mutableMapOf<Int, BossEncounter>()
