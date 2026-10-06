@@ -26,3 +26,9 @@ endpoint refresh, zero process exit and isolated database cleanup pass; this is
 not a certification of save/drain ordering. The #281 persistence follow-up remains
 separate from Doom and must address the close/saver ordering before being called
 clean shutdown validation.
+
+The targeted all-state upstream PR search for Doom/Mokhaiotl returns
+[PR #275](https://github.com/OpenRune/OpenRune-Server/pull/275), merged at the
+requested source commit. PR metadata has no description or submitted reviews;
+local imported encounter tests and integration evidence are the qualification
+used here, not an assumed upstream review certification.
