@@ -72,7 +72,7 @@
     {
       "title": "Doom of Mokhaiotl",
       "status": "added",
-      "summary": "User accepted the complete integrated Doom encounter and approved merge on 2026-10-06.",
+      "summary": "User accepted Doom; merged into main in PR #23 on 2026-10-06.",
       "details": [
         "Upstream PR #275 / fc10877fd adapted to a dedicated revision-240 module and cache pack, preserving accepted custom bosses and weapons.",
         "Delves 1-8/deep 9+, native entry, attacks/hazards, larvae, shield/beam, demonbane, burrowing, acid/venom and holy water.",

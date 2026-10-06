@@ -301,3 +301,9 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - PR #23 carries Doom and the existing clue milestone to server main; Nero PR #11 carries the accepted Studio basis and the new stat HUD to Nero main.
 - Clues remain parked at 40/60 and Mimic remains unimplemented; accepting this package does not declare full clue completion. Remaining specials and other backlog features stay parked.
 - Latest main roadmap grouping and AgentCraft Observatory planning are preserved. Validation remains 326 selected server tests, 89 Nero tests and isolated startup, plus installer/checkpoint/hash evidence. Existing shutdown warning remains separate.
+
+### 2026-10-06 - Merges completed
+- Server PR #23 merged into main as c2ccd5c762f98fa24568b66458edad814be1c1f0. The clue dependency PR #22 is included; remaining clue work stays parked.
+- Nero PR #11 merged into main as 85af63cedb2067b3b82c63ed86b0e55048c0399d, preserving accepted basis #8/#10; #10 is closed as superseded. Both CI server pins reference the accepted server merge.
+- Runtime sources on both mains equal the validated package; post-acceptance edits are documentation and CI pins only. No live deployment or player-data replacement.
+- Accepted package remains outputs/doom-update-20261006 with verified hashes and rollback checkpoint. Completed feature branches are removed only after ancestry and expected-head checks.

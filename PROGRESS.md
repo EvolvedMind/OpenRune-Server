@@ -7,6 +7,7 @@ A symbol, pet or drop table does not establish a playable or verified boss.
 **Accepted runtime:** revision 240, server `f40f4d951`, Nero Studio `b29d93c`.
 User accepted the Doom/HUD test package and approved merge on 2026-10-06.
 Earlier recovery checkpoints remain preserved.
+Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 [Exact recovery baseline](docs/custom/baseline.md).
 
 | Area | Actual status |
@@ -25,8 +26,8 @@ Earlier recovery checkpoints remain preserved.
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
 | Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
-| Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGE APPROVED |
-| NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGE APPROVED |
+| Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
+| NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 

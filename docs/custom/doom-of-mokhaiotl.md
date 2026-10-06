@@ -65,3 +65,8 @@ separate persistence follow-up (#281); process cleanup is verified, save/drain
 ordering is not certified by this encounter test. The user accepted the tested encounter/HUD package and approved merge on
 2026-10-06;
 this acceptance is not a claim of exhaustive OSRS parity.
+
+Merged on 2026-10-06: server PR #23 / c2ccd5c762f98fa24568b66458edad814be1c1f0;
+paired Nero PR #11 / 85af63cedb2067b3b82c63ed86b0e55048c0399d.
+Runtime sources remain those of the accepted package; later changes only
+record acceptance, preserve roadmap/instructions and update CI server pins.
