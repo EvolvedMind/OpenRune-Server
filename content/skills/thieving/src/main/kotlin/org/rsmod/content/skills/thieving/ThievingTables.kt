@@ -29,7 +29,7 @@ internal class Stall(
     val loot: LootTable,
 )
 
-internal class CoinPouch(val obj: String, val coins: Int)
+internal class CoinPouch(val obj: String, val coins: Int, val maxCoins: Int = coins)
 
 internal class Pickpocket(
     val npcs: List<String>,
@@ -42,6 +42,9 @@ internal class Pickpocket(
     val loot: LootTable? = null,
     val pouch: CoinPouch? = null,
     val lowercaseName: Boolean = false,
+    val elf: Boolean = false,
+    val prifddinas: Boolean = false,
+    val stunTicks: Int = 9,
 )
 
 internal object ThievingTables {
@@ -169,7 +172,7 @@ internal object ThievingTables {
             )
         )
 
-    val pickpockets: List<Pickpocket> =
+    val pickpockets: List<Pickpocket> = ElfPickpockets.targets +
         listOf(
             Pickpocket(
                 npcs =

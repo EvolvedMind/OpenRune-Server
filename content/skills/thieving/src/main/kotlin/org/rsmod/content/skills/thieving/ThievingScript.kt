@@ -32,6 +32,7 @@ constructor(
     private val restockingUntil = HashMap<CoordGrid, Int>()
 
     override fun ScriptContext.startup() {
+        val registeredPouches = HashSet<String>()
         for (stall in ThievingTables.stalls) {
             onOpLoc2(stall.loc) { stealFromStall(it.loc, stall) }
         }
@@ -40,8 +41,10 @@ constructor(
                 onOpNpc3(npc) { pickpocket(it.npc, target) }
             }
             val pouch = target.pouch ?: continue
-            onOpHeld1(pouch.obj) { openPouches(pouch, all = true) }
-            onOpHeld2(pouch.obj) { openPouches(pouch, all = false) }
+            if (registeredPouches.add(pouch.obj)) {
+                onOpHeld1(pouch.obj) { openPouches(pouch, all = true) }
+                onOpHeld2(pouch.obj) { openPouches(pouch, all = false) }
+            }
         }
     }
 
@@ -129,25 +132,22 @@ constructor(
             failPickpocket(npc, target, owner)
             return
         }
+        val rewards = awardPickpocketLoot(target, npc.type.id) ?: run {
+            mes("You don't have enough inventory space.")
+            return
+        }
         mes("You pick $owner's pocket.", ChatType.Spam)
         anim(PICKPOCKET_SEQ)
         soundSynth(PICK_SYNTH)
-        if (pouch != null) {
-            invAdd(inv, pouch.obj)
-        }
-        val loot = target.loot?.roll(random)
-        if (loot != null) {
-            val count = random.of(loot.min, loot.max)
-            invAdd(inv, loot.obj, count)
+        for ((loot, count) in rewards) {
+            if (!target.elf && loot.obj == pouch?.obj) continue
             mes("You steal ${describe(loot.obj, count)}.", ChatType.Spam)
         }
-        statAdvance(THIEVING, target.xp)
     }
 
     private fun ProtectedAccess.openPouches(pouch: CoinPouch, all: Boolean) {
         val count = if (all) inv.count(pouch.obj) else 1
-        if (count == 0 || invDel(inv, pouch.obj, count).failure) return
-        invAdd(inv, COINS, count * pouch.coins)
+        if (!openCoinPouches(pouch, all)) return
         val message = if (count > 1) "You open all of the pouches." else "You open the coin pouch."
         mes(message, ChatType.Spam)
     }
@@ -156,7 +156,7 @@ constructor(
         mes("You fail to pick $owner's pocket.", ChatType.Spam)
         npc.say(target.caughtShout)
         npc.facePlayer(player)
-        stun()
+        stun(target.stunTicks)
         delay(1)
         spotanim(STUN_SPOTANIM, height = STUN_SPOTANIM_HEIGHT)
         anim(STUN_BLOCK_SEQ)
@@ -166,10 +166,10 @@ constructor(
         mes("You've been stunned!", ChatType.Spam)
     }
 
-    private fun ProtectedAccess.stun() {
+    private fun ProtectedAccess.stun(ticks: Int) {
         player.frozen = true
         player.routeDestination.clear()
-        player.timer(FREEZE_TIMER, STUN_TICKS)
+        player.timer(FREEZE_TIMER, ticks)
     }
 
     private fun pocketOwner(npc: Npc, target: Pickpocket): String {
@@ -196,9 +196,7 @@ constructor(
         const val STUN_SPOTANIM_HEIGHT = 124
         const val STUN_BLOCK_SEQ = "seq.human_unarmedblock"
         const val STUN_SYNTH = "synth.thieving_stunned"
-        const val STUN_TICKS = 9
         const val FREEZE_TIMER = "timer.combat_freeze"
         const val MAX_POUCHES = 28
-        const val COINS = "obj.coins"
     }
 }

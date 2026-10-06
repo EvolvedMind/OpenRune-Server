@@ -70,8 +70,8 @@ class TrailTestCommandsTest {
         }
     }
 
-    @Test fun `eel and gem fixtures start assigned tasks without changing stats or equipment`() {
-        for ((alias, row) in listOf("eel" to TrailSkillChallenges.sacredEelTask, "gem" to TrailSkillChallenges.gemStallTask)) {
+    @Test fun `eel gem and elf fixtures start assigned tasks without changing stats or equipment`() {
+        for ((alias, row) in listOf("eel" to TrailSkillChallenges.sacredEelTask, "gem" to TrailSkillChallenges.gemStallTask, "elf" to TrailSkillChallenges.elfTask)) {
             val f = Fixture()
             val beforeCooking = f.player.statMap.getCurrentLevel("stat.cooking")
             f.run("cluetest", alias)

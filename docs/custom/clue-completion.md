@@ -31,3 +31,25 @@ Treasure Trails or Mimic module to import. Potential native-action sources:
 | [Teletablets #7](https://github.com/OpenRune/OpenRune-Server/pull/7) | `06ea07fca2c652e88dd54b5aef281288d7cb7fe0` | Review actual lectern creation, not just tablet consumption. |
 
 Only reviewed adaptations will be committed. These sources are not completion claims.
+
+## Elf pickpocketing — 2026-10-07
+
+Adapted PR #230's elf level, XP, success chance, stun and weighted main loot. Bound
+53 cache-verified NPC symbols: four Lletya elves and 49 Prifddinas citizens. Existing
+citizen/master-farmer rewards and Ardougne gem-stall logic are preserved.
+Added Prifddinas seed/shard rolls from the wiki; full rogue outfit doubles applicable
+loot but not crystal shards. Pouches open atomically for 280–350 coins each.
+The native success producer publishes only after committed inventory output and XP.
+Sherlock recognizes an assigned elf task, retaining the clue until the player returns.
+
+Tests: nine Thieving tests pass (seven new reward cases); six native NPC/Sherlock
+integration tests pass, including failure/stun, cancellation, low level, pouch cap,
+inventory filling during the attempt, wrong tasks and final-casket idempotency.
+Native animation/sound calls execute in the fixtures; client visual acceptance remains
+pending. Shadow Veil, diary/glove boosts and partial rogue-set chances are outside
+this clue-focused adaptation. This does not declare the whole Thieving skill complete.
+
+Admin fixture: `::cluetest elf` or `::cluetest task master 13` (single-step assigned task).
+Pickpocket an actual elf, then talk to Sherlock. Neither command grants skill levels,
+teleports or completes the task. The existing world spawns include Goreu at
+2337,3159,0 and Miriel at 3238,6124,0.

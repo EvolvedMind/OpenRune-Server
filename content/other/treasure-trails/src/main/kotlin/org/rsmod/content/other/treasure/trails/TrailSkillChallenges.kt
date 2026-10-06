@@ -5,6 +5,7 @@ import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.events.skilling.LogBurnedEvent
+import org.rsmod.api.player.events.skilling.PickpocketSuccessEvent
 import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
 import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
@@ -23,6 +24,14 @@ internal class TrailSkillChallenges @Inject constructor(
     private val requirements: TrailRequirements,
 ) : PluginScript() {
     override fun ScriptContext.startup() {
+        onEvent<PickpocketSuccessEvent> {
+            if (group != PickpocketSuccessEvent.Group.Elf) return@onEvent
+            for (active in targets.active(player)) {
+                if (active.state.row != elfTask || active.state.phase != ASSIGNED) continue
+                if (requirements.missing(player, active.clue) != null) continue
+                if (progress.phase(player, active.slot, active.item, COMPLETED)) player.mes("You have completed Sherlock's challenge. Return to him with your clue.")
+            }
+        }
         onEvent<HeldEquipEvents.WearposChange> {
             if (wearpos != Wearpos.RightHand || objType.id != "obj.dragon_scimitar".asRSCM()) return@onEvent
             // WearposChange also reports items being removed. Require the new worn state.
@@ -86,6 +95,7 @@ internal class TrailSkillChallenges @Inject constructor(
         }
     }
     companion object {
+        val elfTask get() = "dbrow.cluehelper_skillchallenge_master_13".asRSCM()
         val sacredEelTask get() = "dbrow.cluehelper_skillchallenge_master_18".asRSCM()
         val gemStallTask get() = "dbrow.cluehelper_skillchallenge_master_12".asRSCM()
         val lightOrbTask get() = "dbrow.cluehelper_skillchallenge_master_22".asRSCM()
