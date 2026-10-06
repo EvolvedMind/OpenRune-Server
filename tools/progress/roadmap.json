@@ -93,11 +93,13 @@
     {
       "title": "Doom of Mokhaiotl",
       "status": "started",
-      "summary": "Research exists, but the encounter/delve gameplay is parked.",
+      "summary": "Upstream encounter and delves integrated; live acceptance pending.",
       "details": [
-        "Research and supporting drop/pet data exist.",
-        "No active Doom encounter or delve progression is installed yet.",
-        "Resume as a focused boss project when selected from the roadmap."
+        "Dedicated module and cache pack from upstream fc10877fd; revision 240 preserved.",
+        "Normal attacks, rocks, shockwaves, larvae, shield/beam, burrowing, acid/venom and holy water integrated for delves 1-8 and deep 9+.",
+        "Native private entry, death/leave lifecycle, persistent atomic rewards and scrolling reward interface.",
+        "Administrator ::testdoom and ::testloot doom [count] [delve]; sample rolls preserve active run and reward piles.",
+        "Automated and isolated runtime evidence accompanies the test package; live visuals/mechanics still await user acceptance."
       ],
       "category": "bosses"
     },

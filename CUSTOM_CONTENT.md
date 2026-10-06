@@ -19,7 +19,7 @@ not evidence that every mechanic is complete.
 | External plugin loading and interface mappings | UPSTREAM + CUSTOM EXTENSIONS | `engine/plugin`, `or-cache`, `server/app` | [Core modifications](docs/custom/core-modifications.md) |
 | Object library, native loot value display | CUSTOM Nero integration | Separate Nero Studio repository | [Architecture](docs/custom/architecture.md) |
 | Araxxor encounter | CUSTOM, completion accepted by user (PR #16) | `content/bosses/araxxor`, capture inspection | [Araxxor](docs/custom/araxxor.md) |
-| Doom research | CUSTOM research, no active encounter | Archived branch history | [Research](docs/custom/research.md) |
+| Doom of Mokhaiotl | UPSTREAM + CUSTOM EXTENSIONS; test candidate | `content/bosses/doom-of-mokhaiotl` and `pack` | [Doom](docs/custom/doom-of-mokhaiotl.md), [upstream review](docs/custom/upstream-review-20261006.md) |
 
 Upstream: https://github.com/OpenRune/OpenRune-Server
 Fork: https://github.com/EvolvedMind/OpenRune-Server
