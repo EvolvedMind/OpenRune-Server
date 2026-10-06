@@ -21,12 +21,12 @@ import org.rsmod.game.entity.Player
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
-class CollectionLogScript @Inject constructor(private val eventBus: EventBus) : PluginScript() {
+class CollectionLogScript @Inject constructor(private val eventBus: EventBus, private val collectionLog: CollectionLog) : PluginScript() {
     private var Player.lastTab: Int by intVarBit("varbit.collection_last_tab")
     private var Player.lastCategory: Int by intVarBit("varbit.collection_last_category")
 
     override fun ScriptContext.startup() {
-        onPlayerInit { CollectionLog.initializeOverviewSlots(player) }
+        onPlayerInit { collectionLog.initializeOverviewSlots(player) }
 
         onIfOpen("interface.collection") {
             player.startInvTransmit(player.collectionTransmit)

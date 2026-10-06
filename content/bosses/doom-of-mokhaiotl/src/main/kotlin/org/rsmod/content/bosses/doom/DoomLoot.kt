@@ -29,6 +29,7 @@ internal var Player.lootClaimed by boolVarp("varp.dom_loot_claimed")
 internal class DoomLoot
 @Inject
 constructor(
+    private val collectionLog: CollectionLog,
     private val delves: DoomDelves,
     private val prices: MarketPrices,
     private val rewards: DoomRewards,
@@ -84,7 +85,7 @@ constructor(
         }
         for (obj in rewards) {
             val type = ServerCacheManager.getItem(obj.id) ?: continue
-            CollectionLog.grant(player, uncert(type).id, obj.count)
+            collectionLog.grant(player, uncert(type).id, obj.count, source = "Doom of Mokhaiotl")
         }
         return true
     }

@@ -55,11 +55,11 @@ the module table at the bottom before reading a 0 as "nothing exists".
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Amoxliatl.png/48px-Amoxliatl.png?01b12" height="20" alt=""> [Amoxliatl](content/bosses/amoxliatl) | 363 loc | [wiki](https://oldschool.runescape.wiki/w/Amoxliatl) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Araxxor.png/48px-Araxxor.png?35d2e" height="20" alt=""> [Araxxor](content/bosses/araxxor) | 1.085 loc | [wiki](https://oldschool.runescape.wiki/w/Araxxor) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Artio.png/48px-Artio.png?bfba7" height="20" alt=""> Artio | no module, code in content/bosses/callisto | [wiki](https://oldschool.runescape.wiki/w/Artio) |
-| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Barrows_minigame.png/48px-Barrows_minigame.png?f7aaf" height="20" alt=""> [Barrows](content/bosses/barrows) | 1.602 loc | [wiki](https://oldschool.runescape.wiki/w/Barrows) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Barrows_minigame.png/48px-Barrows_minigame.png?f7aaf" height="20" alt=""> [Barrows](content/bosses/barrows) | 1.603 loc | [wiki](https://oldschool.runescape.wiki/w/Barrows) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Callisto.png/48px-Callisto.png?bfba7" height="20" alt=""> [Callisto](content/bosses/callisto) | 569 loc | [wiki](https://oldschool.runescape.wiki/w/Callisto) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Commander_Zilyana.png/48px-Commander_Zilyana.png?c5eaa" height="20" alt=""> [Commander Zilyana](content/bosses/zilyana) | 165 loc | [wiki](https://oldschool.runescape.wiki/w/Commander_Zilyana) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Corporeal_Beast.png/48px-Corporeal_Beast.png?52ebb" height="20" alt=""> [Corporeal Beast](content/bosses/corporeal-beast) | 350 loc | [wiki](https://oldschool.runescape.wiki/w/Corporeal_Beast) |
-| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Doom_of_Mokhaiotl.png/48px-Doom_of_Mokhaiotl.png?e5edb" height="20" alt=""> [Doom of Mokhaiotl](content/bosses/doom-of-mokhaiotl) | 3.215 loc | [wiki](https://oldschool.runescape.wiki/w/Doom_of_Mokhaiotl) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Doom_of_Mokhaiotl.png/48px-Doom_of_Mokhaiotl.png?e5edb" height="20" alt=""> [Doom of Mokhaiotl](content/bosses/doom-of-mokhaiotl) | 3.219 loc | [wiki](https://oldschool.runescape.wiki/w/Doom_of_Mokhaiotl) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Duke_Sucellus.png/48px-Duke_Sucellus.png?d588a" height="20" alt=""> [Duke Sucellus](content/bosses/duke-sucellus) | 1.244 loc | [wiki](https://oldschool.runescape.wiki/w/Duke_Sucellus) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/Gemstone_Crab.png/48px-Gemstone_Crab.png?79415" height="20" alt=""> [Gemstone Crab](content/bosses/gemstone-crab) | 659 loc | [wiki](https://oldschool.runescape.wiki/w/Gemstone_Crab) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/thumb/General_Graardor.png/48px-General_Graardor.png?4dd90" height="20" alt=""> [General Graardor](content/bosses/graardor) | 166 loc | [wiki](https://oldschool.runescape.wiki/w/General_Graardor) |
@@ -197,10 +197,10 @@ Status: 🔴 not added · 🟡 started / parked · 🟢 added
 
 | | Item | Summary | Details |
 |---|---|---|---|
-| 🔴 | **Collection Log Reward Broadcasts** | Estimated scope XS–S. Broadcast Collection Log uniques and pets server-wide when obtained. | <details><summary>Open</summary><ul><li>Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.</li><li>Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.</li><li>Broadcast every qualifying obtain, including repeat obtains.</li><li>Keep the personal 'New item added to your collection log' message only for first-time unlocks.</li><li>Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.</li><li>Example: [Collection Log] Bram received an Araxyte fang from Araxxor!</li></ul></details> |
-| 🔴 | **Improved Item Examine** | Estimated scope XS–S. Show the normal description plus GE, High Alch and Low Alch values. | <details><summary>Open</summary><ul><li>Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.</li><li>Preserve the normal item description.</li><li>Add a value line with GE value, High Alch value and Low Alch value.</li><li>Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.</li><li>Resolve noted items to the appropriate underlying item values where required.</li><li>Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic.</li></ul></details> |
-| 🔴 | **Notification Queue** | Estimated scope S. Queue client notifications so multiple unlock popups display one after another. | <details><summary>Open</summary><ul><li>Add a reusable per-player FIFO notification queue.</li><li>Route Collection Log clientscript 3343 popups through the queue.</li><li>Multiple new items from one kill or reward must display sequentially instead of overwriting one another.</li><li>Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.</li><li>Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.</li><li>Clear or discard pending notifications safely on logout or invalid player state.</li></ul></details> |
-| 🔴 | **OSRS GE Prices** | Estimated scope S–M. Use live OSRS market prices through the existing MarketPrices abstraction. | <details><summary>Open</summary><ul><li>Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.</li><li>Cache prices server-side and refresh periodically; never request prices per player action.</li><li>Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.</li><li>Keep High Alch and Low Alch values independent from GE prices.</li><li>Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.</li></ul></details> |
+| 🟡 | **Collection Log Reward Broadcasts** | Chat-wide reward news with native chat bubble, red News label and green item; no world-broadcast banners. Tested candidate on feature/small-extensions, awaiting in-game acceptance. | <details><summary>Open</summary><ul><li>Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.</li><li>Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.</li><li>Send ordinary chat news to all online players on every qualifying obtain, including repeats; no world-broadcast banners.</li><li>Keep the personal 'New item added to your collection log' message only for first-time unlocks.</li><li>Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.</li><li>Example: News: Bram received 1 x Araxyte fang from Araxxor!</li><li>2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.</li><li>User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged.</li><li>User correction 2026-10-06: native grey chat bubble, red News label, green quantity/item. MessageGame type 0 replaces type 14. Counts, sources and personal unlock settings/popups preserved; 58 targeted tests pass. See docs/custom/small-extensions.md.</li></ul></details> |
+| 🟡 | **Improved Item Examine** | Implemented and tested on feature/small-extensions; ready for in-game acceptance. | <details><summary>Open</summary><ul><li>Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.</li><li>Preserve the normal item description.</li><li>Add a value line with GE value, High Alch value and Low Alch value.</li><li>Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.</li><li>Resolve noted items to the appropriate underlying item values where required.</li><li>Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic.</li><li>2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.</li><li>User-requested compact display (2026-10-06): native blue info icon, name/description; green GE, blue High Alch, red Low Alch. Game messages suppress duplicate client price output. Notes and exact stack totals preserved; targeted tests pass.</li></ul></details> |
+| 🟡 | **Notification Queue** | Implemented and tested on feature/small-extensions; ready for in-game acceptance. | <details><summary>Open</summary><ul><li>Add a reusable per-player FIFO notification queue.</li><li>Route Collection Log clientscript 3343 popups through the queue.</li><li>Multiple new items from one kill or reward must display sequentially instead of overwriting one another.</li><li>Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.</li><li>Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.</li><li>Clear or discard pending notifications safely on logout or invalid player state.</li><li>2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.</li></ul></details> |
+| 🟡 | **OSRS GE Prices** | Implemented and tested on feature/small-extensions; ready for in-game acceptance. | <details><summary>Open</summary><ul><li>Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.</li><li>Cache prices server-side and refresh periodically; never request prices per player action.</li><li>Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.</li><li>Keep High Alch and Low Alch values independent from GE prices.</li><li>Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.</li><li>2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.</li></ul></details> |
 
 #### 3. Bosses — provisional small-to-large order
 
@@ -286,7 +286,7 @@ Status: 🔴 not added · 🟡 started / parked · 🟢 added
 
 | | Item | Summary | Details |
 |---|---|---|---|
-| 🟢 | **Doom of Mokhaiotl** | User accepted Doom; merged into main in PR #23 on 2026-10-06. | <details><summary>Open</summary><ul><li>Upstream PR #275 / fc10877fd adapted to a dedicated revision-240 module and cache pack, preserving accepted custom bosses and weapons.</li><li>Delves 1-8/deep 9+, native entry, attacks/hazards, larvae, shield/beam, demonbane, burrowing, acid/venom and holy water.</li><li>Atomic persistent loot/chest flow, native scrolling reward models, death/leave cleanup, counters and Collection Log.</li><li>Administrator ::testdoom and ::testloot doom [count] [delve]; test samples preserve run and progress.</li><li>326 selected server tests, 89 Nero tests, cache/JAR contracts and isolated startup pass; packaged f40f4d951 / Nero b29d93c accepted by user.</li><li>Existing concurrent database-close warning stays a separate persistence follow-up; no blanket upstream merge or revision upgrade.</li></ul></details> |
+| 🟢 | **Doom of Mokhaiotl** | User accepted Doom; merged into main in PR #23 on 2026-10-06. | <details><summary>Open</summary><ul><li>Upstream PR #275 / fc10877fd adapted to a dedicated revision-240 module and cache pack, preserving accepted custom bosses and weapons.</li><li>Delves 1-8/deep 9+, native entry, attacks/hazards, larvae, shield/beam, demonbane, burrowing, acid/venom and holy water.</li><li>Atomic persistent loot/chest flow, native scrolling reward models, death/leave cleanup, counters and Collection Log.</li><li>Administrator ::testdoom and ::testloot doom [count] [delve]; testloot preserves run/counters but now counts successfully spawned Collection Log rewards; doomsim stays unlogged.</li><li>326 selected server tests, 89 Nero tests, cache/JAR contracts and isolated startup pass; packaged f40f4d951 / Nero b29d93c accepted by user.</li><li>Existing concurrent database-close warning stays a separate persistence follow-up; no blanket upstream merge or revision upgrade.</li></ul></details> |
 | 🟢 | **Zulrah** | Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work. | <details><summary>Open</summary><ul><li>Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.</li><li>Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.</li><li>Run relevant regression checks when an approved new feature changes shared systems used by this encounter.</li></ul></details> |
 | 🟢 | **Corporeal Beast** | Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work. | <details><summary>Open</summary><ul><li>Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.</li><li>Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.</li><li>Run relevant regression checks when an approved new feature changes shared systems used by this encounter.</li></ul></details> |
 | 🟢 | **Araxxor** | Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work. | <details><summary>Open</summary><ul><li>Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.</li><li>Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.</li><li>Run relevant regression checks when an approved new feature changes shared systems used by this encounter.</li></ul></details> |
@@ -309,7 +309,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `areas/city/lumbridge/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |
 | `areas/city/port-sarim` | 13 | 1.971 | 0 | 0 | 2026-09-22 |
 | `areas/city/port-sarim/pack` | 1 | 6 | 0 | 0 | 2026-09-22 |
-| `areas/city/prifddinas` | 1 | 82 | 0 | 0 | 2026-08-18 |
+| `areas/city/prifddinas` | 1 | 83 | 0 | 0 | 2026-10-06 |
 | `areas/city/rimmington` | 6 | 773 | 0 | 0 | 2026-09-23 |
 | `areas/city/rimmington/pack` | 1 | 6 | 0 | 0 | 2026-09-22 |
 | `areas/city/taverley` | 1 | 77 | 0 | 0 | 2026-06-25 |
@@ -324,16 +324,16 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `areas/misc/ver_sinhaza` | 1 | 139 | 0 | 0 | 2026-09-25 |
 | `areas/misc/wizards_tower` | 4 | 1.123 | 0 | 0 | 2026-09-23 |
 | `areas/misc/wizards_tower/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |
-| `areas/wilderness` | 19 | 1.397 | 0 | 0 | 2026-09-28 |
-| `areas/zeah` | 3 | 234 | 0 | 0 | 2026-08-18 |
+| `areas/wilderness` | 19 | 1.399 | 0 | 0 | 2026-10-06 |
+| `areas/zeah` | 3 | 237 | 0 | 0 | 2026-10-06 |
 | `bosses/amoxliatl` | 2 | 363 | 0 | 0 | 2026-09-29 |
 | `bosses/araxxor` | 9 | 1.085 | 8 | 0 | 2026-10-04 |
-| `bosses/barrows` | 16 | 1.602 | 1 | 0 | 2026-10-04 |
+| `bosses/barrows` | 16 | 1.603 | 1 | 0 | 2026-10-06 |
 | `bosses/callisto` | 2 | 569 | 0 | 0 | 2026-09-29 |
 | `bosses/corporeal-beast` | 4 | 344 | 3 | 0 | 2026-10-04 |
 | `bosses/corporeal-beast/pack` | 1 | 6 | 0 | 0 | 2026-10-04 |
 | `bosses/demonic-gorilla` | 1 | 308 | 0 | 0 | 2026-09-04 |
-| `bosses/doom-of-mokhaiotl` | 22 | 3.209 | 6 | 0 | 2026-10-06 |
+| `bosses/doom-of-mokhaiotl` | 22 | 3.213 | 6 | 0 | 2026-10-06 |
 | `bosses/doom-of-mokhaiotl/pack` | 1 | 6 | 0 | 0 | 2026-10-06 |
 | `bosses/duke-sucellus` | 3 | 1.244 | 0 | 0 | 2026-10-01 |
 | `bosses/gemstone-crab` | 6 | 659 | 0 | 0 | 2026-09-28 |
@@ -353,7 +353,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `bosses/zulrah` | 9 | 3.527 | 1 | 0 | 2026-10-01 |
 | `bosses/zulrah/pack` | 1 | 6 | 0 | 0 | 2026-09-30 |
 | `devtools/nero-studio/pack` | 2 | 222 | 0 | 0 | — |
-| `drops` | 259 | 14.415 | 1 | 0 | 2026-10-06 |
+| `drops` | 259 | 14.416 | 2 | 0 | 2026-10-06 |
 | `events/shooting-stars` | 9 | 1.261 | 0 | 0 | 2026-08-30 |
 | `events/shooting-stars/pack` | 2 | 440 | 0 | 0 | 2026-08-21 |
 | `generic/generic-locs` | 25 | 1.382 | 0 | 1 | 2026-09-23 |
@@ -361,11 +361,11 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `generic/generic-npcs/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |
 | `generic/killcount` | 1 | 32 | 0 | 0 | 2026-09-12 |
 | `interfaces/bank` | 15 | 2.313 | 3 | 1 | 2026-08-19 |
-| `interfaces/collection-log` | 4 | 543 | 0 | 0 | 2026-08-18 |
+| `interfaces/collection-log` | 4 | 560 | 1 | 0 | 2026-10-06 |
 | `interfaces/combat-tab` | 1 | 619 | 1 | 0 | 2026-10-01 |
 | `interfaces/deposit-box` | 6 | 459 | 0 | 1 | 2026-08-08 |
 | `interfaces/emotes` | 2 | 635 | 2 | 0 | 2026-05-03 |
-| `interfaces/equipment` | 3 | 682 | 0 | 0 | 2026-09-25 |
+| `interfaces/equipment` | 3 | 682 | 0 | 0 | 2026-10-06 |
 | `interfaces/fade-overlay` | 1 | 20 | 0 | 0 | 2026-05-03 |
 | `interfaces/gameframe` | 6 | 498 | 0 | 1 | 2026-08-18 |
 | `interfaces/journal-tab` | 4 | 265 | 0 | 0 | 2026-08-18 |
@@ -373,6 +373,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `interfaces/menu` | 1 | 23 | 0 | 1 | 2026-05-03 |
 | `interfaces/monster-info` | 3 | 331 | 3 | 0 | 2026-10-02 |
 | `interfaces/monster-info/pack` | 1 | 6 | 0 | 0 | 2026-10-02 |
+| `interfaces/notifications` | 1 | 30 | 1 | 0 | 2026-10-06 |
 | `interfaces/omnishop` | 2 | 266 | 0 | 0 | 2026-09-23 |
 | `interfaces/prayer-tab` | 10 | 775 | 0 | 0 | 2026-10-05 |
 | `interfaces/settings` | 10 | 1.131 | 0 | 0 | 2026-09-28 |
@@ -390,7 +391,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `other/mapclock` | 1 | 49 | 0 | 0 | 2026-08-18 |
 | `other/max-cape` | 4 | 359 | 1 | 0 | 2026-10-03 |
 | `other/max-cape/pack` | 1 | 6 | 0 | 0 | 2026-10-02 |
-| `other/pets` | 101 | 7.940 | 3 | 0 | 2026-10-02 |
+| `other/pets` | 101 | 7.944 | 4 | 0 | 2026-10-06 |
 | `other/pets/pack` | 7 | 1.292 | 0 | 0 | 2026-10-02 |
 | `other/sandstorm` | 2 | 364 | 0 | 0 | 2026-08-18 |
 | `other/spawn` | 1 | 333 | 0 | 0 | 2026-10-02 |
@@ -399,7 +400,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `other/special-attacks/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
 | `other/special-weapons` | 25 | 2.024 | 10 | 1 | 2026-10-04 |
 | `other/special-weapons/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
-| `other/treasure-trails` | 27 | 2.743 | 14 | 0 | 2026-10-05 |
+| `other/treasure-trails` | 27 | 2.744 | 14 | 0 | 2026-10-06 |
 | `other/treasure-trails/pack` | 1 | 6 | 0 | 0 | 2026-10-04 |
 | `other/windmill` | 2 | 133 | 0 | 0 | 2026-09-23 |
 | `other/windmill/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |

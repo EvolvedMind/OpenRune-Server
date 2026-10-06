@@ -140,7 +140,7 @@ constructor(
         val obj = inv[invSlot] ?: return resendSlot(inv, invSlot)
         if (op == IfButtonOp.Op10) {
             val type = getInvObj(obj)
-            val price = marketPrices[type] ?: 0
+            val price = marketPrices.price(type) ?: 0L
             player.objExamine(type, obj.count, price)
             return
         }

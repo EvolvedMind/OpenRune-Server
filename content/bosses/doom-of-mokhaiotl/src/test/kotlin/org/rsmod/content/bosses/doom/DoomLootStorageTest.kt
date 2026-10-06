@@ -18,6 +18,7 @@ import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
 import org.rsmod.game.inv.InvObj
 import org.rsmod.game.queue.EngineQueueCache
+import net.rsprot.protocol.game.outgoing.misc.player.MessageGame
 import org.rsmod.plugin.scripts.ScriptContext
 
 @ResourceLock("ServerCacheManager")
@@ -78,14 +79,31 @@ class DoomLootStorageTest {
         assertEquals(100, loot.earned(player).objs.filterNotNull().single().count)
         assertEquals(50, loot.claimed(player).objs.filterNotNull().single().count)
     }
-    private fun fixture(): DoomLoot {
+    @Test fun `committed Doom reward broadcasts its source once and failed stash never unlocks it`() {
+        val player = Player(RecordingClient()).apply { displayName = "Bram" }
+        val observer = Player(RecordingClient())
+        val players = PlayerList().apply { this[1] = player; this[2] = observer }
+        val loot = fixture(players)
+        // The persistent stash producer accepts the actual roll pile, regardless of item whitelist.
+        loot.earned(player)[0] = InvObj(ServerCacheManager.getItem(4151)!!, 1)
+        assertTrue(loot.stash(player)); assertTrue(loot.stash(player))
+        val announcements = (observer.client as RecordingClient).messages.filterIsInstance<MessageGame>()
+        assertEquals(1, announcements.size)
+        assertTrue(announcements.single().message.contains("from Doom of Mokhaiotl!"))
+        for (slot in loot.claimed(player).indices) loot.claimed(player)[slot] = InvObj("obj.coins", Int.MAX_VALUE)
+        loot.earned(player)[0] = InvObj(ServerCacheManager.getItem(4151)!!, 1)
+        assertFalse(loot.stash(player))
+        assertEquals(1, (observer.client as RecordingClient).messages.filterIsInstance<MessageGame>().size)
+    }
+    private fun fixture(players: PlayerList = PlayerList()): DoomLoot {
         val ctx = ScriptContext(EventBus(), CheatCommandMap(), EngineQueueCache())
         with(InvTransactionsScript(PlayerItemStorage(emptySet()))) { ctx.startup() }
-        return DoomLoot(mock(DoomDelves::class.java), mock(MarketPrices::class.java), mock(DoomRewards::class.java),
+        return DoomLoot(org.rsmod.content.interfaces.collectionlog.CollectionLog(players), mock(DoomDelves::class.java), mock(MarketPrices::class.java), mock(DoomRewards::class.java),
             mock(InstanceManager::class.java), PlayerList(), mock(DoomStats::class.java))
     }
     private class RecordingClient : Client<Any, Any> {
-        override fun write(message: Any) = Unit
+        val messages = mutableListOf<Any>()
+        override fun write(message: Any) { messages += message }
         override fun close() = Unit
         override fun read(player: Player) = Unit
         override fun flush() = Unit

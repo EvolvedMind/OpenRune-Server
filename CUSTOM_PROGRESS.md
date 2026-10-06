@@ -307,3 +307,18 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Nero PR #11 merged into main as 85af63cedb2067b3b82c63ed86b0e55048c0399d, preserving accepted basis #8/#10; #10 is closed as superseded. Both CI server pins reference the accepted server merge.
 - Runtime sources on both mains equal the validated package; post-acceptance edits are documentation and CI pins only. No live deployment or player-data replacement.
 - Accepted package remains outputs/doom-update-20261006 with verified hashes and rollback checkpoint. Completed feature branches are removed only after ancestry and expected-head checks.
+
+
+## 2026-10-06 - Small extensions (four requested items)
+
+Branch: feature/small-extensions, baseline main 6856cffae. Dedicated price service, central Examine, transient notification FIFO and Collection Log repeat broadcasts with reward context. Candidate implemented: 150 selected tests and runtime build pass; isolated startup observes the live OSRS price refresh, accepts paired Nero endpoints, exits zero and removes its database PID. Existing database-close ordering warning remains a separate follow-up. User acceptance pending. See docs/custom/small-extensions.md. No live install or merge performed. Parked clues/specials and accepted checkpoints preserved.
+
+
+## 2026-10-06 - Compact Examine and Doom sample log fixes
+
+User-requested follow-up on feature/small-extensions / draft PR #24. Examine is exactly two game messages: native info icon + name + description; green GE, blue HA and red LA values. This suppresses duplicate client price output. Successfully spawned ::testloot doom samples now register Collection Log counts and source broadcasts, including repeats. ::doomsim stays unlogged; both native loot piles, run state and counters are preserved. Commits f53d4e760 / 84803569e. 63 targeted tests, full runtime build and isolated startup pass. Installed baseline matched 821 hashes. Fresh small-extensions-fixes-20261006 installer/checkpoint; user test and merge pending. See docs/custom/small-extensions.md.
+
+
+## 2026-10-06 - Collection Log chat-wide news
+
+User corrected the display requirement: chat-wide News lines, not world-broadcast banners. CollectionLog now sends ordinary game-message type 0 to all online players, with native grey chat bubble, red News label and green quantity/item. Counts, source context, personal first-unlock settings/popups and Doom testloot registration remain intact. Code 06b7bfd2b on feature/small-extensions / draft PR #24. 58 targeted tests, runtime JAR and isolated startup pass. Installed small-extensions-fixes baseline matched all 821 hashes. Latest collection-chat-news-20261006 installer has its own checkpoint/rollback; in-game acceptance and merge pending.

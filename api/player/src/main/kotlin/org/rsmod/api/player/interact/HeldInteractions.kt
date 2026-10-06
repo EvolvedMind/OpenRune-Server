@@ -114,7 +114,7 @@ private constructor(
     public fun examine(player: Player, inventory: Inventory, invSlot: Int) {
         val obj = inventory[invSlot] ?: return resendSlot(inventory, 0)
         val objType = getInvObj(obj)
-        val price = marketPrices[objType] ?: 0
+        val price = marketPrices.price(objType) ?: 0L
         player.objExamine(objType, obj.count, price)
     }
 
@@ -412,7 +412,7 @@ constructor(
         val thresholdWarning = player.vars["varbit.option_dropwarning_on"] == 1
         if (thresholdWarning) {
             val threshold = player.vars["varbit.option_dropwarning_value"]
-            val cost = (marketPrices[type] ?: 0) * obj.count
+            val cost = (marketPrices[type] ?: 0).toLong() * obj.count
             if (cost >= threshold) {
                 access.dropWithWarning(inventory, dropSlot, obj, type)
                 return

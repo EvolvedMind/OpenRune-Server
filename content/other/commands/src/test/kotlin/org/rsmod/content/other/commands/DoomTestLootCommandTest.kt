@@ -22,9 +22,9 @@ class DoomTestLootCommandTest {
     @Test fun `doom defaults to 100 delve-eight rolls and accepts an explicit delve`() {
         val fixture = Fixture()
         fixture.run("doom")
-        verify(fixture.loot).generate(fixture.player, 100, 8)
+        verify(fixture.loot).generate(fixture.player, 100, 8, true)
         fixture.run("MOKHAIOTL", "5", "3")
-        verify(fixture.loot).generate(fixture.player, 5, 3)
+        verify(fixture.loot).generate(fixture.player, 5, 3, true)
     }
 
     @Test fun `invalid counts and non administrators cannot generate loot`() {

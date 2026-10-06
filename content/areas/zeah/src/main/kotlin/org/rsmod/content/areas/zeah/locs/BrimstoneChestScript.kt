@@ -26,6 +26,7 @@ private const val VARP_KC = "varp.kc_brimstone_chest"
 private const val VARBIT_CHEST = "varbit.brimstone_opening_konar_chest"
 
 class BrimstoneChestScript @Inject constructor(
+    private val collectionLog: CollectionLog,
     private val locRepo: LocRepository,
     private val objRepo: ObjRepository,
     private val dropRegistry: DropTableRegistry,
@@ -70,7 +71,7 @@ class BrimstoneChestScript @Inject constructor(
         if (drop.isNothing || !drop.condition(player)) return
         val obj = drop.transformObj(player) ?: drop.obj
         val count = drop.rollCount(random)
-        CollectionLog.grant(player, obj, count)
+        collectionLog.grant(player, obj, count, source = "Brimstone chest")
         invAddOrDrop(objRepo, obj, count)
     }
 }

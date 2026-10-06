@@ -668,8 +668,8 @@ constructor(
                     player.mes("Use ::testloot doom [count: 1-1000] [delve: 1-1000]. Defaults: 100 rolls, delve 8.")
                     return
                 }
-                injector.getInstance(DoomTestLoot::class.java).generate(player, count, level)
-                player.mes("Generated Doom loot x$count at delve $level. Active run and rewards preserved.")
+                injector.getInstance(DoomTestLoot::class.java).generate(player, count, level, logRewards = true)
+                player.mes("Generated Doom loot x$count at delve $level. Collection Log updated; active run and rewards preserved.")
                 return
             }
             if (args[0].equals("barrows", ignoreCase = true)) {

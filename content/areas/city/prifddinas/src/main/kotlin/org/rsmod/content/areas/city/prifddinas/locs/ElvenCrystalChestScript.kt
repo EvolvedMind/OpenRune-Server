@@ -26,6 +26,7 @@ private const val VARP_KC_ELVEN_CRYSTAL_CHEST = "varp.kc_elven_crystal_chest"
 private const val VARBIT_CHEST = "varbit.prif_crystal_chest_open"
 
 class ElvenCrystalChestScript @Inject constructor(
+    private val collectionLog: CollectionLog,
     private val locRepo: LocRepository,
     private val objRepo: ObjRepository,
     private val dropRegistry: DropTableRegistry,
@@ -75,7 +76,7 @@ class ElvenCrystalChestScript @Inject constructor(
         if (drop.isNothing || !drop.condition(player)) return
         val obj = drop.transformObj(player) ?: drop.obj
         val count = drop.rollCount(random)
-        CollectionLog.grant(player, obj, count)
+        collectionLog.grant(player, obj, count, source = "Elven crystal chest")
         invAddOrDrop(objRepo, obj, count)
     }
 }

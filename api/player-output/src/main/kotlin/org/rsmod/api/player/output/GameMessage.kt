@@ -1,12 +1,9 @@
 package org.rsmod.api.player.output
 
-import dev.openrune.ServerCacheManager
-import dev.openrune.rscm.RSCM.asRSCM
-import dev.openrune.rscm.RSCMType
 import dev.openrune.types.ItemServerType
 import net.rsprot.protocol.game.outgoing.misc.player.MessageGame
-import org.rsmod.api.config.refs.params
 import org.rsmod.game.entity.Player
+import org.rsmod.game.type.normalize
 
 /** Calls [mes] with [text] as the message and [ChatType.Spam] as the type of chat. */
 public fun Player.spam(text: String): Unit = mes(text, ChatType.Spam)
@@ -17,18 +14,14 @@ public fun Player.mes(text: String, type: ChatType = ChatType.GameMessage) {
     client.write(message)
 }
 
-public fun Player.objExamine(type: ItemServerType, count: Int, marketPrice: Int) {
-    ClientScripts.examineItem(
-        player = this,
-        obj = type.id,
-        count = count,
-        desc = type.examine,
-        market = type.stockmarket,
-        marketPrice = marketPrice,
-        alchable = type.param(params.no_alchemy) == 0,
-        lowAlch = type.lowAlch,
-        highAlch = type.highAlch,
-    )
+public fun Player.objExamine(type: ItemServerType, count: Int, marketPrice: Int): Unit =
+    objExamine(type, count, marketPrice.toLong())
+
+public fun Player.objExamine(type: ItemServerType, count: Int, marketPrice: Long) {
+    val base = normalize(type)
+    // Ordinary game messages prevent enhanced clients from appending their own price row.
+    mes(ItemExamine.description(base, type.examine, count))
+    mes(ItemExamine.values(base, count, marketPrice))
 }
 
 public object GameMessage {

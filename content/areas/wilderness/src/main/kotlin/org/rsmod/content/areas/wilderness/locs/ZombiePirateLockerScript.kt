@@ -32,6 +32,7 @@ private const val VARP_KC = "varp.kc_zombie_pirate_locker"
 class ZombiePirateLockerScript
 @Inject
 constructor(
+    private val collectionLog: CollectionLog,
     private val locRepo: LocRepository,
     private val objRepo: ObjRepository,
     private val dropRegistry: DropTableRegistry,
@@ -73,7 +74,7 @@ constructor(
             obj = ocCert(obj).internalName
         }
         val count = drop.rollCount(random)
-        CollectionLog.grant(player, obj, count)
+        collectionLog.grant(player, obj, count, source = "Zombie pirate locker")
         invAddOrDrop(objRepo, obj, count)
     }
 

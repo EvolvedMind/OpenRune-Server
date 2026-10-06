@@ -1,9 +1,11 @@
 package org.rsmod.api.market
 
 import org.rsmod.module.ExtendedModule
+import org.rsmod.server.services.Service
 
 public object MarketModule : ExtendedModule() {
     override fun bind() {
-        bindBaseInstance<MarketPrices>(DefaultMarketPrices::class.java)
+        bindBaseAndImpl<MarketPrices>(OsrsMarketPrices::class.java)
+        addSetBinding<Service>(OsrsMarketPriceService::class.java)
     }
 }
