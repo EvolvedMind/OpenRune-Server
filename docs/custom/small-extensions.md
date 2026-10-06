@@ -10,7 +10,10 @@ The accepted Doom/HUD checkpoint and parked clues/specials remain preserved.
 
 - `CollectionLog` remains the central grant API, now injected with the native player list.
   Cache Collection Log enums determine membership. Each qualifying reward sends ordinary
-  chat news to all online players, including repeats. The native grey chat bubble (frame 19),
+  chat news to all online players, including repeats, only for pets or items with a fresh
+  GE estimate of at least 1,000,000 gp per item. Stack totals and cache-value fallback do
+  not qualify; unavailable GE quotes suppress non-pet news. Counts and personal unlocks
+  are still recorded for cheap items. The native grey chat bubble (frame 19),
   red `News:` label, green quantity/item and optional source match the requested chat style.
   These use game-message type 0, not world-broadcast type 14, and do not create world banners. Counts saturate safely; personal new-item chat, latest-item
   history and popups remain first-unlock only and respect the existing personal setting.
@@ -70,7 +73,7 @@ Rev-240 notification scripts 3343/3346/3347/3348 were inspected in our coupled c
 2. Examine an Abyssal whip and a noted stack in inventory/bank and on the ground; also
    Examine shop stock and a price-checker entry. Exactly two messages should show the info
    icon/name/description and the green/blue/red GE/HA/LA values, without an extra client price row.
-3. Obtain a real Collection Log drop twice. Both obtains show chat news with their NPC name, while
+3. Obtain a qualifying Collection Log drop twice. Both obtains show chat news with their NPC name, while
    only the first unlock sends personal new-item chat/popup. Two clients can verify scope.
 4. Open a real multi-unique reward or several fresh caskets; new popups must play in order.
    An already unlocked item sends no new popup. `::testloot doom 1000 8` now registers
@@ -146,3 +149,28 @@ is gone. JAR SHA-256: `bf7beb0d27e5fa150676801a8c4ffb61056b8bc45e4ab89effc923f65
 warning remains a separate follow-up. Installer preflight and artifact hashes are checked
 before handing off the package.
 PR #24 remains a draft; in-game visual acceptance and merge remain pending.
+
+## Unit GE news filter (2026-10-06)
+
+User correction: news only for pets or unit GE value >= 1,000,000 gp. Implemented
+separately in `ae719442c` on `fix/clue-guardian-completion`, stacked on PR #24.
+Native `collection_log_category_all_pets` supplies pet membership; no hand-written pet list.
+`MarketPrices.gePrice` returns only fresh external GE estimates, normalizing notes.
+Missing/stale/untradeable quotes never substitute the cache/alchemy fallback for news.
+Existing `price/get` fallback behaviour remains available for Examine and other consumers.
+The filter runs after successful Collection Log registration and personal first-unlock
+notifications, preserving cheap-item counts, categories, settings and popup FIFO.
+
+134 selected tests pass: boundary 999,999 / 1,000,000, full long prices, cheap large stacks,
+all cached log pets without GE quotes, notes, missing/stale quotes and expensive fallback,
+plus real Doom sample/stash and NPC reward consumers. Cheap Doom tears and waystones
+still log; the test samples preserve active delve and both escrow piles. Guardian regression
+coverage is included; no further clue or Mimic development resumed.
+
+Final runtime build and `gameplay-smoke-abca7326` isolated startup pass, including paired Nero
+endpoints and price refresh. JAR SHA-256: `0de5d5bdfa79d8890d6b3775dfd4d2f3466b80938b7c2f67a6cd3eefb03bc84a`.
+Latest combined package: `outputs/clue-guardian-fix-20261006/INSTALLEREN.cmd`, checkpoint
+`outputs/checkpoint-20261006-voor-clue-guardian-fix`. Earlier packages remain preserved.
+Installer preflight and payload hashes are checked before handoff; no live install or merge.
+In-game check: `::testloot doom 100 8` must not announce cheap tears/waystones; confirm
+their Collection Log counts increase. Obtain a pet and a priced >=1m unique to verify news.

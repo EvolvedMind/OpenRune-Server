@@ -1,6 +1,7 @@
 package org.rsmod.content.interfaces.collectionlog
 
 import dev.openrune.ServerCacheManager
+import dev.openrune.types.ItemServerType
 import net.rsprot.protocol.game.outgoing.misc.player.MessageGame
 import net.rsprot.protocol.game.outgoing.misc.player.RunClientScript
 import org.junit.jupiter.api.Assertions.*
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.ResourceLock
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
+import org.rsmod.api.market.MarketPrices
+import org.rsmod.api.table.CollectionLogCategoriesRow
 import org.rsmod.api.player.output.PlayerNotifications
 import org.rsmod.api.player.output.ChatType
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
@@ -23,7 +26,7 @@ import org.rsmod.plugin.scripts.ScriptContext
 
 @ResourceLock("ServerCacheManager")
 class CollectionLogRewardTest {
-    @Test fun `each obtain sends styled chat news to everyone without broadcast banners or observer popups`() {
+    @Test fun `each qualifying obtain sends styled chat news to everyone without banners or observer popups`() {
         val f = Fixture()
         f.log.grant(f.player, 4151, 2, "Abyssal demon")
         f.log.grant(f.player, 4151, 1, "Abyssal demon")
@@ -81,11 +84,57 @@ class CollectionLogRewardTest {
         assertTrue(f.messages(f.observer).isEmpty())
         PlayerNotifications.pulse(f.player); assertTrue(f.popups().isEmpty())
     }
+    @Test fun `news checks unit GE value inclusively while cheap large stacks still update the log`() {
+        val f = Fixture()
+        f.gePrice = 999_999L
+        f.log.grant(f.player, 4151, 100)
+        assertEquals(100, f.player.collectionTransmit.countOf(4151))
+        assertTrue(f.messages(f.observer).isEmpty())
+        assertEquals(1, f.messages(f.player).count { it.message.startsWith("New item added") })
+        PlayerNotifications.pulse(f.player)
+        assertEquals(1, f.popups().size)
+        f.gePrice = 1_000_000L
+        f.log.grant(f.player, 4151)
+        assertEquals(1, f.messages(f.observer).size)
+        f.gePrice = Long.MAX_VALUE
+        f.log.grant(f.player, 4151)
+        assertEquals(2, f.messages(f.observer).size)
+    }
+
+    @Test fun `missing GE value cannot broadcast using an expensive cache fallback`() {
+        val f = Fixture()
+        f.gePrice = null
+        f.log.grant(f.player, 4151, Int.MAX_VALUE)
+        assertEquals(Int.MAX_VALUE, f.player.collectionTransmit.countOf(4151))
+        assertTrue(f.messages(f.observer).isEmpty())
+    }
+
+    @Test fun `all native collection pets broadcast without a GE price including duplicates`() {
+        val f = Fixture()
+        f.gePrice = null
+        val row = CollectionLogCategoriesRow.getRow("dbrow.collection_log_category_all_pets")
+        val pets = CollectionLogItems.itemsInCategoryStruct(row.structId)
+        assertTrue(pets.isNotEmpty())
+        for (pet in pets) {
+            assertTrue(CollectionLogItems.contains(pet))
+            f.log.grant(f.player, pet)
+        }
+        f.log.grant(f.player, pets.first())
+        assertEquals(pets.size + 1, f.messages(f.observer).size)
+        assertTrue(f.messages(f.observer).all { it.type == ChatType.GameMessage.id })
+        assertEquals(2, f.player.collectionTransmit.countOf(pets.first()))
+    }
+
     private class Fixture {
         val player = Player(RecordingClient()).apply { displayName = "Bram" }
         val observer = Player(RecordingClient())
         val players = PlayerList().apply { this[1] = player; this[2] = observer }
-        val log = CollectionLog(players)
+        var gePrice: Long? = 1_000_000L
+        private val prices = object : MarketPrices {
+            override fun get(type: ItemServerType): Int = 2_000_000
+            override fun gePrice(type: ItemServerType): Long? = gePrice
+        }
+        val log = CollectionLog(players, prices)
         init {
             val context = ScriptContext(EventBus(), CheatCommandMap(), EngineQueueCache())
             with(InvTransactionsScript(PlayerItemStorage(emptySet()))) { context.startup() }

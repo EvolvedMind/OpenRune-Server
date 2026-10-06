@@ -25,10 +25,10 @@ Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 | Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
-| Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
+| Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. Focused guardian dig fix: 61 tests, runtime build and isolated startup pass; user test pending. [Guardian fix](docs/custom/clue-guardians.md). [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
 | NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
-| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; Collection Log now uses styled chat-wide news without world banners. 58 targeted tests, runtime build and isolated startup pass. Compact Examine, Doom sample log and notification FIFO retained. Latest `collection-chat-news-20261006` installer; draft PR #24. [Details and acceptance checks](docs/custom/small-extensions.md). |
+| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; chat-wide news only for pets or fresh unit GE value >= 1m. Cheap items still log; Examine, Doom sample logging and FIFO retained. 134 selected tests including guardian regressions, full build and isolated startup pass. Latest combined `clue-guardian-fix-20261006` installer; branch `fix/clue-guardian-completion` stacked on draft PR #24. [Details](docs/custom/small-extensions.md). |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 
@@ -84,12 +84,12 @@ GE: 1,482,000 gp | HA: 72,000 gp | LA: 48,000 gp
 
 - [x] Treat Collection Log membership as the source of truth for important/unique reward notifications.
 - [x] Do **not** maintain a separate hard-coded list of boss uniques or pets.
-- [x] Every obtained item that is accepted by `CollectionLog.grant(...)` should be eligible for ordinary chat news to all online players, without world banners.
+- [x] Within Collection Log rewards, only pets or items with fresh GE value >= 1,000,000 gp per item send chat-wide news. Stack totals do not qualify; cheap items still log.
 - [x] Send chat news on every qualifying obtain, not only the player's first Collection Log unlock.
 - [x] Preserve the existing personal `New item added to your collection log` message only for first-time unlocks.
 - [x] Preserve the player's existing Collection Log popup/chat settings for personal unlock notifications.
 - [x] Extend Collection Log reward context so chat news can include the source where known, e.g. NPC/boss, minigame, raid, chest or activity.
-- [x] Avoid tying chat news to GE value or arbitrary drop-rate thresholds.
+- [x] User correction: apply the 1m unit GE threshold, always include native Collection Log pets, and never qualify a missing quote using cache/alchemy fallback.
 
 Target examples:
 
@@ -115,9 +115,11 @@ Expected flow:
 reward/drop
   -> CollectionLog.grant(player, item, source)
   -> Collection Log membership check
-  -> ordinary chat news (type 0; no world banner)
+  -> pet or unit GE >= 1m? ordinary chat news (type 0; no world banner)
   -> first unlock?
        -> personal chat message
        -> NotificationQueue.enqueue(...)
   -> queued popups display sequentially
 ```
+
+Upstream research (2026-10-06): [PR #282 test harness](docs/custom/upstream-pr-282-test-harness.md) and [level-up commit 779b81b / PR #286](docs/custom/upstream-level-up-779b81b.md). No code imported; integration requires a separately scoped, revision-240 port. #286 CI has two failing combat integration cases.

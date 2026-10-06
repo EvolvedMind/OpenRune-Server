@@ -7,4 +7,7 @@ public interface MarketPrices {
 
     /** Full value for text/stack totals. Legacy int-only client fields may still use [get]. */
     public fun price(type: ItemServerType): Long? = get(type)?.toLong()
+
+    /** Fresh GE estimate per unnoted item, or null; never substitutes cache/alchemy value. */
+    public fun gePrice(type: ItemServerType): Long? = null
 }
