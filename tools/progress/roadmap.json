@@ -15,48 +15,37 @@
   },
   "items": [
     {
-      "title": "OSRS GE Prices",
-      "status": "not_added",
-      "summary": "Use live OSRS market prices through the existing MarketPrices abstraction.",
-      "details": [
-        "Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.",
-        "Cache prices server-side and refresh periodically; never request prices per player action.",
-        "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
-        "Keep High Alch and Low Alch values independent from GE prices.",
-        "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing."
-      ],
-      "category": "other"
-    },
-    {
-      "title": "Improved Item Examine",
-      "status": "not_added",
-      "summary": "Show the normal description plus GE, High Alch and Low Alch values.",
-      "details": [
-        "Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.",
-        "Preserve the normal item description.",
-        "Add a value line with GE value, High Alch value and Low Alch value.",
-        "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
-        "Resolve noted items to the appropriate underlying item values where required."
-      ],
-      "category": "other"
-    },
-    {
       "title": "Collection Log Reward Broadcasts",
       "status": "not_added",
-      "summary": "Broadcast Collection Log uniques and pets server-wide when obtained.",
+      "summary": "Estimated scope XS–S. Broadcast Collection Log uniques and pets server-wide when obtained.",
       "details": [
+        "Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.",
         "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
         "Broadcast every qualifying obtain, including repeat obtains.",
         "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
         "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
         "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!"
       ],
-      "category": "other"
+      "category": "quick_wins"
+    },
+    {
+      "title": "Improved Item Examine",
+      "status": "not_added",
+      "summary": "Estimated scope XS–S. Show the normal description plus GE, High Alch and Low Alch values.",
+      "details": [
+        "Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.",
+        "Preserve the normal item description.",
+        "Add a value line with GE value, High Alch value and Low Alch value.",
+        "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
+        "Resolve noted items to the appropriate underlying item values where required.",
+        "Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic."
+      ],
+      "category": "quick_wins"
     },
     {
       "title": "Notification Queue",
       "status": "not_added",
-      "summary": "Queue client notifications so multiple unlock popups display one after another.",
+      "summary": "Estimated scope S. Queue client notifications so multiple unlock popups display one after another.",
       "details": [
         "Add a reusable per-player FIFO notification queue.",
         "Route Collection Log clientscript 3343 popups through the queue.",
@@ -65,165 +54,65 @@
         "Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.",
         "Clear or discard pending notifications safely on logout or invalid player state."
       ],
-      "category": "other"
+      "category": "quick_wins"
     },
     {
-      "title": "Own Grand Exchange",
+      "title": "OSRS GE Prices",
       "status": "not_added",
-      "summary": "Eventually replace external OSRS guide prices with the server's own economy.",
+      "summary": "Estimated scope S–M. Use live OSRS market prices through the existing MarketPrices abstraction.",
       "details": [
-        "Build the server's own Grand Exchange after the temporary OSRS price feed is in place.",
-        "Make completed trades the authoritative source for this server's market prices.",
-        "Swap the <code>MarketPrices</code> implementation without changing Examine or other price consumers."
+        "Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.",
+        "Cache prices server-side and refresh periodically; never request prices per player action.",
+        "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
+        "Keep High Alch and Low Alch values independent from GE prices.",
+        "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing."
       ],
-      "category": "other"
-    },
-    {
-      "title": "Weapon Special Attacks",
-      "status": "started",
-      "summary": "Accepted checkpoint is preserved; remaining special attacks are intentionally parked.",
-      "details": [
-        "Current accepted checkpoint has 191 of 285 special-energy item registrations covered.",
-        "94 registrations remain deferred.",
-        "Do not resume automatically; continue only when this roadmap item is intentionally selected again.",
-        "Preserve the accepted weapon baseline and existing regression coverage while parked."
-      ],
-      "category": "other"
+      "category": "quick_wins"
     },
     {
       "title": "Doom of Mokhaiotl",
       "status": "started",
-      "summary": "Research exists, but the encounter/delve gameplay is parked.",
+      "summary": "Upstream implementation available via <a href=\"https://github.com/OpenRune/OpenRune-Server/pull/275\">PR #275</a> (merged 2026-10-05). Local integration remains parked; remaining effort needs a compatibility/gap review, not a from-scratch estimate.",
       "details": [
-        "Research and supporting drop/pet data exist.",
-        "No active Doom encounter or delve progression is installed yet.",
-        "Resume as a focused boss project when selected from the roadmap."
+        "Local research and supporting drop/pet data exist. Verify the current branch/worktree and PROGRESS.md before resuming; this roadmap change does not establish an installed or accepted Doom encounter.",
+        "Source: <a href=\"https://github.com/OpenRune/OpenRune-Server/pull/275\">OpenRune/OpenRune-Server PR #275</a>; availability checked 2026-10-06. Merged 2026-10-05 at <code>fc10877fd39600637506de645f584467c11039c3</code>; PR head <code>3d8c01ebab0685488999e13263412a58af488490</code>.",
+        "Reuse candidate includes encounter attacks, acid/larvae/burrow/shield mechanics, delves, instances, loot/statistics, respawn handling and tests. Available code is not proof of completeness in this fork.",
+        "The PR also changes shared BossDSL, combat, death/respawn, drops, NPC processing, player/network state and some weapon/cache data. Do not copy only the boss directory or blindly merge/cherry-pick all 57 changed files.",
+        "First compare our existing APIs and accepted revision-240 runtime against the pinned source. Separate Doom-specific code, required compatibility changes and unrelated changes; retain custom implementations where appropriate.",
+        "Then port only reviewed compatible parts in an isolated branch/worktree. Verify native drops, Collection Log, kill count, delve progression, death/logout/leave cleanup and revision-240 client/cache compatibility.",
+        "Run focused Doom tests and regressions for accepted Zulrah, Corporeal Beast, Araxxor and Barrows plus any affected shared systems. Report untested mechanics explicitly; in-game acceptance remains with the owner.",
+        "Resume only when the owner selects Doom. No automatic upstream merge, runtime upgrade, installation or deployment; estimate remaining work after the dependency review."
       ],
-      "category": "bosses"
+      "category": "upstream_review"
     },
     {
-      "title": "Revision 241 Upgrade",
-      "status": "started",
-      "summary": "Upstream review is deferred; no automatic protocol/cache/runtime upgrade.",
-      "details": [
-        "Review client, protocol, cache, Boss DSL and custom encounter compatibility before adoption.",
-        "Do not automatically merge or upgrade the accepted revision 240 runtime.",
-        "Resume only as a deliberate compatibility project."
-      ],
-      "category": "other"
-    },
-    {
-      "title": "Tormented Demons — Complete",
+      "title": "Thermonuclear Smoke Devil — Complete",
       "status": "not_added",
-      "summary": "Complete the Tormented Demons encounter and supporting mechanics.",
+      "summary": "Estimated scope S. Build Thermonuclear Smoke Devil into a complete Slayer boss encounter.",
       "details": [
-        "Finish Tormented Demons as a complete playable encounter.",
-        "Verify combat mechanics, special behaviours, targeting, drops, kill/death handling and cleanup.",
-        "Integrate Collection Log, loot tracking and any required progression hooks.",
-        "Add focused regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Cerberus — Complete",
-      "status": "not_added",
-      "summary": "Build Cerberus into a complete playable boss encounter.",
-      "details": [
-        "Implement the full Cerberus encounter rather than relying on drop-table or cache presence.",
-        "Cover core attacks, special mechanics, summoned hazards/entities, arena flow and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Implement full combat behaviour and Slayer requirements.",
+        "Cover attack mechanics, arena flow, death handling and cleanup.",
+        "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
     },
     {
-      "title": "Vorkath — Complete",
+      "title": "Deranged Archaeologist — Complete",
       "status": "not_added",
-      "summary": "Build Vorkath into a complete playable boss encounter.",
+      "summary": "Estimated scope S. Build Deranged Archaeologist into a complete playable boss encounter.",
       "details": [
-        "Implement the full Vorkath fight and arena lifecycle.",
-        "Cover standard attacks, special phases/mechanics, hazards, spawn/cleanup and death flow.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Implement the full Deranged Archaeologist fight and arena behaviour.",
+        "Cover standard and special attacks, targeting, death flow and cleanup.",
+        "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
-    },
-    {
-      "title": "Kalphite Queen — Complete",
-      "status": "not_added",
-      "summary": "Build the Kalphite Queen into a complete playable boss encounter.",
-      "details": [
-        "Implement the full Kalphite Queen encounter rather than relying on drop-table or cache presence.",
-        "Cover both combat forms/phases, attack styles, arena flow, transitions, targeting and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Yama — Complete",
-      "status": "not_added",
-      "summary": "Build Yama into a complete playable boss encounter.",
-      "details": [
-        "Implement the full Yama encounter and any required encounter progression or arena flow.",
-        "Cover all core attacks, special mechanics, hazards/entities, phase transitions and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add focused regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Abyssal Sire — Complete",
-      "status": "not_added",
-      "summary": "Build Abyssal Sire into a complete playable boss encounter.",
-      "details": [
-        "Implement the complete Abyssal Sire encounter across all phases.",
-        "Cover respiratory systems, transitions, summoned entities, attacks, hazards, movement and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Alchemical Hydra — Complete",
-      "status": "not_added",
-      "summary": "Build Alchemical Hydra into a complete playable boss encounter.",
-      "details": [
-        "Implement the complete Alchemical Hydra fight and arena lifecycle.",
-        "Cover phase transitions, vent interactions, attack rotations, special mechanics, hazards and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Fight Caves — Complete",
-      "status": "not_added",
-      "summary": "Build the TzHaar Fight Cave into a complete playable wave-based minigame.",
-      "details": [
-        "Implement the complete wave progression and TzTok-Jad encounter.",
-        "Cover spawn sequencing, wave state, NPC cleanup, death/leave handling and restart flow.",
-        "Integrate rewards, Collection Log, completion state and any required unlocks.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "The Inferno — Complete",
-      "status": "not_added",
-      "summary": "Build the Inferno into a complete playable end-game wave challenge.",
-      "details": [
-        "Implement full wave progression through TzKal-Zuk.",
-        "Cover pillars, spawn sequencing, special wave mechanics, death/leave handling and cleanup.",
-        "Integrate rewards, Collection Log, completion state and any required unlocks.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
     },
     {
       "title": "Giant Mole — Complete",
       "status": "not_added",
-      "summary": "Build Giant Mole into a complete playable boss encounter.",
+      "summary": "Estimated scope S–M. Build Giant Mole into a complete playable boss encounter.",
       "details": [
         "Implement the complete Giant Mole fight, burrow/teleport behaviour and arena logic.",
         "Cover targeting, movement, combat, death flow and cleanup.",
@@ -233,249 +122,21 @@
       "category": "bosses"
     },
     {
-      "title": "Grotesque Guardians — Complete",
+      "title": "Chaos Fanatic — Complete",
       "status": "not_added",
-      "summary": "Build the Grotesque Guardians into a complete multi-phase boss encounter.",
+      "summary": "Estimated scope S–M. Build Chaos Fanatic into a complete Wilderness boss encounter.",
       "details": [
-        "Implement Dawn and Dusk with the complete multi-phase encounter flow.",
-        "Cover phase transitions, special attacks, arena state, death flow and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Implement full Chaos Fanatic combat and arena behaviour.",
+        "Cover special attacks, targeting, Wilderness rules, death flow and cleanup.",
+        "Integrate native drops, Collection Log and kill count.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
-    },
-    {
-      "title": "The Gauntlet — Complete",
-      "status": "not_added",
-      "summary": "Build The Gauntlet into a complete preparation-and-boss minigame.",
-      "details": [
-        "Implement preparation phase, resource gathering, room generation/flow and timer handling.",
-        "Implement Crystalline Hunllef and Corrupted Hunllef encounters with full mechanics.",
-        "Integrate rewards, Collection Log, completion state and mode-specific handling.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Fortis Colosseum — Complete",
-      "status": "not_added",
-      "summary": "Build Fortis Colosseum into a complete wave and reward challenge.",
-      "details": [
-        "Implement wave progression, modifiers/invocations and arena state.",
-        "Implement Sol Heredit and supporting encounter mechanics.",
-        "Integrate rewards, Collection Log, completion state and streak/progression handling.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Moons of Peril — Complete",
-      "status": "not_added",
-      "summary": "Build Moons of Peril into a complete encounter and reward loop.",
-      "details": [
-        "Implement Blood Moon, Blue Moon and Eclipse Moon encounters.",
-        "Cover dungeon/room flow, phase mechanics, hazards, death/leave handling and cleanup.",
-        "Integrate rewards, Collection Log and completion progression.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Nex — Complete",
-      "status": "not_added",
-      "summary": "Build Nex into a complete multi-phase group boss encounter.",
-      "details": [
-        "Implement all Nex phases and phase transitions.",
-        "Cover minions, attack rotations, special mechanics, arena handling, death flow and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "The Nightmare — Complete",
-      "status": "not_added",
-      "summary": "Build The Nightmare into a complete multi-phase group boss encounter.",
-      "details": [
-        "Implement the complete Nightmare encounter and all major phase mechanics.",
-        "Cover pillars/totems, special attacks, group scaling where applicable, arena state and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Royal Titans — Complete",
-      "status": "not_added",
-      "summary": "Build Royal Titans into a complete playable boss encounter.",
-      "details": [
-        "Implement the full Royal Titans encounter and arena flow.",
-        "Cover both bosses, attack rotations, phase mechanics, hazards, death handling and cleanup.",
-        "Integrate native drops, Collection Log, kill count and reward handling.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Puro-Puro — Complete",
-      "status": "not_added",
-      "summary": "Build Puro-Puro into a complete playable Hunter activity.",
-      "details": [
-        "Implement maze navigation, impling spawns, catching and movement rules.",
-        "Cover required Hunter tools, success/failure logic, rewards and respawn behaviour.",
-        "Integrate Collection Log and any relevant clue/reward hooks.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Wintertodt — Complete",
-      "status": "not_added",
-      "summary": "Build Wintertodt into a complete skilling boss encounter.",
-      "details": [
-        "Implement energy, braziers, pyromancers, cold damage, interruptions and repair flow.",
-        "Cover solo/group behaviour, round lifecycle, contribution and failure conditions.",
-        "Integrate rewards, Collection Log and completion tracking.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Giants' Foundry — Complete",
-      "status": "not_added",
-      "summary": "Build Giants' Foundry into a complete Smithing minigame.",
-      "details": [
-        "Implement commission flow, mould selection, alloy preparation and sword processing stages.",
-        "Cover temperature/quality mechanics, actions, mistakes and completion scoring.",
-        "Integrate rewards, progression and Collection Log where applicable.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Guardians of the Rift — Complete",
-      "status": "not_added",
-      "summary": "Build Guardians of the Rift into a complete Runecraft minigame.",
-      "details": [
-        "Implement round lifecycle, guardian power, barriers, portals and essence processing.",
-        "Cover catalytic/elemental balance, guardian creation, failure and completion conditions.",
-        "Integrate points, rewards, Collection Log and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Mahogany Homes — Complete",
-      "status": "not_added",
-      "summary": "Build Mahogany Homes into a complete Construction contract system.",
-      "details": [
-        "Implement contract assignment, target houses, repair/build actions and completion flow.",
-        "Cover material usage, NPC dialogue, rewards and contract cycling.",
-        "Integrate points, rewards and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Mastering Mixology — Complete",
-      "status": "not_added",
-      "summary": "Build Mastering Mixology into a complete Herblore activity.",
-      "details": [
-        "Implement order generation, potion preparation, processing stations and hand-in flow.",
-        "Cover mistakes, timing, points and repeatable session behaviour.",
-        "Integrate rewards, Collection Log and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Pest Control — Complete",
-      "status": "not_added",
-      "summary": "Build Pest Control into a complete cooperative combat minigame.",
-      "details": [
-        "Implement boats, lobby flow, portal phases, Void Knight health and round lifecycle.",
-        "Cover NPC waves, portal shields, failure/success states and participation checks.",
-        "Integrate commendation points, rewards, Collection Log and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Tithe Farm — Complete",
-      "status": "not_added",
-      "summary": "Build Tithe Farm into a complete Farming minigame.",
-      "details": [
-        "Implement seed allocation, planting, watering, growth timing and harvesting.",
-        "Cover plant death, scoring, session limits and reset flow.",
-        "Integrate points, rewards, Collection Log and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Vale Totems — Complete",
-      "status": "not_added",
-      "summary": "Build Vale Totems into a complete playable activity.",
-      "details": [
-        "Implement the complete activity loop, interactions, progression and failure/success states.",
-        "Cover required objects/NPCs, timing, rewards and reset behaviour.",
-        "Integrate Collection Log and relevant progression hooks.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Mage Training Arena — Complete",
-      "status": "not_added",
-      "summary": "Build the Mage Training Arena into a complete multi-room Magic activity.",
-      "details": [
-        "Implement all arena rooms and their native mechanics.",
-        "Cover point currencies, spell requirements, room resets and reward purchases.",
-        "Integrate rewards, Collection Log and progression.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Forestry — Complete",
-      "status": "not_added",
-      "summary": "Build Forestry into a complete Woodcutting expansion.",
-      "details": [
-        "Implement Forestry events, group woodcutting interactions and event lifecycle.",
-        "Cover event-specific NPCs/objects, rewards, currencies and participation rules.",
-        "Integrate Collection Log and progression where applicable.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "other"
-    },
-    {
-      "title": "Hunter Guild — Complete",
-      "status": "not_added",
-      "summary": "Build the Hunter Guild and Hunters' Rumours into a complete Hunter system.",
-      "details": [
-        "Implement guild access, rumour assignment, eligible creatures and completion tracking.",
-        "Cover task rerolls/blocks where applicable, rewards and progression.",
-        "Integrate Collection Log and Hunter-related unlocks.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "other"
-    },
-    {
-      "title": "Revenants — Complete",
-      "status": "not_added",
-      "summary": "Build Revenants and the Revenant Caves into a complete combat/reward system.",
-      "details": [
-        "Implement revenant NPC behaviours, cave rules, aggression and combat handling.",
-        "Cover bracelet interactions, ether mechanics, unique drops and Wilderness behaviour.",
-        "Integrate drops, Collection Log, loot tracking and relevant risk/reward systems.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "other"
     },
     {
       "title": "Obor — Complete",
       "status": "not_added",
-      "summary": "Build Obor into a complete playable boss encounter.",
+      "summary": "Estimated scope M. Build Obor into a complete playable boss encounter.",
       "details": [
         "Implement the full Obor encounter and arena flow.",
         "Cover combat mechanics, entrance/key flow, death handling and cleanup.",
@@ -487,19 +148,20 @@
     {
       "title": "Brutus — Complete",
       "status": "not_added",
-      "summary": "Build Brutus into a complete playable boss encounter.",
+      "summary": "Estimated scope M. Build Brutus into a complete playable boss encounter.",
       "details": [
         "Implement the complete Brutus encounter rather than relying on drop-table or cache presence.",
         "Cover attack mechanics, arena behaviour, death flow and cleanup.",
         "Integrate native drops, Collection Log and reward handling.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
+        "Add encounter/regression tests and in-game acceptance checks before marking added.",
+        "Position and size are provisional: verify the complete mechanics and available implementation before committing to this estimate."
       ],
       "category": "bosses"
     },
     {
       "title": "Chaos Elemental — Complete",
       "status": "not_added",
-      "summary": "Build Chaos Elemental into a complete Wilderness boss encounter.",
+      "summary": "Estimated scope M. Build Chaos Elemental into a complete Wilderness boss encounter.",
       "details": [
         "Implement the complete Chaos Elemental combat behaviour and Wilderness encounter flow.",
         "Cover teleport/displacement mechanics, equipment disruption, targeting, death flow and cleanup.",
@@ -509,25 +171,13 @@
       "category": "bosses"
     },
     {
-      "title": "Chaos Fanatic — Complete",
+      "title": "Kalphite Queen — Complete",
       "status": "not_added",
-      "summary": "Build Chaos Fanatic into a complete Wilderness boss encounter.",
+      "summary": "Estimated scope M. Build the Kalphite Queen into a complete playable boss encounter.",
       "details": [
-        "Implement full Chaos Fanatic combat and arena behaviour.",
-        "Cover special attacks, targeting, Wilderness rules, death flow and cleanup.",
-        "Integrate native drops, Collection Log and kill count.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
-      "title": "Deranged Archaeologist — Complete",
-      "status": "not_added",
-      "summary": "Build Deranged Archaeologist into a complete playable boss encounter.",
-      "details": [
-        "Implement the full Deranged Archaeologist fight and arena behaviour.",
-        "Cover standard and special attacks, targeting, death flow and cleanup.",
-        "Integrate native drops, Collection Log and kill count.",
+        "Implement the full Kalphite Queen encounter rather than relying on drop-table or cache presence.",
+        "Cover both combat forms/phases, attack styles, arena flow, transitions, targeting and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
@@ -535,7 +185,7 @@
     {
       "title": "Dagannoth Kings — Complete",
       "status": "not_added",
-      "summary": "Build all three Dagannoth Kings into a complete multi-boss encounter.",
+      "summary": "Estimated scope M. Build all three Dagannoth Kings into a complete multi-boss encounter.",
       "details": [
         "Implement Dagannoth Rex, Prime and Supreme with their distinct combat styles.",
         "Cover lair access, aggression, respawns, overlapping fights and cleanup.",
@@ -545,21 +195,9 @@
       "category": "bosses"
     },
     {
-      "title": "The Hueycoatl — Complete",
-      "status": "not_added",
-      "summary": "Build The Hueycoatl into a complete group boss encounter.",
-      "details": [
-        "Implement the complete encounter flow and arena lifecycle.",
-        "Cover group mechanics, phases, special attacks, hazards, death flow and cleanup.",
-        "Integrate native drops, Collection Log, kill count and rewards.",
-        "Add group encounter/regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses"
-    },
-    {
       "title": "Sarachnis — Complete",
       "status": "not_added",
-      "summary": "Build Sarachnis into a complete playable boss encounter.",
+      "summary": "Estimated scope M–L. Build Sarachnis into a complete playable boss encounter.",
       "details": [
         "Implement the complete Sarachnis fight and lair flow.",
         "Cover web/root mechanics, adds, attack rotations, death flow and cleanup.",
@@ -571,43 +209,44 @@
     {
       "title": "Shellbane Gryphon — Complete",
       "status": "not_added",
-      "summary": "Build Shellbane Gryphon into a complete playable boss encounter.",
+      "summary": "Estimated scope M–L. Build Shellbane Gryphon into a complete playable boss encounter.",
       "details": [
         "Implement the complete boss encounter and arena flow.",
         "Cover core attacks, special mechanics, phase/state handling, death flow and cleanup.",
         "Integrate native drops, Collection Log and kill count.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added.",
+        "Position and size are provisional: verify the complete mechanics and available implementation before committing to this estimate."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Royal Titans — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Royal Titans into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Royal Titans encounter and arena flow.",
+        "Cover both bosses, attack rotations, phase mechanics, hazards, death handling and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
         "Add encounter/regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
     },
     {
-      "title": "Tempoross — Complete",
+      "title": "Tormented Demons — Complete",
       "status": "not_added",
-      "summary": "Build Tempoross into a complete Fishing skilling boss encounter.",
+      "summary": "Existing module: audit the remaining gaps first; estimated full scope L. Complete the Tormented Demons encounter and supporting mechanics.",
       "details": [
-        "Implement round lifecycle, storm intensity, harpoonfish gathering/cooking/loading and mast mechanics.",
-        "Cover fires, waves, tethering, solo/group flow, failure and completion conditions.",
-        "Integrate points, rewards, Collection Log and completion tracking.",
-        "Add regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "minigames"
-    },
-    {
-      "title": "Thermonuclear Smoke Devil — Complete",
-      "status": "not_added",
-      "summary": "Build Thermonuclear Smoke Devil into a complete Slayer boss encounter.",
-      "details": [
-        "Implement full combat behaviour and Slayer requirements.",
-        "Cover attack mechanics, arena flow, death handling and cleanup.",
-        "Integrate native drops, Collection Log and kill count.",
-        "Add encounter/regression tests and in-game acceptance checks before marking added."
+        "Finish Tormented Demons as a complete playable encounter.",
+        "Verify combat mechanics, special behaviours, targeting, drops, kill/death handling and cleanup.",
+        "Integrate Collection Log, loot tracking and any required progression hooks.",
+        "Add focused regression tests and in-game acceptance checks before marking added."
       ],
       "category": "bosses"
     },
     {
       "title": "Vet'ion & Calvar'ion — Complete",
       "status": "not_added",
-      "summary": "Build Vet'ion and Calvar'ion into complete Wilderness boss encounters.",
+      "summary": "Estimated scope L. Build Vet'ion and Calvar'ion into complete Wilderness boss encounters.",
       "details": [
         "Implement both boss variants with their native phase and minion mechanics.",
         "Cover Wilderness/singles-plus differences, arena flow, respawns, death handling and cleanup.",
@@ -617,9 +256,214 @@
       "category": "bosses"
     },
     {
+      "title": "Cerberus — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Cerberus into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Cerberus encounter rather than relying on drop-table or cache presence.",
+        "Cover core attacks, special mechanics, summoned hazards/entities, arena flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Vorkath — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Vorkath into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Vorkath fight and arena lifecycle.",
+        "Cover standard attacks, special phases/mechanics, hazards, spawn/cleanup and death flow.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Abyssal Sire — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Abyssal Sire into a complete playable boss encounter.",
+      "details": [
+        "Implement the complete Abyssal Sire encounter across all phases.",
+        "Cover respiratory systems, transitions, summoned entities, attacks, hazards, movement and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Alchemical Hydra — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Alchemical Hydra into a complete playable boss encounter.",
+      "details": [
+        "Implement the complete Alchemical Hydra fight and arena lifecycle.",
+        "Cover phase transitions, vent interactions, attack rotations, special mechanics, hazards and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Grotesque Guardians — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L–XL. Build the Grotesque Guardians into a complete multi-phase boss encounter.",
+      "details": [
+        "Implement Dawn and Dusk with the complete multi-phase encounter flow.",
+        "Cover phase transitions, special attacks, arena state, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "The Hueycoatl — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L–XL. Build The Hueycoatl into a complete group boss encounter.",
+      "details": [
+        "Implement the complete encounter flow and arena lifecycle.",
+        "Cover group mechanics, phases, special attacks, hazards, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and rewards.",
+        "Add group encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Nex — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Nex into a complete multi-phase group boss encounter.",
+      "details": [
+        "Implement all Nex phases and phase transitions.",
+        "Cover minions, attack rotations, special mechanics, arena handling, death flow and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add group encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "The Nightmare — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build The Nightmare into a complete multi-phase group boss encounter.",
+      "details": [
+        "Implement the complete Nightmare encounter and all major phase mechanics.",
+        "Cover pillars/totems, special attacks, group scaling where applicable, arena state and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add group encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Yama — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL–XXL. Build Yama into a complete playable boss encounter.",
+      "details": [
+        "Implement the full Yama encounter and any required encounter progression or arena flow.",
+        "Cover all core attacks, special mechanics, hazards/entities, phase transitions and cleanup.",
+        "Integrate native drops, Collection Log, kill count and reward handling.",
+        "Add focused regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "bosses"
+    },
+    {
+      "title": "Aerial Fishing — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope M. Build Aerial Fishing into a complete Fishing/Hunter activity.",
+      "details": [
+        "Implement bird interaction, fishing spots, catch logic and combined Fishing/Hunter requirements.",
+        "Cover bait/resources, success rates, rewards and repeatable activity flow.",
+        "Integrate pearls/rewards, Collection Log and progression where applicable.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Tithe Farm — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope M–L. Build Tithe Farm into a complete Farming minigame.",
+      "details": [
+        "Implement seed allocation, planting, watering, growth timing and harvesting.",
+        "Cover plant death, scoring, session limits and reset flow.",
+        "Integrate points, rewards, Collection Log and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Vale Totems — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope M–L. Build Vale Totems into a complete playable activity.",
+      "details": [
+        "Implement the complete activity loop, interactions, progression and failure/success states.",
+        "Cover required objects/NPCs, timing, rewards and reset behaviour.",
+        "Integrate Collection Log and relevant progression hooks.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Puro-Puro — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope M–L. Build Puro-Puro into a complete playable Hunter activity.",
+      "details": [
+        "Implement maze navigation, impling spawns, catching and movement rules.",
+        "Cover required Hunter tools, success/failure logic, rewards and respawn behaviour.",
+        "Integrate Collection Log and any relevant clue/reward hooks.",
+        "Add regression tests and in-game acceptance checks before marking added.",
+        "Dependency check: audit the required Hunter/impling or creature interactions before estimating remaining work; do not assume the supporting skill systems are complete."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Mahogany Homes — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Mahogany Homes into a complete Construction contract system.",
+      "details": [
+        "Implement contract assignment, target houses, repair/build actions and completion flow.",
+        "Cover material usage, NPC dialogue, rewards and contract cycling.",
+        "Integrate points, rewards and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Mastering Mixology — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Mastering Mixology into a complete Herblore activity.",
+      "details": [
+        "Implement order generation, potion preparation, processing stations and hand-in flow.",
+        "Cover mistakes, timing, points and repeatable session behaviour.",
+        "Integrate rewards, Collection Log and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Giants' Foundry — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build Giants' Foundry into a complete Smithing minigame.",
+      "details": [
+        "Implement commission flow, mould selection, alloy preparation and sword processing stages.",
+        "Cover temperature/quality mechanics, actions, mistakes and completion scoring.",
+        "Integrate rewards, progression and Collection Log where applicable.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Fight Caves — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build the TzHaar Fight Cave into a complete playable wave-based minigame.",
+      "details": [
+        "Implement the complete wave progression and TzTok-Jad encounter.",
+        "Cover spawn sequencing, wave state, NPC cleanup, death/leave handling and restart flow.",
+        "Integrate rewards, Collection Log, completion state and any required unlocks.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
       "title": "Zalcano — Complete",
       "status": "not_added",
-      "summary": "Build Zalcano into a complete group skilling boss encounter.",
+      "summary": "Estimated scope L. Build Zalcano into a complete group skilling boss encounter.",
       "details": [
         "Implement mining, smithing/runecrafting interactions and shield/health phase flow.",
         "Cover group contribution, hazards, respawns, failure and completion conditions.",
@@ -629,9 +473,117 @@
       "category": "minigames"
     },
     {
+      "title": "Wintertodt — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L–XL. Build Wintertodt into a complete skilling boss encounter.",
+      "details": [
+        "Implement energy, braziers, pyromancers, cold damage, interruptions and repair flow.",
+        "Cover solo/group behaviour, round lifecycle, contribution and failure conditions.",
+        "Integrate rewards, Collection Log and completion tracking.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Mage Training Arena — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L–XL. Build the Mage Training Arena into a complete multi-room Magic activity.",
+      "details": [
+        "Implement all arena rooms and their native mechanics.",
+        "Cover point currencies, spell requirements, room resets and reward purchases.",
+        "Integrate rewards, Collection Log and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Tempoross — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Tempoross into a complete Fishing skilling boss encounter.",
+      "details": [
+        "Implement round lifecycle, storm intensity, harpoonfish gathering/cooking/loading and mast mechanics.",
+        "Cover fires, waves, tethering, solo/group flow, failure and completion conditions.",
+        "Integrate points, rewards, Collection Log and completion tracking.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Pest Control — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Pest Control into a complete cooperative combat minigame.",
+      "details": [
+        "Implement boats, lobby flow, portal phases, Void Knight health and round lifecycle.",
+        "Cover NPC waves, portal shields, failure/success states and participation checks.",
+        "Integrate commendation points, rewards, Collection Log and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Moons of Peril — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Moons of Peril into a complete encounter and reward loop.",
+      "details": [
+        "Implement Blood Moon, Blue Moon and Eclipse Moon encounters.",
+        "Cover dungeon/room flow, phase mechanics, hazards, death/leave handling and cleanup.",
+        "Integrate rewards, Collection Log and completion progression.",
+        "Add encounter/regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Guardians of the Rift — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Guardians of the Rift into a complete Runecraft minigame.",
+      "details": [
+        "Implement round lifecycle, guardian power, barriers, portals and essence processing.",
+        "Cover catalytic/elemental balance, guardian creation, failure and completion conditions.",
+        "Integrate points, rewards, Collection Log and progression.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "The Inferno — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL–XXL. Build the Inferno into a complete playable end-game wave challenge.",
+      "details": [
+        "Implement full wave progression through TzKal-Zuk.",
+        "Cover pillars, spawn sequencing, special wave mechanics, death/leave handling and cleanup.",
+        "Integrate rewards, Collection Log, completion state and any required unlocks.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "Fortis Colosseum — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL–XXL. Build Fortis Colosseum into a complete wave and reward challenge.",
+      "details": [
+        "Implement wave progression, modifiers/invocations and arena state.",
+        "Implement Sol Heredit and supporting encounter mechanics.",
+        "Integrate rewards, Collection Log, completion state and streak/progression handling.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
+      "title": "The Gauntlet — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL–XXL. Build The Gauntlet into a complete preparation-and-boss minigame.",
+      "details": [
+        "Implement preparation phase, resource gathering, room generation/flow and timer handling.",
+        "Implement Crystalline Hunllef and Corrupted Hunllef encounters with full mechanics.",
+        "Integrate rewards, Collection Log, completion state and mode-specific handling.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "minigames"
+    },
+    {
       "title": "Warriors' Guild Cyclopes & Defenders — Complete",
       "status": "not_added",
-      "summary": "Build Warriors' Guild cyclopes and the full defender progression.",
+      "summary": "Estimated scope M. Build Warriors' Guild cyclopes and the full defender progression.",
       "details": [
         "Implement Warriors' Guild access and token usage where required.",
         "Implement cyclops combat/spawns and defender drop progression from bronze through dragon.",
@@ -642,21 +594,34 @@
       "category": "other"
     },
     {
-      "title": "Aerial Fishing — Complete",
+      "title": "Revenants — Complete",
       "status": "not_added",
-      "summary": "Build Aerial Fishing into a complete Fishing/Hunter activity.",
+      "summary": "Estimated scope M–L. Build Revenants and the Revenant Caves into a complete combat/reward system.",
       "details": [
-        "Implement bird interaction, fishing spots, catch logic and combined Fishing/Hunter requirements.",
-        "Cover bait/resources, success rates, rewards and repeatable activity flow.",
-        "Integrate pearls/rewards, Collection Log and progression where applicable.",
+        "Implement revenant NPC behaviours, cave rules, aggression and combat handling.",
+        "Cover bracelet interactions, ether mechanics, unique drops and Wilderness behaviour.",
+        "Integrate drops, Collection Log, loot tracking and relevant risk/reward systems.",
         "Add regression tests and in-game acceptance checks before marking added."
       ],
-      "category": "minigames"
+      "category": "other"
+    },
+    {
+      "title": "Hunter Guild — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope L. Build the Hunter Guild and Hunters' Rumours into a complete Hunter system.",
+      "details": [
+        "Implement guild access, rumour assignment, eligible creatures and completion tracking.",
+        "Cover task rerolls/blocks where applicable, rewards and progression.",
+        "Integrate Collection Log and Hunter-related unlocks.",
+        "Add regression tests and in-game acceptance checks before marking added.",
+        "Dependency check: audit the required Hunter/impling or creature interactions before estimating remaining work; do not assume the supporting skill systems are complete."
+      ],
+      "category": "other"
     },
     {
       "title": "Random Events — Complete",
       "status": "not_added",
-      "summary": "Build the OSRS random-event system into a complete reusable framework.",
+      "summary": "Estimated scope XL. Build the OSRS random-event system into a complete reusable framework.",
       "details": [
         "Implement random-event scheduling/eligibility and safe player interruption rules.",
         "Add supported event NPCs, dialogues, interactions, rewards and dismissal/completion flow.",
@@ -667,9 +632,32 @@
       "category": "other"
     },
     {
+      "title": "Forestry — Complete",
+      "status": "not_added",
+      "summary": "Estimated scope XL. Build Forestry into a complete Woodcutting expansion.",
+      "details": [
+        "Implement Forestry events, group woodcutting interactions and event lifecycle.",
+        "Cover event-specific NPCs/objects, rewards, currencies and participation rules.",
+        "Integrate Collection Log and progression where applicable.",
+        "Add regression tests and in-game acceptance checks before marking added."
+      ],
+      "category": "other"
+    },
+    {
+      "title": "Own Grand Exchange",
+      "status": "not_added",
+      "summary": "Estimated scope XL–XXL. Eventually replace external OSRS guide prices with the server's own economy.",
+      "details": [
+        "Build the server's own Grand Exchange after the temporary OSRS price feed is in place.",
+        "Make completed trades the authoritative source for this server's market prices.",
+        "Swap the <code>MarketPrices</code> implementation without changing Examine or other price consumers."
+      ],
+      "category": "other"
+    },
+    {
       "title": "Achievements — Complete",
       "status": "not_added",
-      "summary": "Build the achievement systems into complete trackable progression with rewards.",
+      "summary": "Estimated scope XL–XXL. Build the achievement systems into complete trackable progression with rewards.",
       "details": [
         "Implement the full achievement framework and persistent completion tracking.",
         "Cover task requirements, progress updates, completion state, rewards and UI/notification hooks.",
@@ -682,21 +670,37 @@
     {
       "title": "Combat Tasks — Complete",
       "status": "not_added",
-      "summary": "Build Combat Achievements into a complete task, tier and reward system.",
+      "summary": "Estimated scope XXL. Build Combat Achievements into a complete task, tier and reward system.",
       "details": [
         "Implement Combat Achievement task definitions, validation and persistent completion tracking.",
         "Cover boss-specific and encounter-specific conditions across supported content.",
         "Implement tier progression, point totals, rewards and unlock effects.",
         "Integrate completion chat messages and queued notifications.",
-        "Add task-specific regression tests and in-game acceptance checks before marking added."
+        "Add task-specific regression tests and in-game acceptance checks before marking added.",
+        "Complete tasks require the corresponding playable encounters and real gameplay event hooks; do not mark unavailable-content tasks complete from synthetic events."
       ],
       "category": "other"
+    },
+    {
+      "title": "Leagues — Complete",
+      "status": "not_added",
+      "category": "other",
+      "summary": "Estimated scope XXL. Build a complete seasonal Leagues game mode with tasks, points, unlocks and resettable progression.",
+      "details": [
+        "Implement a separate League profile/ruleset without corrupting the permanent main-game profile.",
+        "Add task definitions, task completion tracking, League points, tiers and unlocks.",
+        "Implement relic/passive systems and League-specific XP/drop/progression modifiers.",
+        "Support region/content restrictions where required by the selected League rules.",
+        "Add seasonal lifecycle tools: start, reset, migration/archive, highscores and reward handoff.",
+        "Add extensive regression tests because League modifiers touch combat, skills, drops, shops and progression globally.",
+        "Run as a separate selectable world/game mode, available only when the season is activated; preserve the permanent main world and its profile."
+      ]
     },
     {
       "title": "Sailing Skill — Complete",
       "status": "not_added",
       "category": "other",
-      "summary": "Implement Sailing as a complete skill with progression, activities, rewards and world integration.",
+      "summary": "Estimated scope XXL. Implement Sailing as a complete skill with progression, activities, rewards and world integration.",
       "details": [
         "Implement the full Sailing skill loop, XP progression and level requirements.",
         "Cover sailing interactions, vessels, navigation, activities, encounters and supporting world content.",
@@ -705,24 +709,23 @@
       ]
     },
     {
-      "title": "Leagues — Complete",
-      "status": "not_added",
-      "category": "other",
-      "summary": "Build a complete seasonal Leagues game mode with tasks, points, unlocks and resettable progression.",
+      "title": "Weapon Special Attacks",
+      "status": "started",
+      "summary": "Accepted checkpoint is preserved; remaining special attacks are intentionally parked.",
       "details": [
-        "Implement a separate League profile/ruleset without corrupting the permanent main-game profile.",
-        "Add task definitions, task completion tracking, League points, tiers and unlocks.",
-        "Implement relic/passive systems and League-specific XP/drop/progression modifiers.",
-        "Support region/content restrictions where required by the selected League rules.",
-        "Add seasonal lifecycle tools: start, reset, migration/archive, highscores and reward handoff.",
-        "Add extensive regression tests because League modifiers touch combat, skills, drops, shops and progression globally."
-      ]
+        "Current accepted checkpoint has 191 of 285 special-energy item registrations covered.",
+        "94 registrations remain deferred.",
+        "Do not resume automatically; continue only when this roadmap item is intentionally selected again.",
+        "Preserve the accepted weapon baseline and existing regression coverage while parked.",
+        "This is remaining work on an accepted checkpoint, not a new feature from zero. The 94 deferred registrations are not necessarily 94 distinct mechanics; estimate the missing families after a gap audit."
+      ],
+      "category": "parked"
     },
     {
       "title": "RSPS AgentCraft — In-Game Developer Observatory",
       "status": "not_added",
-      "category": "other",
-      "summary": "Parked idea: command real Claude/Codex development agents through chat and character avatars inside the existing RSPS, with isolated worktrees, testing and explicit review before merge or deployment.",
+      "category": "parked",
+      "summary": "Parked long-term idea; estimated full-system scope XXL (not just the small in-game module). Parked idea: command real Claude/Codex development agents through chat and character avatars inside the existing RSPS, with isolated worktrees, testing and explicit review before merge or deployment.",
       "details": [
         "Planning only: record the agreed concept; do not start implementation, activate agents or resume unrelated parked content automatically.",
         "Build a developer-only Observatory scene inside the existing OpenRune server, not a new RSPS or a Minecraft requirement. The owner teleports there and talks to the agents as though they were players.",
@@ -749,17 +752,87 @@
         "First playable acceptance: the owner submits one bounded task in-game; a real runner changes an isolated worktree; a reviewer and actual tests report evidence; the owner can request changes or reject without touching main/live data; an explicitly approved tested commit can be merged through the external workflow.",
         "Also verify unauthorized access, secret redaction, duplicate/replayed messages, stale approvals, cancellation, logout, reconnect, bridge failure, provider limits and concurrent task conflicts. Final in-game acceptance is by the owner; update roadmap status only with the actual implemented scope and verified results."
       ]
+    },
+    {
+      "title": "Revision 241 Upgrade",
+      "status": "started",
+      "summary": "Upstream review is deferred; no automatic protocol/cache/runtime upgrade.",
+      "details": [
+        "Review client, protocol, cache, Boss DSL and custom encounter compatibility before adoption.",
+        "Do not automatically merge or upgrade the accepted revision 240 runtime.",
+        "Resume only as a deliberate compatibility project."
+      ],
+      "category": "migration"
+    },
+    {
+      "title": "Zulrah",
+      "status": "added",
+      "summary": "Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work.",
+      "details": [
+        "Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.",
+        "Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.",
+        "Run relevant regression checks when an approved new feature changes shared systems used by this encounter."
+      ],
+      "category": "completed"
+    },
+    {
+      "title": "Corporeal Beast",
+      "status": "added",
+      "summary": "Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work.",
+      "details": [
+        "Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.",
+        "Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.",
+        "Run relevant regression checks when an approved new feature changes shared systems used by this encounter."
+      ],
+      "category": "completed"
+    },
+    {
+      "title": "Araxxor",
+      "status": "added",
+      "summary": "Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work.",
+      "details": [
+        "Owner confirmed complete in the 2026-10-06 conversation. This is recorded acceptance, not a new build or gameplay-test claim.",
+        "Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.",
+        "Run relevant regression checks when an approved new feature changes shared systems used by this encounter."
+      ],
+      "category": "completed"
+    },
+    {
+      "title": "Barrows",
+      "status": "added",
+      "summary": "Complete / user-accepted. Preserve the accepted implementation; excluded from new implementation work.",
+      "details": [
+        "PROGRESS.md records Barrows as implemented / user accepted; this entry does not claim new tests.",
+        "Do not rebuild or replace this module merely because overlapping upstream code exists. Compare any proposed improvements separately.",
+        "Run relevant regression checks when an approved new feature changes shared systems used by this encounter."
+      ],
+      "category": "completed"
     }
   ],
   "categories": {
+    "quick_wins": {
+      "label": "1. Small extensions — provisional XS to M"
+    },
+    "upstream_review": {
+      "label": "2. Upstream reuse — review before estimating remaining work"
+    },
     "bosses": {
-      "label": "Bosses"
+      "label": "3. Bosses — provisional small-to-large order"
     },
     "minigames": {
-      "label": "Minigames"
+      "label": "4. Minigames / activities — provisional small-to-large order"
     },
     "other": {
-      "label": "Other"
+      "label": "5. Other systems — dependencies before scheduling"
+    },
+    "parked": {
+      "label": "6. Parked work / long-term ideas — do not auto-resume"
+    },
+    "migration": {
+      "label": "7. Runtime migrations — separate explicit approval"
+    },
+    "completed": {
+      "label": "8. Completed / user-accepted — protected baseline, not backlog"
     }
   }
 }
