@@ -296,3 +296,33 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - 2026-10-05: Cooking and Smithing publish successful product output; Fletching has a new source for its two initial native recipes. Failed insertions and burnt cooking outputs do not announce success. PrayerActivatedEvent is published after enabling a prayer, including quick prayers; consumers verify the resulting enabled varbit.
 - 2026-10-05: RunesCraftedEvent carries the altar symbol. The master blood task can distinguish genuine blood-altar production from unrelated or synthetic rune output.
 - 2026-10-05: SkillingProductSource adds SacredEel and ThievingStall (native loc symbol and coordinates). These use the existing product-completion event after successful inventory output and XP. This lets clue consumers distinguish dissection from dismantling, and Ardougne theft from other gem sources. No clue rules are embedded in the player API or skill producers. Preserve source identity and post-commit ordering when adapting upstream changes.
+
+## Doom prerequisites (2026-10-06, candidate)
+
+- `api/bosses`: reviewed upstream expanded DSL for timers, multi-spec registration,
+  hit-context conditions, projectile timing and bound tile sets. Existing stats
+  and selector parameters and EachTile references remain source-compatible; their
+  previous metadata semantics are retained. Custom dragonfire absorption remains.
+  Per-encounter cancellation prevents effects from surviving deleted NPC slots.
+- `engine/game/HitBuilder`: readonly cached weapon/secondary accessors; custom
+  impact transforms and exactly-once completion remain unchanged.
+- `api/player`: extracted existing overhead clearing into a reusable helper; the
+  prior timed lock calls the same helper and retains its expiry behaviour.
+- `api/combat`: opt-in NPC attackable-on-cooldown param for shield mechanics;
+  default NPCs and player-target paths retain their existing cooldown rule.
+  DemonbaneChecks classifies Doom shield hits without replacing special attacks.
+- `api/death`: multibound optional respawn-coordinate hooks; no matching hook
+  uses the original death spawn/randomization. The Doom module owns loot loss.
+- `engine/game/Player`, `api/net/rsprot`: nullable per-player NPC view distance;
+  null preserves the standard distance. Instance scripts reset it on leave.
+- `api/instances/InstanceScript`: opt-in fresh-run prelude. Default false preserves
+  existing rejoin behaviour; custom manager NPC detach/ownership hooks are retained.
+- `api/drop-table-plugin`: symbol overload resolves the same NPC registry; no
+  default-table or accepted testloot behaviour is replaced.
+- Generic hit-modifier godmode handling and NPC pending-facing reset follow the
+  scoped upstream prerequisites. No generic Doom IDs enter engine dispatch.
+
+Conflict risk: encounter scheduling, hit snapshots, death/instance ordering and
+cache params. Keep the existing boss/weapon regression suites and new Doom suites
+when reconciling later upstream updates. See doom-of-mokhaiotl.md and the dated
+upstream review for scope and live acceptance limits.

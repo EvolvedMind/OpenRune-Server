@@ -80,6 +80,9 @@ constructor(tomlResolver: DropTableTomlResolver) {
         return candidates.firstOrNull { it.areas.isEmpty() } ?: candidates.first()
     }
 
+    public fun forNpc(internalName: String): RSDropTable<Player, DropRollItem>? =
+        tablesByNpc[internalName]?.firstOrNull()
+
     public fun forLoc(loc: String): RSDropTable<Player, DropRollItem>? = tablesByLoc[loc]
 
     public fun npcTables(): Map<String, List<RSDropTable<Player, DropRollItem>>> =

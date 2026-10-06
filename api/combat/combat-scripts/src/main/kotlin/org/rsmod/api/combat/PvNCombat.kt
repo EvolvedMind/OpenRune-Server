@@ -60,7 +60,7 @@ constructor(
             return
         }
 
-        if (manager.isAttackDelayed(player)) {
+        if (manager.isAttackDelayed(player, npc)) {
             manager.continueCombat(player, npc)
             return
         }
@@ -110,7 +110,7 @@ constructor(
             return
         }
 
-        if (manager.isAttackDelayed(player)) {
+        if (manager.isAttackDelayed(player, npc)) {
             manager.continueCombat(player, npc)
             return
         }
@@ -235,7 +235,7 @@ constructor(
             return
         }
 
-        if (manager.isAttackDelayed(player)) {
+        if (manager.isAttackDelayed(player, npc)) {
             manager.continueCombat(player, npc, attack.spell)
             return
         }
@@ -264,7 +264,7 @@ constructor(
             return
         }
 
-        if (manager.isAttackDelayed(player)) {
+        if (manager.isAttackDelayed(player, npc)) {
             manager.continueCombat(player, npc)
             return
         }
