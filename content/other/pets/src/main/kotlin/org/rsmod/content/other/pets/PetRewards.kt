@@ -7,6 +7,7 @@ import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.stat.statBase
 import org.rsmod.api.random.GameRandom
 import org.rsmod.game.entity.Player
+import org.rsmod.content.interfaces.collectionlog.CollectionLog
 
 @Singleton
 class PetRewards
@@ -15,8 +16,9 @@ constructor(
     private val followers: PetFollowers,
     private val insurance: PetInsurance,
     private val random: GameRandom,
+    private val collectionLog: CollectionLog,
 ) {
-    fun give(player: Player, obj: String): Boolean {
+    fun give(player: Player, obj: String, source: String? = null, logReward: Boolean = true): Boolean {
         val (pet, form) = Pets.forObj(obj) ?: return false
         if (!pet.mainDrop && player.ownsPet(pet)) {
             player.mes("<col=ff0000>You have a funny feeling like you would have been followed...</col>")
@@ -24,6 +26,7 @@ constructor(
         }
         val insured = insurance.insure(player, pet)
         deliver(player, form)
+        if (logReward) collectionLog.grant(player, pet.base.objId, source = source)
         if (insured) {
             player.mes(
                 "<col=ff00ff>Your new pet has been automatically insured. If lost, it can be reclaimed " +
@@ -44,7 +47,7 @@ constructor(
         if (random.of(scaled * rarityMultiplier) != 0) {
             return false
         }
-        return give(player, obj)
+        return give(player, obj, source = stat.removePrefix("stat.").replace('_', ' ').replaceFirstChar(Char::uppercase))
     }
 
     fun reclaim(player: Player, pet: Pet): Boolean {

@@ -9,13 +9,21 @@ import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
 import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.game.entity.Player
+import org.rsmod.game.entity.PlayerList
+import org.rsmod.game.type.normalize
+import org.rsmod.api.player.output.ChatType
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 
-public object CollectionLog {
-    private const val LATEST_ITEM_SLOT_COUNT = 12
-    private const val CHAT_MESSAGE_ENABLED_MASK = 1 shl 0
-    private const val POPUP_ENABLED_MASK = 1 shl 1
+@Singleton
+public class CollectionLog @Inject constructor(private val players: PlayerList) {
+    private companion object {
+        const val LATEST_ITEM_SLOT_COUNT = 12
+        const val CHAT_MESSAGE_ENABLED_MASK = 1 shl 0
+        const val POPUP_ENABLED_MASK = 1 shl 1
+        const val EMPTY_SLOT = -1
+    }
 
-    private const val EMPTY_SLOT = -1
 
     private var Player.runeday: Int by intVarBit("varbit.current_runeday")
 
@@ -29,23 +37,32 @@ public object CollectionLog {
     }
 
     /** Central entry point for marking an item as obtained for the collection log */
-    public fun grant(player: Player, obj: String, count: Int = 1) {
-        grant(player, obj.asRSCM(RSCMType.OBJ), count)
+    public fun grant(player: Player, obj: String, count: Int = 1, source: String? = null) {
+        grant(player, obj.asRSCM(RSCMType.OBJ), count, source)
     }
 
-    public fun grant(player: Player, objId: Int, count: Int = 1) {
+    public fun grant(player: Player, objId: Int, count: Int = 1, source: String? = null) {
         if (count <= 0) {
             return
         }
-        if (!CollectionLogItems.contains(objId)) {
+        val type = ServerCacheManager.getItem(objId)?.let(::normalize) ?: return
+        val id = type.id
+        if (!CollectionLogItems.contains(id)) {
             return
         }
-        val isNewItem = player.collectionTransmit.countOf(objId) == 0
-        player.invAdd(player.collectionTransmit, objId, count)
-        checkCategoryCompletion(player, objId)
+        val previous = player.collectionTransmit.countOf(id)
+        val isNewItem = previous == 0
+        // Saturate permanent counts rather than overflowing; repeat rewards still broadcast.
+        val increment = count.coerceAtMost(Int.MAX_VALUE - previous)
+        if (increment > 0 && !player.invAdd(player.collectionTransmit, id, increment).success) return
+        checkCategoryCompletion(player, id)
         if (isNewItem) {
-            onNewItemObtained(player, objId)
+            onNewItemObtained(player, id)
         }
+        val quantity = if (count > 1) "$count x " else if ((type.name.firstOrNull()?.lowercaseChar() ?: ' ') in "aeiou") "an " else "a "
+        val from = source?.takeIf { it.isNotBlank() }?.let { " from $it" }.orEmpty()
+        val text = "[Collection Log] ${player.displayName} received $quantity${type.name}$from!"
+        for (recipient in players) recipient.mes(text, ChatType.Broadcast)
     }
 
     /** Runs the first time [objId] is added to [player]'s collection log. */

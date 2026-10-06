@@ -52,6 +52,7 @@ import org.rsmod.plugin.scripts.ScriptContext
 class BarrowsScript
 @Inject
 constructor(
+    private val collectionLog: CollectionLog,
     private val eventBus: EventBus,
     private val objRepo: ObjRepository,
     private val charges: ObjChargeManager,
@@ -326,7 +327,7 @@ constructor(
                 continue
             }
             val name = RSCM.getReverseMapping(RSCMType.OBJ, obj.id)
-            CollectionLog.grant(player, name, obj.count)
+            collectionLog.grant(player, name, obj.count, source = "Barrows")
             player.invAddOrDrop(objRepo, name, obj.count)
         }
         player.invClear(rewardInv)

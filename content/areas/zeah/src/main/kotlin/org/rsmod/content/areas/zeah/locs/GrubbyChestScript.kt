@@ -23,6 +23,7 @@ private const val VARBIT_CHEST = "varbit.hosdun_chest_status"
 private const val VARP_KC = "varp.kc_grubby_chest"
 
 class GrubbyChestScript @Inject constructor(
+    private val collectionLog: CollectionLog,
     private val objRepo: ObjRepository,
     private val dropRegistry: DropTableRegistry,
 ) : PluginScript() {
@@ -67,7 +68,7 @@ class GrubbyChestScript @Inject constructor(
         if (drop.isNothing || !drop.condition(player)) return
         val obj = drop.transformObj(player) ?: drop.obj
         val count = drop.rollCount(random)
-        CollectionLog.grant(player, obj, count)
+        collectionLog.grant(player, obj, count, source = "Grubby chest")
         invAddOrDrop(objRepo, obj, count)
     }
 }

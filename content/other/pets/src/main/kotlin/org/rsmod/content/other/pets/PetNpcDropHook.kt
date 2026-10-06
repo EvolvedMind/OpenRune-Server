@@ -21,7 +21,7 @@ constructor(private val rewards: PetRewards, private val random: GameRandom) : N
         if (drop.rate <= 0 || random.of(drop.rate) != 0) {
             return
         }
-        rewards.give(context.hero, drop.pet)
+        rewards.give(context.hero, drop.pet, source = context.npc.name)
     }
 
     private class Drop(val pet: String, val rate: Int)

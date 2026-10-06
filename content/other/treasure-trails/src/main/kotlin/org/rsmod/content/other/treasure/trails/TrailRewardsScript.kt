@@ -11,6 +11,7 @@ import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
 internal class TrailRewardsScript @Inject constructor(
+    private val collectionLog: CollectionLog,
     private val rewards: TrailRewards,
     private val launcher: ProtectedAccessLauncher,
 ) : PluginScript() {
@@ -25,7 +26,7 @@ internal class TrailRewardsScript @Inject constructor(
             val rolled = rewards.open(player, event.slot, original, tier) ?: return@onOpHeld1
             for (item in rolled) {
                 val type = checkNotNull(ServerCacheManager.getItem(item.id))
-                CollectionLog.grant(player, if (type.certtemplate > 0) type.certlink else item.id, item.count)
+                collectionLog.grant(player, if (type.certtemplate > 0) type.certlink else item.id, item.count, source = "${tier.key.replaceFirstChar(Char::uppercase)} Treasure Trail")
             }
             mes("You open your ${tier.key} reward casket.")
             show()

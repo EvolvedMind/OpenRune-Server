@@ -6,5 +6,6 @@ import org.rsmod.api.death.NpcDeathDropHook
 
 class PetDropHook @Inject constructor(private val rewards: PetRewards) : NpcDeathDropHook {
     override fun tryConsume(context: NpcDeathDropContext): Boolean =
-        rewards.give(context.hero, context.dropType.internalName)
+        // Native NPC table route already logs and broadcasts this reward once.
+        rewards.give(context.hero, context.dropType.internalName, logReward = false)
 }

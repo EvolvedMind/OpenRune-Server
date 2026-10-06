@@ -31,6 +31,7 @@ import org.rsmod.map.CoordGrid
 public class NpcDropTableKillHook
 @Inject
 constructor(
+    private val collectionLog: CollectionLog,
     private val registry: DropTableRegistry,
     private val areaChecker: AreaChecker,
     private val objRepo: ObjRepository,
@@ -99,7 +100,7 @@ constructor(
         }
         val obj = drop.transformObj(receiver) ?: drop.obj
         val count = drop.rollCount(random)
-        CollectionLog.grant(receiver, obj, count)
+        collectionLog.grant(receiver, obj, count, source = npc.name)
         if (!consumedByHook(obj, count, coords, duration, receiver)) {
             val spawned = objRepo.add(obj, coords, duration, receiver, count)
             ClientScripts.lootTrackerAddLoot(receiver, npc.id, eventId, spawned.type, spawned.count)

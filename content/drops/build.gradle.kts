@@ -6,6 +6,10 @@ plugins {
 dependencies {
     testImplementation(libs.or2.all.cache)
     testImplementation(libs.fastutil)
+    testImplementation(projects.api.pluginCommons)
+    testImplementation(projects.api.invStorage)
+    testImplementation(libs.rsprot.api)
+    testImplementation("org.mockito:mockito-core:5.14.2")
     implementation(libs.guice)
     implementation(projects.api.areaChecker)
     implementation(projects.api.config)
