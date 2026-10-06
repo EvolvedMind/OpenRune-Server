@@ -1,6 +1,6 @@
 # OpenRune fork progress
 
-Updated **2026-10-06**. This is the human-reviewed progress entry point.
+Updated **2026-10-07**. This is the human-reviewed progress entry point.
 The automatic scanner writes [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md), never this file.
 A symbol, pet or drop table does not establish a playable or verified boss.
 
@@ -25,12 +25,12 @@ Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 | Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
-| Treasure Trails | ACTIVE DEVELOPMENT TOWARD 100%; resumed by user on 2026-10-06. 40/60 skill-task rows handled; remaining native actions, clue routes, map/puzzle coverage and end-to-end validation outstanding. Guardian dig fix user-approved and merged. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
+| Treasure Trails | ACTIVE DEVELOPMENT TOWARD 100%; resumed by user on 2026-10-06. 41/60 skill-task rows handled; remaining native actions, clue routes, map/puzzle coverage and end-to-end validation outstanding. Guardian dig fix user-approved and merged. New clue branch: Uri recovery, native elf pickpocketing and corrected altar-output consumers; 158 selected tests, scoped formatting, full build and isolated boot pass; new live acceptance pending. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
 | NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
 | Small extensions (all four) | USER APPROVED / MERGED; PR #24 and approved PR #25 head integrated into main (`474296f2b`). News only for pets or fresh unit GE >= 1m; compact Examine, OSRS prices, notification FIFO and Doom sample log preserved. 134 selected tests, build and isolated startup pass; advisory formatting violations tracked. [Details](docs/custom/small-extensions.md). |
 | Revision 241 | Upstream review pending; no automatic upgrade |
-| Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
+| Repository organization | Complete: 15 earlier stale branches plus approved small-extensions/guardian branches archived and removed; main and active clue branch retained |
 
 
 **[Detailed status, origins, NOW / NEXT / LATER / BACKLOG](CUSTOM_PROGRESS.md)**

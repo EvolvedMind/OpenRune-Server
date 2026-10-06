@@ -41,7 +41,7 @@ the module table at the bottom before reading a 0 as "nothing exists".
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Herblore_icon.png?ffa9e" height="20" alt=""> [Herblore](content/skills/herblore) | 1.270 loc | [wiki](https://oldschool.runescape.wiki/w/Herblore) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Fishing_icon.png?15a98" height="20" alt=""> [Fishing](content/skills/fishing) | 1.608 loc | [wiki](https://oldschool.runescape.wiki/w/Fishing) |
 | 🔴 | <img src="https://oldschool.runescape.wiki/images/Agility_icon.png?389e0" height="20" alt=""> Agility | nothing yet | [wiki](https://oldschool.runescape.wiki/w/Agility) |
-| 🟢 | <img src="https://oldschool.runescape.wiki/images/Thieving_icon.png?973fe" height="20" alt=""> [Thieving](content/skills/thieving) | 429 loc | [wiki](https://oldschool.runescape.wiki/w/Thieving) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/Thieving_icon.png?973fe" height="20" alt=""> [Thieving](content/skills/thieving) | 563 loc | [wiki](https://oldschool.runescape.wiki/w/Thieving) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Crafting_icon.png?a1f71" height="20" alt=""> [Crafting](content/skills/crafting) | 6.515 loc | [wiki](https://oldschool.runescape.wiki/w/Crafting) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Fletching_icon.png?15cda" height="20" alt=""> [Fletching](content/skills/fletching) | 63 loc | [wiki](https://oldschool.runescape.wiki/w/Fletching) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Construction_icon.png?f9bf7" height="20" alt=""> Construction | no module, code in content/areas/city | [wiki](https://oldschool.runescape.wiki/w/Construction) |
@@ -272,7 +272,7 @@ Status: 🔴 not added · 🟡 started / parked · 🟢 added
 
 | | Item | Summary | Details |
 |---|---|---|---|
-| 🟡 | **Treasure Trails and Mimic** | ACTIVE DEVELOPMENT toward full clue gameplay: 40/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last. | <details><summary>Open</summary><ul><li>Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.</li><li>40 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href="docs/custom/clue-task-coverage.md">task coverage</a>.</li><li>Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>. See <a href="docs/custom/clue-testing.md">test commands</a>.</li><li>This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.</li><li>2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.</li><li>2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last.</li></ul></details> |
+| 🟡 | **Treasure Trails and Mimic** | ACTIVE DEVELOPMENT toward full clue gameplay: 41/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last. | <details><summary>Open</summary><ul><li>Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.</li><li>41 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href="docs/custom/clue-task-coverage.md">task coverage</a>.</li><li>Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>, <code>::cluetest elf</code>. See <a href="docs/custom/clue-testing.md">test commands</a>.</li><li>This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.</li><li>2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.</li><li>2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last.</li><li>2026-10-07 clue branch: Uri recovery, adapted upstream #230 elf pickpocketing for 53 cache-verified NPCs, atomic loot/pouches and native Sherlock completion. 41/60 task rows handled. Nature/cosmic/blood consumers now match actual altar output; 76 clue + 9 Thieving tests pass. 158 selected tests, scoped formatting checks, full JAR build and isolated Nero-bridge boot pass; new live acceptance pending; Mimic remains last.</li></ul></details> |
 
 #### 6. Parked work / long-term ideas — do not auto-resume
 
@@ -405,7 +405,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `other/special-attacks/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
 | `other/special-weapons` | 25 | 2.024 | 10 | 1 | 2026-10-04 |
 | `other/special-weapons/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
-| `other/treasure-trails` | 27 | 2.758 | 15 | 0 | 2026-10-06 |
+| `other/treasure-trails` | 27 | 2.781 | 18 | 0 | 2026-10-07 |
 | `other/treasure-trails/pack` | 1 | 6 | 0 | 0 | 2026-10-04 |
 | `other/windmill` | 2 | 133 | 0 | 0 | 2026-09-23 |
 | `other/windmill/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |
@@ -428,7 +428,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `skills/runecrafting` | 24 | 2.575 | 0 | 0 | 2026-10-05 |
 | `skills/slayer` | 45 | 5.495 | 0 | 0 | 2026-09-28 |
 | `skills/smithing` | 15 | 2.080 | 0 | 0 | 2026-10-05 |
-| `skills/thieving` | 3 | 429 | 1 | 0 | 2026-10-05 |
+| `skills/thieving` | 5 | 563 | 2 | 0 | 2026-10-07 |
 | `skills/utils` | 2 | 316 | 0 | 0 | 2026-05-10 |
 | `skills/woodcutting` | 5 | 409 | 2 | 2 | 2026-07-22 |
 | `travel/canoe` | 6 | 1.122 | 1 | 2 | 2026-07-22 |

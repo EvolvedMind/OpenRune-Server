@@ -355,3 +355,21 @@ User corrected the display requirement: chat-wide News lines, not world-broadcas
 - User resumed full clue gameplay toward 100%; skill-task coverage still 40/60.
   Remaining native skill actions, routes, maps/puzzles and lifecycle validation
   precede Mimic, which stays last. Inventory does not claim clues complete.
+
+
+## 2026-10-07 - Clue native-action checkpoint
+
+Branch: feature/clue-completion, from main 90f1e5fb9.
+Chunks: 0aa07c0b5 Uri recovery; 05979bd1f upstream #230 elf adaptation;
+56d2bf391 native altar symbol fix; 68ab81bf3 scoped test-source hygiene.
+41/60 skill-task rows now have completion handling; full clue routes/maps/puzzles
+and the other 19 native tasks remain open. Mimic last.
+158 selected tests, scoped formatting, full JAR build and isolated Nero-bridge boot
+pass. Existing DB-close ordering warnings are separate from startup qualification.
+Installed 4211eca guardian baseline: 826 verified targets. Test package:
+outputs/clue-native-actions-20261007/INSTALLEREN.cmd; independent rollback.
+New in-game acceptance pending; no live install and no automatic new clue merge.
+Main contains approved PR #24/#25; old branches archived under archive/20261007.
+Next: adapt upstream Farming #231 with atomic seed/can/bucket transactions and a
+genuine successful-plant producer/consumer for the watermelon clue. Preserve rev240.
+See docs/custom/clue-completion.md and docs/custom/clue-task-coverage.md.

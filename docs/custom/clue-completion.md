@@ -13,8 +13,8 @@ Other players and stale clue references cannot claim a reward.
 Validation: 66 Treasure Trails tests pass, including five new native-cache emote cases.
 The tests dispatch native emote events and NPC death/delete events, use inventory
 transactions, and check actor ownership and persisted clue vars. They do not certify
-client rendering or the complete network/UI input route. Build/boot and live acceptance
-of this new chunk remain pending.
+client rendering or the complete network/UI input route. Full build/boot validation is recorded below;
+live acceptance of this new chunk remains pending.
 
 ## Selective upstream sources
 
@@ -31,6 +31,9 @@ Treasure Trails or Mimic module to import. Potential native-action sources:
 | [Teletablets #7](https://github.com/OpenRune/OpenRune-Server/pull/7) | `06ea07fca2c652e88dd54b5aef281288d7cb7fe0` | Review actual lectern creation, not just tablet consumption. |
 
 Only reviewed adaptations will be committed. These sources are not completion claims.
+
+PR #230 had no submitted reviews or check runs on its reviewed head when queried.
+Our tests qualify this adaptation independently; no upstream CI assurance is inferred.
 
 ## Elf pickpocketing — 2026-10-07
 
@@ -66,3 +69,38 @@ qualify. Cancellation consumes no essence and produces no XP or clue credit.
 The test loc geometry is mocked; network route/arrival and client rendering remain
 for live validation. All 76 Treasure Trails and nine Thieving tests pass (85 total).
 Coverage remains 41/60; these three consumers were already in the existing count.
+
+## Next upstream adaptation: watermelon planting
+
+Reviewed PR #231's patch persistence, native loc/item handlers and planting path.
+It supplies allotment/flower/herb patches and offline growth, but no spirit trees.
+Its proposed varp range 65439–65459 does not collide with the currently declared
+content/API varps (checked by parsing gamevals namespaces, not comparing other ID
+types). Cache definitions must still be allocated/validated in our own pack.
+The patch has no successful-plant clue event. Seed/can/bucket replacements need our
+atomic transaction rules and state revalidation after native tick delays. Adopt that
+slice with producer/consumer tests before counting the watermelon task; do not import
+upstream global varp files or claim the entire Farming skill complete.
+
+
+## Validation and handoff — 2026-10-07
+
+158 selected tests pass: clues 76, Thieving 9, market prices 6, Collection Log 8,
+Doom 35, drops 4, pets 15 and player output 5. No failures, errors or skipped cases.
+Scoped Spotless checks pass in the three changed modules. Full server JAR builds;
+isolated revision-240 startup, Nero-bridge health and asset lookup pass. The private
+test server exits with code 0 and its PostgreSQL PID file is absent. Existing
+database-close ordering warnings remain a separate follow-up; this is not proof of
+a clean database drain.
+
+JAR SHA-256: `172993cc534a4e392eda3a87276eb7e816a84ffcd16350c4e0ad34664f0d59e8`.
+Studio remains `85af63cedb2067b3b82c63ed86b0e55048c0399d`; no client changes.
+The installed guardian checkpoint `4211eca06` matched all 826 checked targets.
+New package: `outputs/clue-native-actions-20261007/INSTALLEREN.cmd`, with its own
+software rollback checkpoint. Preparing a package does not install it or overwrite
+live playerdata. The new branch still requires in-game acceptance.
+
+Old approved branches were archived and removed locally/remotely. Recoverable tags:
+`archive/20261007/feature/small-extensions` at `e6b1702fa` and
+`archive/20261007/fix/clue-guardian-completion` at `4211eca06`.
+Main retains all approved fixes; `feature/clue-completion` holds this new work.
