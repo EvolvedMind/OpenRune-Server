@@ -2,6 +2,7 @@ package org.rsmod.content.other.treasure.trails
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
+import kotlin.coroutines.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -9,17 +10,17 @@ import org.junit.jupiter.api.parallel.ResourceLock
 import org.mockito.Mockito.mock
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
-import org.rsmod.api.npc.interact.AiPlayerInteractions
 import org.rsmod.api.music.MusicRepository
-import org.rsmod.api.player.interact.ContextualInteractions
+import org.rsmod.api.npc.interact.AiPlayerInteractions
 import org.rsmod.api.player.events.interact.HeldObjEvents
 import org.rsmod.api.player.events.interact.NpcEvents
 import org.rsmod.api.player.events.skilling.PickpocketSuccessEvent
-import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.hit.modifier.NoopPlayerHitModifier
+import org.rsmod.api.player.interact.ContextualInteractions
+import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
-import org.rsmod.api.random.GameRandom
 import org.rsmod.api.random.DefaultGameRandom
+import org.rsmod.api.random.GameRandom
 import org.rsmod.api.repo.loc.LocRepository
 import org.rsmod.api.repo.npc.NpcRepository
 import org.rsmod.api.script.onEvent
@@ -35,7 +36,6 @@ import org.rsmod.game.inv.Inventory
 import org.rsmod.game.queue.EngineQueueCache
 import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.ScriptContext
-import kotlin.coroutines.*
 
 @ResourceLock("ServerCacheManager")
 class TrailElfPickpocketTest {
@@ -65,6 +65,7 @@ class TrailElfPickpocketTest {
             with(interaction) { f.scripts.shutdown() }
         }
     }
+
     @Test fun `native NPC pickpocket commits loot and completes only the assigned elf task once`() {
         for (symbol in listOf("npc.mourning_town_elf_1", "npc.prif_citizen_miriel", "npc.prif_citizen_aranwe")) {
             val f = Fixture()

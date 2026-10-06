@@ -2,6 +2,7 @@ package org.rsmod.content.other.treasure.trails
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
+import kotlin.coroutines.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -28,7 +29,6 @@ import org.rsmod.game.inv.Inventory
 import org.rsmod.game.loc.BoundLocInfo
 import org.rsmod.game.queue.EngineQueueCache
 import org.rsmod.plugin.scripts.ScriptContext
-import kotlin.coroutines.*
 
 @ResourceLock("ServerCacheManager")
 class TrailNativeRunecraftingTest {
