@@ -17,7 +17,7 @@
     {
       "title": "Collection Log Reward Broadcasts",
       "status": "started",
-      "summary": "Chat-wide reward news with native chat bubble, red News label and green item; no world-broadcast banners. Tested candidate on feature/small-extensions, awaiting in-game acceptance.",
+      "summary": "Chat-wide news only for pets or fresh unit GE prices >= 1m; cheap rewards still log. Native chat bubble and colours retained. Tested fix candidate, awaiting in-game acceptance.",
       "details": [
         "Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.",
         "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
@@ -27,7 +27,8 @@
         "Example: News: Bram received 1 x Araxyte fang from Araxxor!",
         "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
         "User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged.",
-        "User correction 2026-10-06: native grey chat bubble, red News label, green quantity/item. MessageGame type 0 replaces type 14. Counts, sources and personal unlock settings/popups preserved; 58 targeted tests pass. See docs/custom/small-extensions.md."
+        "User correction 2026-10-06: native grey chat bubble, red News label, green quantity/item. MessageGame type 0 replaces type 14. Counts, sources and personal unlock settings/popups preserved; 58 targeted tests pass. See docs/custom/small-extensions.md.",
+        "2026-10-06 user correction: native all-pets Collection Log category bypasses the price threshold. Non-pets need a fresh GE quote >= 1,000,000 gp PER ITEM, never stack totals/cache fallback; cheap Doom tears/waystones still count. Code ae719442c; 134 selected tests pass including guardian regressions. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },
@@ -821,7 +822,8 @@
         "Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.",
         "40 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href=\"docs/custom/clue-task-coverage.md\">task coverage</a>.",
         "Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>. See <a href=\"docs/custom/clue-testing.md\">test commands</a>.",
-        "This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished."
+        "This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.",
+        "2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md."
       ],
       "category": "parked"
     }
