@@ -14,6 +14,8 @@ dependencies {
     implementation(projects.content.interfaces.emotes)
     testImplementation(projects.api.invStorage)
     testImplementation(projects.content.skills.thieving)
+    testImplementation(projects.content.skills.runecrafting)
+    testImplementation(projects.api.stats.xpmod)
     testImplementation(projects.api.registry)
     testImplementation("org.mockito:mockito-core:5.14.2")
 }

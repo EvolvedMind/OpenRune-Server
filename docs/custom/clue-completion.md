@@ -53,3 +53,16 @@ Admin fixture: `::cluetest elf` or `::cluetest task master 13` (single-step assi
 Pickpocket an actual elf, then talk to Sherlock. Neither command grants skill levels,
 teleports or completes the task. The existing world spawns include Goreu at
 2337,3159,0 and Miriel at 3238,6124,0.
+
+## Native Runecrafting compatibility — 2026-10-07
+
+Corrected three clue consumers to use the cache's native `obj.naturerune`,
+`obj.cosmicrune` and `obj.bloodrune` symbols emitted by the existing altar producer.
+No Runecrafting gameplay code was changed. Added four tests through the actual
+`AltarEvents` loc handlers, cached altar/rune rows, real tick delay and inventory
+output. Nature, multiple cosmics and both Blood Altars now complete assigned tasks.
+Base level/multiplier governs cosmic multiplication; a visible boost alone does not
+qualify. Cancellation consumes no essence and produces no XP or clue credit.
+The test loc geometry is mocked; network route/arrival and client rendering remain
+for live validation. All 76 Treasure Trails and nine Thieving tests pass (85 total).
+Coverage remains 41/60; these three consumers were already in the existing count.

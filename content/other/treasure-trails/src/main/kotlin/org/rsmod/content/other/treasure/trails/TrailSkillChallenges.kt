@@ -55,9 +55,9 @@ internal class TrailSkillChallenges @Inject constructor(
         onEvent<RunesCraftedEvent> {
             if (ourania || essenceConsumed <= 0 || baseMultiplier <= 0) return@onEvent
             val row = when {
-                rune == "obj.blood_rune" && altar in setOf("loc.archeus_altar_blood", "loc.blood_altar") -> "dbrow.cluehelper_skillchallenge_master_14".asRSCM()
-                rune == "obj.nature_rune" -> "dbrow.cluehelper_skillchallenge_elite_2".asRSCM()
-                rune == "obj.cosmic_rune" && baseMultiplier >= 2 -> "dbrow.cluehelper_skillchallenge_elite_20".asRSCM()
+                rune == "obj.bloodrune" && altar in setOf("loc.archeus_altar_blood", "loc.blood_altar") -> "dbrow.cluehelper_skillchallenge_master_14".asRSCM()
+                rune == "obj.naturerune" -> "dbrow.cluehelper_skillchallenge_elite_2".asRSCM()
+                rune == "obj.cosmicrune" && baseMultiplier >= 2 -> "dbrow.cluehelper_skillchallenge_elite_20".asRSCM()
                 else -> return@onEvent
             }
             for (active in targets.active(player)) {

@@ -182,8 +182,8 @@ class TrailSkillChallengesTest {
 
     @Test fun `altar challenges require assignment and genuine multiple cosmic runes per essence`() {
         for ((row, rune, multiplier) in listOf(
-            Triple("dbrow.cluehelper_skillchallenge_elite_2", "obj.nature_rune", 1),
-            Triple("dbrow.cluehelper_skillchallenge_elite_20", "obj.cosmic_rune", 2),
+            Triple("dbrow.cluehelper_skillchallenge_elite_2", "obj.naturerune", 1),
+            Triple("dbrow.cluehelper_skillchallenge_elite_20", "obj.cosmicrune", 2),
         )) {
             val f = Fixture()
             f.clue(row.asRSCM(), 0)
@@ -192,7 +192,7 @@ class TrailSkillChallengesTest {
             assertTrue(f.progress.phase(f.player, 0, f.player.inv[0]!!, 9))
             f.events.publish(RunesCraftedEvent(f.player, rune, 1, multiplier, true))
             f.events.publish(RunesCraftedEvent(f.player, rune, 0, multiplier, false))
-            f.events.publish(RunesCraftedEvent(f.player, "obj.air_rune", 28, 10, false))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.airrune", 28, 10, false))
             if (multiplier == 2) f.events.publish(RunesCraftedEvent(f.player, rune, 28, 1, false))
             assertEquals(9, f.state().phase)
             f.events.publish(RunesCraftedEvent(f.player, rune, 1, multiplier, false))
@@ -351,11 +351,11 @@ class TrailSkillChallengesTest {
         for (altar in listOf("loc.archeus_altar_blood", "loc.blood_altar")) {
             val f = Fixture()
             f.clue("dbrow.cluehelper_skillchallenge_master_14".asRSCM(), 9)
-            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, false))
-            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, true, altar))
-            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 0, 1, false, altar))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.bloodrune", 1, 1, false))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.bloodrune", 1, 1, true, altar))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.bloodrune", 0, 1, false, altar))
             assertEquals(9, f.state().phase)
-            f.events.publish(RunesCraftedEvent(f.player, "obj.blood_rune", 1, 1, false, altar))
+            f.events.publish(RunesCraftedEvent(f.player, "obj.bloodrune", 1, 1, false, altar))
             assertEquals(10, f.state().phase)
             assertEquals(2, f.state().completed)
         }
