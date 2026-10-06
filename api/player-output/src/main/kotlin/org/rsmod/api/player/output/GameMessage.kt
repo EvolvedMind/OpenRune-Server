@@ -19,9 +19,9 @@ public fun Player.objExamine(type: ItemServerType, count: Int, marketPrice: Int)
 
 public fun Player.objExamine(type: ItemServerType, count: Int, marketPrice: Long) {
     val base = normalize(type)
-    // Server messages work on every coupled client and are independent of enhanced-client toggles.
-    mes(type.examine, ChatType.ObjExamine)
-    mes(ItemExamine.values(base, count, marketPrice), ChatType.ObjExamine)
+    // Ordinary game messages prevent enhanced clients from appending their own price row.
+    mes(ItemExamine.description(base, type.examine, count))
+    mes(ItemExamine.values(base, count, marketPrice))
 }
 
 public object GameMessage {

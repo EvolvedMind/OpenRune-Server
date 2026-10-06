@@ -16,14 +16,18 @@ class ItemExamineTest {
         val player = Player(RecordingClient()); val type = ServerCacheManager.getItem(4151)!!
         player.objExamine(type, 1, 150)
         val messages = (player.client as RecordingClient).messages.filterIsInstance<MessageGame>()
-        assertEquals(type.examine, messages[0].message)
-        assertEquals("Value: GE: 150 gp | High Alch: 72,000 gp | Low Alch: 48,000 gp", messages[1].message)
+        assertEquals(2, messages.size)
+        assertEquals("<img=15> ${type.name} - ${type.examine}", messages[0].message)
+        assertEquals("<col=008000>GE: 150 gp</col> - <col=0000ff>High Alch: 72,000 gp</col> - <col=ff0000>Low Alch: 48,000 gp</col>", messages[1].message)
+        assertTrue(messages.all { it.type == ChatType.GameMessage.id })
         assertTrue(scripts(player).isEmpty())
     }
     @Test fun `noted stacks use base alchemy values and stack totals use long arithmetic`() {
         val player = Player(RecordingClient()); val whip = ServerCacheManager.getItem(4151)!!
         val note = ServerCacheManager.getItem(whip.certlink)!!
         player.objExamine(note, 2, Int.MAX_VALUE)
+        val description = (player.client as RecordingClient).messages.filterIsInstance<MessageGame>().first().message
+        assertEquals("<img=15> ${whip.name} (x2) - ${note.examine}", description)
         val value = (player.client as RecordingClient).messages.filterIsInstance<MessageGame>().last().message
         assertTrue(value.contains("GE: 4,294,967,294 gp"), value)
         assertTrue(value.contains("High Alch: 144,000 gp"), value)
