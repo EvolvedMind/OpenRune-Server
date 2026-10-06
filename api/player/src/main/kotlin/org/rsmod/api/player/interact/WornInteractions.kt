@@ -308,6 +308,6 @@ constructor(
         }
 
     private fun objExamine(player: Player, obj: InvObj, type: ItemServerType) {
-        player.objExamine(type, obj.count, marketPrices[type] ?: 0)
+        player.objExamine(type, obj.count, marketPrices.price(type) ?: 0L)
     }
 }

@@ -1293,7 +1293,7 @@ public class ProtectedAccess(
     ) {
         val obj = inventory[slot] ?: return resendSlot(inventory, 0)
         val normalized = normalize(getInvObj(obj))
-        player.objExamine(normalized, obj.count, marketPrices[normalized] ?: 0)
+        player.objExamine(normalized, obj.count, marketPrices.price(normalized) ?: 0L)
     }
 
     /** @see [org.rsmod.api.player.stat.stat] */

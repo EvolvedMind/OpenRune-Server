@@ -18,7 +18,7 @@ constructor(private val objRegistry: ObjRegistry, private val marketPrices: Mark
         val type = ServerCacheManager.getItem(message.id) ?: return
         val stack = objRegistry.findAll(coords)
         val obj = stack.firstOrNull { it.type == type.id } ?: return
-        val marketPrice = marketPrices[type] ?: 0
+        val marketPrice = marketPrices.price(type) ?: 0L
         player.objExamine(type, obj.count, marketPrice)
     }
 }

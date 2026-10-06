@@ -271,7 +271,7 @@ public open class StandardCurrencyShopOperations(
     override fun examineDesc(player: Player, inv: Inventory, shop: Shop, slot: Int) {
         val obj = inv[slot] ?: return
         val type = getInvObj(obj)
-        val marketPrice = marketPrices[type] ?: 0
+        val marketPrice = marketPrices.price(type) ?: 0L
         player.objExamine(type, obj.count, marketPrice)
     }
 

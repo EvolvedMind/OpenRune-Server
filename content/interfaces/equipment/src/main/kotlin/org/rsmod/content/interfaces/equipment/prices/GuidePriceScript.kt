@@ -229,7 +229,7 @@ constructor(
 
     private fun Player.examine(obj: InvObj) {
         val type = getInvObj(obj)
-        objExamine(type, obj.count, type.price)
+        objExamine(type, obj.count, marketPrices.price(type) ?: 0L
     }
 
     private data class PriceList(val prices: List<Int>, val totalPrice: Long)
