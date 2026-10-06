@@ -25,6 +25,7 @@ import org.rsmod.game.client.Client
 import org.rsmod.game.inv.InvObj
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
+import org.rsmod.api.market.MarketPrices
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.queue.EngineQueueCache
@@ -104,13 +105,25 @@ class DoomRewardsTest {
         assertTrue(simulation.player.collectionTransmit.objs.all { it == null })
         assertTrue(simulation.broadcasts().isEmpty())
     }
-    private class SampleFixture(delivered: Boolean) {
+    @Test fun `delivered cheap Doom samples still log while only the valuable uniques and pet send news`() {
+        val f = SampleFixture(delivered = true, filterCheapItems = true)
+        f.loot.generate(f.player, 2, 8, logRewards = true)
+        for (item in f.items) assertEquals(item.count * 2, f.player.collectionTransmit.objs.filterNotNull().single { it.id == item.id }.count)
+        assertEquals(8, f.broadcasts().size)
+        assertFalse(f.broadcasts().any { it.message.contains("Demon tear") })
+        assertFalse(f.broadcasts().any { it.message.contains("Mokhaiotl waystone") })
+        assertEquals(4, f.player.vars[DoomRewards.LEVEL_VARP])
+        assertEquals(100, f.player.invMap.getOrPut("inv.dom_lootpile_during").objs.filterNotNull().single().count)
+        assertEquals(50, f.player.invMap.getOrPut("inv.dom_lootpile").objs.filterNotNull().single().count)
+    }
+    private class SampleFixture(delivered: Boolean, filterCheapItems: Boolean = false) {
         val player = Player(RecordingClient()).apply {
             coords = CoordGrid(1311, 9551, 0); uuid = 1; observerUUID = 1; currentMapClock = 100
             displayName = "Bram"; VarPlayerIntMapSetter.set(this, DoomRewards.LEVEL_VARP, 4)
         }
         val observer = Player(RecordingClient())
-        val items = DoomRewards.UNIQUES.map { InvObj(it, 1) }
+        val items = DoomRewards.UNIQUES.map { InvObj(it, 1) } +
+            if (filterCheapItems) listOf(InvObj("obj.demon_tear", 100), InvObj("obj.dom_teleport_item", 2)) else emptyList()
         val loot: DoomTestLoot
         init {
             val ctx = ScriptContext(EventBus(), CheatCommandMap(), EngineQueueCache())
@@ -122,7 +135,13 @@ class DoomRewardsTest {
                 if (call.method.name == "add" && call.method.parameterTypes.first() == Obj::class.java) delivered else RETURNS_DEFAULTS.answer(call)
             }
             val players = PlayerList().apply { this[1] = player; this[2] = observer }
-            loot = DoomTestLoot(roller, objs, CollectionLog(players))
+            val prices = mock(MarketPrices::class.java) { call ->
+                if (call.method.name == "gePrice") {
+                    val type = call.arguments[0] as dev.openrune.types.ItemServerType
+                    if (filterCheapItems && type.id in setOf("obj.demon_tear".asRSCM(), "obj.dom_teleport_item".asRSCM())) 999_999L else 1_000_000L
+                } else RETURNS_DEFAULTS.answer(call)
+            }
+            loot = DoomTestLoot(roller, objs, CollectionLog(players, prices))
         }
         fun broadcasts() = (observer.client as RecordingClient).messages.filterIsInstance<MessageGame>()
     }

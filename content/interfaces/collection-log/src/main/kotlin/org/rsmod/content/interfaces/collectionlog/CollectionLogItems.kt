@@ -4,6 +4,7 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.types.ItemServerType
 import dev.openrune.types.enums.enum
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
+import org.rsmod.api.table.CollectionLogCategoriesRow
 import org.rsmod.game.entity.Player
 import org.rsmod.game.inv.Inventory
 
@@ -33,6 +34,13 @@ internal object CollectionLogItems {
     val totalCount: Int by lazy { allItemIds.size }
 
     fun contains(objId: Int): Boolean = objId in allItemIds
+
+    private val petItemIds: Set<Int> by lazy {
+        val row = CollectionLogCategoriesRow.getRow("dbrow.collection_log_category_all_pets")
+        itemsInCategoryStruct(row.structId).toSet()
+    }
+
+    fun isPet(objId: Int): Boolean = objId in petItemIds
 
     fun obtainedCount(player: Player): Int {
         val inv = player.collectionTransmit

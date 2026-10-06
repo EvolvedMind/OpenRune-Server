@@ -23,9 +23,14 @@ public class OsrsMarketPrices @Inject constructor() : MarketPrices {
         val base = uncert(type)
         // Custom/untradeable variants keep their cache value; coins always represent one gp.
         if (base.id == 995) return 1
+        return gePrice(base) ?: fallback.price(base)!!
+    }
+
+    override fun gePrice(type: ItemServerType): Long? {
+        val base = uncert(type)
         val current = snapshot
-        val fresh = Instant.now().epochSecond - current.refreshedAt < MAX_CACHE_AGE_SECONDS
-        return if (fresh && base.stockmarket) current.prices[base.id] ?: fallback.price(base)!! else fallback.price(base)!!
+        val fresh = Instant.now().epochSecond - current.refreshedAt in 0 until MAX_CACHE_AGE_SECONDS
+        return if (fresh && base.stockmarket) current.prices[base.id] else null
     }
 
     /** Called by the background service only; failed refreshes leave the last good snapshot intact. */
