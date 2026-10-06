@@ -17,16 +17,17 @@
     {
       "title": "Collection Log Reward Broadcasts",
       "status": "started",
-      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
+      "summary": "Chat-wide reward news with native chat bubble, red News label and green item; no world-broadcast banners. Tested candidate on feature/small-extensions, awaiting in-game acceptance.",
       "details": [
         "Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.",
         "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
-        "Broadcast every qualifying obtain, including repeat obtains.",
+        "Send ordinary chat news to all online players on every qualifying obtain, including repeats; no world-broadcast banners.",
         "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
         "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
-        "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!",
+        "Example: News: Bram received 1 x Araxyte fang from Araxxor!",
         "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
-        "User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged."
+        "User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged.",
+        "User correction 2026-10-06: native grey chat bubble, red News label, green quantity/item. MessageGame type 0 replaces type 14. Counts, sources and personal unlock settings/popups preserved; 58 targeted tests pass. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },

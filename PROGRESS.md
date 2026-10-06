@@ -28,7 +28,7 @@ Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 | Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
 | NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
-| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; compact coloured Examine and Doom testloot Collection Log fixes added. 63 targeted tests, runtime build and isolated startup pass (earlier extension baseline: 150 tests). New `small-extensions-fixes-20261006` installer; draft PR #24. [Details and acceptance checks](docs/custom/small-extensions.md). |
+| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; Collection Log now uses styled chat-wide news without world banners. 58 targeted tests, runtime build and isolated startup pass. Compact Examine, Doom sample log and notification FIFO retained. Latest `collection-chat-news-20261006` installer; draft PR #24. [Details and acceptance checks](docs/custom/small-extensions.md). |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 
@@ -80,23 +80,24 @@ A weapon from the abyss.
 GE: 1,482,000 gp | HA: 72,000 gp | LA: 48,000 gp
 ```
 
-### Collection Log reward broadcasts
-- [ ] Treat Collection Log membership as the source of truth for important/unique reward notifications.
-- [ ] Do **not** maintain a separate hard-coded list of boss uniques or pets.
-- [ ] Every obtained item that is accepted by `CollectionLog.grant(...)` should be eligible for a server-wide reward broadcast.
-- [ ] Broadcast on every qualifying obtain, not only the player's first Collection Log unlock.
-- [ ] Preserve the existing personal `New item added to your collection log` message only for first-time unlocks.
-- [ ] Preserve the player's existing Collection Log popup/chat settings for personal unlock notifications.
-- [ ] Extend Collection Log reward context so broadcasts can include the source where known, e.g. NPC/boss, minigame, raid, chest or activity.
-- [ ] Avoid tying broadcasts to GE value or arbitrary drop-rate thresholds.
+### Collection Log chat-wide reward news
+
+- [x] Treat Collection Log membership as the source of truth for important/unique reward notifications.
+- [x] Do **not** maintain a separate hard-coded list of boss uniques or pets.
+- [x] Every obtained item that is accepted by `CollectionLog.grant(...)` should be eligible for ordinary chat news to all online players, without world banners.
+- [x] Send chat news on every qualifying obtain, not only the player's first Collection Log unlock.
+- [x] Preserve the existing personal `New item added to your collection log` message only for first-time unlocks.
+- [x] Preserve the player's existing Collection Log popup/chat settings for personal unlock notifications.
+- [x] Extend Collection Log reward context so chat news can include the source where known, e.g. NPC/boss, minigame, raid, chest or activity.
+- [x] Avoid tying chat news to GE value or arbitrary drop-rate thresholds.
 
 Target examples:
 
 ```text
-[Collection Log] Bram received an Araxyte fang from Araxxor!
-[Collection Log] Bram received an Elysian sigil from Corporeal Beast!
-[Collection Log] Bram received a Pet kraken from Kraken!
-[Collection Log] Bram received a Dharok's greataxe from Barrows!
+News: Bram received 1 x Araxyte fang from Araxxor!
+News: Bram received 1 x Elysian sigil from Corporeal Beast!
+News: Bram received 1 x Pet kraken from Kraken!
+News: Bram received 1 x Dharok's greataxe from Barrows!
 ```
 
 ### Notification queue
@@ -114,7 +115,7 @@ Expected flow:
 reward/drop
   -> CollectionLog.grant(player, item, source)
   -> Collection Log membership check
-  -> server-wide reward broadcast
+  -> ordinary chat news (type 0; no world banner)
   -> first unlock?
        -> personal chat message
        -> NotificationQueue.enqueue(...)

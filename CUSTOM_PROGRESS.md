@@ -317,3 +317,8 @@ Branch: feature/small-extensions, baseline main 6856cffae. Dedicated price servi
 ## 2026-10-06 - Compact Examine and Doom sample log fixes
 
 User-requested follow-up on feature/small-extensions / draft PR #24. Examine is exactly two game messages: native info icon + name + description; green GE, blue HA and red LA values. This suppresses duplicate client price output. Successfully spawned ::testloot doom samples now register Collection Log counts and source broadcasts, including repeats. ::doomsim stays unlogged; both native loot piles, run state and counters are preserved. Commits f53d4e760 / 84803569e. 63 targeted tests, full runtime build and isolated startup pass. Installed baseline matched 821 hashes. Fresh small-extensions-fixes-20261006 installer/checkpoint; user test and merge pending. See docs/custom/small-extensions.md.
+
+
+## 2026-10-06 - Collection Log chat-wide news
+
+User corrected the display requirement: chat-wide News lines, not world-broadcast banners. CollectionLog now sends ordinary game-message type 0 to all online players, with native grey chat bubble, red News label and green quantity/item. Counts, source context, personal first-unlock settings/popups and Doom testloot registration remain intact. Code 06b7bfd2b on feature/small-extensions / draft PR #24. 58 targeted tests, runtime JAR and isolated startup pass. Installed small-extensions-fixes baseline matched all 821 hashes. Latest collection-chat-news-20261006 installer has its own checkpoint/rollback; in-game acceptance and merge pending.

@@ -9,8 +9,10 @@ The accepted Doom/HUD checkpoint and parked clues/specials remain preserved.
 ## Behaviour
 
 - `CollectionLog` remains the central grant API, now injected with the native player list.
-  Cache Collection Log enums determine membership. Each qualifying reward broadcasts to
-  everyone, including repeats. Counts saturate safely; personal new-item chat, latest-item
+  Cache Collection Log enums determine membership. Each qualifying reward sends ordinary
+  chat news to all online players, including repeats. The native grey chat bubble (frame 19),
+  red `News:` label, green quantity/item and optional source match the requested chat style.
+  These use game-message type 0, not world-broadcast type 14, and do not create world banners. Counts saturate safely; personal new-item chat, latest-item
   history and popups remain first-unlock only and respect the existing personal setting.
 - Native NPC drops, Barrows, Doom's committed reward stash, existing key chests and clue
   caskets pass their source. Standalone/skilling pets now also use the grant API. Pet table
@@ -68,7 +70,7 @@ Rev-240 notification scripts 3343/3346/3347/3348 were inspected in our coupled c
 2. Examine an Abyssal whip and a noted stack in inventory/bank and on the ground; also
    Examine shop stock and a price-checker entry. Exactly two messages should show the info
    icon/name/description and the green/blue/red GE/HA/LA values, without an extra client price row.
-3. Obtain a real Collection Log drop twice. Both obtains broadcast their NPC name, while
+3. Obtain a real Collection Log drop twice. Both obtains show chat news with their NPC name, while
    only the first unlock sends personal new-item chat/popup. Two clients can verify scope.
 4. Open a real multi-unique reward or several fresh caskets; new popups must play in order.
    An already unlocked item sends no new popup. `::testloot doom 1000 8` now registers
@@ -121,3 +123,26 @@ Updated test package: `outputs/small-extensions-fixes-20261006/INSTALLEREN.cmd`,
 with checkpoint `outputs/checkpoint-20261006-voor-small-extensions-fixes`.
 Read-only installer preflight and artifact hashes are checked before handing off.
 PR #24 remains a draft; in-game acceptance and merge are pending.
+
+## Chat-wide news correction (2026-10-06)
+
+User explicitly requested chat-wide reward news instead of world-broadcast banners.
+The central grant API now sends ordinary `MessageGame` type 0 to each online player.
+No Collection Log reward uses type 14 or a world-banner clientscript. Native `mod_icons`
+frame 19 supplies the grey chat bubble; `News:` is red and quantity/item are green.
+Existing first-unlock settings, popup FIFO, counts, reward sources and Doom testloot
+logging stay intact. Other activities' broadcast behaviour is outside this change.
+
+Code commit: `06b7bfd2b`. 58 targeted tests pass: Collection Log 5, native drops 4, Doom 34
+and pets 15. Coverage asserts the exact styled chat message, correct packet type for both
+looter and observer, no observer popup, one personal first-unlock popup, repeat rewards,
+notes, settings, saturation, failed grants and real NPC/Doom/pet producers.
+
+Latest package: `outputs/collection-chat-news-20261006/INSTALLEREN.cmd`, with its own
+software checkpoint and rollback. Installed prior fix baseline matches all 821 hashes.
+Runtime build and isolated startup `gameplay-smoke-74d065cb` pass, including the paired
+Nero endpoints and live price refresh. Process exit is zero and the temporary database PID
+is gone. JAR SHA-256: `bf7beb0d27e5fa150676801a8c4ffb61056b8bc45e4ab89effc923f6523c0370`. The earlier database-close ordering
+warning remains a separate follow-up. Installer preflight and artifact hashes are checked
+before handing off the package.
+PR #24 remains a draft; in-game visual acceptance and merge remain pending.
