@@ -25,10 +25,10 @@ Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 | Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
 | Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
 | Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
-| Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. Focused guardian dig fix: 61 tests, runtime build and isolated startup pass; user test pending. [Guardian fix](docs/custom/clue-guardians.md). [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
+| Treasure Trails | ACTIVE DEVELOPMENT TOWARD 100%; resumed by user on 2026-10-06. 40/60 skill-task rows handled; remaining native actions, clue routes, map/puzzle coverage and end-to-end validation outstanding. Guardian dig fix user-approved and merged. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
 | NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
-| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; chat-wide news only for pets or fresh unit GE value >= 1m. Cheap items still log; Examine, Doom sample logging and FIFO retained. 134 selected tests including guardian regressions, full build and isolated startup pass. Latest combined `clue-guardian-fix-20261006` installer; branch `fix/clue-guardian-completion` stacked on draft PR #24. [Details](docs/custom/small-extensions.md). |
+| Small extensions (all four) | USER APPROVED / MERGED; PR #24 and approved PR #25 head integrated into main (`474296f2b`). News only for pets or fresh unit GE >= 1m; compact Examine, OSRS prices, notification FIFO and Doom sample log preserved. 134 selected tests, build and isolated startup pass; advisory formatting violations tracked. [Details](docs/custom/small-extensions.md). |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 

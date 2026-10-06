@@ -343,3 +343,15 @@ User corrected the display requirement: chat-wide News lines, not world-broadcas
   #286 CI reports 2/42 combat integration failures with Guice/MockK exceptions.
 - Details: docs/custom/clue-guardians.md, docs/custom/small-extensions.md,
   docs/custom/upstream-pr-282-test-harness.md, docs/custom/upstream-level-up-779b81b.md.
+
+
+## 2026-10-06 - Approved merge and Treasure Trails resumed
+
+- PR #24 merged to main: b289741bc. PR #25 merged into its parent: e6b1702fa.
+- Exact approved PR #25 head 4211eca06 integrated into main as 474296f2b;
+  verified identical tree to the 134-test/build/isolated-startup candidate.
+- Four small extensions now user-approved/added in the generated inventory.
+  Advisory formatting violations remain tracked separately. No live installation.
+- User resumed full clue gameplay toward 100%; skill-task coverage still 40/60.
+  Remaining native skill actions, routes, maps/puzzles and lifecycle validation
+  precede Mimic, which stays last. Inventory does not claim clues complete.

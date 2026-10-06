@@ -1,6 +1,6 @@
 # Clue test commands
 
-Available on the unreleased `feature/treasure-trails` branch. Requires an
+Available on merged `main`; continued clue development is a separate branch. Requires an
 administrator account and a build containing this change. These commands do not
 update the currently installed server by themselves.
 
@@ -39,3 +39,6 @@ Use an existing coordinate clue, defeat every guardian, then dig again for the n
 final reward casket. `::cluetest scroll hard coordinate` plus `::cluekit` supplies a fresh
 coordinate test when no hard clue is held/banked. This does not resume the remaining clue
 implementation or Mimic.
+
+The guardian fix is now merged into main. Further clues resumed on user instruction;
+remaining coverage is still tracked separately from the approved guardian fix.

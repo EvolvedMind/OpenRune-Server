@@ -56,3 +56,13 @@ The final runtime build and isolated `gameplay-smoke-abca7326` startup pass. Run
 `0de5d5bdfa79d8890d6b3775dfd4d2f3466b80938b7c2f67a6cd3eefb03bc84a`. Paired client/cache unchanged; user in-game acceptance remains pending.
 Upstream [PR #282](upstream-pr-282-test-harness.md) and
 [level-up commit](upstream-level-up-779b81b.md) were researched only, without imports.
+
+## User-approved merge (2026-10-06)
+
+User approved merging the tested candidate. PR #24 merged to main as `b289741bc`;
+PR #25 merged to its parent branch as `e6b1702fa`, then its exact reviewed head
+`4211eca06` was integrated into main as `474296f2b`. The final tree equals the
+134-test / runtime / isolated-startup validated source tree. Advisory formatting
+checks report violations and are not described as green. No live installation
+was performed by merging; earlier installers/checkpoints remain available.
+The user also resumed full clue development; the 40/60 task count has not increased yet.

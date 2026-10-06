@@ -174,3 +174,13 @@ Latest combined package: `outputs/clue-guardian-fix-20261006/INSTALLEREN.cmd`, c
 Installer preflight and payload hashes are checked before handoff; no live install or merge.
 In-game check: `::testloot doom 100 8` must not announce cheap tears/waystones; confirm
 their Collection Log counts increase. Obtain a pet and a priced >=1m unique to verify news.
+
+## User-approved merge (2026-10-06)
+
+User approved merging the tested candidate. PR #24 merged to main as `b289741bc`;
+PR #25 merged to its parent branch as `e6b1702fa`, then its exact reviewed head
+`4211eca06` was integrated into main as `474296f2b`. The final tree equals the
+134-test / runtime / isolated-startup validated source tree. Advisory formatting
+checks report violations and are not described as green. No live installation
+was performed by merging; earlier installers/checkpoints remain available.
+The user also resumed full clue development; the 40/60 task count has not increased yet.

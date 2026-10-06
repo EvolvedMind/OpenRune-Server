@@ -16,8 +16,8 @@
   "items": [
     {
       "title": "Collection Log Reward Broadcasts",
-      "status": "started",
-      "summary": "Chat-wide news only for pets or fresh unit GE prices >= 1m; cheap rewards still log. Native chat bubble and colours retained. Tested fix candidate, awaiting in-game acceptance.",
+      "status": "added",
+      "summary": "USER APPROVED / MERGED: chat-wide News only for pets or fresh unit GE value >= 1m; cheap items still count in the Collection Log.",
       "details": [
         "Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.",
         "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
@@ -28,14 +28,15 @@
         "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
         "User-requested Doom testloot fix (2026-10-06): successfully spawned samples register real Collection Log obtains, including repeats. All four Doom uniques, rejected spawns and preservation of both loot piles tested. ::doomsim remains unlogged.",
         "User correction 2026-10-06: native grey chat bubble, red News label, green quantity/item. MessageGame type 0 replaces type 14. Counts, sources and personal unlock settings/popups preserved; 58 targeted tests pass. See docs/custom/small-extensions.md.",
-        "2026-10-06 user correction: native all-pets Collection Log category bypasses the price threshold. Non-pets need a fresh GE quote >= 1,000,000 gp PER ITEM, never stack totals/cache fallback; cheap Doom tears/waystones still count. Code ae719442c; 134 selected tests pass including guardian regressions. See docs/custom/small-extensions.md."
+        "2026-10-06 user correction: native all-pets Collection Log category bypasses the price threshold. Non-pets need a fresh GE quote >= 1,000,000 gp PER ITEM, never stack totals/cache fallback; cheap Doom tears/waystones still count. Code ae719442c; 134 selected tests pass including guardian regressions. See docs/custom/small-extensions.md.",
+        "2026-10-06: user approved merge. PR #24 merged as b289741bc; PR #25 approved head integrated into main as 474296f2b with exact tested-tree equality. 134 selected tests, runtime build and isolated startup pass; advisory formatting check still reports violations. No live files replaced by merging."
       ],
       "category": "quick_wins"
     },
     {
       "title": "Improved Item Examine",
-      "status": "started",
-      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
+      "status": "added",
+      "summary": "USER APPROVED / MERGED into main on 2026-10-06; revision-240 implementation and focused validation preserved. See docs/custom/small-extensions.md.",
       "details": [
         "Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.",
         "Preserve the normal item description.",
@@ -44,14 +45,15 @@
         "Resolve noted items to the appropriate underlying item values where required.",
         "Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic.",
         "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
-        "User-requested compact display (2026-10-06): native blue info icon, name/description; green GE, blue High Alch, red Low Alch. Game messages suppress duplicate client price output. Notes and exact stack totals preserved; targeted tests pass."
+        "User-requested compact display (2026-10-06): native blue info icon, name/description; green GE, blue High Alch, red Low Alch. Game messages suppress duplicate client price output. Notes and exact stack totals preserved; targeted tests pass.",
+        "2026-10-06: user approved merge. PR #24 merged as b289741bc; PR #25 approved head integrated into main as 474296f2b with exact tested-tree equality. 134 selected tests, runtime build and isolated startup pass; advisory formatting check still reports violations. No live files replaced by merging."
       ],
       "category": "quick_wins"
     },
     {
       "title": "Notification Queue",
-      "status": "started",
-      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
+      "status": "added",
+      "summary": "USER APPROVED / MERGED into main on 2026-10-06; revision-240 implementation and focused validation preserved. See docs/custom/small-extensions.md.",
       "details": [
         "Add a reusable per-player FIFO notification queue.",
         "Route Collection Log clientscript 3343 popups through the queue.",
@@ -59,21 +61,23 @@
         "Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.",
         "Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.",
         "Clear or discard pending notifications safely on logout or invalid player state.",
-        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
+        "2026-10-06: user approved merge. PR #24 merged as b289741bc; PR #25 approved head integrated into main as 474296f2b with exact tested-tree equality. 134 selected tests, runtime build and isolated startup pass; advisory formatting check still reports violations. No live files replaced by merging."
       ],
       "category": "quick_wins"
     },
     {
       "title": "OSRS GE Prices",
-      "status": "started",
-      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
+      "status": "added",
+      "summary": "USER APPROVED / MERGED into main on 2026-10-06; revision-240 implementation and focused validation preserved. See docs/custom/small-extensions.md.",
       "details": [
         "Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.",
         "Cache prices server-side and refresh periodically; never request prices per player action.",
         "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
         "Keep High Alch and Low Alch values independent from GE prices.",
         "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.",
-        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md.",
+        "2026-10-06: user approved merge. PR #24 merged as b289741bc; PR #25 approved head integrated into main as 474296f2b with exact tested-tree equality. 134 selected tests, runtime build and isolated startup pass; advisory formatting check still reports violations. No live files replaced by merging."
       ],
       "category": "quick_wins"
     },
@@ -817,15 +821,16 @@
     {
       "title": "Treasure Trails and Mimic",
       "status": "started",
-      "summary": "Clues in development: 40/60 skill tasks implemented; Mimic is last and not implemented.",
+      "summary": "ACTIVE DEVELOPMENT toward full clue gameplay: 40/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last.",
       "details": [
         "Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.",
         "40 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href=\"docs/custom/clue-task-coverage.md\">task coverage</a>.",
         "Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>. See <a href=\"docs/custom/clue-testing.md\">test commands</a>.",
         "This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.",
-        "2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md."
+        "2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.",
+        "2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last."
       ],
-      "category": "parked"
+      "category": "active"
     }
   ],
   "categories": {
@@ -843,6 +848,9 @@
     },
     "other": {
       "label": "5. Other systems — dependencies before scheduling"
+    },
+    "active": {
+      "label": "Active development — Treasure Trails (100% target)"
     },
     "parked": {
       "label": "6. Parked work / long-term ideas — do not auto-resume"
