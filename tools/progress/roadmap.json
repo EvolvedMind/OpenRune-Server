@@ -16,56 +16,60 @@
   "items": [
     {
       "title": "Collection Log Reward Broadcasts",
-      "status": "not_added",
-      "summary": "Estimated scope XS–S. Broadcast Collection Log uniques and pets server-wide when obtained.",
+      "status": "started",
+      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
       "details": [
         "Roadmap planning guide (2026-10-06): XS = tiny extension; S = small; M = medium; L = large; XL = very large; XXL = multiple systems. These are provisional full-scope estimates, not measured remaining code or time promises. Order within a group is a starting point; inspect existing work and upstream/PR reuse before scheduling. Group order is not permission to start or merge work.",
         "Treat Collection Log membership as the source of truth; do not maintain a separate unique or pet whitelist.",
         "Broadcast every qualifying obtain, including repeat obtains.",
         "Keep the personal 'New item added to your collection log' message only for first-time unlocks.",
         "Pass reward-source context where available so messages can name the boss, minigame, raid, chest or activity.",
-        "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!"
+        "Example: [Collection Log] Bram received an Araxyte fang from Araxxor!",
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },
     {
       "title": "Improved Item Examine",
-      "status": "not_added",
-      "summary": "Estimated scope XS–S. Show the normal description plus GE, High Alch and Low Alch values.",
+      "status": "started",
+      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
       "details": [
         "Centralize item Examine output so inventory, bank, shops, price checker and ground items stay consistent.",
         "Preserve the normal item description.",
         "Add a value line with GE value, High Alch value and Low Alch value.",
         "Use the central <code>MarketPrices</code> provider for GE and existing item definitions for HA/LA.",
         "Resolve noted items to the appropriate underlying item values where required.",
-        "Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic."
+        "Depends on the existing MarketPrices interface, not completion of the live OSRS provider; the provider can be integrated afterwards without duplicating Examine logic.",
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },
     {
       "title": "Notification Queue",
-      "status": "not_added",
-      "summary": "Estimated scope S. Queue client notifications so multiple unlock popups display one after another.",
+      "status": "started",
+      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
       "details": [
         "Add a reusable per-player FIFO notification queue.",
         "Route Collection Log clientscript 3343 popups through the queue.",
         "Multiple new items from one kill or reward must display sequentially instead of overwriting one another.",
         "Multiple copies of the same newly unlocked item should still produce only one first-unlock popup.",
         "Reuse the queue later for Combat Achievements, Achievement Diaries, quests and other notifications.",
-        "Clear or discard pending notifications safely on logout or invalid player state."
+        "Clear or discard pending notifications safely on logout or invalid player state.",
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },
     {
       "title": "OSRS GE Prices",
-      "status": "not_added",
-      "summary": "Estimated scope S–M. Use live OSRS market prices through the existing MarketPrices abstraction.",
+      "status": "started",
+      "summary": "Implemented and tested on feature/small-extensions; ready for in-game acceptance.",
       "details": [
         "Add an OSRS market-price provider behind the existing <code>MarketPrices</code> interface.",
         "Cache prices server-side and refresh periodically; never request prices per player action.",
         "Keep <code>DefaultMarketPrices</code> / <code>uncert(type).cost</code> as fallback when no live price is available.",
         "Keep High Alch and Low Alch values independent from GE prices.",
-        "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing."
+        "Preserve the abstraction so this can later be replaced by this server's own Grand Exchange pricing.",
+        "2026-10-06: 150 selected tests and runtime build pass; isolated startup observes live price refresh. New test installer with rollback; user acceptance and merge pending. See docs/custom/small-extensions.md."
       ],
       "category": "quick_wins"
     },

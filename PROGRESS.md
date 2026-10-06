@@ -28,6 +28,7 @@ Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
 | Treasure Trails | PARKED AT ACCEPTED TEST CHECKPOINT; 40/60 skill-task rows handled. Boxes, trail state, assignment and puzzle/reward foundations implemented; 20 skill tasks, other documented routes and live acceptance remain. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
 | Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
 | NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
+| Small extensions (all four) | READY FOR USER TEST / NOT MERGED; 150 selected tests, runtime build and isolated live-price startup pass. Collection Log repeat broadcasts, central Examine values, FIFO popups and cached OSRS market provider on `feature/small-extensions`. [Details and acceptance checks](docs/custom/small-extensions.md). |
 | Revision 241 | Upstream review pending; no automatic upgrade |
 | Repository organization | Complete: 15 stale branches archived and removed; main and active integration branch retained |
 

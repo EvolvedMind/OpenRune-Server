@@ -307,3 +307,8 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Nero PR #11 merged into main as 85af63cedb2067b3b82c63ed86b0e55048c0399d, preserving accepted basis #8/#10; #10 is closed as superseded. Both CI server pins reference the accepted server merge.
 - Runtime sources on both mains equal the validated package; post-acceptance edits are documentation and CI pins only. No live deployment or player-data replacement.
 - Accepted package remains outputs/doom-update-20261006 with verified hashes and rollback checkpoint. Completed feature branches are removed only after ancestry and expected-head checks.
+
+
+## 2026-10-06 - Small extensions (four requested items)
+
+Branch: feature/small-extensions, baseline main 6856cffae. Dedicated price service, central Examine, transient notification FIFO and Collection Log repeat broadcasts with reward context. Candidate implemented: 150 selected tests and runtime build pass; isolated startup observes the live OSRS price refresh, accepts paired Nero endpoints, exits zero and removes its database PID. Existing database-close ordering warning remains a separate follow-up. User acceptance pending. See docs/custom/small-extensions.md. No live install or merge performed. Parked clues/specials and accepted checkpoints preserved.
