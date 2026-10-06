@@ -10,6 +10,7 @@ import org.junit.jupiter.api.parallel.ResourceLock
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
 import org.rsmod.api.player.output.PlayerNotifications
+import org.rsmod.api.player.output.ChatType
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
@@ -22,14 +23,19 @@ import org.rsmod.plugin.scripts.ScriptContext
 
 @ResourceLock("ServerCacheManager")
 class CollectionLogRewardTest {
-    @Test fun `every repeat broadcasts to the world but personal unlock and popup occur only once`() {
+    @Test fun `each obtain sends styled chat news to everyone without broadcast banners or observer popups`() {
         val f = Fixture()
         f.log.grant(f.player, 4151, 2, "Abyssal demon")
         f.log.grant(f.player, 4151, 1, "Abyssal demon")
         assertEquals(3, f.player.collectionTransmit.countOf(4151))
-        val broadcasts = f.messages(f.observer).filter { it.type == 14 }
+        val broadcasts = f.messages(f.observer)
         assertEquals(2, broadcasts.size)
-        assertTrue(broadcasts[0].message.contains("Bram received 2 x Abyssal whip from Abyssal demon!"))
+        assertTrue(broadcasts.all { it.type == ChatType.GameMessage.id })
+        assertEquals("<img=19> <col=ff0000>News:</col> Bram received <col=008000>2 x Abyssal whip</col> from Abyssal demon!", broadcasts[0].message)
+        assertTrue(broadcasts[1].message.contains("1 x Abyssal whip</col> from Abyssal demon!"))
+        assertFalse(f.messages(f.player).any { it.type == ChatType.Broadcast.id })
+        assertEquals(broadcasts.map { it.message }, f.messages(f.player).filter { it.message.startsWith("<img=19>") }.map { it.message })
+        assertTrue((f.observer.client as RecordingClient).messages.filterIsInstance<RunClientScript>().isEmpty())
         assertEquals(1, f.messages(f.player).count { it.message.startsWith("New item added") })
         repeat(30) { PlayerNotifications.pulse(f.player) }
         assertEquals(1, f.popups().size)
@@ -55,9 +61,9 @@ class CollectionLogRewardTest {
         f.log.grant(f.player, 4151, -1)
         assertEquals(1, f.player.collectionTransmit.countOf(4151))
         assertEquals(1, f.messages(f.observer).size)
-        assertTrue(f.messages(f.observer).single().message.contains("Abyssal whip!"))
+        assertTrue(f.messages(f.observer).single().message.contains("1 x Abyssal whip</col>!"))
     }
-    @Test fun `personal settings do not silence world announcements and saturated counts stay safe`() {
+    @Test fun `personal settings do not silence chat news and saturated counts stay safe`() {
         val f = Fixture()
         VarPlayerIntMapSetter.set(f.player, "varbit.option_collection_new_item", 0)
         f.log.grant(f.player, 4151, Int.MAX_VALUE)

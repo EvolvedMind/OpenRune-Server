@@ -11,7 +11,6 @@ import org.rsmod.api.player.vars.intVarBit
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
 import org.rsmod.game.type.normalize
-import org.rsmod.api.player.output.ChatType
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
@@ -59,10 +58,11 @@ public class CollectionLog @Inject constructor(private val players: PlayerList) 
         if (isNewItem) {
             onNewItemObtained(player, id)
         }
-        val quantity = if (count > 1) "$count x " else if ((type.name.firstOrNull()?.lowercaseChar() ?: ' ') in "aeiou") "an " else "a "
         val from = source?.takeIf { it.isNotBlank() }?.let { " from $it" }.orEmpty()
-        val text = "[Collection Log] ${player.displayName} received $quantity${type.name}$from!"
-        for (recipient in players) recipient.mes(text, ChatType.Broadcast)
+        // Rev-240 mod_icons frame 19 is the chat bubble. Ordinary chat avoids broadcast banners.
+        val text = "<img=19> <col=ff0000>News:</col> ${player.displayName} received " +
+            "<col=008000>$count x ${type.name}</col>$from!"
+        for (recipient in players) recipient.mes(text)
     }
 
     /** Runs the first time [objId] is added to [player]'s collection log. */
