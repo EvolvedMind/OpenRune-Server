@@ -1,0 +1,14 @@
+// 7932
+[proc,dom_end_level_ui_draw_loot](component $component, int $int1, int $int2)
+def_inv $inv = dom_lootpile;
+if ($int2 = 0) {
+    $inv = dom_lootpile_during;
+}
+// Server escrow capacity; the original client inventory definition has 28 slots.
+def_int $int4 = 40;
+while ($int4 > 0) {
+    $int4 = calc($int4 - 1);
+    if (cc_find($component, $int4) = true) {
+        ~script7933(inv_getobj($inv, $int4), inv_getnum($inv, $int4), $int1);
+    }
+}
