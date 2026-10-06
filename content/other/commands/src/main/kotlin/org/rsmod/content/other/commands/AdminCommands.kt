@@ -2,6 +2,7 @@ package org.rsmod.content.other.commands
 
 import com.github.michaelbull.logging.InlineLogger
 import com.google.inject.Injector
+import org.rsmod.content.bosses.doom.DoomTestLoot
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCM.asRSCM
@@ -658,6 +659,17 @@ constructor(
                 player.mes(
                     "Use as ::testloot npcName [count] (ex: ::testloot godwars_bandos_avatar 100)"
                 )
+                return
+            }
+            if (args[0].lowercase() in setOf("doom", "mokhaiotl", "doom_of_mokhaiotl", "dom_boss")) {
+                val count = if (args.size == 1) 100 else args[1].toIntOrNull()
+                val level = if (args.size <= 2) 8 else args[2].toIntOrNull()
+                if (args.size > 3 || count == null || count !in 1..1000 || level == null || level !in 1..1000) {
+                    player.mes("Use ::testloot doom [count: 1-1000] [delve: 1-1000]. Defaults: 100 rolls, delve 8.")
+                    return
+                }
+                injector.getInstance(DoomTestLoot::class.java).generate(player, count, level)
+                player.mes("Generated Doom loot x$count at delve $level. Active run and rewards preserved.")
                 return
             }
             if (args[0].equals("barrows", ignoreCase = true)) {
