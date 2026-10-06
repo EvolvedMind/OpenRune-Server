@@ -4,98 +4,102 @@ Persoonlijke modulaire OpenRune/RSMod/Alter-fork; behoud custom gameplay en de g
 
 ## Sessiegrenzen en snel starten
 
-- Eén taak per sessie; maak bij grotere taken eerst een kort plan. Houd antwoorden kort.
-- Begin met `git status --short` en `git branch --show-current`; behoud bestaand werk.
-- Lees daarna alleen relevante bestanden/fragmenten. Verken de repo niet opnieuw en lees lange workflowdocs alleen als de taak ze vereist.
-- Status: `PROGRESS.md`. Roadmap/ideeën: `tools/progress/roadmap.json`. Details per systeem: `docs/custom/`.
-- `CONTENT_INVENTORY.md` is gegenereerd en groot (~64 KB): nooit volledig lezen of handmatig bewerken; alleen gericht `rg`/grep gebruiken.
-- Runtime: revisie **240**. Geen protocol-, cache- of revisie-upgrades; behoud bestaande revisieconfiguratie en de gekoppelde client.
-- Wijzig geen bestaande modules buiten de opdracht. Signaleer noodzakelijke scope-uitbreiding eerst; herstel geen geparkeerde features automatisch.
-- Behoud geaccepteerde checkpoints. Geen automatische upstream-merge, oude branchimport, installatie of vervanging van live JAR/cache/playerdata.
-- Vergelijk bij upstream-overlap de bestaande en nieuwe implementatie; voorkom twee actieve handlers voor dezelfde feature.
+- Eén taak per sessie; bij grotere taken eerst een kort plan. Rond stappen binnen de opdracht zelfstandig af; houd antwoorden kort.
+- Begin met `git status --short`, `git branch --show-current` en `git log -1 --oneline`; herken detached HEAD en behoud bestaand werk.
+- Bij "continue": controleer de relevante voortgang, branch/commit en lokale diff. Verzin geen ontbrekende voortgang; signaleer tegenstrijdigheden.
+- Zoek status gericht in `PROGRESS.md`, zo nodig `CUSTOM_PROGRESS.md` en bijbehorende `docs/custom/`. Roadmap/ideeën: `tools/progress/roadmap.json`.
+- Lees alleen taakrelevante fragmenten; gebruik eerst `rg`/`rg --files`. Geen nieuwe reposcan of standaard volledige lezing van lange workflowdocs.
+- `CONTENT_INVENTORY.md` is gegenereerd (~64 KB): nooit volledig lezen of handmatig bewerken; alleen gericht `rg`/grep gebruiken.
+- Runtime blijft revisie **240**: geen protocol-, cache- of revisie-upgrades. Bestaande cache voor content opnieuw pakken mag; behoud de gekoppelde client.
+- Wijzig geen bestaande modules buiten de opdracht; signaleer noodzakelijke scope-uitbreiding. Hervat geparkeerde features alleen op gebruikersopdracht.
+- Geen automatische upstream-merge, oude branchimport of vervanging van live JAR/cache/playerdata. Vergelijk overlap voordat implementaties worden gecombineerd.
+- Delegeer alleen afgebakende onafhankelijke deeltaken met beperkte context; vermijd dubbele verkenning.
+- Bij gewijzigde featurestatus: werk de relevante status/notitie bij met branch/commit, wat werkt, exacte tests/resultaten, open punten en eerstvolgende stap.
 
 ## Architectuurkaart
 
-- `server/app`: bootstrap en game-loop; `server/shared`: plugin discovery; `server/services`: achtergrondservices.
-- `engine/`: entities, maps/routing, coroutines, eventbus, inventorytransacties en pluginbasis.
-- `api/`: gedeelde gameplay-API's: combat/bosses, players/NPCs, instances, death/loot, inventories, skills en scripts.
-- `api/net`: RSProt/Netty-protocol en login; `api/account`, `api/db`, `api/db-gateway`: accountopslag/PostgreSQL en databasewerk.
-- `or-cache/`: cachebuilder, gamevals, definities, tabellen, interfaces/CS2 en generated code; `api/generated/src` ontstaat tijdens cachegeneratie.
-- `tools/osrs-mcp`: wiki/cache/gameval-onderzoek; `tools/wiki-dumping`: data-import; `tools/progress`: inventarisgenerator.
-- Nero Studio/client/bridge heeft een afzonderlijke repository; servercode alleen bewijst geen clientcompatibiliteit.
+- `server/app`: bootstrap/game-loop; `server/shared`: plugin discovery; `server/services`: achtergrondservices.
+- `engine/`: entities, maps/routing, coroutines, eventbus, transactiekern en pluginbasis.
+- `api/`: gameplay-API's voor combat/bosses, players/NPCs, instances, death/loot, inventories, skills en scripts.
+- `api/net`: RSProt/Netty-protocol/login; `api/account`, `api/db`, `api/db-gateway`: accounts/PostgreSQL/databasewerk.
+- `or-cache/`: cachebuilder, gamevals, definities, tabellen, interfaces/CS2 en codegeneratie; `api/generated/src` wordt gegenereerd.
+- `tools/osrs-mcp`: wiki/cache/gameval-onderzoek; `tools/wiki-dumping`: import; `tools/progress`: inventarisgenerator.
+- Nero Studio/client/bridge staat in een afzonderlijke repo; servervalidatie bewijst geen clientcompatibiliteit.
 - `content/`: `areas`, `bosses`, `drops`, `events`, `generic`, `interfaces`, `other`, `quest`, `skills`, `travel`.
-- Elke module heeft `build.gradle.kts`; `settings.gradle.kts` ontdekt modules automatisch. Declareer moduledependencies expliciet.
-- `pack/` is een afzonderlijke cache/data-module; Gradle noemt deze automatisch `<parent>-pack`. Houd gamecode buiten packs om bootstrap-cirkels te voorkomen.
-- `PluginScript`-subklassen worden automatisch geladen; registreer handlers in `startup()` en injecteer services. Geen centrale lijst handmatig aanvullen.
+- `settings.gradle.kts` ontdekt `build.gradle.kts` onder `api/`, `content/`, `engine/`, `server/`; andere roots vereisen expliciete registratie. Declareer moduledependencies.
+- `pack/` is een aparte cache/data-module, automatisch genoemd `<parent>-pack`; houd gamecode erbuiten om bootstrap-cirkels te voorkomen.
+- `PluginScript`-subklassen worden automatisch geladen; registreer handlers in `startup()` en injecteer services.
 
 ## DSL's en API's
 
-De script-extensies hieronder staan in `api/script/src/main/kotlin/org/rsmod/api/script/`.
+Script-extensies hieronder: `api/script/src/main/kotlin/org/rsmod/api/script/`.
 
-- Bosses: `boss {}`, phases, abilities en effects in `api/bosses/src/main/kotlin/org/rsmod/api/bosses/dsl/` (`BossDsl.kt`, `EffectBuilders.kt`).
-  `api/bosses/src/main/kotlin/org/rsmod/api/bosses/runtime/` bevat `BossPluginScript`, `BossCombat`, `BossEncounter`; gebruik native combat/death/instance-hooks.
+- Bosses: `boss {}`, phases, abilities/effects in `api/bosses/src/main/kotlin/org/rsmod/api/bosses/dsl/` (`BossDsl.kt`, `EffectBuilders.kt`).
+  `api/bosses/src/main/kotlin/org/rsmod/api/bosses/runtime/`: `BossPluginScript`, `BossCombat`, `BossEncounter`; gebruik native combat/death/instance-hooks.
 - NPC/loc/item: `NpcScriptEventExtensions.kt`, `LocScriptEventExtensions.kt`, `HeldScriptEventExtensions.kt`: `onOpNpc1..5`, `onOpLoc1..5`, `onOpHeld1..5`, `onOpHeldU(first, second)`, `onOpLocU`.
-  Ground items en interfaces: `ObjScriptEventExtensions.kt` en `InterfaceScriptEventExtensions.kt`.
-- Dialogen: `api/player/src/main/kotlin/org/rsmod/api/player/dialogue/Dialogue.kt`; `startDialogue`, keuzes en wachtacties via `api/player/src/main/kotlin/org/rsmod/api/player/protect/ProtectedAccess.kt`.
+  Ground items/interfaces: `ObjScriptEventExtensions.kt`, `InterfaceScriptEventExtensions.kt`.
+- Dialogen: `api/player/src/main/kotlin/org/rsmod/api/player/dialogue/Dialogue.kt`; `startDialogue`/keuzes via `api/player/src/main/kotlin/org/rsmod/api/player/protect/ProtectedAccess.kt`.
 - Timers/queues: `PlayerScriptEventExtensions.kt`, `NpcScriptEventExtensions.kt`, `EngineQueueScriptEventExtensions.kt`; plannen via `ProtectedAccess` of `api/npc/src/main/kotlin/org/rsmod/api/npc/access/StandardNpcAccess.kt`.
-  De game-loop gebruikt ticks van 600 ms; `delay(1)` is één tick. Gebruik gameplayqueues/timers voor tickwerk.
-- Events: `ScriptEventExtensions.kt` biedt `onEvent`/`onProtectedEvent`; dispatch staat in `engine/events/src/main/kotlin/org/rsmod/events/EventBus.kt`. Houd featurevoorwaarden in de consument.
-- Drops: `api/drop-table/src/main/kotlin/dtx/rs/RSDropTable.kt` en `api/drop-table-plugin/src/main/kotlin/org/rsmod/api/droptable/` (`DropWeightedTableScope`, `DropChanceTableScope`, `DropGuaranteedTableScope`).
-  Kotlin gebruikt `@RegisterDropTable`; TOML staat in `content/drops/src/main/resources/drops/tables/`. Details: `docs/drops.md`; voorkom dubbele NPC-/objectregistratie.
-- Inventories: `api/invtx/` biedt `invTransaction`; instances: `api/instances/`; death/kill hooks: `api/death/`; Collection Log: `content/interfaces/collection-log/`.
+  Hun gameplay-`delay(1)` wacht één tick (600 ms); `kotlinx.coroutines.delay` gebruikt milliseconden en hoort niet in ticklogica.
+- Events: `ScriptEventExtensions.kt` biedt `onEvent`/`onProtectedEvent`; dispatch: `engine/events/src/main/kotlin/org/rsmod/events/EventBus.kt`. Bewaak voorwaarden in de consument.
+- Drops: `api/drop-table/src/main/kotlin/dtx/rs/RSDropTable.kt`; scopes: `api/drop-table-plugin/src/main/kotlin/org/rsmod/api/droptable/` (`DropWeightedTableScope`, `DropChanceTableScope`, `DropGuaranteedTableScope`).
+  Kotlin: `@RegisterDropTable`; TOML: `content/drops/src/main/resources/drops/tables/`; uitleg: `docs/drops.md`. Voorkom dubbele NPC-/objectregistratie.
+- `api/invtx/`: `invTransaction`; `api/instances/`: instances; `api/death/`: death/kill hooks; `content/interfaces/collection-log/`: Collection Log.
 
-## Kleine referenties: lees alleen het passende voorbeeld
+## Referentiemodules: kies alleen het passende voorbeeld
 
-- Boss DSL: `content/bosses/kbd/src/main/kotlin/org/rsmod/content/bosses/kbd/KingBlackDragon.kt`: compacte declaratieve attacks/phases zonder eigen encountercontroller.
-- Complexere bosses: `content/bosses/kraken` voor pools/eigendom en tests; `content/bosses/corporeal-beast` voor een extra actor; `content/bosses/araxxor` voor private lifecycle/cleanup. Geen standaardtemplate voor een eenvoudige boss.
-- Activiteit: `content/events/shooting-stars`: scripts, manager, instellingen en data gescheiden; dit is een wereldactiviteit, geen complete minigame-template.
-- Skill met data: `content/skills/fishing`: `scripts/Fishing.kt` onder de Kotlin-package en `pack/src/main/kotlin/org/rsmod/content/skills/fishing/pack/FishingTable.kt` scheiden gedrag en data.
-- Interface: `content/other/pets/src/main/kotlin/org/rsmod/content/other/pets/PetMenu.kt` plus `content/other/pets/pack/src/main/resources/pack/interfaces/pet_menu.if3`: named components, navigatie en close/logout-cleanup.
-- Drop table: `content/bosses/barrows/src/main/kotlin/org/rsmod/content/bosses/barrows/BarrowsChestDropTable.kt`: klein, echte rewardberekening/modifiers/clue-transform; zie `BarrowsLootTest`.
-- Quest: `content/quest/src/main/kotlin/org/rsmod/content/quest/area/wizardstower/ImpCatcher.kt`: native progress-varbit, journal, atomic hand-in en interactiontests.
-- Dit zijn structuurvoorbeelden; aanwezige code is geen bewijs dat iedere mechanic volledig geverifieerd is.
+Zoek genoemde bestanden alleen binnen de aangegeven module; voorbeelden zijn geen volledigheidscertificaat.
+
+- Boss DSL: `content/bosses/kbd`, `KingBlackDragon.kt`: compacte declaratieve attacks/phases zonder eigen controller.
+- Complexe lifecycle: `content/bosses/kraken` voor pools/eigendom/tests; `content/bosses/corporeal-beast` voor extra actors; `content/bosses/araxxor` voor private encounters/cleanup.
+- Activiteit: `content/events/shooting-stars`: aparte scripts, manager, instellingen en data; wereldactiviteit, geen complete minigame-template.
+- Skill met data: `content/skills/fishing`: `scripts/Fishing.kt` voor gedrag; `pack/` met `FishingTable.kt` voor data.
+- Interface: `content/other/pets`: `PetMenu.kt` plus `pack/src/main/resources/pack/` met `interfaces/pet_menu.if3`, `cs2/script/` en `cs2/symbols/`; named components en cleanup.
+- Drops: `content/bosses/barrows`, `BarrowsChestDropTable.kt` en `BarrowsLootTest`: compacte echte rewardberekening, modifiers en clue-transform.
+- Quest: `content/quest`, `ImpCatcher.kt`: native progress-varbit, journal, atomic hand-in en interactiontests.
 
 ## Commands vanuit de repo-root
 
-Bronnen: `.github/workflows/ci.yml`, `.github/workflows/release-server.yml`, root/module-builds; Java 21.
-Deze commands zijn uit source/CI gecontroleerd, niet lokaal opnieuw uitgevoerd bij het schrijven van dit bestand.
-Op Windows vervangt `.\gradlew.bat` hieronder `./gradlew`.
+Bronnen: root/module-builds, `build-logic/src/main/kotlin/meta-test-suite.gradle.kts`, `.github/workflows/ci.yml` en `release-server.yml`; Java 21.
+Commands zijn uit source/CI gecontroleerd, niet lokaal uitgevoerd voor dit document. Windows: vervang `./gradlew` door `.\gradlew.bat`.
 
 | Doel | Command |
 |---|---|
-| Alleen schone geïsoleerde checkout zonder cache | `./gradlew :or-cache:freshCache :or-cache:mergePluginGamevals` |
-| Bestaande cache, gewijzigde packs/gamevals of ontbrekende generated code | `./gradlew :or-cache:buildCache :or-cache:mergePluginGamevals` |
-| Hele project bouwen + aangesloten tests | `./gradlew assemble test` |
-| Alle aangesloten tests | `./gradlew test` |
+| Schone geïsoleerde checkout zonder cache | `./gradlew :or-cache:freshCache :or-cache:mergePluginGamevals` |
+| Bestaande cache/packs/gamevals of ontbrekende generated code | `./gradlew :or-cache:buildCache :or-cache:mergePluginGamevals` |
+| CI-build met standaardtests | `./gradlew assemble test` |
+| Alle standaard module-tests | `./gradlew test` |
+| Standaardtests plus geregistreerde extra suites | `./gradlew test docTest konsistTest` |
 | Eén bestaande module testen | `./gradlew :content:bosses:kraken:test` |
 | Runtime-JAR bouwen | `./gradlew :server:app:shadowJar` |
-| Ontbrekende RSA-sleutels genereren | `./gradlew generateRsa` |
+| Nieuw RSA-paar, alleen geïsoleerde nieuwe setup | `./gradlew generateRsa` |
 | Ontwikkelserver starten | `./gradlew run` |
 
-- Genereer cache/gamevals vóór een clean build: `api/generated/src` wordt niet meegecommit. Gebruik uitsluitend de bestaande revisie.
-- JAR-output: `server/app/build/libs/server.jar`; `shadowJar` vervangt tests niet. Start vereist passende cache, RSA, `game.yml` en centrale services.
-- Maak `game.yml` alleen uit `game.example.yml` als het ontbreekt; behoud bestaande configuratie. Start alleen een geïsoleerde testserver.
-- Gebruik `install`/`cleanInstall` niet als automatische reparatie: die kunnen configuratie, cache en sleutels vervangen/verwijderen.
-- `test` omvat de aangesloten suites; historische `src/integration`-bestanden zijn momenteel niet aangesloten. Claim daarvoor geen testdekking.
+- Cache/gamevals vóór een clean build genereren; `api/generated/src` wordt niet meegecommit. JAR: `server/app/build/libs/server.jar`; `shadowJar` vervangt tests niet.
+- Start alleen een geïsoleerde testserver met passende cache, RSA, `game.yml` en services; kopieer `game.example.yml` alleen wanneer `game.yml` ontbreekt.
+- `generateRsa` schrijft beide sleutels zodra één ontbreekt: controleer/herstel een bestaand geldig paar. `install`/`cleanInstall` niet als automatische reparatie gebruiken.
+- `test` omvat geen `docTest`/`konsistTest`; historische `src/integration`-tests zijn niet aangesloten. Claim alleen daadwerkelijk uitgevoerde validatie.
 
 ## Definitie van klaar
 
-- Boss: toegang/requirements, volledige afgesproken encounter/attacks/fases, reset/respawn, correcte native drops, Collection Log, kill count en relevante Slayer-/timerintegratie.
-- Minigame/activiteit: toegang, deelname, start/voortgang/winst/verlies, individuele/groepsstate, herhalen, rewards en toepasselijke Collection Log/completion count.
-- Skill: afgesproken trainbare loop, levels/XP, input/output, success/failure, resources/respawn, unlocks/UI en toepasselijke rewards/progressie.
-- Voor alle types: ownership en cleanup bij einde, death, logout en verlaten; geen dubbele beloningen, achterblijvende NPCs/objects/timers of onbedoelde invloed op andere spelers.
-- Relevante tests moeten slagen: echte interactie/eventketen, volle inventory/rollback, herhaalde actie, onderbreking en save/load waar state wijzigt; build en geïsoleerde boot passend bij de wijziging.
-- **In-game acceptatie doet de gebruiker.** Lever korte concrete teststappen; markeer resterende scope en onbewezen gedrag. Werk `PROGRESS.md` en relevante detaildocs bij.
+Pas criteria toe op de afgesproken nieuwe/gewijzigde functionaliteit; herkwalificeer een bestaande feature alleen waar de wijziging haar raakt.
+
+- Boss: toegang/requirements, afgesproken encounter/attacks/fases, reset/respawn, native drops, Collection Log, kill count en relevante Slayer-/timerintegratie.
+- Minigame/activiteit: toegang, deelname, volledige cyclus/herhaling en rewards; winst/verlies, groepsstate, Collection Log/completion count waar van toepassing.
+- Skill: afgesproken trainingsloop, levels/XP, input/output, success/failure, resources/respawn, unlocks/UI en relevante progressie.
+- Cleanup: bij einde/death/logout/vertrek alleen betrokken speler-/encounterstate, actors en timers opruimen. Gedeelde wereldcontent volgt haar eigen lifecycle.
+- Valideer de gewijzigde interactie/eventketen en relevante risico's: rollback/volle inventory, dubbele beloning, onderbreking, save/load. Begin bij moduletests; verbreed bij gedeelde effecten.
+- Build/boot passend bij de wijziging; geen volledige testcyclus voor alleen documentatie. **In-game acceptatie doet de gebruiker**; geef korte teststappen en vermeld onbewezen gedrag.
 
 ## Valkuilen en conventies
 
-- Gebruik bestaande gamevalsymbolen (`npc.*`, `loc.*`, `obj.*`, enz.). Vergelijk identiteiten via resolved IDs, niet via display-/internal-name-strings; aliassen kunnen verschillen.
-- Nieuwe symbolen horen in `src/main/resources/gamevals.toml` van de contentmodule; controleer ID-conflicten en regenereer mappings/cache. Raad geen IDs of clientscript-signatures.
-- Basisstate via varbits/varps; persistentie via permanente native state/inventoryvars. Attrs alleen voor data die daarin niet past; runtime-objectreferenties niet opslaan.
-- Verbruik en beloning moeten samen slagen via inventorytransacties. Publiceer XP/completion pas na succesvolle output; bescherm stale itemreferences en bezitbeperkingen.
-- Test producer én consument: zelf een verwacht event publiceren bewijst geen echte skillactie. Bewaar onafhankelijke encounter-/puzzelvoortgang afzonderlijk.
-- Controleer bestaande verkrijgingsroutes bij nieuwe rewards. `Drops Need Manual` en `condition { true }` zijn geen uitgewerkte voorwaarden; bestaande 1/1-casketdrops verdienen expliciete controle.
-- Behoud normale NPC/loc/dig-fallback bij featurehooks; verwijder registraties en eigen NPCs/queues bij cleanup/unload.
-- Interfaces gebruiken actuele `.if3`/CS2 en named components; de oude `SpawnInterface.kt`/`buildInterface()`-verwijzingen zijn hier geen werkende template.
-- Mutabele game-entities horen op de game-thread; maak snapshots voordat achtergrondwerk ermee werkt. Onderzoek gedeelde databaseverbindingen voordat je parallelle saves toevoegt.
-- De inventarisgenerator heeft een valkuil: `--check` schrijft `CONTENT_INVENTORY.md` alsnog en controleert alleen het README-blok; behandel dit niet als read-only validatie.
+- Gebruik bestaande `npc.*`, `loc.*`, `obj.*` enz.; vergelijk resolved IDs, geen display-/internal-name-strings. Aliassen kunnen verschillen.
+- Zoek mappings gericht in de betrokken `gamevals.toml` en `.data/gamevals/`; binaire bron: `.data/gamevals-binary/`. Volg bestaande plaatsing in content- of packmodule.
+- Een nieuwe symboolmapping vervangt geen definitie in `pack/configs/`: controleer IDs, varp-scope/varbit-bits en regenereer mappings/cache. Generated files niet handmatig editen.
+- Blijvende voortgang: permanente native vars/inventoryvars. Tijdelijke encounterstate mag in de eigen controller leven; serialiseer geen entityreferenties/callbacks.
+- Verbruik en beloning samen via `invTransaction`; XP/completion pas na succesvolle output. Bewaak stale itemreferences, bezit en onafhankelijke puzzel-/encounterstate.
+- Test producer én consument; een zelf gepubliceerd verwacht event bewijst geen echte skillactie. Controleer bestaande rewardroutes en placeholders zoals `Drops Need Manual`/`condition { true }`.
+- Behoud normale NPC/loc/dig-fallback. Verwijder handlerregistraties bij plugin-unload, niet bij het einde van één encounter.
+- Controleer `.if3`, CS2-init en symbolen samen; hergebruik native frame-/button-procs. Raad geen IDs/signatures; `SpawnInterface.kt`/`buildInterface()` is hier geen werkende template.
+- Houd mutaties van game-entities op de game-thread; maak snapshots voor achtergrondwerk. Onderzoek gedeelde databaseverbindingen vóór parallelle saves.
+- Inventarisgenerator: `--check` schrijft `CONTENT_INVENTORY.md` alsnog en controleert alleen het README-blok; dit is geen read-only validatie.
