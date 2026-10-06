@@ -282,6 +282,7 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 ### 2026-10-05 - Clue commands corrected; clue development parked
 - Bare ::cluetest box/casket/scroll now supply beginner items. Help uses square brackets because the client interprets angle brackets as markup. Explicit tiers remain supported.
 - Validation: 55 Treasure Trails tests pass, including all three bare commands. Clues remain 40/60 skill tasks; remaining clue work and Mimic are parked at the user request. Next work: NPC combat-effect HUD, then reviewed upstream Doom integration.
+<<<<<<< HEAD
 
 ### 2026-10-06 - Doom integration and NPC stat HUD test candidate
 - Integrated upstream fc10877fd into a dedicated Doom module/pack: delves 1-8/deep 9+, rotations, rocks/shockwaves, larvae, demonic shield/beam, burrow rush/slams, acid/venom and holy water; native instance entry and reward/chest interfaces. Existing accepted boss scripts, weapon rules and revision 240 remain in place.
@@ -293,3 +294,5 @@ User explicitly requests full hunts, steps and puzzles, with master Mimic chance
 - Previous installed baseline verified read-only: 684 files, zero hash differences. Test distribution: outputs/doom-update-20261006/INSTALLEREN.cmd, hash preflight, checkpoint and TERUGZETTEN.cmd; player database excluded. No live installation or main merge performed.
 - Work is split into API prerequisites, Doom encounter/storage, commands, injector fix and documentation commits. Upstream review and deferred optional changes are in docs/custom/upstream-review-20261006.md.
 - The isolated startup passes with zero exit and scoped process/database cleanup; it also reproduces the pre-existing concurrent DB-close warning. Save/drain ordering is not certified here. Upstream #281 is documented as a separate persistence follow-up.
+=======
+>>>>>>> 1275671a7
