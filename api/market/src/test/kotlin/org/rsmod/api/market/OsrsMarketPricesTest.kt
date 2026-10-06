@@ -52,6 +52,21 @@ class OsrsMarketPricesTest {
         assertEquals(DefaultMarketPrices()[whip], prices[whip])
         assertEquals(72000, whip.highAlch)
     }
+    @Test fun `GE only lookup normalizes notes but never substitutes fallback or stale prices`() {
+        val prices = OsrsMarketPrices()
+        val whip = ServerCacheManager.getItem(4151)!!
+        val note = ServerCacheManager.getItem(whip.certlink)!!
+        assertNull(prices.gePrice(whip))
+        assertNotNull(prices.price(whip))
+        prices.refresh({ quote("1000000", "1000000") }, now)
+        assertEquals(1_000_000L, prices.gePrice(whip))
+        assertEquals(1_000_000L, prices.gePrice(note))
+        assertNull(prices.gePrice(ServerCacheManager.getItem(1735)!!))
+        assertNull(prices.gePrice(ServerCacheManager.getItem(995)!!))
+        prices.refresh({ quote("1000000", "1000000", now - 90000) }, now - 90000)
+        assertNull(prices.gePrice(whip))
+        assertNotNull(prices.price(whip))
+    }
     companion object {
         @JvmStatic @BeforeAll fun cache() { ServerCacheManager.init(240).close() }
     }

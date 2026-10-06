@@ -322,3 +322,24 @@ User-requested follow-up on feature/small-extensions / draft PR #24. Examine is 
 ## 2026-10-06 - Collection Log chat-wide news
 
 User corrected the display requirement: chat-wide News lines, not world-broadcast banners. CollectionLog now sends ordinary game-message type 0 to all online players, with native grey chat bubble, red News label and green quantity/item. Counts, source context, personal first-unlock settings/popups and Doom testloot registration remain intact. Code 06b7bfd2b on feature/small-extensions / draft PR #24. 58 targeted tests, runtime JAR and isolated startup pass. Installed small-extensions-fixes baseline matched all 821 hashes. Latest collection-chat-news-20261006 installer has its own checkpoint/rollback; in-game acceptance and merge pending.
+
+
+## 2026-10-06 - Clue guardian progression and quieter chat news
+
+- Branch fix/clue-guardian-completion, based on preserved PR #24 head aa09c7c77.
+- Guardian code b46489dc0: retain same-cycle dead-NPC ownership through native deletion
+  before credited kill; require every guardian, then redig advances or grants one casket.
+  Alive removal, wrong owner, logout/death and expired metadata do not grant completion.
+- News code ae719442c: pets always qualify; other Collection Log rewards require fresh
+  GE unit price >= 1,000,000 gp. Stack totals/cache fallback do not qualify; cheap items log.
+- 134 selected tests pass (61 clues, 6 market, 8 log, 35 Doom, 4 drops, 15 pets, 5 output).
+  Full runtime build and isolated gameplay-smoke-abca7326 startup pass with paired Nero.
+  JAR SHA-256 0de5d5bdfa79d8890d6b3775dfd4d2f3466b80938b7c2f67a6cd3eefb03bc84a.
+- Latest combined installer outputs/clue-guardian-fix-20261006/INSTALLEREN.cmd;
+  separate checkpoint/rollback, installed baseline verified at 821 hashes. No live install
+  or merge. In-game acceptance pending; clues stay parked at 40/60 and Mimic remains last.
+- Research completed: upstream PR #282 native test harness and commit 779b81b / PR #286
+  level-up dialogues/jingles/fireworks. No imports. Harness needs scoped custom bootstrap;
+  #286 CI reports 2/42 combat integration failures with Guice/MockK exceptions.
+- Details: docs/custom/clue-guardians.md, docs/custom/small-extensions.md,
+  docs/custom/upstream-pr-282-test-harness.md, docs/custom/upstream-level-up-779b81b.md.

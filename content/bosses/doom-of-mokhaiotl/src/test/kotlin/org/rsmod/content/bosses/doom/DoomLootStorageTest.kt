@@ -98,7 +98,9 @@ class DoomLootStorageTest {
     private fun fixture(players: PlayerList = PlayerList()): DoomLoot {
         val ctx = ScriptContext(EventBus(), CheatCommandMap(), EngineQueueCache())
         with(InvTransactionsScript(PlayerItemStorage(emptySet()))) { ctx.startup() }
-        return DoomLoot(org.rsmod.content.interfaces.collectionlog.CollectionLog(players), mock(DoomDelves::class.java), mock(MarketPrices::class.java), mock(DoomRewards::class.java),
+        val prices = mock(MarketPrices::class.java)
+        `when`(prices.gePrice(ServerCacheManager.getItem(4151)!!)).thenReturn(1_000_000L)
+        return DoomLoot(org.rsmod.content.interfaces.collectionlog.CollectionLog(players, prices), mock(DoomDelves::class.java), prices, mock(DoomRewards::class.java),
             mock(InstanceManager::class.java), PlayerList(), mock(DoomStats::class.java))
     }
     private class RecordingClient : Client<Any, Any> {

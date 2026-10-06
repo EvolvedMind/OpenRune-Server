@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.api.market)
     implementation(projects.api.pluginCommons)
     implementation(projects.engine.utilsBits)
     testImplementation(libs.rsprot.api)

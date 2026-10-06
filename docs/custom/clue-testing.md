@@ -31,3 +31,11 @@ whole set. A held or banked clue of the same tier prevents a new test scroll;
 finish or manually drop it before creating another one. Random scrolls can still
 select unimplemented routes; these commands are development tools, not a claim
 that Treasure Trails is complete. Mimic is not implemented.
+
+## Guardian dig regression
+
+The focused guardian fix is on `fix/clue-guardian-completion`: [details and test flow](clue-guardians.md).
+Use an existing coordinate clue, defeat every guardian, then dig again for the next step or
+final reward casket. `::cluetest scroll hard coordinate` plus `::cluekit` supplies a fresh
+coordinate test when no hard clue is held/banked. This does not resume the remaining clue
+implementation or Mimic.

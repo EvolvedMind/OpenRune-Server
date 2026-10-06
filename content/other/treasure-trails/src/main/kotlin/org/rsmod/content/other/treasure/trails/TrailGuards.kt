@@ -5,6 +5,7 @@ import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import java.util.IdentityHashMap
 import org.rsmod.api.death.*
+import org.rsmod.api.game.process.GameLifecycle
 import org.rsmod.api.npc.apPlayer2
 import org.rsmod.api.npc.interact.AiPlayerInteractions
 import org.rsmod.api.player.output.mes
@@ -47,21 +48,30 @@ internal class TrailGuards @Inject constructor(
     private val interactions: AiPlayerInteractions,
     private val random: GameRandom,
 ) : PluginScript() {
-    private data class Guard(val player: Player, val row: Int, val total: Int, val completed: Int)
+    private class Guard(val player: Player, val row: Int, val total: Int, val completed: Int, var remaining: Int)
     private val guards = IdentityHashMap<Npc, Guard>()
+    private val deletedGuards = IdentityHashMap<Npc, Guard>()
     override fun ScriptContext.startup() {
         onPlayerLogout { clear(player) }
-        onEvent<NpcStateEvents.Delete> { guards.remove(npc) }
+        onEvent<NpcStateEvents.Delete> {
+            val guard = guards.remove(npc) ?: return@onEvent
+            // Native death deletes temporary NPCs before dispatching the credited kill hooks.
+            if (npc.hitpoints == 0) deletedGuards[npc] = guard
+        }
+        // Kill hooks follow deletion synchronously; uncredited removals must not retain players.
+        onEvent<GameLifecycle.LateCycle> { deletedGuards.clear() }
     }
     fun owner(npc: Npc): Player? = guards[npc]?.player
     fun requireFight(player: Player, active: ActiveTrail): Boolean {
         val encounters = active.clue.fields.ints("combat_encounter")
         if (encounters.isEmpty() || active.state.phase == 5) return false
-        if (guards.values.any { it.player === player && it.row == active.state.row && it.completed == active.state.completed }) return true
+        if (guards.values.any { it.player === player && it.row == active.state.row && it.total == active.state.total && it.completed == active.state.completed }) return true
         val encounter = progress.catalog.fields(encounters[random.of(encounters.size)])
+        val types = encounter.ints("npcs")
+        if (types.isEmpty()) return false
         if (!progress.phase(player, active.slot, active.item, 4)) return true
-        val owner = Guard(player, active.state.row, active.state.total, active.state.completed)
-        encounter.ints("npcs").forEachIndexed { index, id ->
+        val owner = Guard(player, active.state.row, active.state.total, active.state.completed, types.size)
+        types.forEachIndexed { index, id ->
             val npc = Npc(checkNotNull(ServerCacheManager.getNpc(id)), player.coords.translate(index % 2 + 1, index / 2))
             guards[npc] = owner
             repo.add(npc, 1000)
@@ -71,16 +81,20 @@ internal class TrailGuards @Inject constructor(
         return true
     }
     fun killed(player: Player, npc: Npc) {
-        val owner = guards.remove(npc) ?: return
-        if (owner.player !== player || guards.values.any { it == owner }) return
+        val owner = guards[npc] ?: deletedGuards[npc] ?: return
+        if (owner.player !== player) return
+        guards.remove(npc)
+        deletedGuards.remove(npc)
+        if (--owner.remaining > 0) return
         val slot = player.inv.objs.indexOfFirst { item ->
             item != null && progress.state(item)?.let { it.row == owner.row && it.total == owner.total && it.completed == owner.completed && it.phase == 4 } == true
         }
         if (slot >= 0 && progress.phase(player, slot, player.inv[slot]!!, 5)) player.mes("The guardian has been defeated. You can now continue your clue.")
     }
     fun clear(player: Player) {
+        deletedGuards.entries.removeIf { it.value.player === player }
         val npcs = guards.entries.filter { it.value.player === player }.map { it.key }
         for (npc in npcs) { guards.remove(npc); repo.del(npc, Int.MAX_VALUE) }
     }
-    override fun ScriptContext.shutdown() { guards.values.map { it.player }.distinct().forEach(::clear) }
+    override fun ScriptContext.shutdown() { (guards.values + deletedGuards.values).map { it.player }.distinct().forEach(::clear) }
 }

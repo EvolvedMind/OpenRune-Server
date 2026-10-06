@@ -20,6 +20,7 @@ import org.rsmod.api.droptable.DropRollItem
 import org.rsmod.api.droptable.DropTableRegistry
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
+import org.rsmod.api.market.MarketPrices
 import org.rsmod.api.random.GameRandom
 import org.rsmod.api.repo.obj.ObjRepository
 import org.rsmod.content.interfaces.collectionlog.CollectionLog
@@ -68,7 +69,9 @@ class NpcRewardBroadcastTest {
             `when`(registry.forNpc(npc, checker)).thenReturn(table)
             if (!consumed) `when`(repository.add(symbol, coords, constants.lootdrop_duration, player, 1)).thenReturn(Obj.fromOwner(player, coords, symbol, 1))
             val players = PlayerList().apply { this[1] = player; this[2] = observer }
-            hook = NpcDropTableKillHook(CollectionLog(players), registry, checker, repository, mock(GameRandom::class.java),
+            val prices = mock(MarketPrices::class.java)
+            `when`(prices.gePrice(ServerCacheManager.getItem(4151)!!)).thenReturn(1_000_000L)
+            hook = NpcDropTableKillHook(CollectionLog(players, prices), registry, checker, repository, mock(GameRandom::class.java),
                 if (consumed) setOf(NpcDeathDropHook { true }) else emptySet())
         }
         fun broadcasts() = (observer.client as RecordingClient).messages.filterIsInstance<MessageGame>()

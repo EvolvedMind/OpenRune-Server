@@ -4,6 +4,7 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
 import org.rsmod.api.invtx.invAdd
+import org.rsmod.api.market.MarketPrices
 import org.rsmod.api.player.output.ClientScripts
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
@@ -15,12 +16,16 @@ import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
 @Singleton
-public class CollectionLog @Inject constructor(private val players: PlayerList) {
+public class CollectionLog @Inject constructor(
+    private val players: PlayerList,
+    private val marketPrices: MarketPrices,
+) {
     private companion object {
         const val LATEST_ITEM_SLOT_COUNT = 12
         const val CHAT_MESSAGE_ENABLED_MASK = 1 shl 0
         const val POPUP_ENABLED_MASK = 1 shl 1
         const val EMPTY_SLOT = -1
+        const val NEWS_MINIMUM_GE_PRICE = 1_000_000L
     }
 
 
@@ -51,13 +56,16 @@ public class CollectionLog @Inject constructor(private val players: PlayerList) 
         }
         val previous = player.collectionTransmit.countOf(id)
         val isNewItem = previous == 0
-        // Saturate permanent counts rather than overflowing; repeat rewards still broadcast.
+        // Saturate permanent counts rather than overflowing; qualifying repeats still broadcast.
         val increment = count.coerceAtMost(Int.MAX_VALUE - previous)
         if (increment > 0 && !player.invAdd(player.collectionTransmit, id, increment).success) return
         checkCategoryCompletion(player, id)
         if (isNewItem) {
             onNewItemObtained(player, id)
         }
+        // News uses unit GE value, never stack totals or the cache-value fallback.
+        if (!CollectionLogItems.isPet(id) &&
+            (marketPrices.gePrice(type) ?: 0L) < NEWS_MINIMUM_GE_PRICE) return
         val from = source?.takeIf { it.isNotBlank() }?.let { " from $it" }.orEmpty()
         // Rev-240 mod_icons frame 19 is the chat bubble. Ordinary chat avoids broadcast banners.
         val text = "<img=19> <col=ff0000>News:</col> ${player.displayName} received " +
