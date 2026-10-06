@@ -24,7 +24,6 @@ public object ClientScripts {
     public fun settingsSetDrawDistance(player: Player): Unit = player.runClientScript("clientscript.[clientscript,settings_set_draw_distance]".asRSCM(RSCMType.CLIENTSCRIPT))
 
     private const val LOOTTRACKER_ADD_LOOT_SCRIPT: Int = 7192
-    private const val NOTIFICATION_DISPLAY_INIT_SCRIPT: Int = 3343
     private const val DEFAULT_NOTIFICATION_COLOUR: Int = 0xff981f
 
     public fun notificationDisplay(
@@ -32,7 +31,7 @@ public object ClientScripts {
         title: String,
         text: String,
         colour: Int = DEFAULT_NOTIFICATION_COLOUR,
-    ): Unit = player.runClientScript(NOTIFICATION_DISPLAY_INIT_SCRIPT, title, text, colour)
+    ): Unit = PlayerNotifications.enqueue(player, title, text, colour)
 
     public fun lootTrackerAddLoot(
         player: Player,
