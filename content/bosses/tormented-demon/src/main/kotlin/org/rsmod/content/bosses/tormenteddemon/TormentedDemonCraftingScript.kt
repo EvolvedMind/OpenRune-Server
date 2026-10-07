@@ -1,5 +1,7 @@
 package org.rsmod.content.bosses.tormenteddemon
 
+import dev.openrune.rscm.RSCM.asRSCM
+import org.rsmod.api.invtx.*
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.craftingLvl
 import org.rsmod.api.player.stat.fletchingLvl
@@ -18,8 +20,7 @@ class TormentedDemonCraftingScript : PluginScript() {
     }
 
     private fun ProtectedAccess.combineBurningClaws() {
-        if (invDel(inv, "obj.bone_claw", 2).success) {
-            invAdd(inv, "obj.bone_claws", 1)
+        if (craft(listOf("obj.bone_claw" to 2), "obj.bone_claws")) {
             mes("You bring the two claws together and combine them.")
         }
     }
@@ -56,8 +57,7 @@ class TormentedDemonCraftingScript : PluginScript() {
         soundSynth(3771)
         delay(4)
 
-        if (invDel(inv, "obj.tormented_synapse", 1).success && invDel(inv, "obj.arclight", 1).success) {
-            invAdd(inv, "obj.emberlight", 1)
+        if (craft(listOf("obj.tormented_synapse" to 1, "obj.arclight" to 1), "obj.emberlight")) {
             statAdvance("stat.smithing", 730.0)
             objbox("obj.emberlight", "The synapse fuses with the blade, and Emberlight is complete.")
         }
@@ -78,12 +78,8 @@ class TormentedDemonCraftingScript : PluginScript() {
         soundSynth(3771)
         delay(4)
 
-        val consumed =
-            invDel(inv, "obj.tormented_synapse", 1).success &&
-                invDel(inv, "obj.iron_bar", 1).success &&
-                invDel(inv, "obj.battlestaff", 1).success
+        val consumed = craft(listOf("obj.tormented_synapse" to 1, "obj.iron_bar" to 1, "obj.battlestaff" to 1), "obj.purging_staff")
         if (consumed) {
-            invAdd(inv, "obj.purging_staff", 1)
             statAdvance("stat.crafting", 730.0)
             statAdvance("stat.smithing", 13.0)
             objbox("obj.purging_staff", "The synapse fuses with the staff, and it starts to purge.")
@@ -105,14 +101,18 @@ class TormentedDemonCraftingScript : PluginScript() {
         soundSynth(3771)
         delay(2)
 
-        if (invDel(inv, "obj.tormented_synapse", 1).success &&
-            invDel(inv, "obj.unstrung_magic_longbow", 1).success
-        ) {
-            invAdd(inv, "obj.scorching_bow", 1)
+        if (craft(listOf("obj.tormented_synapse" to 1, "obj.unstrung_magic_longbow" to 1), "obj.scorching_bow")) {
             statAdvance("stat.fletching", 730.0)
             objbox("obj.scorching_bow", "The synapse fuses with the bow, and it starts to smoulder.")
         }
     }
+
+    private fun ProtectedAccess.craft(inputs: List<Pair<String, Int>>, output: String): Boolean =
+        player.invTransaction(inv) {
+            val target = select(inv)
+            for ((item, count) in inputs) delete(target, item.asRSCM(), count)
+            add(target, output.asRSCM(), 1)
+        }.success
 
     private fun ProtectedAccess.hasHammer(): Boolean =
         inv.contains("obj.hammer") ||
