@@ -1,0 +1,79 @@
+[gamevals.varp]
+farming_patch_00 = 65440
+farming_patch_01 = 65441
+farming_patch_02 = 65442
+farming_patch_03 = 65443
+farming_patch_04 = 65444
+farming_patch_05 = 65445
+farming_patch_06 = 65446
+farming_patch_07 = 65447
+farming_patch_08 = 65448
+farming_patch_09 = 65449
+farming_patch_10 = 65450
+farming_patch_11 = 65451
+farming_patch_12 = 65452
+farming_patch_13 = 65453
+farming_patch_14 = 65454
+farming_patch_15 = 65455
+farming_patch_16 = 65456
+farming_patch_17 = 65457
+farming_patch_18 = 65458
+farming_patch_19 = 65459
+farming_clock = 65439
+
+[gamevals.timer]
+farming_transmit = 120
+
+[gamevals.dbtable]
+farming_crop = 65478
+farming_patch = 65479
+
+# Retain crop row IDs: the permanent crop index is row ID minus 62399 (not table order).
+[gamevals.dbrow]
+farming_potato = 62400
+farming_onion = 62401
+farming_cabbage = 62402
+farming_tomato = 62403
+farming_sweetcorn = 62404
+farming_strawberry = 62405
+farming_watermelon = 62406
+farming_marigold = 62407
+farming_rosemary = 62408
+farming_nasturtium = 62409
+farming_woad = 62410
+farming_limpwurt = 62411
+farming_guam = 62412
+farming_marrentill = 62413
+farming_tarromin = 62414
+farming_harralander = 62415
+farming_ranarr = 62416
+farming_toadflax = 62417
+farming_irit = 62418
+farming_avantoe = 62419
+farming_kwuarm = 62420
+farming_snapdragon = 62421
+farming_cadantine = 62422
+farming_lantadyme = 62423
+farming_dwarf_weed = 62424
+farming_torstol = 62425
+farming_snape_grass = 62426
+farming_veg_patch_1 = 62430
+farming_veg_patch_2 = 62431
+farming_flower_patch_1 = 62432
+farming_herb_patch_1 = 62433
+farming_veg_patch_3 = 62434
+farming_veg_patch_4 = 62435
+farming_flower_patch_2 = 62436
+farming_herb_patch_2 = 62437
+farming_veg_patch_5 = 62438
+farming_veg_patch_6 = 62439
+farming_flower_patch_3 = 62440
+farming_herb_patch_3 = 62441
+farming_veg_patch_7 = 62442
+farming_veg_patch_8 = 62443
+farming_flower_patch_4 = 62444
+farming_herb_patch_4 = 62445
+farming_veg_patch_10 = 62446
+farming_veg_patch_11 = 62447
+farming_flower_patch_5 = 62448
+farming_herb_patch_6 = 62449
