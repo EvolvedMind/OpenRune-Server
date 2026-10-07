@@ -5,7 +5,8 @@ Status: VERIFIED for covered regressions / USER ACCEPTED on 2026-10-04.
 The user accepted the initial private runtime (`b87051471`) on 2026-10-04.
 The user also accepted completion build `f7c349c0e` and approved PR #16 for merge.
 The initial checkpoint and its rollback remain preserved.
-Accepted baseline: `6168204ee` / merged main `8b974210c`; specials remain parked.
+Implementation started from `6168204ee` / merged main `8b974210c`.
+Current project status and runtime: [PROGRESS.md](../../PROGRESS.md), [baseline](baseline.md).
 
 ## Implemented first chunk
 

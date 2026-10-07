@@ -1,5 +1,5 @@
 {
-  "_comment": "module: where it should live, missing on disk = red. rscmPrefixes: symbol prefixes in dump.npc. contentTags: content.* groups. Both optional. wiki: page to pull sub-features from.",
+  "_comment": "module/engine: source location to inspect. rscmPrefixes: NPC symbol prefixes in dump.npc; contentTags: content.* groups. Both are optional reference hints. wiki: catalog page link. Presence is not verified gameplay or completeness.",
   "_comment2": "Wiki-titled features match modules by normalised name. Only add an alias when that fails.",
   "aliases": {
     "King Black Dragon": "kbd"

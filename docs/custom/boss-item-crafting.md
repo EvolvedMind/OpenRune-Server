@@ -1,5 +1,8 @@
 # Corp and Zulrah item assembly
 
+Current status: [PROGRESS.md](../../PROGRESS.md). Araxyte/elder venator fang etching
+and the preserved Rancour/rupture recipes are documented with [Araxxor](araxxor.md#fang-etching-follow-up).
+
 Requested direct inventory recipes:
 - Spirit shield + holy elixir -> blessed spirit shield.
 - Blessed spirit shield + spectral/arcane/elysian sigil -> matching shield.
@@ -34,4 +37,7 @@ References: OSRS Wiki Toxic blowpipe and Magic fang; revision-240 cache item men
 and existing crafting database recipes. The native menu distinguishes Restore,
 Uncharge and Dismantle; these operations retain their distinct meanings.
 
-Validation: 60 crafting and special-weapon tests pass, both module formatting checks pass, and the full server JAR builds. Isolated server startup, bridge request and clean shutdown pass. Merge is authorized by the user; in-game verification of these new recipes remains pending.
+Recorded validation (2026-10-04): 60 crafting/special-weapon tests, both module formatting
+checks, full server JAR and isolated startup/bridge/shutdown passed. The user authorized
+merge; no later in-game acceptance of these new recipes is recorded. Preserve that open
+acceptance item rather than treating the build or merge as a gameplay check.

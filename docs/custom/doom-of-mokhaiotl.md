@@ -1,5 +1,8 @@
 # Doom of Mokhaiotl
 
+Current status: [PROGRESS.md](../../PROGRESS.md). Accepted source and paired recovery
+package: [baseline](baseline.md).
+
 Origin: UPSTREAM + CUSTOM EXTENSIONS. Integrated from
 [OpenRune fc10877fd (Doom #275)](https://github.com/OpenRune/OpenRune-Server/commit/fc10877fd39600637506de645f584467c11039c3),
 with the required expanded boss DSL from #268/#269. Revision remains 240.
@@ -45,21 +48,21 @@ run. Prior claimed rewards remain in the chest for collection.
 - `::testdoom`: teleport to the lobby, then use the native gap to enter.
 - `::testloot doom`: 100 ground-sample kills at delve 8.
 - `::testloot doom 100 3`: 100 rolls at delve 3; counts/delves 1-1000.
-- `::doomsim 100 8`: the same safe ground sampler.
+- `::doomsim 100 8`: ground samples without Collection Log grants; run state/counters stay intact.
 
 Use melee/demonbane equipment for the shield mechanics. Samples alone cannot
 validate rotations or timings; test shallow, shield, burrowing and deep delves,
 then claiming, chest collection, death, leaving and starting another run.
 
-## Validation and status
+## Recorded validation — 2026-10-06
 
 326 selected server tests and 89 Nero tests pass. The isolated candidate starts,
 publishes live bridge snapshots, exposes the game listener and exits with its
 isolated database cleaned up. Automated suites cover delve/spec/rotation rules, real-cache symbol resolution,
 reward scaling and run-state restoration, atomic storage, administrator dispatch
 and boss DSL behaviour. The paired Nero update displays actual current/base NPC
-combat-stat changes and fixes the three bare clue-item commands. Clues remain
-parked at 40/60; Mimic is not implemented.
+combat-stat changes and includes the three bare clue-item command fixes.
+That package includes a partial clue milestone, not complete Treasure Trails.
 
 The release evidence records the exact JAR/cache/plugin hashes and isolated
 startup results. The existing concurrent database-close warning remains a
@@ -70,5 +73,5 @@ this acceptance is not a claim of exhaustive OSRS parity.
 
 Merged on 2026-10-06: server PR #23 / c2ccd5c762f98fa24568b66458edad814be1c1f0;
 paired Nero PR #11 / 85af63cedb2067b3b82c63ed86b0e55048c0399d.
-Runtime sources remain those of the accepted package; later changes only
-record acceptance, preserve roadmap/instructions and update CI server pins.
+Those merges identify the Doom/HUD checkpoint. Later gameplay changes, including
+the testloot logging correction, are tracked in [baseline](baseline.md).

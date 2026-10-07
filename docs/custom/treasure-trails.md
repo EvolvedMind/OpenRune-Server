@@ -1,163 +1,138 @@
-# Treasure Trails - implementation in progress
+# Treasure Trails implementation
 
-User scope: full trails, including steps and puzzles; scroll boxes must produce
-clue scrolls, not rewards. Master caskets can produce a Mimic encounter.
-The accepted boss/item-crafting runtime is unchanged. This branch is not a release.
+Origin: custom implementation over native clue cache rows, interfaces, inventory
+transactions and skill events.
 
-## Implemented foundation
+Current work and priorities: [PROGRESS.md](../../PROGRESS.md).
+Task-by-task support: [coverage](clue-task-coverage.md).
+The requested scope is full hunts, steps and puzzles: scroll boxes create clue scrolls.
+Master-casket Mimic eligibility and the encounter come after the remaining clue gameplay.
 
-- `::testloot kraken`, default 100 rolls, bounded 1-1000; native Kraken drop table.
-- Cache-backed catalog: 997 non-tutorial clue/challenge records, all six tiers.
-  Catalog coverage is not gameplay completion coverage.
-- Atomic box-to-scroll conversion and item-local persistent step progress.
-- Location/NPC/dig dispatch, equipment/stat checks, numeric challenge answers,
-  key consumption and kill-based key collection.
-- Sliding and light puzzle logic, native interfaces and item-owned board state.
-- Physical puzzle boxes are issued atomically, reopen from inventory and remain
-  associated with their clue after item serialization. Hand-in consumes only the
-  matching box; a full inventory cannot partially issue a puzzle or change its phase.
-- Eight explicitly named cache map interfaces are linked to their matching clue
-  items (easy 006, hard 006-007, medium 008-012). Remaining map associations are
-  unresolved; map clue coverage is not complete.
-- Guardian ownership and kill association, emote ordering/Uri and hot/cold devices.
-- Music clues check the requested currently playing track at Cecilia. Charlie's
-  eight hand-ins consume the requested item atomically. Six Sherlock gathering
-  tasks and two crafting tasks use successful skilling events after assignment.
-  Elite Sherlock introductions assign a persistent task without advancing the trail;
-  revisiting or reloading cannot reroll that assignment. Remaining tasks are tracked in
-  [clue-task-coverage.md](clue-task-coverage.md).
-- Master runite, anglerfish and redwood tasks require all outfit pieces in their
-  correct worn slots at production time, supporting mixed accepted variants.
-  Bonus products do not complete tasks; removing gear afterwards preserves success.
-- Sherlock combat tasks recognize ordinary dust devils, Slayer Tower nechryaels
-  and overworld lizardman shamans through the existing death kill-credit hook.
-  Only the credited player's assigned task is marked complete. The Nechryael task
-  checks the NPC's location through the shared area checker. Superior and raid
-  variants remain unvalidated.
-- 66 weighted reward tables with 743 named cache items. Persistent pending reward
-  inventory is separate from Barrows' temporary display inventory.
-- `::cluerewards` retrieves pending rewards; collection log integration.
+## Foundation
 
-## Required before release
+- Native cache catalog: 997 non-tutorial clue/challenge records across six tiers.
+  Catalog rows do not establish complete playable routes.
+- Atomic box-to-scroll conversion and item-local persistent step progress. A held
+  or banked clue of the same tier blocks a new scroll without consuming its box.
+- Contextual location/NPC/dig dispatch, equipment/stat checks, numeric answers,
+  key consumption and kill-based key collection. Unmatched interactions retain
+  their original routing; selectors unregister only at plugin shutdown.
+- Sliding/light puzzles use native interfaces and item-owned board state. Physical
+  boxes serialize their clue ownership, reopen from inventory and are consumed
+  only by exact matching slot at hand-in. Full inventories cannot partially issue
+  a puzzle or advance its phase.
+- Eight named cache maps are linked: easy 006, hard 006–007 and medium 008–012.
+  The remaining native map associations still require completion/verification.
+- Emote/Uri ordering, music-at-Cecilia checks and guardian kill association.
+  [Guardian completion](clue-guardians.md) preserves same-cycle owner metadata and
+  requires every credited kill before a new dig advances once or grants one casket.
+- 66 weighted reward tables reference 743 named cache items. `::cluerewards`
+  retrieves undelivered rewards through the Collection Log integration.
 
-- Finish and exercise Sherlock/Charlie tasks, Falo assignment, torn master parts,
-  map-art associations and Watson exchange. Exercise physical puzzle UI in-game.
-- Complete Mimic eligibility, private encounter, retries, mechanics and reward bonus
-  last, after clue gameplay, as requested by the user.
-- Verify guardian combat styles/animations, quest restrictions, step selection,
-  completion counters, and full-inventory/reconnect/death paths end to end.
-- Apply and audit cache patches, test persistent reward storage with real packed
-  definitions, validate native interfaces and run isolated server startup.
-- Regression test Barrows dig routing and contextual handler fallback.
-- Build a reviewed test installer; user acceptance precedes merge.
+## Assignment and progression rules
 
-## Validation so far
+Charlie assigns one of eight requests without advancing the trail. Hand-in consumes
+one matching unnoted item from **any source**; self-production is not required.
+This follows the [30 November 2022 Jagex change](https://secure.runescape.com/m=news/the-garden-of-death--more?oldschool=1).
+Sherlock assigns a persistent task; repeat dialogue/reload cannot reroll it, and successful
+actions retain the step until the player returns to Sherlock.
 
-27 clue tests pass; the previous crafting regression run passed 16 tests. Coverage:
-boxes/state/catalog, puzzle invariants and physical box
-ownership/capacity/reopening, reward data and
-6,000 seeded casket rolls, temperature boundaries, pending reward reclaim and
-contextual selector isolation/unregistration, native map content and Close script.
-Sherlock tests cover persistent elite assignment without advancing or rerolling,
-correct post-assignment products, bonus/wrong/zero products and skill requirements.
-Outfit cases cover every missing slot, inventory-only equipment, accepted mixed
-variants, Varrock armour substitution and persisted completion after unequipping.
-Combat task tests cover assignment, credited-player isolation, ordinary NPC variants,
-wrong NPCs, Slayer requirements, repeated kills and NPC-based tower area checks.
-Crafting tests verify success events occur after actual output insertion, never on
-missing ingredients or failed insertion, alongside the existing boss-item recipes.
-The storage test caught and fixed
-automatic unnoting caused by an Always-stack inventory: escrow uses Normal stacking.
-These tests do not establish
-complete gameplay support or prove runtime dependency injection/startup.
-Kraken command suite: 17 tests passed separately.
+Falo assigns a persistent riddle and checks the equipment group without consuming the
+shown item. Watson persists partial tier deposits; a full inventory or banked master
+clue preserves deposits until a master can be delivered atomically.
 
-## References
+Hot/cold introductions assign a search location and device atomically, clear the device's
+previous reading and retain completed-step count. Failed insertion preserves the
+introduction; repeat talk cannot reroll. Random selection enters through the appropriate
+NPC introduction. Quest requirements follow the existing policy, including virtual
+completions, Making History for master hot/cold and the cached Lletya stage threshold.
 
-- Reward data: oldschooljs commit `c930f5c41da9407600541ee76020661c09e67501`;
-  redistribution notice in the module's `THIRD_PARTY_NOTICES.md`.
-- Cache database cluehelper tables supply targets, outfits and questions.
-- Temperature thresholds cross-checked against RuneLite `HotColdTemperature.java`:
-  https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/hotcold/HotColdTemperature.java
-- Device behavior: https://oldschool.runescape.wiki/w/Strange_device
+## Skill action contracts
 
-## Mimic asset investigation (encounter not implemented yet)
+The [coverage table](clue-task-coverage.md) owns the exact supported/pending task list.
 
-Read-only scan of the existing server map cache confirmed the strange casket
-(`loc.trail_mimic_enabler`, 34733) at (1645,3569,1), with Search as its first option.
-The arena keyhole object (34727) is at (2719,4311,1), with Use and Exit options.
-Arena wall/corner objects 34720-34732 occupy the same region. Use these actual
-map objects when implementing entry and instance placement; do not infer a new
-location or replace the map. Boss/minion assets are already present, but their
-encounter logic and animation configuration still need implementation/validation.
+| Action | Required event/guard |
+|---|---|
+| Gathering and crafting | Successful primary output after assignment; wrong, zero and bonus products do not count. |
+| Outfit gathering | Required slots worn when output is produced; mixed supported variants and Varrock armour 4 mining-top substitution work. Removing gear later preserves completion. |
+| Combat | Existing credited-player kill hook; ordinary dust devil, Slayer Tower nechryael and overworld shaman variants. Check NPC location where required; superior/raid variants remain unvalidated. |
+| Herblore | Successful finished-potion/mix output: super defence including chemistry extra dose, anti-venom doses 1–4 and freshly made ranging mix. Buying, spawning, decanting or possession is insufficient. |
+| Firemaking | Successful ground ignition through tinderbox/bow; yew, magic and redwood tasks. Campfire tending remains outside this hook. |
+| Runecrafting | Successful standard/daeyalt output with consumed essence and base multiplier. Double cosmic requires multiplier >=2, not a large batch. Blood output requires either native Blood Altar; exclude Ourania, missing altar identity and zero essence. |
+| Cooking/smithing | Successful swordfish, mithril 2h sword and rune med helm output; burnt/failed output does not count. |
+| Fletching | Native yew-longbow stringing and rune-dart feathering with levels, atomic transactions and output events; this is not the full skill. |
+| Equipment/prayer/mining | Successful Dragon scimitar equip, actual Chivalry activation (including quick prayers) and nickel output after assignment. |
 
-## Compatibility
+### Location and outfit boundaries
 
-`inv.trail_pending_rewards` is permanent and owns undelivered rewards.
-`inv.trail_rewardinv` remains temporary and is only a display projection for clues;
-Barrows retains its existing use of that inventory. Closing a clue interface never
-clears Barrows' display inventory. The clue puzzle inventory becomes permanent.
-Contextual selectors unregister on plugin shutdown; unmatched interactions follow
-their original route. No live server installation has been performed.
+The whip task checks actual worn state, Slayer Tower and an ordinary same-floor abyssal
+demon within ten tiles. Supported whip/ornament/tentacle variants follow
+[RuneLite SkillChallengeClue](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/SkillChallengeClue.java).
+The ten-tile rule still needs live parity validation.
 
-### Herblore clue production hooks (2026-10-05)
+The light-orb task uses empty light orb + cave goblin wire inside the public
+Dorgesh-Kaan bank at level 0, x 2701–2707, z 5345–5354. The room was checked against
+revision-240 booths/walls (`work/clue-bank-map.log`); the exact clue-script boundary
+remains an acceptance item. Empty-orb production, other floors and outside rooms fail.
 
-Finished potion and barbarian mix production now publish completion after successful inventory output. Sherlock accepts super defence (normal or chemistry extra dose), anti-venom doses 1-4, and a freshly made ranging mix. Buying, spawning, decanting, or merely possessing a potion does not publish this event. Assignment, wrong-product, bonus-product and return-to-Sherlock state checks are covered by clue tests. Actual queued brewing and live UI acceptance remain to be validated. Mimic remains last.
+Juna and the Mage of Zamorak require three appropriate worn items from the cache outfit
+lists, not every listed slot. Inventory-only/two-item cases fail; exact outfits retain
+their ordinary slot requirements.
 
-### Firemaking clue hooks (2026-10-05)
+### Gem theft and sacred eels
 
-Yew, magic and redwood Sherlock tasks listen to successful ground-log ignition. Both existing tinderbox and bow paths reach this completion point; unsuccessful attempts do not. Assignment, wrong log, skill requirements and idempotent completion are tested through the event bus. Actual queued ignition, campfire compatibility and live acceptance still need validation.
+The native Ardougne `loc.gemthiefstall` at (2667,3303,0) uses level 75, 408 base XP,
+100-tick restock and sapphire/emerald/ruby/diamond weights 105/17/5/1. Restock is checked
+again after the animation to prevent concurrent double rewards. Successful insertion
+reports the symbol and coordinates; only that native stall completes the assigned task.
 
-### Runecrafting clue hooks (2026-10-05)
+Knife-on-sacred-eel uses the standard production menu and atomically replaces an eel
+with scales while retaining the knife. Cooking 72 is required. Scale ranges are 3–5,
+4–6, 5–7, 6–8 and 7–9 at levels 72, 80, 88, 96 and 104; base XP is 100 + 3 per scale.
+A distinct source excludes spawned scales and Zulrah dismantling. Both tasks retain
+the step until return to Sherlock. Native eel fishing access/spot mechanics remain separate.
 
-Nature and multiple-cosmic tasks observe successful standard/daeyalt altar output. Cosmic requires a base multiplier of at least two, not merely a batch containing multiple runes. Assignment, wrong rune, zero essence, Ourania exclusion and single-multiplier batch rejection are tested through the event bus. Actual altar interaction and live acceptance remain pending. The master blood-altar task is covered by the later altar-identity extension below.
+References: [Jagex stall rebalance](https://secure.runescape.com/m=news/project-rebalance-skilling--poll-81-mta-changes?oldschool=1),
+[recorded stall data](https://osrsindex.com/wiki/gem-stall?site=osrs_wiki),
+[recorded eel data and level-band clarification](https://osrsindex.com/wiki/sacred-eel?site=osrs_wiki).
 
-### Assignment and skill expansion (2026-10-05)
+## Persistence and native compatibility
 
-Charlie now assigns one of eight requests without advancing the trail. Hand-in accepts unnoted items from any source, following Jagex's 30 November 2022 change; historical notes requesting self-production are superseded. Falo assigns a riddle and checks its equipment group without consuming the shown item. Watson stores partial tier deposits and only clears them after successfully delivering a master clue. Banked masters and full inventories preserve the deposit.
+`inv.trail_pending_rewards` permanently owns undelivered rewards and uses Normal stacking
+to avoid automatic unnoting. `inv.trail_rewardinv` is only the temporary display projection;
+closing clues never clears Barrows' use of that inventory. Puzzle inventory is permanent.
+Keep Barrows mound routing, contextual fallbacks and atomic full-inventory transactions.
 
-Cooking/smithing success events connect swordfish, mithril 2h swords and rune med helms. The initial Fletching module implements yew-longbow stringing and rune-dart feathering with atomic inventory transactions, level requirements and production events. This does not implement the entire Fletching skill. Chivalry activation and nickel mining have task completion hooks.
+## Remaining validation and implementation
 
-Hot/cold introductions assign a search location and device atomically, retain the completed-step count, and cannot reroll by repeating the conversation. Existing devices have their previous reading cleared for a new assignment. Failed inventory insertion retains the introduction. Random clue selection enters these searches through their NPC introduction rather than bypassing it.
+Finish unsupported task actions, torn master parts, remaining map/puzzle/world routes
+and full hunts. Exercise guardian styles/animations, quest/location rules, step selection,
+counters, reward reclaim and inventory/reconnect/death paths end to end.
+Confirm queued skilling actions, native interfaces, stall spotting and the noted location
+boundaries. Add Mimic eligibility, private encounter, retries, mechanics and reward bonus
+after those routes. Follow the project validation/acceptance workflow for each new slice.
 
-Live acceptance remains pending. Remaining skill actions, quest/location requirements, native map associations and full puzzle routes must still be completed before Mimic. No installer or accepted runtime was changed.
+The existing cache places the strange casket `loc.trail_mimic_enabler` (34733) at
+(1645,3569,1), Search option; the arena keyhole (34727) at (2719,4311,1), Use/Exit options;
+and walls/corners 34720–34732 in the same region. Preserve these native placements.
+Boss/minion assets alone do not provide encounter logic or verified animation configuration.
 
-The blood-altar extension recognizes successful blood-rune output from the two native Blood Altars, excluding Ourania, missing altar identity and zero consumed essence. Boxes now reject a duplicate tier held in inventory or bank without consuming the box. Quest requirements use the existing server policy (including virtual completions), with Making History checked for master hot/cold searches and the cached stage threshold checked for Lletya.
+## Recorded evidence
 
-Validation for this expansion: 43 Treasure Trails tests and 3 Fletching tests passed; Runecrafting and Prayer Tab compile. Log: work/clues-assignment-final.log. These checks do not replace live gameplay acceptance.
+The 2026-10-05 candidate recorded 54 clue, 3 Cooking, 2 Thieving and 3 Fletching tests,
+full cache/server build, isolated startup/Nero bridge and installer/rollback checks.
+Bare-command fixes increased clue coverage to 55 tests; the later guardian fix recorded
+61 clue tests within the approved 134-test package. See [guardian evidence](clue-guardians.md)
+and [exact accepted integration/package](baseline.md). These are recorded checkpoints,
+not new tests or certification of complete clues.
 
-### Location and outfit checks (2026-10-05)
+Coverage includes physical puzzle ownership, 6,000 seeded casket rolls, temperature
+boundaries, pending rewards, fallback/unregistration, native map Close scripts, assignment
+retention, credited kills, real inventory output and outfit requirements.
+Administrator commands and their limits live in [clue-testing.md](clue-testing.md).
 
-The whip challenge checks actual worn state on equip, the existing Slayer Tower area, and an ordinary abyssal demon on the same floor within ten tiles. Accepted weapon variants follow [RuneLite SkillChallengeClue](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/SkillChallengeClue.java). The ten-tile proximity rule still needs live parity validation; it is not an assertion of an extracted OSRS server boundary.
-
-The light-orb challenge uses the existing native Crafting recipe (empty light orb plus cave goblin wire). The production event must occur at level 0, x 2701-2707, z 5345-5354, inside the public bank room. Bounds were checked against cache-240 booths and surrounding walls (work/clue-bank-map.log); the exact clue-script boundary still requires live acceptance. Making an empty orb, working outside the room or on another floor does not complete it.
-
-Juna and the Mage of Zamorak count three appropriate worn items using the cache outfit lists. The prior generic slot loop incorrectly required every listed slot. Inventory-only items and two worn pieces are rejected; ordinary exact outfits retain their slot requirements.
-
-Location/outfit validation: all 47 clue tests pass in work/clues-locations-outfits.log. The unchanged Fletching module's 3 tests passed in the preceding validation.
-
-### Forty skill tasks: gem theft and sacred eels (2026-10-05)
-
-The Ardougne gem stall now uses the existing theft/spotter flow with level 75,
-408 base XP, a 100-tick restock, and sapphire/emerald/ruby/diamond weights
-105/17/5/1. Successful insertion publishes the stall symbol and coordinates.
-Sherlock's master task accepts only the native `loc.gemthiefstall` at
-2667,3303,0 (verified against revision-240 map data in `work/clue-market-map.log`).
-The restock timer is rechecked after the animation to prevent simultaneous
-attempts awarding multiple gems from the same stock.
-
-Knife-on-sacred-eel opens the standard skill production menu and atomically
-replaces one eel with scales, retaining the knife. Cooking 72 is required.
-Scale ranges are 3-5, 4-6, 5-7, 6-8 and 7-9 at levels 72, 80, 88, 96 and 104;
-base XP is 100 plus 3 per scale. A distinct dissection source prevents unrelated
-Zulrah dismantling or spawned scales from completing the task. Both tasks require
-assignment and retain the current step until returning to Sherlock.
-
-References: [Jagex's May 2024 stall rebalance](https://secure.runescape.com/m=news/project-rebalance-skilling--poll-81-mta-changes?oldschool=1),
-[gem stall rates and Jagex attribution](https://osrsindex.com/wiki/gem-stall?site=osrs_wiki),
-[eel production and Mod Ash's level-band clarification](https://osrsindex.com/wiki/sacred-eel?site=osrs_wiki).
-
-Scope is task completion and these production actions, not the entire Thieving
-or Fishing skill. Sacred-eel fishing access/spot mechanics, live stall spotting,
-UI/timing acceptance and exact engine behaviour remain live validation items.
-Twenty skill tasks and the other documented trail gaps remain before Mimic.
+Reward source: oldschooljs `c930f5c41da9407600541ee76020661c09e67501`, with the module's
+`THIRD_PARTY_NOTICES.md`. Cluehelper cache tables supply targets, outfits and questions.
+Temperature boundaries were checked against
+[RuneLite HotColdTemperature](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/hotcold/HotColdTemperature.java);
+device reference: [Strange device](https://oldschool.runescape.wiki/w/Strange_device).

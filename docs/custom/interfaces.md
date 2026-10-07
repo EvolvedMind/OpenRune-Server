@@ -1,5 +1,9 @@
 # Native interfaces
 
+Origin: monster search/drop previews/stats are custom over upstream data;
+skill/quest guide styling extends existing upstream interfaces. Current status:
+[PROGRESS.md](../../PROGRESS.md).
+
 Commands, monster drops, pets, skill guides and quest guides share the native steel
 frame / orange labels / shadowed text design of Spawn and Collection Log.
 

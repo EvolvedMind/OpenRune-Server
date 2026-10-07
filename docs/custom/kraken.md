@@ -1,9 +1,9 @@
 # Cave krakens and Kraken
 
-Implementation: `content/bosses/kraken`, using the existing revision-240 map spawns,
+Custom implementation: `content/bosses/kraken`, using the existing revision-240 map spawns,
 NPC models, named animations, Slayer task data and drop tables. No map, client or
-cache replacement is required. Status: implementation candidate, awaiting in-game
-user acceptance; this is not a declaration of exhaustive OSRS parity.
+cache replacement is required. Current status: [PROGRESS.md](../../PROGRESS.md).
+The recorded acceptance covers the public-cave encounter, not exhaustive OSRS parity.
 
 ## Encounter
 

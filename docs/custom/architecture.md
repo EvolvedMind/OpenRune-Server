@@ -1,5 +1,8 @@
 # Architecture and integration
 
+Boss timers/HUD use a hybrid server/client integration. The Nero object library and
+native loot-value display are custom integrations in the paired repository.
+
 The server uses Kotlin content plugins, native APIs, cache pack modules and symbolic
 gamevals. Native client interfaces are packed into the server cache; a changed
 interface requires the matching cache and JAR, not a source-only copy.
