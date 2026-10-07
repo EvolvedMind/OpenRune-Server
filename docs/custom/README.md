@@ -1,19 +1,38 @@
-# Custom fork documentation
+# Fork technical documentation
 
-Start with [content inventory](../../CUSTOM_CONTENT.md) and [progress](../../CUSTOM_PROGRESS.md).
+Current status, active work and roadmap: [PROGRESS.md](../../PROGRESS.md).
+This index contains implementation notes and evidence, not a second status list.
 
-- [Baseline and recovery](baseline.md)
-- [Architecture and paired builds](architecture.md)
-- [Core changes and upstream risks](core-modifications.md)
-- [Branch audit](branch-audit-20261003.md)
-- [Upstream equivalence review](upstream-review.md)
-- [Clue guardian fix](clue-guardians.md)
-- [Upstream PR #282 test harness](upstream-pr-282-test-harness.md)
-- [Upstream level-up experience](upstream-level-up-779b81b.md)
-- [Zulrah](zulrah.md), [pets](pets.md), [commands](commands.md)
-- [Cave krakens and Kraken](kraken.md)
-- [Interfaces](interfaces.md), [combat](combat.md), [research](research.md)
+| Subject | Module / main source | Details |
+|---|---|---|
+| Runtime and recovery | Server packages, paired Nero Studio | [Checkpoints](baseline.md), [architecture](architecture.md) |
+| Zulrah | `content/bosses/zulrah` | [Encounter](zulrah.md) |
+| Araxxor | `content/bosses/araxxor` | [Encounter and fang recipes](araxxor.md) |
+| Kraken | `content/bosses/kraken` | [Public-cave encounter](kraken.md) |
+| Corporeal Beast | `content/bosses/corporeal-beast` | [Encounter](corporeal-beast.md) |
+| Doom of Mokhaiotl | `content/bosses/doom-of-mokhaiotl` and `pack` | [Encounter and rewards](doom-of-mokhaiotl.md) |
+| Barrows reward testing | `content/bosses/barrows` | [Administrator commands](commands.md#barrows-loot-test) |
+| Treasure Trails | `content/other/treasure-trails` | [Implementation](treasure-trails.md), [task coverage](clue-task-coverage.md), [test commands](clue-testing.md), [guardian fix](clue-guardians.md) |
+| Pets and gallery | `content/other/pets` | [Followers, relog and morphs](pets.md) |
+| Commands and loadouts | `content/other/commands`, `content/interfaces/worldmap` | [Commands](commands.md) |
+| Monster, skill and quest interfaces | `content/interfaces/monster-info`, `content/interfaces/skill-guides`, `content/quest` | [Interfaces](interfaces.md) |
+| Max cape | Custom native-menu handlers in `content/other/max-cape` | [Menus and perks](../max-cape.md) |
+| Slayer menus and helmet crafting | `content/skills/slayer`, `content/skills/crafting`, native cache/shop data | [Source audit, menu references and conversion rules](slayer.md) |
+| Completionist cape and hooded Slayer helmets | Reward requirements, equipment variants and client/cache visuals | [Design and visual reference](completion-rewards.md) |
+| Combat, NPC animations, weapons and shields | `content/other/special-attacks`, `content/other/special-weapons`, `api/specials`, `api/combat` | [Combat and NPC animation audit](combat.md) |
+| Boss-item assembly | `content/skills/crafting`, `content/other/special-weapons` | [Recipes and dismantling](boss-item-crafting.md) |
+| Prices, Examine and notifications | `api/market`, `api/player-output`, `content/interfaces/collection-log` | [Four extensions](small-extensions.md) |
+| Timers, NPC stat HUD and object library | `api/npc`, `api/death`, `api/instances`; paired Nero repository | [Architecture](architecture.md) |
+| Shared APIs, plugin loading and cache mappings | `engine/plugin`, `or-cache`, `server/app` and affected APIs | [Core changes](core-modifications.md) |
 
-Use one logical feature/fix per commit. Document tests and unresolved limits. Do not
-split or rewrite old shared commits for cosmetic reasons. Archived tags retain
-historical alternatives without making them active production code.
+## Upstream and recovery references
+
+- [General upstream comparison](upstream-review.md) and [Doom/DSL review](upstream-review-20261006.md).
+- [Test harness PR #282](upstream-pr-282-test-harness.md) and [level-up PR #286](upstream-level-up-779b81b.md).
+- [Historical branch audit](branch-audit-20261003.md) and [research decisions](research.md).
+- Repositories: [upstream](https://github.com/OpenRune/OpenRune-Server), [fork](https://github.com/EvolvedMind/OpenRune-Server), [Nero Studio](https://github.com/EvolvedMind/Nero-OpenRune-Studio).
+
+Archived implementations remain review material. Do not load them alongside the active handlers.
+
+Native clue action sources and test evidence: [clue completion](clue-completion.md)
+and [watermelon/Farming scope](clue-farming.md). Current status remains in PROGRESS.md.

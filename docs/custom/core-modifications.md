@@ -83,6 +83,7 @@ No additional core change remains from this organization pass.
 | `api/net/src/test/kotlin/org/rsmod/api/net/rsprot/player/AbandonedInstanceRecoveryTest.kt` | `a53731b25` |
 
 ## Plugin runtime
+- Origin: fork extensions to the upstream external-plugin loader.
 - Reason/behaviour: Keep class loaders alive and use runtime shadow copies for deferred helper loads.
 - Upstream conflict risk: Boot/shutdown, dependency injection and plugin JAR loading.
 - Future removal path: Use equivalent upstream loader lifecycle without breaking deferred classes.
@@ -93,6 +94,7 @@ No additional core change remains from this organization pass.
 | `server/app/src/main/kotlin/org/rsmod/server/app/GameServer.kt` | `4bf85522e` |
 
 ## Cache/UI mappings
+- Origin: fork extensions to the upstream cache/interface mapping flow.
 - Reason/behaviour: Dump and validate packed component symbols after full packing.
 - Upstream conflict risk: FileStore packing, generated symbols and interface IDs.
 - Future removal path: Retire only after upstream emits equivalent validated mappings.
@@ -270,7 +272,7 @@ calls retain their default. Boundary regressions cover both modifiers together.
   context signatures. Prefer equivalent upstream opt-in hooks if introduced; retain
   isolation, applied-damage and reward-selection regressions when migrating.
 
-## Treasure Trail interaction hooks (2026-10-04, unreleased)
+## Treasure Trail interaction hooks
 
 - api/player ContextualInteractions, ContextualOpEvents, NpcInteractions and
   LocInteractions: player-specific selectors may override only matching operations.
@@ -284,8 +286,8 @@ calls retain their default. Boundary regressions cover both modifiers together.
   before any blocking result dialogue. Failed recipes and failed inventory insertion
   do not publish success. No clue identifiers enter crafting or the player API.
   Conflict risk: preserve event ordering if upstream restructures crafting transactions.
-- Validation of catalog/puzzle/box code passes; interaction fallback and live
-  startup still need validation. See docs/custom/treasure-trails.md. Not released.
+- These hooks are part of the partial clue implementation. Recorded validation and
+  remaining route/lifecycle work are in [Treasure Trails](treasure-trails.md).
 
 - 2026-10-05: `SkillingProductSource.Herblore` identifies successful finished-potion and barbarian-mix output events for assigned Sherlock challenges. Existing ingredient, chemistry and XP behaviour is retained.
 
@@ -297,7 +299,7 @@ calls retain their default. Boundary regressions cover both modifiers together.
 - 2026-10-05: RunesCraftedEvent carries the altar symbol. The master blood task can distinguish genuine blood-altar production from unrelated or synthetic rune output.
 - 2026-10-05: SkillingProductSource adds SacredEel and ThievingStall (native loc symbol and coordinates). These use the existing product-completion event after successful inventory output and XP. This lets clue consumers distinguish dissection from dismantling, and Ardougne theft from other gem sources. No clue rules are embedded in the player API or skill producers. Preserve source identity and post-commit ordering when adapting upstream changes.
 
-## Doom prerequisites (2026-10-06, candidate)
+## Doom prerequisites (2026-10-06)
 
 - `api/bosses`: reviewed upstream expanded DSL for timers, multi-spec registration,
   hit-context conditions, projectile timing and bound tile sets. Existing stats

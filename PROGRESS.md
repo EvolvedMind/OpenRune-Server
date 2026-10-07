@@ -1,125 +1,139 @@
-# OpenRune fork progress
+# Project overview
 
-Updated **2026-10-07**. This is the human-reviewed progress entry point.
-The automatic scanner writes [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md), never this file.
-A symbol, pet or drop table does not establish a playable or verified boss.
+Reviewed **2026-10-07**. This is the source for current status and priorities.
+Implementation details: [custom documentation](docs/custom/README.md).
+Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
-**Accepted runtime:** revision 240, server `f40f4d951`, Nero Studio `b29d93c`.
-User accepted the Doom/HUD test package and approved merge on 2026-10-06.
-Earlier recovery checkpoints remain preserved.
-Merged: server PR #23 (`c2ccd5c76`) and Nero PR #11 (`85af63c`).
-[Exact recovery baseline](docs/custom/baseline.md).
+**Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-| Area | Actual status |
-|---|---|
-| Current playable build | User-accepted Doom/HUD package; 326 selected server tests + 89 Nero tests and isolated startup pass |
-| Pets, commands, max cape, timers | Implemented; covered regression cases verified |
-| Monster/pet/skill/quest interfaces | Implemented; remaining visual edge cases listed in the detailed progress |
-| All weapon specials | USER-ACCEPTED CHECKPOINT / REMAINDER PAUSED; 191/285 registered; 94 still missing; registration does not certify full mechanics |
-| Charged weapons | Tested charge/attack slices for tridents, scythes, blowpipe, Eye of Ayak and Sanguinesti; atomic Shadow/Venator loading/refunds; 83 selected weapon/special/impact tests pass; live effect qualification pending |
-| Weapon checkpoint validation | 103 tests including NPC/pet/Zulrah regressions pass; server JAR build and isolated Nero-bridge boot pass; accepted installation not replaced |
-| Installable weapon checkpoint | `weapons-update-20261003`, server `880c6a9fa`; 100 payload targets checked against installed guides/cape baseline; installer/rollback tests pass; user installation pending |
-| Subsequent melee special effects | Native impact callbacks replace independent timers for drains/healing/freeze/run-energy effects; 42 special tests pass; not included in the frozen installer above |
-| Further melee families | Dragon claws, Dragon scimitar, Darklight/Arclight/Emberlight, Dragon sword and Ancient mace: 17 additional item variants; 58 special tests and 122 selected tests total pass; full server build passes; client animation verification pending |
-| Latest special validation | 99 special tests + 12 command/interface tests pass; build and isolated boot pass; user gave merge approval on 2026-10-04 |
-| Zulrah | Active custom encounter; old alternative recovery code is review material, not installed |
-| Araxxor | USER ACCEPTED; PR #16 merged, 186 encounter/shared tests plus 2 native Rancour recipe tests pass |
-| Barrows | IMPLEMENTED / USER ACCEPTED; native chest test command `::testloot barrows [count]` |
-| Treasure Trails | ACTIVE DEVELOPMENT TOWARD 100%; resumed by user on 2026-10-06. 42/60 skill-task rows handled; remaining native actions, clue routes, map/puzzle coverage and end-to-end validation outstanding. Guardian dig fix user-approved and merged. New clue branch: Uri recovery, native elf pickpocketing and corrected altar-output consumers; 158 selected tests, scoped formatting, full build and isolated boot pass; new live acceptance pending. Latest slice: native watermelon planting/Sherlock completion and a limited allotment/flower/herb Farming foundation; 180 selected tests, scoped formatting, full JAR build and isolated Nero-bridge boot pass; live acceptance pending. Mimic last, not implemented. [Coverage](docs/custom/clue-task-coverage.md) / [test commands](docs/custom/clue-testing.md). |
-| Doom | Full upstream encounter/delves integrated; ::testdoom and ::testloot doom; 326 server tests + isolated boot pass; USER ACCEPTED / MERGED |
-| NPC combat stat HUD | Real buffs/drains in native infoboxes; 89 Nero tests pass; USER ACCEPTED / MERGED |
-| Small extensions (all four) | USER APPROVED / MERGED; PR #24 and approved PR #25 head integrated into main (`474296f2b`). News only for pets or fresh unit GE >= 1m; compact Examine, OSRS prices, notification FIFO and Doom sample log preserved. 134 selected tests, build and isolated startup pass; advisory formatting violations tracked. [Details](docs/custom/small-extensions.md). |
-| Revision 241 | Upstream review pending; no automatic upgrade |
-| Repository organization | Complete: 15 earlier stale branches plus approved small-extensions/guardian branches archived and removed; main and active clue branch retained |
+## 🟡 Active: Treasure Trails
 
+Continue toward full clue gameplay, as requested on 2026-10-06.
 
-**[Detailed status, origins, NOW / NEXT / LATER / BACKLOG](CUSTOM_PROGRESS.md)**
+- **42/60 skill-task rows have completion handling.** This is task coverage, not overall clue completion.
+- Finish the missing native skill actions, clue routes, maps and puzzles; then validate complete trails and their lifecycle.
+- The guardian progression fix is accepted and merged. The user approved PR #26 for merge on 2026-10-07: Uri recovery, native elf pickpocketing, corrected altar consumers and watermelon planting/Sherlock completion. Merge reconciliation is in progress. **Mimic comes last and is not implemented.**
+- Validation: 180 selected tests, scoped Kotlin checks, full server JAR and isolated revision-240/Nero-bridge startup pass. Test package `clue-farming-20261007` and its independent rollback remain unchanged; merge does not install it.
+- [Implementation](docs/custom/treasure-trails.md) · [coverage and gaps](docs/custom/clue-task-coverage.md) · [test commands](docs/custom/clue-testing.md) · [native action evidence](docs/custom/clue-completion.md) · [Farming scope](docs/custom/clue-farming.md).
 
-[Custom inventory](CUSTOM_CONTENT.md) ? [Operating manual](OpenRune_Fork_Development_Workflow.md)
-? [Branch audit](docs/custom/branch-audit-20261003.md) ? [Custom documentation](docs/custom/README.md)
+## Accepted baseline
 
-Future work: one focused topic per commit, relevant tests, update status and dependency
-notes, then merge only a verified state. Compare overlapping upstream features before adoption.
+**Accepted runtime package:** revision **240**, Doom/HUD: server `f40f4d951`, Nero `b29d93c`.
+Exact commits, package and recovery checkpoints: [baseline](docs/custom/baseline.md).
 
-Demonbane follow-up: parameter-only cache overlays add 96 verified demon flags and
-two Duke resistance flags; all 16,577 NPC definitions retain other fields. Claws
-reductions now apply per split hit. 122 selected tests, the full server JAR and isolated Nero-bridge boot pass;
-these changes are outside the frozen `880c6a9fa` installer.
+Acceptance below applies to the recorded scope. A merged change does not establish that it was installed in the live runtime.
 
-Current acceptance milestone: `araxxor-completion-20261004` / `f7c349c0e`, merged in PR #16 and preserved by tag `server-araxxor-complete-20261004`. Barrows is also user accepted. Prior pending notes describe older checkpoints; remaining specials are parked.
+| Status | Area | Accepted scope / reference |
+|:---:|---|---|
+| 🟢 | [Zulrah](docs/custom/zulrah.md) | Existing custom encounter; owner-confirmed acceptance. |
+| 🟢 | [Araxxor](docs/custom/araxxor.md) | Encounter accepted; merged in PR #16. |
+| 🟢 | [Kraken](docs/custom/kraken.md) | Public-cave encounter accepted; private instances are outside this scope. |
+| 🟢 | [Corporeal Beast](docs/custom/corporeal-beast.md) | Encounter accepted; clan instances and individual Combat Achievement conditions remain separate work. |
+| 🟢 | Barrows | Accepted native encounter/rewards; `::testloot barrows [count]` uses native chest rewards. |
+| 🟢 | [Doom of Mokhaiotl and NPC combat-stat HUD](docs/custom/doom-of-mokhaiotl.md) | Accepted package; merged through server PR #23 and Nero PR #11. |
+| 🟢 | [Small extensions](docs/custom/small-extensions.md) | OSRS GE Prices, Improved Item Examine, Notification Queue and Collection Log Reward Broadcasts approved and merged into `474296f2b`. Advisory formatting findings remain open. |
 
+## Existing content and open follow-ups
 
-## TO-DO — Economy prices, Examine & Collection Log notifications
+| Status | Area | Remaining work / reference |
+|:---:|---|---|
+| 🟢 | [Pets](docs/custom/pets.md), [commands](docs/custom/commands.md), [max cape](docs/max-cape.md) and [timers](docs/custom/architecture.md) | Implemented; preserve covered behavior when shared systems change. |
+| 🟡 | [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
+| 🟡 | [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
+| 🟡 | [Slayer menus and helmet crafting](docs/custom/slayer.md) | Source audit: existing task/unlock/extension handlers and ordinary helmet recipes. Fix Trade routing, task state, purchases, block slots, toggles and Suqah mapping; complete the requested menu and conversion paths. |
+| 🟡 | [Ordinary NPC combat animations](docs/custom/combat.md#ordinary-npc-combat-animations) | Initial source audit found missing explicit combat-animation configuration for the reported Armadylean/Bandosian clue guards and Tlati candidates. Verify resolved cache data, repair affected NPC families and test in-game; preserve accepted bosses and guardian progression. |
+| 🔴 | [Persistence warning follow-up](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
+| 🟢 | Upstream research (review only) | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed; not imported. Implementation has not started. Any adoption requires a scoped revision-240 port. |
 
-### OSRS market prices
-- [ ] Replace the current `DefaultMarketPrices` runtime source with an OSRS market-price provider while keeping `DefaultMarketPrices` as fallback.
-- [ ] Use real OSRS item IDs as the lookup key.
-- [ ] Fetch and cache OSRS GE prices server-side; never perform an external request per player examine or price-check action.
-- [ ] Refresh prices periodically and keep the last known good cache if the external source is temporarily unavailable.
-- [ ] Prefer a stable short-window market value (for example a recent average/midpoint) rather than blindly treating a single latest trade as guide price.
-- [ ] Fall back to `uncert(type).cost` when no external GE price exists.
-- [ ] Keep High Alchemy and Low Alchemy values independent; do not replace `ItemServerType.highAlch` or `ItemServerType.lowAlch`.
-- [ ] Add parsing, noted/unnoted lookup, fallback and unavailable-source tests.
-- [ ] Keep the `MarketPrices` abstraction so the OSRS provider can later be replaced by this server's own Grand Exchange price source without changing consumers.
+## Backlog
 
-### Item Examine
-- [ ] Centralize item examine output instead of duplicating value formatting across inventory, bank, shop, price-checker and ground-item paths.
-- [ ] Right-click **Examine** should preserve the normal item description.
-- [ ] Add a second value line containing:
-  - GE value
-  - High Alch value
-  - Low Alch value
-- [ ] Use the central `MarketPrices` provider for GE value and the existing item definitions for HA/LA.
-- [ ] Format large coin values consistently.
-- [ ] Ensure noted items resolve to the underlying unnoted item's market/alchemy values where appropriate.
+Planning only; list order does not authorize starting work. Check existing code and upstream reuse before estimating remaining effort.
 
-Target output:
+<!-- roadmap:start -->
 
-```text
-A weapon from the abyss.
-GE: 1,482,000 gp | HA: 72,000 gp | LA: 48,000 gp
-```
+Requirements and details: [roadmap.json](tools/progress/roadmap.json).
 
-### Collection Log chat-wide reward news
+Scope: XS = tiny, S = small, M = medium, L = large, XL = very large, XXL = multiple systems. These describe the full target; inspect existing work and upstream reuse to estimate the remaining work.
 
-- [x] Treat Collection Log membership as the source of truth for important/unique reward notifications.
-- [x] Do **not** maintain a separate hard-coded list of boss uniques or pets.
-- [x] Within Collection Log rewards, only pets or items with fresh GE value >= 1,000,000 gp per item send chat-wide news. Stack totals do not qualify; cheap items still log.
-- [x] Send chat news on every qualifying obtain, not only the player's first Collection Log unlock.
-- [x] Preserve the existing personal `New item added to your collection log` message only for first-time unlocks.
-- [x] Preserve the player's existing Collection Log popup/chat settings for personal unlock notifications.
-- [x] Extend Collection Log reward context so chat news can include the source where known, e.g. NPC/boss, minigame, raid, chest or activity.
-- [x] User correction: apply the 1m unit GE threshold, always include native Collection Log pets, and never qualify a missing quote using cache/alchemy fallback.
+### Bosses
 
-Target examples:
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Thermonuclear Smoke Devil | S |
+| 🔴 | Deranged Archaeologist | S |
+| 🔴 | Giant Mole | S–M |
+| 🔴 | Chaos Fanatic | S–M |
+| 🔴 | Obor | M |
+| 🔴 | Brutus | M |
+| 🔴 | Chaos Elemental | M |
+| 🔴 | Kalphite Queen | M |
+| 🔴 | Dagannoth Kings | M |
+| 🔴 | Sarachnis | M–L |
+| 🔴 | Shellbane Gryphon | M–L |
+| 🔴 | Royal Titans | L |
+| 🔴 | Tormented Demons | L |
+| 🔴 | Vet'ion & Calvar'ion | L |
+| 🔴 | Cerberus | L |
+| 🔴 | Vorkath | L |
+| 🔴 | Abyssal Sire | L |
+| 🔴 | Alchemical Hydra | L |
+| 🔴 | Grotesque Guardians | L–XL |
+| 🔴 | The Hueycoatl | L–XL |
+| 🔴 | Nex | XL |
+| 🔴 | The Nightmare | XL |
+| 🔴 | Yama | XL–XXL |
 
-```text
-News: Bram received 1 x Araxyte fang from Araxxor!
-News: Bram received 1 x Elysian sigil from Corporeal Beast!
-News: Bram received 1 x Pet kraken from Kraken!
-News: Bram received 1 x Dharok's greataxe from Barrows!
-```
+### Minigames and activities
 
-### Notification queue
-- [ ] Add a reusable per-player FIFO notification queue.
-- [ ] Replace direct consecutive Collection Log calls to clientscript `3343` with queued notifications.
-- [ ] Ensure multiple new Collection Log items obtained in one reward/kill are displayed one after another instead of later popups being overwritten.
-- [ ] Preserve the current rule that multiple copies of the same newly unlocked item generate only one first-unlock popup.
-- [ ] Make the queue generic so it can later be reused by Combat Achievements, Achievement Diaries, quests and other game notifications.
-- [ ] Clear or safely discard pending notifications when the player logs out or becomes invalid.
-- [ ] Add regression coverage for two or more Collection Log unlocks occurring in the same reward cycle.
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Aerial Fishing | M |
+| 🔴 | Tithe Farm | M–L |
+| 🔴 | Vale Totems | M–L |
+| 🔴 | Puro-Puro | M–L |
+| 🔴 | Mahogany Homes | L |
+| 🔴 | Mastering Mixology | L |
+| 🔴 | Giants' Foundry | L |
+| 🔴 | Fight Caves | L |
+| 🔴 | Zalcano | L |
+| 🔴 | Wintertodt | L–XL |
+| 🔴 | Mage Training Arena | L–XL |
+| 🔴 | Tempoross | XL |
+| 🔴 | Pest Control | XL |
+| 🔴 | Moons of Peril | XL |
+| 🔴 | Guardians of the Rift | XL |
+| 🔴 | The Inferno | XL–XXL |
+| 🔴 | Fortis Colosseum | XL–XXL |
+| 🔴 | The Gauntlet | XL–XXL |
 
-Expected flow:
+### Other systems
 
-```text
-reward/drop
-  -> CollectionLog.grant(player, item, source)
-  -> Collection Log membership check
-  -> pet or unit GE >= 1m? ordinary chat news (type 0; no world banner)
-  -> first unlock?
-       -> personal chat message
-       -> NotificationQueue.enqueue(...)
-  -> queued popups display sequentially
-```
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Warriors' Guild Cyclopes & Defenders | M |
+| 🔴 | Revenants | M–L |
+| 🔴 | Hunter Guild | L |
+| 🔴 | Random Events | XL |
+| 🔴 | Forestry | XL |
+| 🔴 | Own Grand Exchange | XL–XXL |
+| 🔴 | Achievements | XL–XXL |
+| 🔴 | Combat Tasks | XXL |
+| 🔴 | Leagues | XXL |
+| 🔴 | Sailing Skill | XXL |
+| 🔴 | Completionist Cape + Particles | TBD |
+| 🔴 | Hooded Slayer Helmets + Variants | TBD |
 
-Upstream research (2026-10-06): [PR #282 test harness](docs/custom/upstream-pr-282-test-harness.md) and [level-up commit 779b81b / PR #286](docs/custom/upstream-level-up-779b81b.md). No code imported; integration requires a separately scoped, revision-240 port. #286 CI has two failing combat integration cases.
+### Parked
+
+| Status | Feature | Note |
+|:---:|---|---|
+| 🟡 | Weapon Special Attacks | Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected. |
+| 🔴 | RSPS AgentCraft — In-Game Developer Observatory | Parked concept: real Claude/Codex agents through an in-game developer scene, with an external runner and isolated worktrees. Full-system scope XXL. |
+
+### Runtime migration
+
+| Status | Feature | Note |
+|:---:|---|---|
+| 🟡 | Revision 241 Upgrade | Deferred compatibility review. Keep revision 240; any client, protocol or cache upgrade needs a separate explicit task. |
+
+<!-- roadmap:end -->

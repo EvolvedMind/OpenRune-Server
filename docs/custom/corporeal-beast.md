@@ -1,7 +1,10 @@
 # Corporeal Beast
 
+Origin: CUSTOM using native combat and loot APIs.
+
 Status: accepted by the user on 2026-10-04; merge authorized for PR #20. Branch: feature/corporeal-beast.
-Accepted baseline: main 0dbd0110a (Kraken and fang crafting merged).
+Implementation started from main `0dbd0110a` (Kraken and fang crafting merged).
+Current project status and runtime: [PROGRESS.md](../../PROGRESS.md), [baseline](baseline.md).
 
 ## Encounter
 

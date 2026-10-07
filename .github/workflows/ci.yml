@@ -77,7 +77,9 @@ jobs:
         run: |
           ./gradlew generateRsa :example-plugin:jar
           cp example-plugin/build/libs/example-plugin.jar plugins/example-plugin.jar
-          [ -f game.yml ] || cp game.example.yml game.yml
+          # The runner may already have a listener on the default game port.
+          # Use disposable ports; never change the checked-in/live configuration.
+          python3 tools/ci/prepare-boot-config.py game.example.yml game.yml
           ./gradlew run -q > boot.log 2>&1 &
           GRADLE_PID=$!
           for i in $(seq 1 300); do

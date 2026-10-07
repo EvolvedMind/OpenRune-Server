@@ -33,12 +33,9 @@ OpenRune Server adheres to OSRS protocols, giving you the freedom to connect any
 
 <!-- content-progress:start -->
 
-## 📊 Content progress
+## Content
 
-Skills **21/23** · Bosses **24/169** · Raids **0/4** · Minigames **0/51**
-
-Full breakdown in **[CONTENT_INVENTORY.md](CONTENT_INVENTORY.md)**, including every content module and
-presence hints, not verification. Tested status and roadmap: **[PROGRESS.md](PROGRESS.md)**.
+[Status and roadmap](PROGRESS.md) · [Technical inventory](CONTENT_INVENTORY.md)
 
 <!-- content-progress:end -->
 ## 🛠️ Getting Started
@@ -46,8 +43,8 @@ presence hints, not verification. Tested status and roadmap: **[PROGRESS.md](PRO
 
 
 1. **Clone the repository**
-   - `File → New → Project from Version Control` in IntelliJ, then paste `https://github.com/OpenRune/OpenRune-Server.git`.
-   - OpenRune Servernatively, clone via Git CLI and open the project manually.
+   - `File → New → Project from Version Control` in IntelliJ, then paste `https://github.com/EvolvedMind/OpenRune-Server.git`.
+   - Alternatively, clone via Git CLI and open the project manually.
 
 2. **Install dependencies**
    - Ensure you have [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows).
@@ -61,6 +58,7 @@ presence hints, not verification. Tested status and roadmap: **[PROGRESS.md](PRO
 
 
 4. **Gradle bootstrap**
+   - For a new setup only. For an existing installation, follow [AGENTS.md](AGENTS.md) and preserve the [accepted baseline](docs/custom/baseline.md).
    - Open the Gradle tool window.
    - Run `OpenRune Server → Tasks → installation → install`.
    - When the task completes, run `OpenRune Server → Tasks → application → run`.
@@ -97,17 +95,17 @@ Note: RSprox for Private Servers only works currently on Windows and Linux, NOT 
 > And stay away from client's like Devious, as they have been caught adding Account Stealer into their client.
 ## 🤖 AI testing (MCP)
 
-The [OpenRune-Developer-Tools](https://github.com/OpenRune/OpenRune-Developer-Tools) client plugin runs a local MCP server (`http://127.0.0.1:7780/mcp`) so AI agents like Claude can test server content in a live client: walk NPC dialogue trees, screenshot and diff interfaces, read varbits/clientscript history, interact with NPCs/objects/items and wait on game conditions. A live dashboard at `http://127.0.0.1:7780/` shows every call the AI makes, with results and screenshots. Setup, example prompts and verification flows are documented in [AGENTS.md](AGENTS.md).
+The [OpenRune-Developer-Tools](https://github.com/OpenRune/OpenRune-Developer-Tools) client plugin provides MCP tools for in-client checks. Verify compatibility and available capabilities before use. Working rules for Codex and Claude: [AGENTS.md](AGENTS.md). Feature-specific test commands: [custom documentation](docs/custom/README.md).
 
 ## 📦 Release builds
 
 CI can produce a self-contained `openrune-server-release.zip` with `server.jar`, `game.yml`, and compiled `.data/`. Pushes to `production` publish automatically; other branches can be built manually from **Actions → Release Server**.
 
-See [.github/docs/RELEASE_CI.md](.github/docs/RELEASE_CI.md) for what the workflow does, how to run it manually, and how to build from `production` vs `main`/feature branches.
+See [docs/RELEASE_CI.md](docs/RELEASE_CI.md) for what the workflow does, how to run it manually, and how to build from `production` vs `main`/feature branches.
 
 ## 🗺️ Project Planning
-- Public roadmap and task board: [OpenRune Server Trello](https://trello.com/b/A0LefFDs/later).
-- Trello write access and contributor listing are reserved for active maintainers—contact Chris via Discord with a short summary of your work if you need access.
+- Fork status and backlog: [PROGRESS.md](PROGRESS.md).
+- Upstream planning: [OpenRune Server Trello](https://trello.com/b/A0LefFDs/later).
 
 ## 💬 Bug Reports & Support
 - Open an issue on [GitHub](https://github.com/OpenRune/OpenRune-Server/issues) with reproduction details.

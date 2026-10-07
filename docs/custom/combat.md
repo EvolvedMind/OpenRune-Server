@@ -3,10 +3,10 @@
 Origin: UPSTREAM + CUSTOM EXTENSIONS. `c46abc6af` adds explicit weapon/magic/shield
 special dispatch; `9f38dbb1d` adds special reset. The accepted implementation is preserved.
 
-The [special-attack audit](../special-attacks-audit-20261001/README.md) records
-137 registered versus 148 still missing among 285 special-energy items, with six shield
-forms separately covered. Do not label all specials complete just because the bar exists.
-Shield charging, inspection and cooldowns are per-item/persistent as documented there.
+The historical [special-attack audit](../special-attacks-audit-20261001/README.md)
+records the starting weapon/shield investigation. Shield charging, inspection and
+cooldowns are per-item/persistent. A special bar does not establish full mechanics.
+Current coverage and parked work: [PROGRESS.md](../../PROGRESS.md).
 
 Respawn policy: GWD 100 ticks = 60 seconds, other supported bosses 34 ticks = 20.4 seconds.
 Encounter progression and non-respawning entities remain respected. Actual deadlines,
@@ -16,20 +16,50 @@ need timer and duplicate-death tests as well as combat tests.
 Upstream risks: target reach, autocast, shield dispatch, hit scheduling, NPC death hooks,
 Boss DSL and stats/bonuses. Preserve current behaviour while evaluating any replacement.
 
-## Active weapon completeness work (2026-10-03)
+## Ordinary NPC combat animations
 
-Branch: feature/weapon-completeness, based on accepted runtime plus organization
+Source review: **2026-10-07**, commit `32ce078f2319ef86c6a34311b8e497449133336a`.
+The owner reports human-like animation glitches on the two elite clue guards during
+the 2026-10-06 clue test, and on unspecified NPCs around Tlati Rainforest.
+
+| NPC / group | Evidence and remaining check |
+|---|---|
+| Armadylean guard — `npc.elite_npc_1`, dump ID 6587 | Native movement uses the Armadyl animation family. Its server override sets elemental weakness only; no explicit combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
+| Bandosian guard — `npc.elite_npc_2`, dump ID 6588 | Native movement uses the armed-ork animation family. No explicit server combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
+| Tlati Jaguar / Jaguar cub / Black jaguar — dump IDs 12976/12977/12978 | Map spawns, Attack actions, stats and native lynx movement exist; drop tables were found for Jaguar and Black jaguar. Server overrides contain weakness only. These are source-audit candidates; the owner has not identified which Tlati NPCs glitched. |
+| Tlati frog — `npc.little_frog_nodrops` | Has explicit attack/block/death sequences. Use it as a comparison case; its presence does not certify live visuals or the whole region. |
+
+Sources: [native NPC dump](../../osrs-dumps/dump.npc), [server overrides](../../.data/raw-cache/server/npcs.toml), [Tlati map spawns](../../.data/raw-cache/map/npcs/varlamore.toml), [clue guardian spawn route](../../content/other/treasure-trails/src/main/kotlin/org/rsmod/content/other/treasure/trails/TrailGuards.kt).
+
+The [generic attack route](../../api/combat/combat-scripts/src/main/kotlin/org/rsmod/api/combat/NvPCombat.kt)
+reads one `attack_anim`. When absent, [parameter defaults](../../.data/raw-cache/server/param.toml)
+provide `human_unarmedpunch`; generic death similarly falls back to `human_death`.
+The [defend route](../../api/combat/combat-commons/src/main/kotlin/org/rsmod/api/combat/commons/npc/NpcExtensions.kt)
+uses `paramOrNull`, so an absent defend parameter produces no defend animation.
+Spawning correctly and having stats/drops do not establish complete combat behavior.
+
+### Audit and repair scope
+
+- Inspect the **final merged revision-240 NPC definitions**, resolved sequences and selected handlers. Include attackable world NPCs, their active forms and dynamically spawned encounter NPCs such as clue guards. Do not count raw TOML rows as live NPC coverage.
+- Record whether each sequence is explicit, inherited, supplied by a script or a fallback. Check attack style, projectile and hit timing alongside the animation where applicable; do not enable an invented attack just to remove a visual glitch.
+- Start with the two reported guards, then the Tlati candidates and other NPCs using the same incomplete generic route. Group by verified model/animation compatibility, not merely name or region. Jaguar/cub share a model; Black jaguar is a separate model variant.
+- Verify the proper attack, defend and death sequences in the paired cache/client before assigning them. A related GWD or ork animation name is only a candidate until checked for the exact guardian model and attack.
+- Apply bounded NPC parameter overlays or focused handlers as required. Preserve accepted boss configurations, global defaults, animation priorities and the clue guardian owner/kill-credit lifecycle. Recheck affected shared behavior and accepted bosses if a shared layer changes.
+- Accept a repaired group after real attack/defend/death and relevant variant tests, including clue completion for guards. A valid sequence ID or passing build alone does not prove correct model animation.
+
+This is a source/data review, not a completed cache-wide or in-game audit. The exact
+installed cache/client was unavailable here; no animation IDs were guessed or applied.
+Status is tracked only in [PROGRESS.md](../../PROGRESS.md).
+
+## Weapon implementation record (2026-10-03–04)
+
+Original branch: feature/weapon-completeness, based on accepted runtime plus organization
 commit 82d6c0203. User requests complete specials and normal weapon/charge behaviour.
 Zulrah encounter files, rotations, reach policy and respawn policy remain unchanged.
 
-Latest registry: 162/285 registered special-energy items, 123 missing. Registration
-is not visual or mechanical parity. Selected suites pass 122 tests: 42 weapons,
-58 specials, 2 engine, 5 NPC, 2 Zulrah and 13 pets. The full server JAR builds.
-The earlier installable checkpoint passed 103 tests. Its isolated revision-240 server boot with the existing Nero server plugin passes
-bridge health, catalogue search and continuously refreshed respawn snapshots, then
-shuts down cleanly. This does not exercise a live game client or visually certify FX.
-The following slices are a chronological implementation record; earlier counts below
-refer to their respective checkpoints, not the current total.
+The following mechanics and test results were recorded for successive slices.
+They are not new validation or a statement of the currently installed software.
+The accepted package and recovery references are in [baseline](baseline.md).
 
 Shadow/Venator charge follow-up: charging and full refunds now use a single native
 inventory transaction, revalidate the exact item after dialogue and reject negative or
@@ -39,12 +69,7 @@ are retained. Three regression cases exercise both weapon families, including fu
 capacity, swapped items and a refund where only one of two material stacks fits.
 This does not certify their remaining normal-attack mechanics or live effects.
 
-Installable checkpoint: `weapons-update-20261003` is frozen at `880c6a9fa`, expects
-the guides/cape baseline and includes rollback. Its 100 target files and prerequisites
-pass read-only validation; scratch installer tests cover install, repeat install,
-rollback, corrupt payloads, modified files, process guards and mid-copy recovery.
-
-Subsequent melee impact slice (not in that installer): Warhammer, Elder Maul,
+Melee impact slice: Warhammer, Elder Maul,
 Bandos/Saradomin/Zamorak godswords, Whip and Anchor effects now attach to the native
 hit instead of independent world timers. Drains use applied damage, zero damage
 does not drain, and Healing Blade retains its pre-overkill heal basis. Callbacks are
@@ -52,7 +77,7 @@ once-only and reject replacement logins. Three new tests pass, including executi
 through the registered Warhammer handler; all 42 special tests pass. No extra weapon
 registrations are claimed and client FX placement remains unqualified.
 
-Further melee families (not in the frozen installer): 17 additional item variants.
+Further melee families: 17 additional item variants.
 Dragon claws has four conditional accuracy branches, bounded split damage, the
 all-miss chip outcome and paired hit delays. Post-special reductions apply separately
 to each split hit, including independent Elysian rolls and integer rounding.
@@ -95,7 +120,7 @@ Caster launch and target impact use distinct cache FX and projectile timing.
 
 This is not yet full toxic-trident qualification: NPC venom and all encounter/PvP-area
 exceptions remain to verify. Selected handler tests do not certify live client visuals.
-Registration baseline remains 137/285; ordinary trident attacks add no special entries.
+Ordinary trident attacks add no special-energy entries.
 
 Mechanics reference: https://oldschool.runescape.wiki/w/Trident_of_seas_full
 
@@ -107,7 +132,6 @@ implied outside a well; confirmation explicitly warns that resources are lost.
 Vyre-well storage/refunds, secondary area targets, variant FX qualification and
 impact-modified damage accounting remain open. Corrupted and quest forms are not
 silently aliased. Fifteen module tests pass (nine trident, five scythe, one cache export).
-These slices do not change the 137/285 special registration count.
 
 Blowpipe slice: normal and Blazing blowpipes store nine dart types and scales in the
 existing three native varobjs. Load/unload/uncharge transactions are atomic. Ranged
@@ -117,8 +141,8 @@ PvM/PvP rapid delays are two/three ticks. Siphon uses doubled accuracy, 1.5x max
 and schedules half the queued damage as healing, guarded against replacement logins.
 Venom, exact live projectile trajectory and impact-time cancellation remain unqualified.
 
-Current registry: 139/285 (146 missing). Tests: 21 special-weapons + 35 special-attacks
-passed. Full registry snapshot: [weapon registry](weapons-registry-20261003.tsv).
+Tests: 21 special-weapons + 35 special-attacks passed.
+Historical snapshot: [weapon registry](weapons-registry-20261003.tsv).
 Reference: https://oldschool.runescape.wiki/w/Blowpibe
 
 Eye of Ayak slice: server cache category corrected to PoweredStaff with range 6 and
@@ -129,10 +153,11 @@ Soul Rend costs 50%, has 2x accuracy, scales the base maximum by 13/10 before ge
 and uses a 5-tick attack delay. Magic defence bonus drain is per NPC spawn, floors at
 zero without altering Magic level or shared NPC definitions, and applies to subsequent
 player and NPC magic accuracy. Respawn clears it. Ordinary and special PvP attempts
-are rejected without spending resources. Doom passive recharge is deferred with Doom.
+are rejected without spending resources. Doom passive recharge remains a separate
+weapon integration check; the accepted encounter is not deferred by that check.
 
 Validation: isolated revision-240 cache build passed; 27 ordinary-weapon and 39 special
-attack tests passed. Registry: 140/285 registered, 145 missing. Tests cover refunds,
+attack tests passed. Tests cover refunds,
 full inventories, final-charge splashes, cast/impact ownership, deferred drain, negative
 base bonuses and respawn cleanup. The first cache build exposed stale shared CS2;
 a fresh workspace-local LOCALAPPDATA resolved it. Live effect height/trajectory and
@@ -150,7 +175,7 @@ and the full special suite (39 tests). No callback is registered by existing Zul
 
 Sanguinesti slice: both ordinary and Holy staffs have native item-local 20,000-charge
 storage, 2-blood-rune recharge/refund transactions and their cache check/charge/uncharge
-menus. A four-tick cast consumes one charge even on splash. The current 2026 formula
+menus. A four-tick cast consumes one charge even on splash. The recorded formula
 uses floor(Magic/3), 1/5 leech chance and +8 damage on a leech proc; healing uses half
 actual impact damage and cannot affect a replacement login. Cast, impact and heal use
 the corresponding ordinary/Holy cache effects. Empty and PvP attempts do not cast.
@@ -188,7 +213,7 @@ use native energy modifiers. Tests cover 5%, 25% and 100%, misses/hits, NPC/PvP,
 all variants and reduced-cost mode. The caster uses the shared thrust animation
 with the distinct post-2024 hasta spot effect at height zero. Live frame alignment
 remains unverified. Reference: [Dragon hasta](https://oldschool.runescape.wiki/w/Dragon_hasta).
-The special suite now passes 61 tests; registered coverage is 162/285.
+The recorded special suite passed 61 tests.
 
 Saradomin sword slice: ordinary Saradomin sword has its shared-accuracy melee hit
 and separate 1-16 magic hit, with separate melee/Magic experience. PvP Protect from
@@ -203,7 +228,6 @@ References: [Saradomin sword](https://oldschool.runescape.wiki/w/Saradomin_sword
 [blessed sword](https://oldschool.runescape.wiki/w/Saradomin%27s_blessed_sword),
 [magical melee](https://oldschool.runescape.wiki/w/Magical_melee).
 Validation: 65 special tests, 129 selected tests overall, full server JAR build.
-Registry: 165/285 registered, 120 missing; registration does not certify full mechanics.
 
 Ancient warrior slice: four Vesta longsword identities use selected melee offence
 against one-quarter of stab defence, with 20%-120% damage bounds. Three Statius
@@ -211,7 +235,7 @@ warhammers use 25%-125% damage bounds and drain current Defence only on positive
 impact: 30% for ordinary/Last Man Standing, 75% for Bounty Hunter. Reductions apply
 after rolling damage. Cancelled, blocked or stale-login hits do not drain. All 68
 special tests pass, including exact accuracy boundaries and cumulative drains.
-Registry: 172/285, 113 missing. Bounty Hunter/Deadman usage restrictions, degradation,
+Bounty Hunter/Deadman usage restrictions, degradation,
 boss-specific drain floors and live effect alignment remain separate open work.
 References: [Vesta's longsword](https://oldschool.runescape.wiki/w/Vesta%27s_longsword),
 [Statius's warhammer](https://oldschool.runescape.wiki/w/Statius%27s_warhammer),
@@ -227,7 +251,7 @@ The whip previously used graphic sequence 1669 as its player animation; the pack
 spot 341 confirms 1669 belongs to that graphic. Whip/tentacle now animate the player
 with the native whip attack and send the graphic to the target. A cache-backed test
 rejects graphics accidentally used as player animations throughout the melee table.
-All 73 special tests pass; 174/285 registrations, 111 missing. Live timing/height
+All 73 special tests passed for this slice. Live timing/height
 verification is still pending.
 Reference: [Abyssal tentacle](https://oldschool.runescape.wiki/w/Abyssal_tentacle).
 
@@ -239,7 +263,7 @@ alone does not cancel protection, but receiving positive damage without a suppor
 staff does. Zero damage does not cancel; activation refreshes rather than stacks;
 login/logout clears state. Native impact tests cover health, damage callbacks and
 prayer-rounding order. Cache rebuild, 79 special / 143 selected tests, full JAR,
-isolated startup/catalogue/clean shutdown pass. Registry: 182/285, 103 missing.
+isolated startup/catalogue/clean shutdown passed.
 Legacy duel restrictions, passive rune-saving/charges and live visual qualification
 remain open. There is no claim that cast effects alone reproduce every lingering
 visual stage. Reference: [Staff of the dead](https://oldschool.runescape.wiki/w/Staff_of_the_dead).
@@ -257,7 +281,7 @@ Dragon knife Duality now uses the native two-knife player animation; poisoned kn
 have their own player/projectile effects. Its explicit special projectile no longer
 fails validation merely because normal projectile metadata is absent. Tests execute
 all five knife variants and reject single-knife attacks before animation/consumption.
-Registry: 185/285, 100 missing. Live frame/height qualification, event-world usage
+Live frame/height qualification, event-world usage
 restrictions and unimplemented target-specific reductions remain open.
 References: [Dark bow](https://oldschool.runescape.wiki/w/Dark_bow),
 [Dark bow (bh)](https://oldschool.runescape.wiki/w/Dark_bow_(bh)),
@@ -271,7 +295,7 @@ BH Dragon mace: Shatter uses 15% native energy, 125% selected melee offence agai
 60% of crush defence and 150% melee maximum. Target levels remain unchanged.
 Damage reductions follow the rolled damage; misses do not roll or apply modifiers.
 Two new tests cover NPC/PvP accuracy boundaries, handler routing, FX, damage stages
-and energy. All 89 special tests pass; registry 186/285, 99 missing. Live visuals
+and energy. All 89 special tests passed for this slice. Live visuals
 and BH world restrictions remain open. Primary reference:
 [Dragon mace (bh)](https://oldschool.runescape.wiki/w/Dragon_mace_(bh)).
 
@@ -286,12 +310,12 @@ player stab plus a distinct graphic; Snipe uses the bone special projectile and
 one native ammo-consumption attempt. Native target/prayer modifiers remain in the
 hit queue. Boss-specific drain floors and Kephri's special team-case are not yet
 qualified. Eight new tests pass; 97 special / 161 selected tests and full JAR pass.
-Registry: 191/285, 94 missing. References:
+References:
 [Bone dagger](https://oldschool.runescape.wiki/w/Bone_dagger),
 [Dorgeshuun crossbow](https://oldschool.runescape.wiki/w/Dorgeshuun_crossbow).
 
-Dorgeshuun candidate isolated startup/catalogue and clean shutdown passed; proof
-in dorgeshuun-validation-20261003.json. Live installation remains untouched.
+Dorgeshuun isolated startup/catalogue and clean shutdown passed; recorded proof:
+`dorgeshuun-validation-20261003.json`.
 
 ## Acceptance FX correction (2026-10-04)
 
@@ -309,8 +333,9 @@ attack speed and hit timing are unchanged. No cache/client patch is required.
 
 Regression tests execute Bludgeon against NPC and player targets and distinguish
 both Nightmare player animations from the decoded graphic sequences. Live visual
-acceptance remains required. No new weapon family is added; special development
-remains paused at 191/285 registrations pending user acceptance of PR #15.
+acceptance was not claimed by these tests. The user subsequently accepted the final
+`6168204ee` checkpoint and authorized PR #15 on 2026-10-04; see [baseline](baseline.md).
+No new weapon family was added by this FX correction.
 
 Validation: 99 special-attack tests pass (0 failures/errors/skips); full server
 JAR builds successfully. Visual acceptance is not claimed by these tests.
