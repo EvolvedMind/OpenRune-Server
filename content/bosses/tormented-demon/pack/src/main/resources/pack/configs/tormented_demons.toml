@@ -1,0 +1,37 @@
+[[npc]]
+id = "npc.tormented_demon_1"
+inherit = "npc.tormented_demon_1"
+huntMode = 0
+huntRange = 0
+maxRange = 30
+respawnRate = 21
+defaultMode = "Wander"
+[npc.params]
+"param.attackrate" = 6
+"param.elemental_weakness_type" = 0
+"param.elemental_weakness_percent" = 0
+"param.tormented_demon" = 1
+"param.demon" = 1
+
+[[npc]]
+id = "npc.tormented_demon_defenceless_1"
+inherit = "npc.tormented_demon_1"
+
+[[npc]]
+id = "npc.tormented_demon_defenceless_2"
+inherit = "npc.tormented_demon_2"
+
+[[npc]]
+id = "npc.tormented_demon_2"
+inherit = "npc.tormented_demon_2"
+huntMode = 0
+huntRange = 0
+maxRange = 30
+respawnRate = 21
+defaultMode = "Wander"
+[npc.params]
+"param.attackrate" = 6
+"param.elemental_weakness_type" = 0
+"param.elemental_weakness_percent" = 0
+"param.tormented_demon" = 1
+"param.demon" = 1

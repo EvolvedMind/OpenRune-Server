@@ -42,6 +42,17 @@ class BossExtensionRegistryTest {
     }
 
     @Test
+    fun `unloading an extension leaves other owners registered`() {
+        val registry = BossExtensionRegistry()
+        registry.register("td.post_attack") { _ -> }
+        registry.register("other.attack") { _ -> }
+        assertEquals(true, registry.unregister("td.post_attack"))
+        assertEquals(false, registry.contains("td.post_attack"))
+        assertEquals(true, registry.contains("other.attack"))
+        assertEquals(false, registry.unregister("td.post_attack"))
+    }
+
+    @Test
     fun `unknown handlers fail loudly`() {
         assertThrows<IllegalStateException> {
             BossExtensionRegistry().invoke("missing", null, npc, player, null)
