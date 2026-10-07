@@ -29,19 +29,19 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [Cooking](https://oldschool.runescape.wiki/w/Cooking) | Module | [content/skills/cooking](content/skills/cooking) |
 | [Herblore](https://oldschool.runescape.wiki/w/Herblore) | Module | [content/skills/herblore](content/skills/herblore) |
 | [Fishing](https://oldschool.runescape.wiki/w/Fishing) | Module | [content/skills/fishing](content/skills/fishing) |
+| [Agility](https://oldschool.runescape.wiki/w/Agility) | Module | [content/skills/agility](content/skills/agility) |
 | [Thieving](https://oldschool.runescape.wiki/w/Thieving) | Module | [content/skills/thieving](content/skills/thieving) |
 | [Crafting](https://oldschool.runescape.wiki/w/Crafting) | Module | [content/skills/crafting](content/skills/crafting) |
 | [Fletching](https://oldschool.runescape.wiki/w/Fletching) | Module | [content/skills/fletching](content/skills/fletching) |
 | [Farming](https://oldschool.runescape.wiki/w/Farming) | Module | [content/skills/farming](content/skills/farming) |
+| [Hunter](https://oldschool.runescape.wiki/w/Hunter) | Module | [content/skills/hunter](content/skills/hunter) |
 
 <details>
-<summary>Other catalog entries (3)</summary>
+<summary>Other catalog entries (1)</summary>
 
 | Feature | Evidence | Source |
 |---|---|---|
-| [Agility](https://oldschool.runescape.wiki/w/Agility) | Not detected | — |
 | [Construction](https://oldschool.runescape.wiki/w/Construction) | References only | [FaladorShopkeepersScript.kt](content/areas/city/falador/src/main/kotlin/org/rsmod/content/areas/city/falador/npcs/FaladorShopkeepersScript.kt) |
-| [Hunter](https://oldschool.runescape.wiki/w/Hunter) | Not detected | — |
 
 </details>
 
@@ -310,6 +310,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | Module |
 |---|
 | [content/activities/shades-of-mortton](content/activities/shades-of-mortton) |
+| [content/activities/skullball](content/activities/skullball) |
 | [content/areas/city/ardougne](content/areas/city/ardougne) |
 | [content/areas/city/draynor](content/areas/city/draynor) |
 | [content/areas/city/draynor/pack](content/areas/city/draynor/pack) |

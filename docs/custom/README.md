@@ -38,3 +38,5 @@ Native clue action sources and test evidence: [clue completion](clue-completion.
 and [watermelon/Farming scope](clue-farming.md). The additional eight native tasks
 have [action, source and validation notes](clue-native-tasks.md).
 Current status remains in PROGRESS.md.
+
+The final ten skill-task routes have [native action and scope notes](clue-final-native-tasks.md).

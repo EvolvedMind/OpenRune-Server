@@ -3,14 +3,12 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 50 of 60 task rows have completion handling
-(6 gathering, 3 crafting, 3 Herblore, 5 combat, 2 equipment, 5 Firemaking,
-3 Runecrafting, 8 Charlie hand-ins, 3 Cooking/Smithing, 2 Fletching,
-1 Chivalry, 1 nickel, 1 stall theft, 1 eel dissection, 1 elf pickpocket, 1 watermelon planting,
-1 jewellery enchantment, 1 chest theft, 1 Shayzien smithing, 1 tablet creation).
-The other 10 remain incomplete. The eight new actions are on `feature/clue-tasks-50`;
-see [native actions and activity limits](clue-native-tasks.md). These counts describe
-code and focused tests, not live acceptance or complete supporting skills.
+Current implementation coverage: **60 of 60 native skill-task rows** have
+completion handling. The final ten routes have native producers and focused
+interaction tests; see [their action/source notes](clue-final-native-tasks.md).
+The continuation remains in PR #27 on `feature/clue-tasks-50` pending in-game
+acceptance and merge. This count does not imply complete supporting skills,
+all clue routes/maps/puzzles or Mimic.
 
 Charlie accepts items from any source following assignment. Self-production is
 not required since the [30 November 2022 Jagex update](https://secure.runescape.com/m=news/the-garden-of-death--more?oldschool=1).
@@ -29,16 +27,16 @@ The previous audit's self-production requirement was incorrect.
 | Elite | Equip a Dragon Scimitar. | Native equip transaction hook; assignment and removal checks tested. |
 | Elite | Enchant a piece of dragonstone jewellery. | Native Lvl-5 spell target, four outputs, rune/staff/pouch validation and committed XP; assigned task completes before return to Sherlock. Live acceptance pending. |
 | Elite | Craft a nature rune. | Standard altar output hook; cosmic requires base multiplier >= 2. Live acceptance pending. |
-| Elite | Catch a mottled eel with aerial fishing in Lake Molch. | Pending. |
-| Elite | Score a goal in skullball. | Pending. |
-| Elite | Complete a lap of Ape atoll agility course. | Pending. |
+| Elite | Catch a mottled eel with aerial fishing in Lake Molch. | Native cormorant Catch commits eel/bait and both skill XP before assigned-task completion. Live acceptance pending. |
+| Elite | Score a goal in skullball. | Native owned ball movement through a mapped goal publishes actual goal credit; Tap/Kick/Shoot and full game cycle tested. Live acceptance pending. |
+| Elite | Complete a lap of Ape atoll agility course. | All six native obstacles in order; level/greegree, saved lap state and interrupted model restoration tested. Live acceptance pending. |
 | Elite | Create a super defence potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Elite | Steal from a chest in Ardougne Castle. | Native mapped castle chest Search-for-traps action; level, atomic loot, restock, teleport and source-specific clue handling. Live acceptance pending. |
 | Elite | Craft a green dragonhide body. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | String a yew longbow. | Native stringing recipe and successful output event implemented; live acceptance pending. |
 | Elite | Slay a dust devil. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
-| Elite | Catch a black warlock. | Pending. |
-| Elite | Catch a red chinchompa. | Pending. |
+| Elite | Catch a black warlock. | Native butterfly Catch commits empty jar to warlock jar and XP; Release returns jar without repeated XP. Live acceptance pending. |
+| Elite | Catch a red chinchompa. | Native owned box-trap loop, nearby NPC, Check/Reset, failure, transactional catch and persistent material return. Live acceptance pending. |
 | Elite | Mine a mithril ore. | Assigned-task production event implemented; requires return to Sherlock. |
 | Elite | Smith a Mithril 2h Sword. | Successful smithing output event implemented; assignment checks tested. |
 | Elite | Catch a raw shark. | Assigned-task production event implemented; requires return to Sherlock. |
@@ -53,14 +51,14 @@ The previous audit's self-production requirement was incorrect.
 | Elite | Mine some nickel. | Existing mining output hook recognizes nickel ore; assignment checks tested. |
 | Master | Equip an abyssal whip in front of the abyssal demons of the Slayer Tower. | Assigned equip event checks worn weapon, Slayer Tower area, same-floor abyssal demon within 10 tiles. Whip/ornament/tentacle variants tested; proximity parity and live acceptance pending. |
 | Master | Smith a runite med helm. | Successful smithing output event implemented; assignment checks tested. |
-| Master | Teleport to a spirit tree you planted yourself. | Pending. |
+| Master | Teleport to a spirit tree you planted yourself. | Native seed/pot/water/sapling/patch loop, permanent offline growth, health check and owned travel destination. Live acceptance pending. |
 | Master | Create a Barrows teleport tablet. | Existing native Arceuus lectern, real spell/rune/essence requirements, atomic tablet creation and assigned-task handling. Live acceptance pending. |
 | Master | Slay a Nechryael in the Slayer Tower. | Kill-credit hook implemented for ordinary variants after assignment; tower location checked where required. |
 | Master | Kill the spiritual, magic and godly whilst representing their own god. | One credited spiritual mage kill with its god's equipment worn; all four factions, wrong-god/unworn/Slayer checks and native death/Sherlock route tested. Live acceptance pending. |
 | Master | Create an unstrung dragonstone amulet at a furnace. | Assigned-task production event implemented; requires return to Sherlock. |
 | Master | Burn a magic log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
 | Master | Burn a redwood log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
-| Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | Pending. |
+| Master | Complete a lap of the Rellekka rooftop agility course whilst sporting the finest amount of grace. | All seven native obstacles in order; graceful must remain worn throughout the saved lap. Live acceptance pending. |
 | Master | Mix an anti-venom potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Steal a gem from the Ardougne market. | Native stall theft with level, loot, inventory and restock handling; completion checks the successful theft source and cache-verified Ardougne stall tile. Live acceptance pending. |
@@ -74,10 +72,10 @@ The previous audit's self-production requirement was incorrect.
 | Master | Angle for an Anglerfish whilst sporting the finest fishing gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Chop a redwood log whilst sporting the finest lumberjack gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Craft a light orb in the Dorgesh-Kaan bank. | Existing wire-and-orb recipe output checked inside the ground-floor bank; outside/floor/wrong-product tests. Live acceptance pending. |
-| Master | Kill a reanimated abyssal. | Pending. |
+| Master | Kill a reanimated abyssal. | Native inventory Master Reanimation, book/head/runes/levels, owned NPC and credited-death Prayer/clue reward. Live acceptance pending. |
 | Master | Kill a Fiyr shade inside Mort'tons shade catacombs. | Native shadow activation, credited death inside the cached catacombs and Firemaking requirement; model restoration at native respawn tested. Door/key access and live acceptance remain open. |
-| Master | Combine the torn clue scroll parts. | Pending. |
-| Master | Catch a tecu salamander. | Pending. |
+| Master | Combine the torn clue scroll parts. | Three native cached cryptic visits grant trail-owned parts; atomic assembly advances next clue or final casket directly. Live acceptance pending. |
+| Master | Catch a tecu salamander. | Native young-tree rope/net trap, real nearby NPC and successful immature/adult output; ownership and escrow tested. Live acceptance pending. |
 
 Elite Sherlock, Charlie and Falo assignment retain the current trail step.
 Watson stores partial deposits persistently and exchanges four tiers atomically;
