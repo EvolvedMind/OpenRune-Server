@@ -139,7 +139,8 @@ device reference: [Strange device](https://oldschool.runescape.wiki/w/Strange_de
 
 ## User-approved native action checkpoint - 2026-10-07
 
-PR #26 at `676ad6a34ceda1d3a018d279433e37d4e75d0314` was approved for merge.
+PR #26's tested gameplay checkpoint `676ad6a34ceda1d3a018d279433e37d4e75d0314`
+was user-approved and merged into main as `e6aa9e06ab5a942e6fbd6185f08f147aab4530a3`.
 Uri recovery, native elf pickpocketing, altar-output matching and watermelon
 planting/Sherlock completion raise task handling to 42/60. Full clues remain
 active; 18 skill-task rows plus routes/maps/puzzles remain open, with Mimic last.
