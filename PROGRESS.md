@@ -1,14 +1,36 @@
 # Project overview
 
-Reviewed **2026-10-07**. This is the source for current status and priorities.
+Reviewed **2026-10-08**. This is the source for current status and priorities.
 Implementation details: [custom documentation](docs/custom/README.md).
 Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Active: Treasure Trails
+## 🟡 Active: Tormented Demons
 
-Continue toward full clue gameplay, as requested on 2026-10-06.
+The user requested Tormented Demons, then explicitly requested repairing the known
+disabled model transition. The existing PR #213 encounter is retained and extended
+in `feature/tormented-demons`; accepted encounters and revision 240 are preserved.
+
+- Native appearance variants replace the disabled body-customisation route. The
+  same NPC retains HP/identity and returns to its normal appearance on reset/death.
+- First combat slice: six-tick passive demons, prayer switching from actual HP loss,
+  defenceless timing, bomb damage/cancellation, reset cleanup and atomic recipes.
+- `::testtd` and `::testloot td [1-1000]` support testing; two observed Temple placements
+  are included. This is not the complete Temple population or entry flow.
+- Full cache/JAR build, five scoped formatting checks and **137 selected tests** pass
+  (13 Tormented Demon tests, native packet tests and accepted-boss regressions).
+  Isolated revision-240/Nero startup passes; exit 0, no private PostgreSQL PID or cleanup errors.
+- Test package: `outputs/tormented-demons-model-fix-20261008/INSTALLEREN.cmd`, with
+  independent rollback to the verified installed 60-task clue package. No automatic installation.
+- Remaining: full access/area layout, coordinated multiple demons, drop odds/ashes,
+  smouldering items, full crafting requirements and rendered in-game acceptance.
+- [Source review and implementation evidence](docs/custom/tormented-demons.md).
+
+## 🟡 Parked: Treasure Trails
+
+The accepted 60/60 task slice is preserved. Full clue gameplay resumes after the
+current Tormented Demon work; Mimic remains last.
 
 - **60/60 skill-task rows have completion handling.** The user approved the current scope on 2026-10-07; [PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) merged into `main` as `c535c713a`. This is task coverage, not overall clue completion.
 - Finish the remaining clue routes, maps and puzzles; then validate complete trails and their lifecycle.
@@ -76,7 +98,6 @@ Scope: XS = tiny, S = small, M = medium, L = large, XL = very large, XXL = multi
 | 🔴 | Sarachnis | M–L |
 | 🔴 | Shellbane Gryphon | M–L |
 | 🔴 | Royal Titans | L |
-| 🔴 | Tormented Demons | L |
 | 🔴 | Vet'ion & Calvar'ion | L |
 | 🔴 | Cerberus | L |
 | 🔴 | Vorkath | L |

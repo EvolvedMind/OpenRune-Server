@@ -173,19 +173,6 @@
       "size": "L"
     },
     {
-      "title": "Tormented Demons",
-      "status": "not_added",
-      "summary": "Existing module: audit the remaining gaps first; estimated full scope L. Complete the Tormented Demons encounter and supporting mechanics.",
-      "details": [
-        "Finish Tormented Demons as a complete playable encounter.",
-        "Verify combat mechanics, special behaviours, targeting, drops, kill/death handling and cleanup.",
-        "Integrate Collection Log, loot tracking and any required progression hooks.",
-        "Add focused regression tests and in-game acceptance checks before marking added."
-      ],
-      "category": "bosses",
-      "size": "L"
-    },
-    {
       "title": "Vet'ion & Calvar'ion",
       "status": "not_added",
       "summary": "Build Vet'ion and Calvar'ion into complete Wilderness boss encounters.",
