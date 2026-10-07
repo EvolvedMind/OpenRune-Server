@@ -1,6 +1,7 @@
 package org.rsmod.content.skills.smithing
 
 import dev.openrune.rscm.RSCM
+import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
@@ -27,7 +28,10 @@ import org.rsmod.content.skills.smithing.util.SmithingUtils.hasHammer
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
-class AnvilSmithingScript @Inject constructor(private val xpMods: XpModifiers) : PluginScript() {
+class AnvilSmithingScript @Inject constructor(
+    private val xpMods: XpModifiers,
+    private val shayzien: ShayzienSmithingScript,
+) : PluginScript() {
 
     private val hammers = setOf(
         "obj.hammer",
@@ -48,7 +52,11 @@ class AnvilSmithingScript @Inject constructor(private val xpMods: XpModifiers) :
 
         SmithingData.barOutputInternals.forEach { barInternal ->
             onOpLocCategoryU(SmithingData.ANVIL_CATEGORY, barInternal) {
-                SmithingData.barsByOutput[barInternal]?.let { queueOpenSmithing(it) }
+                if (barInternal.asRSCM() == "obj.lovakite_bar".asRSCM()) {
+                    with(shayzien) { openPlatebodies(it.loc) }
+                } else {
+                    SmithingData.barsByOutput[barInternal]?.let { queueOpenSmithing(it) }
+                }
             }
         }
 

@@ -47,6 +47,7 @@ import org.rsmod.content.skills.firemaking.DorgeshLampScript
 import org.rsmod.content.skills.firemaking.FiyrCremationScript
 import org.rsmod.content.skills.magic.utility.BarrowsTabletScript
 import org.rsmod.content.skills.magic.utility.DragonstoneEnchantmentScript
+import org.rsmod.content.skills.smithing.AnvilSmithingScript
 import org.rsmod.content.skills.smithing.ShayzienSmithingScript
 import org.rsmod.content.skills.thieving.ArdougneChestScript
 import org.rsmod.coroutine.GameCoroutine
@@ -273,7 +274,8 @@ class TrailNativeTaskActionsTest {
             with(BarrowsTabletScript(spells, runes)) { scripts.startup() }
             with(ArdougneChestScript(locs)) { scripts.startup() }
             with(DorgeshLampScript(locs)) { scripts.startup() }
-            with(ShayzienSmithingScript(XpModifiers(emptySet()))) { scripts.startup() }
+            val xpMods = XpModifiers(emptySet())
+            with(AnvilSmithingScript(xpMods, ShayzienSmithingScript(xpMods))) { scripts.startup() }
             with(FiyrCremationScript(locs, mock(WorldRepository::class.java))) { scripts.startup() }
             with(TrailSkillChallenges(progress, TrailTargets(progress), TrailRequirements(progress.catalog))) { scripts.startup() }
             scripts.onEvent<SkillingActionCompleteEvent> { products += context as SkillingActionContext.Product }

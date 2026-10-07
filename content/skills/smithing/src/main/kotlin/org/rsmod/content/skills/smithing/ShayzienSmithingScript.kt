@@ -10,7 +10,6 @@ import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.events.skilling.SkillingProductSource
 import org.rsmod.api.player.protect.ProtectedAccess
-import org.rsmod.api.script.onOpLocCategoryU
 import org.rsmod.api.stats.xpmod.XpModifiers
 import org.rsmod.content.skills.Material
 import org.rsmod.content.skills.SkillMultiConfig
@@ -18,23 +17,18 @@ import org.rsmod.content.skills.SkillMultiEntry
 import org.rsmod.content.skills.openSkillMulti
 import org.rsmod.content.skills.smithing.util.SmithingUtils.hasHammer
 import org.rsmod.game.loc.BoundLocInfo
-import org.rsmod.plugin.scripts.PluginScript
-import org.rsmod.plugin.scripts.ScriptContext
 
-class ShayzienSmithingScript @Inject constructor(private val xpMods: XpModifiers) : PluginScript() {
-    override fun ScriptContext.startup() {
-        onOpLocCategoryU("category.anvil", "obj.lovakite_bar") {
-            val loc = it.loc
-            if (!hasHammer()) { mes("You need a hammer to smith armour."); return@onOpLocCategoryU }
+class ShayzienSmithingScript @Inject constructor(private val xpMods: XpModifiers) {
+    suspend fun ProtectedAccess.openPlatebodies(loc: BoundLocInfo) {
+            if (!hasHammer()) { mes("You need a hammer to smith armour."); return }
             val available = (1..5).filter { stat("stat.smithing") >= level(it) }.map { tier ->
                 SkillMultiEntry("obj.shayzien_body_$tier", listOf(Material("obj.lovakite_bar", 4)))
             }
-            if (available.isEmpty()) { mes("You need level 53 Smithing to make Shayzien platebodies."); return@onOpLocCategoryU }
+            if (available.isEmpty()) { mes("You need level 53 Smithing to make Shayzien platebodies."); return }
             openSkillMulti(SkillMultiConfig(verb = "smith", entries = available)) { selected ->
                 val tier = selected.entry.internal.substringAfterLast('_').toInt()
                 repeat(selected.amount) { if (!smith(loc, tier)) return@openSkillMulti }
             }
-        }
     }
     private suspend fun ProtectedAccess.smith(loc: BoundLocInfo, tier: Int): Boolean {
         if (!hasHammer() || stat("stat.smithing") < level(tier) || inv.count("obj.lovakite_bar") < 4) return false
