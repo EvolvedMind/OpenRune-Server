@@ -45,7 +45,7 @@ the module table at the bottom before reading a 0 as "nothing exists".
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Crafting_icon.png?a1f71" height="20" alt=""> [Crafting](content/skills/crafting) | 6.515 loc | [wiki](https://oldschool.runescape.wiki/w/Crafting) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Fletching_icon.png?15cda" height="20" alt=""> [Fletching](content/skills/fletching) | 63 loc | [wiki](https://oldschool.runescape.wiki/w/Fletching) |
 | 🟢 | <img src="https://oldschool.runescape.wiki/images/Construction_icon.png?f9bf7" height="20" alt=""> Construction | no module, code in content/areas/city | [wiki](https://oldschool.runescape.wiki/w/Construction) |
-| 🟢 | <img src="https://oldschool.runescape.wiki/images/Farming_icon.png?558fa" height="20" alt=""> Farming | no module, code in content/areas/city | [wiki](https://oldschool.runescape.wiki/w/Farming) |
+| 🟢 | <img src="https://oldschool.runescape.wiki/images/Farming_icon.png?558fa" height="20" alt=""> [Farming](content/skills/farming) | 1.026 loc | [wiki](https://oldschool.runescape.wiki/w/Farming) |
 | 🔴 | <img src="https://oldschool.runescape.wiki/images/Hunter_icon.png?8762f" height="20" alt=""> Hunter | nothing yet | [wiki](https://oldschool.runescape.wiki/w/Hunter) |
 
 ### Bosses <sup>24/169</sup>
@@ -272,7 +272,7 @@ Status: 🔴 not added · 🟡 started / parked · 🟢 added
 
 | | Item | Summary | Details |
 |---|---|---|---|
-| 🟡 | **Treasure Trails and Mimic** | ACTIVE DEVELOPMENT toward full clue gameplay: 41/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last. | <details><summary>Open</summary><ul><li>Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.</li><li>41 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href="docs/custom/clue-task-coverage.md">task coverage</a>.</li><li>Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>, <code>::cluetest elf</code>. See <a href="docs/custom/clue-testing.md">test commands</a>.</li><li>This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.</li><li>2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.</li><li>2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last.</li><li>2026-10-07 clue branch: Uri recovery, adapted upstream #230 elf pickpocketing for 53 cache-verified NPCs, atomic loot/pouches and native Sherlock completion. 41/60 task rows handled. Nature/cosmic/blood consumers now match actual altar output; 76 clue + 9 Thieving tests pass. 158 selected tests, scoped formatting checks, full JAR build and isolated Nero-bridge boot pass; new live acceptance pending; Mimic remains last.</li></ul></details> |
+| 🟡 | **Treasure Trails and Mimic** | ACTIVE DEVELOPMENT toward full clue gameplay: 42/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last. | <details><summary>Open</summary><ul><li>Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.</li><li>42 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href="docs/custom/clue-task-coverage.md">task coverage</a>.</li><li>Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>, <code>::cluetest elf</code>, <code>::cluetest watermelon</code>. See <a href="docs/custom/clue-testing.md">test commands</a>.</li><li>This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.</li><li>2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.</li><li>2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last.</li><li>2026-10-07 clue branch: Uri recovery, adapted upstream #230 elf pickpocketing for 53 cache-verified NPCs, atomic loot/pouches and native Sherlock completion. 41/60 task rows handled. Nature/cosmic/blood consumers now match actual altar output; 76 clue + 9 Thieving tests pass. 158 selected tests, scoped formatting checks, full JAR build and isolated Nero-bridge boot pass; new live acceptance pending; Mimic remains last.</li><li>2026-10-07 native watermelon planting: adapted upstream #231 with free dbrow IDs, permanent module-owned vars, stable crop identity, atomic replacements and post-delay checks. 42/60 task handlers; full Farming, remaining clues and Mimic are still open. 180 selected tests, scoped formatting, full JAR and isolated revision-240/Nero-bridge startup pass; in-game acceptance pending. See docs/custom/clue-farming.md.</li></ul></details> |
 
 #### 6. Parked work / long-term ideas — do not auto-resume
 
@@ -405,7 +405,7 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `other/special-attacks/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
 | `other/special-weapons` | 25 | 2.024 | 10 | 1 | 2026-10-04 |
 | `other/special-weapons/pack` | 1 | 6 | 0 | 0 | 2026-10-03 |
-| `other/treasure-trails` | 27 | 2.781 | 18 | 0 | 2026-10-07 |
+| `other/treasure-trails` | 27 | 2.796 | 19 | 0 | 2026-10-07 |
 | `other/treasure-trails/pack` | 1 | 6 | 0 | 0 | 2026-10-04 |
 | `other/windmill` | 2 | 133 | 0 | 0 | 2026-09-23 |
 | `other/windmill/pack` | 1 | 6 | 0 | 0 | 2026-09-23 |
@@ -414,6 +414,8 @@ Found the same way `settings.gradle.kts` finds them: any dir with a `build.gradl
 | `skills/cooking` | 13 | 1.428 | 1 | 0 | 2026-10-05 |
 | `skills/crafting` | 33 | 3.816 | 5 | 0 | 2026-10-04 |
 | `skills/crafting/pack` | 2 | 2.699 | 0 | 0 | 2026-09-22 |
+| `skills/farming` | 5 | 692 | 2 | 0 | 2026-10-07 |
+| `skills/farming/pack` | 2 | 334 | 0 | 0 | 2026-10-07 |
 | `skills/firemaking` | 6 | 590 | 0 | 0 | 2026-10-05 |
 | `skills/fishing` | 13 | 1.402 | 0 | 0 | 2026-09-25 |
 | `skills/fishing/pack` | 3 | 206 | 0 | 0 | 2026-09-25 |

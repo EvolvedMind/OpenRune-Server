@@ -104,3 +104,30 @@ Old approved branches were archived and removed locally/remotely. Recoverable ta
 `archive/20261007/feature/small-extensions` at `e6b1702fa` and
 `archive/20261007/fix/clue-guardian-completion` at `4211eca06`.
 Main retains all approved fixes; `feature/clue-completion` holds this new work.
+
+## Native watermelon planting - 2026-10-07
+
+The next Farming slice is now implemented and tested through the native loc/item
+producer, persistent patch state and Sherlock consumer. Coverage is 42/60, with
+18 task rows still missing. [Source, scope and tests](clue-farming.md). The frozen
+clue-native-actions package is preserved; a new Farming package will have its own
+rollback. 180 selected tests, scoped formatting, full JAR build and isolated
+Nero-bridge boot pass; live acceptance pending. Mimic last.
+
+## Next action research: dragonstone enchanting - 2026-10-07
+
+The local Magic modules are alchemy, spell attacks, teleports and spellbook altars;
+no jewellery-enchant handler was found in the targeted source inventory. Upstream
+main's Magic directory additionally includes Arceuus spells. Searches across open,
+draft and closed PRs for enchanting/jewellery found no reusable enchanting module.
+The two broader search matches were checked: unmerged [PR #216](https://github.com/OpenRune/OpenRune-Server/pull/216)
+at `375581c32314973d7de6a04e5e7f3713ef429f22` has no jewellery-enchant file among its
+872 changed paths; merged [PR #280](https://github.com/OpenRune/OpenRune-Server/pull/280)
+at `b7828ecb3cfd67cf73c2fee62c54f67fdcb52857` changes unrelated skill/drop fixes.
+Do not import either broad content drop for this action.
+
+Use the existing native `AlchemyScript` spell-target interaction, queued protected
+access and `MagicSpellRegistry` rune/level definitions as integration references.
+Verify revision-240 recipes/graphics, then test real spell casting, rune-pouch/staff
+supplies, atomic input/output, cancellation and Sherlock credit. This research is
+not an implemented task; coverage remains 42/60.

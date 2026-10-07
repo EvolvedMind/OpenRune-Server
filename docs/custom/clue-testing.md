@@ -16,6 +16,7 @@ update the currently installed server by themselves.
 | `::cluetest eel` | Assigned sacred-eel challenge, knife and three eels in one transaction. Requires normal skill levels. |
 | `::cluetest gem` | Assigned Ardougne gem-stall challenge. Steal a gem at 2667,3303,0, then return to Sherlock. Requires Thieving 75. |
 | `::cluetest elf` | New on `feature/clue-completion`: assigned elf pickpocket challenge. Pickpocket in Lletya or Prifddinas, then return to Sherlock. Requires Thieving 85. |
+| `::cluetest watermelon` | Assigned single-step watermelon planting clue, three seeds, rake, dibber and spade; requires Farming 47. Rake an allotment at Falador farm (3056,3309), plant seeds, then return to Sherlock. |
 | `::cluetest info` | Current initialized inventory clues: row, kind, step, phase and clue text. |
 | `::cluetest` | Usage help. |
 | `::cluerewards` | Existing command to collect pending casket rewards after freeing inventory space. |

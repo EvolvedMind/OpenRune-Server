@@ -373,3 +373,20 @@ Main contains approved PR #24/#25; old branches archived under archive/20261007.
 Next: adapt upstream Farming #231 with atomic seed/can/bucket transactions and a
 genuine successful-plant producer/consumer for the watermelon clue. Preserve rev240.
 See docs/custom/clue-completion.md and docs/custom/clue-task-coverage.md.
+
+
+## 2026-10-07 - Native watermelon clue action
+
+Branch feature/clue-completion, gameplay commit b1b04ee3558bd12352cc310951a8ed0a3eeba5d9.
+Adapted upstream Farming PR #231 at 97aa0afa766469c0e2937a5aa0612b47b8c822e5.
+Native seed transaction, saved patch and XP precede the Sherlock event;
+post-delay state/tool/level checks and atomic can/bucket replacements tested.
+Scope: limited allotment/flower/herb foundation, not complete OSRS Farming.
+42/60 skill-task rows handled; 18 tasks and remaining clue routes/maps/puzzles
+remain open. Mimic last. 180 selected tests, scoped formatting, full JAR
+build and isolated revision-240/Nero-bridge startup pass. Existing DB-close
+ordering warnings remain a separate follow-up. New live acceptance pending.
+Test package outputs/clue-farming-20261007/INSTALLEREN.cmd; independent rollback.
+The installed guardian checkpoint matched 826/826 targets. No live install.
+Source/scope/tests: docs/custom/clue-farming.md. Next: missing native task
+actions, including dragonstone enchanting, then remaining clue routes.

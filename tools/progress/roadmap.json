@@ -821,15 +821,16 @@
     {
       "title": "Treasure Trails and Mimic",
       "status": "started",
-      "summary": "ACTIVE DEVELOPMENT toward full clue gameplay: 41/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last.",
+      "summary": "ACTIVE DEVELOPMENT toward full clue gameplay: 42/60 skill tasks handled; remaining routes, actions, puzzles/maps and Mimic outstanding. Mimic last.",
       "details": [
         "Scroll boxes create clue scrolls; native catalog, saved trail state, NPC assignment, puzzles and reward handling have implementation and focused tests.",
-        "41 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href=\"docs/custom/clue-task-coverage.md\">task coverage</a>.",
-        "Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>, <code>::cluetest elf</code>. See <a href=\"docs/custom/clue-testing.md\">test commands</a>.",
+        "42 of 60 skill-task rows have completion handling. Remaining tasks, other clue routes, map/puzzle coverage and live acceptance are tracked in <a href=\"docs/custom/clue-task-coverage.md\">task coverage</a>.",
+        "Administrator test items: <code>::cluekit</code>, <code>::cluetest box master</code>, <code>::cluetest eel</code>, <code>::cluetest gem</code>, <code>::cluetest elf</code>, <code>::cluetest watermelon</code>. See <a href=\"docs/custom/clue-testing.md\">test commands</a>.",
         "This branch is an unreleased test candidate. Do not mark the whole activity complete; add Mimic after clue routes are finished.",
         "2026-10-06 focused guardian fix: preserve credited kill metadata through native NPC deletion; all guardians defeated then dig advances the clue or grants the final casket. 61 tests and isolated runtime pass; user acceptance pending. Skill coverage remains 40/60 and Mimic remains parked. See docs/custom/clue-guardians.md.",
         "2026-10-06: user explicitly resumed clues toward 100%. Guardian progression fix accepted and merged. Implementation coverage remains 40/60; no full-completion claim. Finish missing native actions and clue/puzzle routes, then implement Mimic last.",
-        "2026-10-07 clue branch: Uri recovery, adapted upstream #230 elf pickpocketing for 53 cache-verified NPCs, atomic loot/pouches and native Sherlock completion. 41/60 task rows handled. Nature/cosmic/blood consumers now match actual altar output; 76 clue + 9 Thieving tests pass. 158 selected tests, scoped formatting checks, full JAR build and isolated Nero-bridge boot pass; new live acceptance pending; Mimic remains last."
+        "2026-10-07 clue branch: Uri recovery, adapted upstream #230 elf pickpocketing for 53 cache-verified NPCs, atomic loot/pouches and native Sherlock completion. 41/60 task rows handled. Nature/cosmic/blood consumers now match actual altar output; 76 clue + 9 Thieving tests pass. 158 selected tests, scoped formatting checks, full JAR build and isolated Nero-bridge boot pass; new live acceptance pending; Mimic remains last.",
+        "2026-10-07 native watermelon planting: adapted upstream #231 with free dbrow IDs, permanent module-owned vars, stable crop identity, atomic replacements and post-delay checks. 42/60 task handlers; full Farming, remaining clues and Mimic are still open. 180 selected tests, scoped formatting, full JAR and isolated revision-240/Nero-bridge startup pass; in-game acceptance pending. See docs/custom/clue-farming.md."
       ],
       "category": "active"
     }
