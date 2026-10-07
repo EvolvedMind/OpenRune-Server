@@ -4,7 +4,9 @@ Reviewed **2026-10-07**. This is the source for current status and priorities.
 Implementation details: [custom documentation](docs/custom/README.md).
 Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
-## Active: Treasure Trails
+**Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
+
+## 🟡 Active: Treasure Trails
 
 Continue toward full clue gameplay, as requested on 2026-10-06.
 
@@ -20,25 +22,25 @@ Exact commits, package and recovery checkpoints: [baseline](docs/custom/baseline
 
 Acceptance below applies to the recorded scope. A merged change does not establish that it was installed in the live runtime.
 
-| Area | Accepted scope / reference |
-|---|---|
-| [Zulrah](docs/custom/zulrah.md) | Existing custom encounter; owner-confirmed acceptance. |
-| [Araxxor](docs/custom/araxxor.md) | Encounter accepted; merged in PR #16. |
-| [Kraken](docs/custom/kraken.md) | Public-cave encounter accepted; private instances are outside this scope. |
-| [Corporeal Beast](docs/custom/corporeal-beast.md) | Encounter accepted; clan instances and individual Combat Achievement conditions remain separate work. |
-| Barrows | Accepted native encounter/rewards; `::testloot barrows [count]` uses native chest rewards. |
-| [Doom of Mokhaiotl and NPC combat-stat HUD](docs/custom/doom-of-mokhaiotl.md) | Accepted package; merged through server PR #23 and Nero PR #11. |
-| [Small extensions](docs/custom/small-extensions.md) | OSRS GE Prices, Improved Item Examine, Notification Queue and Collection Log Reward Broadcasts approved and merged into `474296f2b`. Advisory formatting findings remain open. |
+| Status | Area | Accepted scope / reference |
+|:---:|---|---|
+| 🟢 | [Zulrah](docs/custom/zulrah.md) | Existing custom encounter; owner-confirmed acceptance. |
+| 🟢 | [Araxxor](docs/custom/araxxor.md) | Encounter accepted; merged in PR #16. |
+| 🟢 | [Kraken](docs/custom/kraken.md) | Public-cave encounter accepted; private instances are outside this scope. |
+| 🟢 | [Corporeal Beast](docs/custom/corporeal-beast.md) | Encounter accepted; clan instances and individual Combat Achievement conditions remain separate work. |
+| 🟢 | Barrows | Accepted native encounter/rewards; `::testloot barrows [count]` uses native chest rewards. |
+| 🟢 | [Doom of Mokhaiotl and NPC combat-stat HUD](docs/custom/doom-of-mokhaiotl.md) | Accepted package; merged through server PR #23 and Nero PR #11. |
+| 🟢 | [Small extensions](docs/custom/small-extensions.md) | OSRS GE Prices, Improved Item Examine, Notification Queue and Collection Log Reward Broadcasts approved and merged into `474296f2b`. Advisory formatting findings remain open. |
 
 ## Existing content and open follow-ups
 
-| Area | Remaining work / reference |
-|---|---|
-| [Pets](docs/custom/pets.md), [commands](docs/custom/commands.md), [max cape](docs/max-cape.md) and [timers](docs/custom/architecture.md) | Implemented; preserve covered behavior when shared systems change. |
-| [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
-| [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
-| [Shared persistence](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
-| Upstream research | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed, not imported. Any adoption requires a scoped revision-240 port. |
+| Status | Area | Remaining work / reference |
+|:---:|---|---|
+| 🟢 | [Pets](docs/custom/pets.md), [commands](docs/custom/commands.md), [max cape](docs/max-cape.md) and [timers](docs/custom/architecture.md) | Implemented; preserve covered behavior when shared systems change. |
+| 🟡 | [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
+| 🟡 | [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
+| 🔴 | [Persistence warning follow-up](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
+| 🟢 | Upstream research (review only) | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed; not imported. Implementation has not started. Any adoption requires a scoped revision-240 port. |
 
 ## Backlog
 
@@ -52,81 +54,81 @@ Scope: XS = tiny, S = small, M = medium, L = large, XL = very large, XXL = multi
 
 ### Bosses
 
-| Feature | Scope |
-|---|---|
-| Thermonuclear Smoke Devil | S |
-| Deranged Archaeologist | S |
-| Giant Mole | S–M |
-| Chaos Fanatic | S–M |
-| Obor | M |
-| Brutus | M |
-| Chaos Elemental | M |
-| Kalphite Queen | M |
-| Dagannoth Kings | M |
-| Sarachnis | M–L |
-| Shellbane Gryphon | M–L |
-| Royal Titans | L |
-| Tormented Demons | L |
-| Vet'ion & Calvar'ion | L |
-| Cerberus | L |
-| Vorkath | L |
-| Abyssal Sire | L |
-| Alchemical Hydra | L |
-| Grotesque Guardians | L–XL |
-| The Hueycoatl | L–XL |
-| Nex | XL |
-| The Nightmare | XL |
-| Yama | XL–XXL |
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Thermonuclear Smoke Devil | S |
+| 🔴 | Deranged Archaeologist | S |
+| 🔴 | Giant Mole | S–M |
+| 🔴 | Chaos Fanatic | S–M |
+| 🔴 | Obor | M |
+| 🔴 | Brutus | M |
+| 🔴 | Chaos Elemental | M |
+| 🔴 | Kalphite Queen | M |
+| 🔴 | Dagannoth Kings | M |
+| 🔴 | Sarachnis | M–L |
+| 🔴 | Shellbane Gryphon | M–L |
+| 🔴 | Royal Titans | L |
+| 🔴 | Tormented Demons | L |
+| 🔴 | Vet'ion & Calvar'ion | L |
+| 🔴 | Cerberus | L |
+| 🔴 | Vorkath | L |
+| 🔴 | Abyssal Sire | L |
+| 🔴 | Alchemical Hydra | L |
+| 🔴 | Grotesque Guardians | L–XL |
+| 🔴 | The Hueycoatl | L–XL |
+| 🔴 | Nex | XL |
+| 🔴 | The Nightmare | XL |
+| 🔴 | Yama | XL–XXL |
 
 ### Minigames and activities
 
-| Feature | Scope |
-|---|---|
-| Aerial Fishing | M |
-| Tithe Farm | M–L |
-| Vale Totems | M–L |
-| Puro-Puro | M–L |
-| Mahogany Homes | L |
-| Mastering Mixology | L |
-| Giants' Foundry | L |
-| Fight Caves | L |
-| Zalcano | L |
-| Wintertodt | L–XL |
-| Mage Training Arena | L–XL |
-| Tempoross | XL |
-| Pest Control | XL |
-| Moons of Peril | XL |
-| Guardians of the Rift | XL |
-| The Inferno | XL–XXL |
-| Fortis Colosseum | XL–XXL |
-| The Gauntlet | XL–XXL |
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Aerial Fishing | M |
+| 🔴 | Tithe Farm | M–L |
+| 🔴 | Vale Totems | M–L |
+| 🔴 | Puro-Puro | M–L |
+| 🔴 | Mahogany Homes | L |
+| 🔴 | Mastering Mixology | L |
+| 🔴 | Giants' Foundry | L |
+| 🔴 | Fight Caves | L |
+| 🔴 | Zalcano | L |
+| 🔴 | Wintertodt | L–XL |
+| 🔴 | Mage Training Arena | L–XL |
+| 🔴 | Tempoross | XL |
+| 🔴 | Pest Control | XL |
+| 🔴 | Moons of Peril | XL |
+| 🔴 | Guardians of the Rift | XL |
+| 🔴 | The Inferno | XL–XXL |
+| 🔴 | Fortis Colosseum | XL–XXL |
+| 🔴 | The Gauntlet | XL–XXL |
 
 ### Other systems
 
-| Feature | Scope |
-|---|---|
-| Warriors' Guild Cyclopes & Defenders | M |
-| Revenants | M–L |
-| Hunter Guild | L |
-| Random Events | XL |
-| Forestry | XL |
-| Own Grand Exchange | XL–XXL |
-| Achievements | XL–XXL |
-| Combat Tasks | XXL |
-| Leagues | XXL |
-| Sailing Skill | XXL |
+| Status | Feature | Scope |
+|:---:|---|---|
+| 🔴 | Warriors' Guild Cyclopes & Defenders | M |
+| 🔴 | Revenants | M–L |
+| 🔴 | Hunter Guild | L |
+| 🔴 | Random Events | XL |
+| 🔴 | Forestry | XL |
+| 🔴 | Own Grand Exchange | XL–XXL |
+| 🔴 | Achievements | XL–XXL |
+| 🔴 | Combat Tasks | XXL |
+| 🔴 | Leagues | XXL |
+| 🔴 | Sailing Skill | XXL |
 
 ### Parked
 
-| Feature | Note |
-|---|---|
-| Weapon Special Attacks | Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected. |
-| RSPS AgentCraft — In-Game Developer Observatory | Parked concept: real Claude/Codex agents through an in-game developer scene, with an external runner and isolated worktrees. Full-system scope XXL. |
+| Status | Feature | Note |
+|:---:|---|---|
+| 🟡 | Weapon Special Attacks | Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected. |
+| 🔴 | RSPS AgentCraft — In-Game Developer Observatory | Parked concept: real Claude/Codex agents through an in-game developer scene, with an external runner and isolated worktrees. Full-system scope XXL. |
 
 ### Runtime migration
 
-| Feature | Note |
-|---|---|
-| Revision 241 Upgrade | Deferred compatibility review. Keep revision 240; any client, protocol or cache upgrade needs a separate explicit task. |
+| Status | Feature | Note |
+|:---:|---|---|
+| 🟡 | Revision 241 Upgrade | Deferred compatibility review. Keep revision 240; any client, protocol or cache upgrade needs a separate explicit task. |
 
 <!-- roadmap:end -->

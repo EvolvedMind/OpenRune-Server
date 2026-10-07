@@ -1,12 +1,16 @@
 {
   "statuses": {
     "not_added": {
-      "icon": "",
-      "label": "Planned"
+      "icon": "🔴",
+      "label": "Not started"
     },
     "started": {
-      "icon": "",
-      "label": "Paused"
+      "icon": "🟡",
+      "label": "Started"
+    },
+    "added": {
+      "icon": "🟢",
+      "label": "Complete"
     }
   },
   "items": [

@@ -104,6 +104,7 @@ Repo-root, Java 21. Windows: vervang `./gradlew` door `.\gradlew.bat`. Kies de k
 ## 9. Voortgang en oplevering
 
 - `PROGRESS.md` is het enige overzicht voor actuele status, prioriteiten en open werk. Werk relevante regels bij; voeg geen tweede statuslog toe. Technische besluiten, broncommits en testbewijs staan in de passende feature-notitie onder `docs/custom/`; de index staat in `docs/custom/README.md`.
+- Statuskleuren: 🟢 Complete, 🟡 Started, 🔴 Not started. Beoordeel de afgesproken scope; geparkeerd werk behoudt zijn voortgangskleur. Module- of bestandsaanwezigheid bewijst geen voltooiing.
 - Toekomstig, geparkeerd en migratiewerk staat in `tools/progress/roadmap.json`; het roadmapblok in `PROGRESS.md` wordt daaruit gegenereerd. Verplaats afgerond of actief werk naar het handmatige statusdeel en verwijder het uit de backlogbron.
 - `CONTENT_INVENTORY.md` toont automatisch gevonden modules/referenties, geen geverifieerde gameplay. Wijzig gegenereerde inhoud via de bron. Genereer met `node tools/progress/content-progress.mjs`; controleer zonder schrijven met dezelfde opdracht plus `--check`.
 - Lever kort op: **gewijzigd**, **gecontroleerd**, **nog open**. Claim alleen uitgevoerde validatie; vermeld een volgende actie alleen als werk resteert.

@@ -200,6 +200,7 @@ function renderRoadmap(roadmap) {
     const key = norm(String(item.title ?? '').replace(/\s*[—–-]\s*Complete$/i, ''))
     if (!key || seen.has(key)) throw new Error('roadmap.json: missing or duplicate title: ' + item.title)
     if (!categories[item.category]) throw new Error('roadmap.json: unknown category: ' + item.category)
+    if (!roadmap.statuses?.[item.status]?.icon) throw new Error('roadmap.json: missing status icon: ' + item.status)
     seen.add(key)
   }
   const lines = ['Requirements and details: [roadmap.json](tools/progress/roadmap.json).', '',
@@ -208,13 +209,13 @@ function renderRoadmap(roadmap) {
     const items = (roadmap.items ?? []).filter((item) => item.category === key)
     if (!items.length) continue
     const showNotes = key === 'parked' || key === 'migration'
-    lines.push('### ' + category.label, '', showNotes ? '| Feature | Note |' : '| Feature | Scope |', '|---|---|')
+    lines.push('### ' + category.label, '', showNotes ? '| Status | Feature | Note |' : '| Status | Feature | Scope |', '|:---:|---|---|')
     for (const item of items) {
       const estimate = String(item.summary ?? '').match(/estimated(?:\s+(?:full|full-system))?\s+scope\s+((?:XXL|XL|XS|S|M|L)(?:\s*[–—-]\s*(?:XXL|XL|XS|S|M|L))?)(?=\W|$)/i)
       const size = item.size ?? estimate?.[1] ?? '—'
       const summary = estimate?.index === 0 ? item.summary.slice(estimate[0].length).replace(/^\.\s*/, '') : item.summary
       const title = String(item.title).replace(/\s*[—–-]\s*Complete$/i, '')
-      lines.push('| ' + cell(title) + ' | ' + cell(showNotes ? summary : size) + ' |')
+      lines.push('| ' + cell(roadmap.statuses[item.status].icon) + ' | ' + cell(title) + ' | ' + cell(showNotes ? summary : size) + ' |')
     }
     lines.push('')
   }

@@ -31,7 +31,7 @@ function fixture(t) {
     pages: { 'Actual Boss': { image: 'https://example.invalid/icon.png', sections: ['Unverified checklist item'] } },
   })
   write('tools/progress/roadmap.json', {
-    statuses: { not_added: { label: 'Gepland' }, started: { label: 'Geparkeerd' } },
+    statuses: { not_added: { icon: '🔴', label: 'Not started' }, started: { icon: '🟡', label: 'Started' } },
     categories: { bosses: { label: 'Bosses' }, parked: { label: 'Geparkeerd' } },
     items: [
       { title: 'Planned Boss — Complete', status: 'not_added', category: 'bosses', summary: 'Estimated scope S–M. Full encounter | rewards.', details: ['Long implementation detail stays in JSON.'] },
@@ -62,8 +62,8 @@ test('generation keeps manual text and distinguishes modules, references, drops 
   assert.ok(progress.startsWith('# Manual status\r\n\r\nAccepted work stays here.\r\n\r\n'))
   assert.ok(progress.endsWith('\r\n\r\nManual progress footer\r\n'))
   assert.equal(progress.replace(/\r\n/g, '').includes('\n'), false)
-  assert.match(progress, /\| Planned Boss \| S–M \|/)
-  assert.match(progress, /\| Paused system \| Preserve the checkpoint\. \|/)
+  assert.match(progress, /\| 🔴 \| Planned Boss \| S–M \|/)
+  assert.match(progress, /\| 🟡 \| Paused system \| Preserve the checkpoint\. \|/)
   assert.doesNotMatch(progress, /Full encounter|Gepland|Geparkeerd \|/)
   assert.doesNotMatch(progress, /Long implementation detail/)
   const readme = f.read('README.md')
