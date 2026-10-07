@@ -1,7 +1,9 @@
 # Clue completion work
 
-Active branch: `feature/clue-completion`, based on main `90f1e5fb9`.
-Accepted gameplay and revision 240 are preserved. Mimic follows the remaining clue work.
+Historical evidence for `feature/clue-completion`, based on main `90f1e5fb9`;
+accepted and merged through PR #26. Current work is tracked in PROGRESS.md and
+[the additional native task note](clue-native-tasks.md). Revision 240 is preserved.
+Mimic follows the remaining clue work.
 
 ## Emote recovery — 2026-10-06
 

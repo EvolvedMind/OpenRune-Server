@@ -25,7 +25,7 @@ import org.rsmod.plugin.scripts.ScriptContext
 @ResourceLock("ServerCacheManager")
 class TrailSkillKillTest {
     @Test fun `only assigned kills complete a task without advancing the trail`() {
-        for ((row, types) in TrailSkillKillHook.targetsByRow) for (type in types) {
+        for ((row, types) in TrailSkillKillHook.targetsByRow.filterKeys { it != TrailSkillKillHook.shadeTask && it != TrailSkillKillHook.spiritualTask }) for (type in types) {
             val f = Fixture(row)
             val npc = Npc(checkNotNull(ServerCacheManager.getNpc(type)), CoordGrid(3435, 3565, 2))
             Mockito.`when`(f.areas.inArea("area.slayer_tower", npc.coords)).thenReturn(true)

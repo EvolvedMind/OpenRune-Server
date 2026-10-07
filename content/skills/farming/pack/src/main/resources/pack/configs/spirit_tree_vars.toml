@@ -1,0 +1,59 @@
+[[varp]]
+id = "varp.spirit_tree_port_sarim_state"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_port_sarim_clock"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_etceteria_state"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_etceteria_clock"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_brimhaven_state"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_brimhaven_clock"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_hosidius_state"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_hosidius_clock"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_farming_guild_state"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.spirit_tree_farming_guild_clock"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"

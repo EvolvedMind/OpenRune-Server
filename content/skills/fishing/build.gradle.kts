@@ -5,6 +5,7 @@ plugins {
 dependencies {
     implementation(projects.api.pluginCommons)
     implementation(projects.api.attr)
+    implementation(projects.api.repo)
     implementation(projects.content.quest)
     implementation(projects.content.skills.utils)
 }

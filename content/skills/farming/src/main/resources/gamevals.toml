@@ -1,4 +1,14 @@
 [gamevals.varp]
+spirit_tree_port_sarim_state = 65432
+spirit_tree_port_sarim_clock = 65431
+spirit_tree_etceteria_state = 65430
+spirit_tree_etceteria_clock = 65429
+spirit_tree_brimhaven_state = 65428
+spirit_tree_brimhaven_clock = 65427
+spirit_tree_hosidius_state = 65426
+spirit_tree_hosidius_clock = 65425
+spirit_tree_farming_guild_state = 65424
+spirit_tree_farming_guild_clock = 65423
 farming_patch_00 = 65440
 farming_patch_01 = 65441
 farming_patch_02 = 65442

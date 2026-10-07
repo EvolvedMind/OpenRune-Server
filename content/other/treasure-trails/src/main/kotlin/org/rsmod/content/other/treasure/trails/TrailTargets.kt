@@ -18,6 +18,7 @@ internal class TrailTargets @Inject constructor(private val progress: TrailProgr
         ActiveTrail(slot, item, state, progress.catalog.clues.getValue(state.row))
     }
     fun npc(player: Player, npc: Npc): ActiveTrail? = active(player).firstOrNull { active ->
+        if (active.state.row == TrailTornParts.ROW) return@firstOrNull false
         active.clue.targets.any { row ->
             val fields = progress.catalog.fields(row)
             fields.table == "cluehelper_target_npc" &&

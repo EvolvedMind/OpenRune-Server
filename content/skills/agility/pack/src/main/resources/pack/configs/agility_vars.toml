@@ -1,0 +1,17 @@
+[[varp]]
+id = "varp.agility_course"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.agility_step"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.agility_graceful_lap"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"

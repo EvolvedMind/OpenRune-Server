@@ -1,0 +1,17 @@
+[[varp]]
+id = "varp.hunter_escrow_box"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.hunter_escrow_rope"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.hunter_escrow_net"
+isServerOnly = true
+scope = "Perm"
+transmit = "Never"
