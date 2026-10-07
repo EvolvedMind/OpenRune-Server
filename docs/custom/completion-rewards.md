@@ -52,16 +52,15 @@ Add a hooded Slayer helmet and cosmetic variants based on the owner's visual ref
 </details>
 
 - Preserve the recognisable Slayer mask inside the hood. Reference palettes include black/red, green/orange, teal/ivory, light blue/white, olive/silver, red/gold, purple/silver and orange/green.
-- Define the final supported variant list and unlock method before implementation. Provide previews and controlled switching for unlocked styles through existing native-style menus.
-- Treat the variants as cosmetic by default. Preserve the corresponding helmet's stats, Slayer-task effects, protection parameters and normal/imbued state.
-- Model, recolour and variant mappings must be explicit. Switching styles cannot grant a free imbue, remove an existing imbue or duplicate the item.
-- Use atomic inventory changes for conversion/reversion. Validate equipped appearance, head/hair clipping, animations, save/relog and the existing death/reclaim rules for both body types.
+- Treat variants as cosmetic by default and define the final supported models before implementation.
+- Use the Slayer-master **Tasks | Equipment | Rewards | Unlocks | Extend** flow as the menu reference. Previewing a style must not bypass its unlock or crafting ingredients.
+- Existing server support, pictured unlocks, required recipes, imbue preservation, atomic conversion/reversion and acceptance checks are defined in the [Slayer audit and crafting contract](slayer.md#variant-creation-contract).
 
 ## Implementation starting points
 
 - [Max cape](../../content/other/max-cape) supplies existing equipment/menu patterns. Its [documented perks](../max-cape.md) are not a complete automatic perk bundle for the new cape.
 - [PlayerStatMap](../../engine/game/src/main/kotlin/org/rsmod/game/stat/PlayerStatMap.kt) already caps each skill at 200m XP; [CharacterStatPipeline](../../api/account/src/main/kotlin/org/rsmod/api/account/character/stats/CharacterStatPipeline.kt) owns native persistence. Respect fine-XP units; use wide totals when aggregating skills.
 - [Collection Log](../../content/interfaces/collection-log) owns obtains and category tracking. Expose a narrow read-only query if needed; its internal helpers are not automatically accessible from another module. Reuse the planned achievement framework.
-- [Combat attribute collectors](../../api/combat/combat-formulas/src/main/kotlin/org/rsmod/api/combat/formulas/attributes/collector) read Slayer/imbued parameters; the new helmet variants must participate in those active paths. Check the [existing crafting recipes](../../content/skills/crafting/pack/src/main/kotlin/org/rsmod/content/skills/crafting/pack/Crafting.kt) before adding another conversion route.
+- [Slayer source audit](slayer.md) identifies the existing menu/recipe paths, correctness gaps and native integrations to reuse for helmets.
 
 First verify assets and a small visual prototype, then implement the requirements and reward flow. Apply [AGENTS.md](../../AGENTS.md), including the upstream/PR comparison, when either roadmap item is selected for development.

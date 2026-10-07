@@ -709,7 +709,9 @@
       "summary": "Hooded Slayer helmet with cosmetic variants based on the supplied image; preserve normal/imbued combat behavior.",
       "details": [
         "Design, preserved helmet behavior and image: docs/custom/completion-rewards.md#hooded-slayer-helmets.",
-        "Use the bottom-centre hooded silhouette and the other reference palettes as design directions. Final variant roster, asset availability and unlock method need definition before estimating."
+        "Source audit, five-tab Slayer-master menu references and variant creation/reversion contract: docs/custom/slayer.md.",
+        "Use the bottom-centre hooded silhouette and the other reference palettes as design directions. Define every variant's gated recipe, normal/imbued mapping and reversion behavior; a purchased unlock or item mapping does not prove crafting works.",
+        "Confirm the supported roster, assets, native unlock rows and prices before estimating. The pictured base hood recipe excludes cosmetic variants, so requested hooded variants need explicit additional mappings."
       ]
     },
     {
