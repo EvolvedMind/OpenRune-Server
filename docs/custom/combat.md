@@ -16,6 +16,41 @@ need timer and duplicate-death tests as well as combat tests.
 Upstream risks: target reach, autocast, shield dispatch, hit scheduling, NPC death hooks,
 Boss DSL and stats/bonuses. Preserve current behaviour while evaluating any replacement.
 
+## Ordinary NPC combat animations
+
+Source review: **2026-10-07**, commit `32ce078f2319ef86c6a34311b8e497449133336a`.
+The owner reports human-like animation glitches on the two elite clue guards during
+the 2026-10-06 clue test, and on unspecified NPCs around Tlati Rainforest.
+
+| NPC / group | Evidence and remaining check |
+|---|---|
+| Armadylean guard — `npc.elite_npc_1`, dump ID 6587 | Native movement uses the Armadyl animation family. Its server override sets elemental weakness only; no explicit combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
+| Bandosian guard — `npc.elite_npc_2`, dump ID 6588 | Native movement uses the armed-ork animation family. No explicit server combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
+| Tlati Jaguar / Jaguar cub / Black jaguar — dump IDs 12976/12977/12978 | Map spawns, Attack actions, stats and native lynx movement exist; drop tables were found for Jaguar and Black jaguar. Server overrides contain weakness only. These are source-audit candidates; the owner has not identified which Tlati NPCs glitched. |
+| Tlati frog — `npc.little_frog_nodrops` | Has explicit attack/block/death sequences. Use it as a comparison case; its presence does not certify live visuals or the whole region. |
+
+Sources: [native NPC dump](../../osrs-dumps/dump.npc), [server overrides](../../.data/raw-cache/server/npcs.toml), [Tlati map spawns](../../.data/raw-cache/map/npcs/varlamore.toml), [clue guardian spawn route](../../content/other/treasure-trails/src/main/kotlin/org/rsmod/content/other/treasure/trails/TrailGuards.kt).
+
+The [generic attack route](../../api/combat/combat-scripts/src/main/kotlin/org/rsmod/api/combat/NvPCombat.kt)
+reads one `attack_anim`. When absent, [parameter defaults](../../.data/raw-cache/server/param.toml)
+provide `human_unarmedpunch`; generic death similarly falls back to `human_death`.
+The [defend route](../../api/combat/combat-commons/src/main/kotlin/org/rsmod/api/combat/commons/npc/NpcExtensions.kt)
+uses `paramOrNull`, so an absent defend parameter produces no defend animation.
+Spawning correctly and having stats/drops do not establish complete combat behavior.
+
+### Audit and repair scope
+
+- Inspect the **final merged revision-240 NPC definitions**, resolved sequences and selected handlers. Include attackable world NPCs, their active forms and dynamically spawned encounter NPCs such as clue guards. Do not count raw TOML rows as live NPC coverage.
+- Record whether each sequence is explicit, inherited, supplied by a script or a fallback. Check attack style, projectile and hit timing alongside the animation where applicable; do not enable an invented attack just to remove a visual glitch.
+- Start with the two reported guards, then the Tlati candidates and other NPCs using the same incomplete generic route. Group by verified model/animation compatibility, not merely name or region. Jaguar/cub share a model; Black jaguar is a separate model variant.
+- Verify the proper attack, defend and death sequences in the paired cache/client before assigning them. A related GWD or ork animation name is only a candidate until checked for the exact guardian model and attack.
+- Apply bounded NPC parameter overlays or focused handlers as required. Preserve accepted boss configurations, global defaults, animation priorities and the clue guardian owner/kill-credit lifecycle. Recheck affected shared behavior and accepted bosses if a shared layer changes.
+- Accept a repaired group after real attack/defend/death and relevant variant tests, including clue completion for guards. A valid sequence ID or passing build alone does not prove correct model animation.
+
+This is a source/data review, not a completed cache-wide or in-game audit. The exact
+installed cache/client was unavailable here; no animation IDs were guessed or applied.
+Status is tracked only in [PROGRESS.md](../../PROGRESS.md).
+
 ## Weapon implementation record (2026-10-03–04)
 
 Original branch: feature/weapon-completeness, based on accepted runtime plus organization

@@ -45,3 +45,15 @@ An old phase-4 clue must win its guardian once after updating, because the old b
 did not save proof of the earlier defeat.
 
 Test fixtures shorten animation waits; they do not establish native render timing.
+
+## Animation follow-up — 2026-10-07
+
+The owner reports human-like combat animation glitches for the Armadylean and
+Bandosian guards in the 2026-10-06 clue test. The concrete NPC mappings, missing
+explicit animation configuration and repair scope are recorded in the
+[NPC combat-animation audit](combat.md#ordinary-npc-combat-animations).
+
+Preserve the accepted progression fix above. Animation work must retain owner-only
+combat/kill credit, temporary-NPC cleanup, phase-5 persistence and the next-clue or
+final-casket result. Re-run that encounter flow after verifying the corrected
+animations with the paired client/cache.
