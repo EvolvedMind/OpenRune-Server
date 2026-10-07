@@ -33,6 +33,11 @@ internal class TrailScrollScript @Inject constructor(
     private fun ProtectedAccess.read(inventory: Inventory, slot: Int) {
         val state = progress.initialize(player, inventory, slot) ?: return
         val clue = progress.catalog.clues.getValue(state.row)
+        if (state.row == TrailTornParts.ROW) {
+            ifOpenMain("interface.trail_cluetext")
+            ifSetText("component.trail_cluetext:text", TrailTornParts.text(progress.catalog, state))
+            return
+        }
         if (state.phase == 1 || state.phase == 6) {
             val item = inventory[slot] ?: return
             puzzles.show(this, ActiveTrail(slot, item, state, clue), state.phase == 6)

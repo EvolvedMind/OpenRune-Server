@@ -4,16 +4,20 @@ import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.util.Wearpos
 import jakarta.inject.Inject
 import org.rsmod.api.player.events.interact.HeldEquipEvents
+import org.rsmod.api.player.events.skilling.AgilityLapCompletedEvent
 import org.rsmod.api.player.events.skilling.FarmingSeedPlantedEvent
 import org.rsmod.api.player.events.skilling.LampRepairedEvent
 import org.rsmod.api.player.events.skilling.LogBurnedEvent
+import org.rsmod.api.player.events.skilling.OwnedSpiritTreeTravelEvent
 import org.rsmod.api.player.events.skilling.PickpocketSuccessEvent
 import org.rsmod.api.player.events.skilling.PrayerActivatedEvent
+import org.rsmod.api.player.events.skilling.ReanimatedAbyssalKilledEvent
 import org.rsmod.api.player.events.skilling.RunesCraftedEvent
 import org.rsmod.api.player.events.skilling.ShadeCrematedEvent
 import org.rsmod.api.player.events.skilling.SkillingActionCompleteEvent
 import org.rsmod.api.player.events.skilling.SkillingActionContext
 import org.rsmod.api.player.events.skilling.SkillingProductSource
+import org.rsmod.api.player.events.skilling.SkullballGoalScoredEvent
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.script.onEvent
 import org.rsmod.map.CoordGrid
@@ -27,6 +31,13 @@ internal class TrailSkillChallenges @Inject constructor(
     private val requirements: TrailRequirements,
 ) : PluginScript() {
     override fun ScriptContext.startup() {
+        onEvent<AgilityLapCompletedEvent> {
+            if (course == "ApeAtoll") completeAction(player, "dbrow.cluehelper_skillchallenge_elite_5".asRSCM())
+            else if (course == "Rellekka" && fullGraceful) completeAction(player, "dbrow.cluehelper_skillchallenge_master_9".asRSCM())
+        }
+        onEvent<SkullballGoalScoredEvent> { if (goal in 1..11) completeAction(player, "dbrow.cluehelper_skillchallenge_elite_4".asRSCM()) }
+        onEvent<OwnedSpiritTreeTravelEvent> { completeAction(player, "dbrow.cluehelper_skillchallenge_master_2".asRSCM()) }
+        onEvent<ReanimatedAbyssalKilledEvent> { completeAction(player, "dbrow.cluehelper_skillchallenge_master_23".asRSCM()) }
         onEvent<LampRepairedEvent> {
             if (coords.x in 2680..2752 && coords.z in 5250..5380 && coords.level in 0..2) completeAction(player, lampTask)
         }
@@ -104,6 +115,16 @@ internal class TrailSkillChallenges @Inject constructor(
                 if (!TrailSkillOutfits.matches(player, active.state.row)) continue
                 if (active.state.row == lightOrbTask && !inDorgeshBank(player.coords)) continue
                 if (active.state.row == sacredEelTask && product.source != SkillingProductSource.SacredEel) continue
+                if (active.state.row == "dbrow.cluehelper_skillchallenge_elite_3".asRSCM() && product.source != SkillingProductSource.AerialFishing) continue
+                if (active.state.row in hunterTasks) {
+                    val source = product.source as? SkillingProductSource.HunterCatch ?: continue
+                    val expected = when (active.state.row) {
+                        "dbrow.cluehelper_skillchallenge_elite_11".asRSCM() -> "npc.butterfly_warlock"
+                        "dbrow.cluehelper_skillchallenge_elite_12".asRSCM() -> "npc.hunting_chinchompa_big"
+                        else -> "npc.salamander_mountain"
+                    }
+                    if (source.npc != expected.asRSCM()) continue
+                }
                 if (active.state.row == enchantmentTask && product.source != SkillingProductSource.JewelleryEnchantment) continue
                 if (active.state.row == tabletTask && product.source != SkillingProductSource.TabletMaking) continue
                 if (active.state.row == chestTask) {
@@ -148,6 +169,7 @@ internal class TrailSkillChallenges @Inject constructor(
         }
         internal val alternatives by lazy {
             mapOf(
+                "dbrow.cluehelper_skillchallenge_master_vm01".asRSCM() to setOf("obj.immature_mountain_salamander", "obj.mountain_salamander"),
                 enchantmentTask to setOf("obj.ring_of_wealth", "obj.amulet_of_glory", "obj.jewl_necklace_of_skills", "obj.jewl_bracelet_of_combat"),
                 shayzienTask to (2..5).map { "obj.shayzien_body_$it" }.toSet(),
                 gemStallTask to setOf("obj.uncut_sapphire", "obj.uncut_emerald", "obj.uncut_ruby", "obj.uncut_diamond"),
@@ -157,6 +179,10 @@ internal class TrailSkillChallenges @Inject constructor(
         }
         internal val products by lazy {
             mapOf(
+                "dbrow.cluehelper_skillchallenge_elite_3".asRSCM() to ("stat.fishing" to "obj.aerial_fishing_mottled_eel"),
+                "dbrow.cluehelper_skillchallenge_elite_11".asRSCM() to ("stat.hunter" to "obj.butterfly_jar_warlock"),
+                "dbrow.cluehelper_skillchallenge_elite_12".asRSCM() to ("stat.hunter" to "obj.chinchompa_big_captured"),
+                "dbrow.cluehelper_skillchallenge_master_vm01".asRSCM() to ("stat.hunter" to "obj.immature_mountain_salamander"),
                 enchantmentTask to ("stat.magic" to "obj.ring_of_wealth"),
                 chestTask to ("stat.thieving" to "obj.raw_shark"),
                 shayzienTask to ("stat.smithing" to "obj.shayzien_body_2"),
@@ -183,5 +209,6 @@ internal class TrailSkillChallenges @Inject constructor(
                 "dbrow.cluehelper_skillchallenge_master_21".asRSCM() to ("stat.woodcutting" to "obj.redwood_logs"),
             )
         }
+        private val hunterTasks by lazy { setOf("dbrow.cluehelper_skillchallenge_elite_11".asRSCM(), "dbrow.cluehelper_skillchallenge_elite_12".asRSCM(), "dbrow.cluehelper_skillchallenge_master_vm01".asRSCM()) }
     }
 }

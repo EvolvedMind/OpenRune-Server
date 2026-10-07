@@ -37,7 +37,7 @@ internal class TrailTestCommands @Inject constructor(
             if (args.size != 1) return help(player)
             val fixture = actionFixtures.getValue(action!!)
             val clue = progress.catalog.clues.getValue(fixture.row.asRSCM())
-            if (giveClue(player, clue, TrailSkillChallenges.ASSIGNED, 1, fixture.items.map { (symbol, count) -> InvObj(symbol, count) })) player.mes(fixture.message)
+            if (giveClue(player, clue, if (clue.row == TrailTornParts.ROW) 0 else TrailSkillChallenges.ASSIGNED, 1, fixture.items.map { (symbol, count) -> InvObj(symbol, count) })) player.mes(fixture.message)
             return
         }
         when (action) {
@@ -68,8 +68,8 @@ internal class TrailTestCommands @Inject constructor(
                     player.mes("Unknown skill task. Examples: ::cluetest task elite 9 / ::cluetest task master 18")
                     return
                 }
-                giveClue(player, clue, phase = TrailSkillChallenges.ASSIGNED, steps = 1)
-                player.mes("Task fixtures are single-step tests. Some catalog tasks are still unimplemented; see the coverage document.")
+                giveClue(player, clue, phase = if (clue.row == TrailTornParts.ROW) 0 else TrailSkillChallenges.ASSIGNED, steps = 1)
+                player.mes("Task fixtures are single-step tests. All 60 skill tasks have action handling; live acceptance and other clue routes are separate.")
             }
             "eel", "gem", "elf", "watermelon" -> {
                 if (args.size != 1) return help(player)
@@ -125,6 +125,7 @@ internal class TrailTestCommands @Inject constructor(
         player.mes("::cluetest scroll [tier] [kind] | ::cluetest task [tier] [index] | ::cluetest info")
         player.mes("::cluetest eel / gem / elf / watermelon: assigned one-step tests. Tiers: beginner (default), easy, medium, hard, elite, master.")
         player.mes("::cluetest enchant / chest / lamp / shayzien / tablet / cremate / mage / shade: native action tests, then return to Sherlock.")
+        player.mes("::cluetest aerial / skullball / ape / rellekka / warlock / chin / tecu / reanimate / spirit / parts: final native task tests.")
     }
 
     private fun tier(value: String?) = TrailTier.entries.firstOrNull { it.key == value?.lowercase() }
@@ -132,6 +133,16 @@ internal class TrailTestCommands @Inject constructor(
     companion object {
         private data class ActionFixture(val row: String, val items: List<Pair<String, Int>>, val message: String)
         private val actionFixtures = mapOf(
+            "aerial" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_3", listOf("obj.aerial_fishing_gloves_bird" to 1, "obj.fish_chunks" to 100, "obj.knife" to 1), "Wear the cormorant glove and catch a mottled eel on Molch Island (1367,3632). Fishing 73, Hunter 68. Return to Sherlock."),
+            "skullball" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_4", listOf("obj.ring_of_charos" to 1), "Wear the ring, talk to Skullball Boss (3549,9867,0), and score a goal. Agility 25. Return to Sherlock."),
+            "ape" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_5", listOf("obj.mm_monkey_greegree_for_small_ninja_monkey" to 1), "Wield the greegree and complete every Ape Atoll obstacle in order, starting at 2754,2742. Agility 48. Return to Sherlock."),
+            "rellekka" to ActionFixture("dbrow.cluehelper_skillchallenge_master_9", listOf("obj.graceful_hood", "obj.graceful_cape", "obj.graceful_top", "obj.graceful_legs", "obj.graceful_gloves", "obj.graceful_boots").map { it to 1 }, "Wear all six graceful pieces for the entire Rellekka lap. Start at 2625,3677. Agility 80. Return to Sherlock."),
+            "warlock" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_11", listOf("obj.hunting_butterfly_net" to 1, "obj.butterfly_jar" to 1), "Catch a black warlock with a net and jar (e.g. 1233,3745). Hunter 45. Return to Sherlock."),
+            "chin" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_12", listOf("obj.hunting_box_trap" to 3), "Lay a box trap beside a red chinchompa, wait for a catch, then Check it (e.g. 1316,3168). Hunter 63. Return to Sherlock."),
+            "tecu" to ActionFixture("dbrow.cluehelper_skillchallenge_master_vm01", listOf("obj.rope" to 1, "obj.net" to 1), "Set a net trap on a young tree at 1470,3087, then Check the catch. Hunter 79. Return to Sherlock."),
+            "reanimate" to ActionFixture("dbrow.cluehelper_skillchallenge_master_23", listOf("obj.arceuus_corpse_abyssal" to 1, "obj.naturerune" to 4, "obj.soulrune" to 4, "obj.bloodrune" to 2), "Cast Master Reanimation on the head near the Dark Altar, then kill your creature. Arceuus book, Magic 90, Slayer 85. Return to Sherlock."),
+            "spirit" to ActionFixture("dbrow.cluehelper_skillchallenge_master_2", listOf("obj.spirit_tree_seed" to 1, "obj.plantpot_compost" to 1, "obj.trowel" to 1, "obj.watering_can_8" to 1, "obj.rake" to 1, "obj.spade" to 1), "Plant and water the seed in the filled pot; let the sapling grow, then plant it in a spirit-tree patch. Farming 83. After growth and health-check, travel TO your tree."),
+            "parts" to ActionFixture("dbrow.cluehelper_skillchallenge_master_25", emptyList(), "Read the clue, solve its three cryptic visits, then Combine the three matching torn parts. This step advances directly without Sherlock."),
             "enchant" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_1", listOf("obj.dragonstone_ring" to 1, "obj.cosmicrune" to 1, "obj.waterrune" to 15, "obj.earthrune" to 15), "Cast Lvl-5 Enchant on the ring (standard spellbook, Magic 68), then return to Sherlock."),
             "chest" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_7", emptyList(), "Search for traps on the Ardougne Castle chest: 2588,3291,1 or 2588,3302,1. Thieving 72."),
             "lamp" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_17", listOf("obj.dorgesh_light_bulb" to 1), "Fix a broken lamp in Dorgesh-Kaan, e.g. 2699,5294,1. Firemaking 52."),

@@ -94,11 +94,11 @@ class TrailTestCommandsTest {
         }
     }
 
-    @Test fun `eight native action fixtures add assigned clues and supplies atomically without completing tasks`() {
-        for (alias in listOf("enchant", "chest", "lamp", "shayzien", "tablet", "cremate", "mage", "shade")) {
+    @Test fun `all eighteen native action fixtures add assigned clues and supplies atomically without completing tasks`() {
+        for (alias in listOf("enchant", "chest", "lamp", "shayzien", "tablet", "cremate", "mage", "shade", "aerial", "skullball", "ape", "rellekka", "warlock", "chin", "tecu", "reanimate", "spirit", "parts")) {
             val f = Fixture()
             f.run("cluetest", alias)
-            assertEquals(9, f.states().single().phase)
+            assertEquals(if (alias == "parts") 0 else 9, f.states().single().phase)
             assertEquals(1, f.states().single().total)
             assertTrue(f.player.worn.objs.all { it == null })
             val before = f.player.inv.objs.toList()

@@ -6,6 +6,9 @@ plugins {
 tasks.withType<Test>().configureEach {
     // Native action fixtures load spell/rune definitions alongside the revision-240 clue cache.
     maxHeapSize = "3072m"
+    // Release each revision-240 cache graph before the next fixture class loads its copy.
+    forkEvery = 1
+    maxParallelForks = 1
 }
 dependencies {
     implementation(projects.api.pluginCommons)
@@ -21,6 +24,10 @@ dependencies {
     testImplementation(projects.content.skills.thieving)
     testImplementation(projects.content.skills.runecrafting)
     testImplementation(projects.content.skills.farming)
+    testImplementation(projects.content.skills.agility)
+    testImplementation(projects.content.skills.hunter)
+    testImplementation(projects.content.skills.fishing)
+    testImplementation(projects.content.activities.skullball)
     testImplementation(projects.content.skills.magic.utilitySpells)
     testImplementation(projects.content.skills.smithing)
     testImplementation(projects.content.skills.firemaking)
