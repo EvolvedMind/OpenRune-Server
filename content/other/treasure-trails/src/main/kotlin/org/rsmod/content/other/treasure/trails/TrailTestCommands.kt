@@ -26,7 +26,7 @@ internal class TrailTestCommands @Inject constructor(
         }
         onCommand("cluetest") {
             requiredRights = Rights.ADMINISTRATOR
-            desc = "Clue test items: kit, box, scroll, casket, task, eel, gem, info"
+            desc = "Clue test items: kit, box, scroll, casket, task, eel, gem, elf, watermelon, info"
             cheat { run(player, args) }
         }
     }
@@ -64,12 +64,18 @@ internal class TrailTestCommands @Inject constructor(
                 giveClue(player, clue, phase = TrailSkillChallenges.ASSIGNED, steps = 1)
                 player.mes("Task fixtures are single-step tests. Some catalog tasks are still unimplemented; see the coverage document.")
             }
-            "eel", "gem" -> {
+            "eel", "gem", "elf", "watermelon" -> {
                 if (args.size != 1) return help(player)
-                val row = if (action == "eel") TrailSkillChallenges.sacredEelTask else TrailSkillChallenges.gemStallTask
-                val extras = if (action == "eel") listOf(InvObj("obj.knife"), InvObj("obj.snakeboss_eel", 3)) else emptyList()
+                val row = when (action) { "eel" -> TrailSkillChallenges.sacredEelTask; "elf" -> TrailSkillChallenges.elfTask; "watermelon" -> TrailSkillChallenges.watermelonTask; else -> TrailSkillChallenges.gemStallTask }
+                val extras = when (action) {
+                    "eel" -> listOf(InvObj("obj.knife"), InvObj("obj.snakeboss_eel", 3))
+                    "watermelon" -> listOf(InvObj("obj.rake"), InvObj("obj.dibber"), InvObj("obj.spade"), InvObj("obj.watermelon_seed", 3))
+                    else -> emptyList()
+                }
                 if (giveClue(player, progress.catalog.clues.getValue(row), TrailSkillChallenges.ASSIGNED, 1, extras)) {
                     player.mes(if (action == "eel") "Use the knife on a sacred eel, then return to Sherlock. Cooking 72 is required."
+                        else if (action == "watermelon") "Rake an allotment, plant the watermelon seeds, then return to Sherlock. Farming 47 is required. Falador farm: 3056,3309."
+                        else if (action == "elf") "Pickpocket an elf in Lletya or Prifddinas, then return to Sherlock. Thieving 85 is required."
                         else "Steal from the gem stall in Ardougne market (2667,3303), then return to Sherlock. Thieving 75 is required.")
                 }
             }
@@ -110,7 +116,7 @@ internal class TrailTestCommands @Inject constructor(
     private fun help(player: Player) {
         player.mes("::cluekit | ::cluetest box [tier] [1-28] | ::cluetest casket [tier] [1-28]")
         player.mes("::cluetest scroll [tier] [kind] | ::cluetest task [tier] [index] | ::cluetest info")
-        player.mes("::cluetest eel / ::cluetest gem: assigned one-step tests. Tiers: beginner (default), easy, medium, hard, elite, master.")
+        player.mes("::cluetest eel / gem / elf / watermelon: assigned one-step tests. Tiers: beginner (default), easy, medium, hard, elite, master.")
     }
 
     private fun tier(value: String?) = TrailTier.entries.firstOrNull { it.key == value?.lowercase() }

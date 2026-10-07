@@ -26,6 +26,7 @@ class TrailModule : PluginModule() {
         addSetBinding<NpcDeathKillHook>(TrailTargetKillHook::class.java)
         addSetBinding<NpcDeathKillHook>(TrailSkillKillHook::class.java)
         addSetBinding<PlayerDeathCleanupHook>(TrailGuardDeathHook::class.java)
+        addSetBinding<PlayerDeathCleanupHook>(TrailEmoteDeathHook::class.java)
     }
 }
 internal class TrailGuardAttackHook @Inject constructor(private val guards: TrailGuards) : NpcAttackValidateHook {
@@ -39,6 +40,10 @@ internal class TrailGuardKillHook @Inject constructor(private val guards: TrailG
 }
 internal class TrailGuardDeathHook @Inject constructor(private val guards: TrailGuards) : PlayerDeathCleanupHook {
     override fun cleanup(player: Player) { guards.clear(player) }
+}
+
+internal class TrailEmoteDeathHook @Inject constructor(private val emotes: TrailEmotesScript) : PlayerDeathCleanupHook {
+    override fun cleanup(player: Player) { emotes.clear(player) }
 }
 
 @Singleton
@@ -64,7 +69,8 @@ internal class TrailGuards @Inject constructor(
     fun owner(npc: Npc): Player? = guards[npc]?.player
     fun requireFight(player: Player, active: ActiveTrail): Boolean {
         val encounters = active.clue.fields.ints("combat_encounter")
-        if (encounters.isEmpty() || active.state.phase == 5) return false
+        if (encounters.isEmpty() || active.state.phase == 5 ||
+            (active.clue.kind == "emote" && active.state.phase in 7..8)) return false
         if (guards.values.any { it.player === player && it.row == active.state.row && it.total == active.state.total && it.completed == active.state.completed }) return true
         val encounter = progress.catalog.fields(encounters[random.of(encounters.size)])
         val types = encounter.ints("npcs")

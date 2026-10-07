@@ -33,3 +33,6 @@ This index contains implementation notes and evidence, not a second status list.
 - Repositories: [upstream](https://github.com/OpenRune/OpenRune-Server), [fork](https://github.com/EvolvedMind/OpenRune-Server), [Nero Studio](https://github.com/EvolvedMind/Nero-OpenRune-Studio).
 
 Archived implementations remain review material. Do not load them alongside the active handlers.
+
+Native clue action sources and test evidence: [clue completion](clue-completion.md)
+and [watermelon/Farming scope](clue-farming.md). Current status remains in PROGRESS.md.

@@ -32,15 +32,15 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [Thieving](https://oldschool.runescape.wiki/w/Thieving) | Module | [content/skills/thieving](content/skills/thieving) |
 | [Crafting](https://oldschool.runescape.wiki/w/Crafting) | Module | [content/skills/crafting](content/skills/crafting) |
 | [Fletching](https://oldschool.runescape.wiki/w/Fletching) | Module | [content/skills/fletching](content/skills/fletching) |
+| [Farming](https://oldschool.runescape.wiki/w/Farming) | Module | [content/skills/farming](content/skills/farming) |
 
 <details>
-<summary>Other catalog entries (4)</summary>
+<summary>Other catalog entries (3)</summary>
 
 | Feature | Evidence | Source |
 |---|---|---|
 | [Agility](https://oldschool.runescape.wiki/w/Agility) | Not detected | — |
 | [Construction](https://oldschool.runescape.wiki/w/Construction) | References only | [FaladorShopkeepersScript.kt](content/areas/city/falador/src/main/kotlin/org/rsmod/content/areas/city/falador/npcs/FaladorShopkeepersScript.kt) |
-| [Farming](https://oldschool.runescape.wiki/w/Farming) | References only | [SarahsFarmScript.kt](content/areas/city/port-sarim/src/main/kotlin/org/rsmod/content/areas/city/portsarim/npcs/SarahsFarmScript.kt) |
 | [Hunter](https://oldschool.runescape.wiki/w/Hunter) | Not detected | — |
 
 </details>
@@ -337,6 +337,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [content/areas/zeah](content/areas/zeah) |
 | [content/bosses/demonic-gorilla](content/bosses/demonic-gorilla) |
 | [content/bosses/tormented-demon](content/bosses/tormented-demon) |
+| [content/devtools/nero-studio/pack](content/devtools/nero-studio/pack) |
 | [content/drops](content/drops) |
 | [content/events/shooting-stars](content/events/shooting-stars) |
 | [content/events/shooting-stars/pack](content/events/shooting-stars/pack) |

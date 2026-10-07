@@ -10,10 +10,11 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 Continue toward full clue gameplay, as requested on 2026-10-06.
 
-- **40/60 skill-task rows have completion handling.** This is task coverage, not overall clue completion.
+- **42/60 skill-task rows have completion handling.** This is task coverage, not overall clue completion.
 - Finish the missing native skill actions, clue routes, maps and puzzles; then validate complete trails and their lifecycle.
-- The guardian progression fix is accepted and merged. **Mimic comes last and is not implemented.**
-- [Implementation](docs/custom/treasure-trails.md) · [coverage and gaps](docs/custom/clue-task-coverage.md) · [test commands](docs/custom/clue-testing.md).
+- The guardian progression fix is accepted and merged. The user approved PR #26 for merge on 2026-10-07: Uri recovery, native elf pickpocketing, corrected altar consumers and watermelon planting/Sherlock completion. Merge reconciliation is in progress. **Mimic comes last and is not implemented.**
+- Validation: 180 selected tests, scoped Kotlin checks, full server JAR and isolated revision-240/Nero-bridge startup pass. Test package `clue-farming-20261007` and its independent rollback remain unchanged; merge does not install it.
+- [Implementation](docs/custom/treasure-trails.md) · [coverage and gaps](docs/custom/clue-task-coverage.md) · [test commands](docs/custom/clue-testing.md) · [native action evidence](docs/custom/clue-completion.md) · [Farming scope](docs/custom/clue-farming.md).
 
 ## Accepted baseline
 

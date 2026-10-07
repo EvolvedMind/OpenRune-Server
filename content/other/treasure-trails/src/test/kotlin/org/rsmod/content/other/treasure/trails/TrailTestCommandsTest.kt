@@ -70,8 +70,8 @@ class TrailTestCommandsTest {
         }
     }
 
-    @Test fun `eel and gem fixtures start assigned tasks without changing stats or equipment`() {
-        for ((alias, row) in listOf("eel" to TrailSkillChallenges.sacredEelTask, "gem" to TrailSkillChallenges.gemStallTask)) {
+    @Test fun `eel gem and elf fixtures start assigned tasks without changing stats or equipment`() {
+        for ((alias, row) in listOf("eel" to TrailSkillChallenges.sacredEelTask, "gem" to TrailSkillChallenges.gemStallTask, "elf" to TrailSkillChallenges.elfTask, "watermelon" to TrailSkillChallenges.watermelonTask)) {
             val f = Fixture()
             val beforeCooking = f.player.statMap.getCurrentLevel("stat.cooking")
             f.run("cluetest", alias)
@@ -81,6 +81,12 @@ class TrailTestCommandsTest {
             if (alias == "eel") {
                 assertEquals(3, f.player.inv.count("obj.snakeboss_eel"))
                 assertEquals(1, f.player.inv.count("obj.knife"))
+            }
+            if (alias == "watermelon") {
+                assertEquals(3, f.player.inv.count("obj.watermelon_seed"))
+                assertEquals(1, f.player.inv.count("obj.dibber"))
+                assertEquals(1, f.player.inv.count("obj.rake"))
+                assertEquals(1, f.player.inv.count("obj.spade"))
             }
             val before = f.player.inv.objs.toList()
             f.run("cluetest", alias)

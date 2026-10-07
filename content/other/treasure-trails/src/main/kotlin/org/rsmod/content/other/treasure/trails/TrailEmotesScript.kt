@@ -3,6 +3,7 @@ package org.rsmod.content.other.treasure.trails
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import java.util.IdentityHashMap
 import org.rsmod.api.player.events.interact.ContextualNpcOp
 import org.rsmod.api.player.interact.ContextualInteractions
@@ -17,6 +18,7 @@ import org.rsmod.game.interact.InteractionOp
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
+@Singleton
 internal class TrailEmotesScript @Inject constructor(
     private val progress: TrailProgress,
     private val targets: TrailTargets,
@@ -36,6 +38,7 @@ internal class TrailEmotesScript @Inject constructor(
         }
         onProtectedEvent<ContextualNpcOp>(KEY) {
             val meeting = meetings[it.npc] ?: return@onProtectedEvent
+            if (meeting.owner !== player) return@onProtectedEvent
             val active = targets.active(player).firstOrNull { clue -> clue.state.encode() == meeting.state } ?: return@onProtectedEvent
             if (active.state.phase != 8) { mes("Perform the second emote before speaking to Uri."); return@onProtectedEvent }
             val missing = requirements.missing(player, active.clue)
@@ -65,9 +68,12 @@ internal class TrailEmotesScript @Inject constructor(
         if (missing != null) { player.mes(missing); return }
         val required = active.clue.fields.ints("emote")
         val index = if (active.state.phase == 7) 1 else 0
-        if (required.getOrNull(index) != emote) return
+        // After logout or Uri's timeout, either required emote can recall the finished meeting.
+        if (active.state.phase == 8) {
+            if (emote !in required) return
+        } else if (required.getOrNull(index) != emote) return
         if (guards.requireFight(player, active)) return
-        val phase = if (index == 0 && required.size > 1) 7 else 8
+        val phase = if (active.state.phase == 8) 8 else if (index == 0 && required.size > 1) 7 else 8
         if (!progress.phase(player, active.slot, active.item, phase)) return
         val state = progress.state(player.inv[active.slot]!!)!!
         clear(player)
@@ -75,7 +81,7 @@ internal class TrailEmotesScript @Inject constructor(
         meetings[uri] = Meeting(player, state.encode())
         repo.add(uri, 100)
     }
-    private fun clear(player: Player) {
+    fun clear(player: Player) {
         for (npc in meetings.filterValues { it.owner === player }.keys.toList()) {
             meetings.remove(npc)
             repo.del(npc, Int.MAX_VALUE)

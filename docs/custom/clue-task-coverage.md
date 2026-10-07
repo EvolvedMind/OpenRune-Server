@@ -3,10 +3,10 @@
 Cache revision 240. This is a task-level implementation audit, not a claim that
 the entire Treasure Trails feature is playable. Mimic is scheduled last.
 
-Current implementation coverage: 40 of 60 task rows have completion handling
+Current implementation coverage: 42 of 60 task rows have completion handling
 (6 gathering, 3 crafting, 3 Herblore, 3 combat, 2 equipment, 3 Firemaking,
 3 Runecrafting, 8 Charlie hand-ins, 3 Cooking/Smithing, 2 Fletching,
-1 Chivalry, 1 nickel, 1 stall theft, 1 eel dissection). The other 20 remain incomplete. These counts describe
+1 Chivalry, 1 nickel, 1 stall theft, 1 eel dissection, 1 elf pickpocket, 1 watermelon planting). The other 18 remain incomplete. These counts describe
 code and focused tests, not live acceptance or complete supporting skills.
 
 Charlie accepts items from any source following assignment. Self-production is
@@ -44,7 +44,7 @@ The previous audit's self-production requirement was incorrect.
 | Elite | Burn a yew log. | Successful ground-fire hook after assignment. Campfire tending and live acceptance pending. |
 | Elite | Cook a swordfish | Successful cooking output event implemented; burnt outputs excluded. |
 | Elite | Craft multiple cosmic runes from a single essence. | Standard altar output hook; cosmic requires base multiplier >= 2. Live acceptance pending. |
-| Elite | Plant a watermelon seed. | Pending. |
+| Elite | Plant a watermelon seed. | Native allotment planting commits three seeds, saved patch state and XP before assigned-task completion. Native loc/multiloc and Sherlock/casket tests pass; live acceptance pending. [Farming scope](clue-farming.md). |
 | Elite | Activate the Chivalry prayer. | Direct and quick-prayer activation events; requires prayer actually enabled after assignment. |
 | Elite | Smith a tier 2 or above Shayzien platebody. | Pending. |
 | Elite | Mine some nickel. | Existing mining output hook recognizes nickel ore; assignment checks tested. |
@@ -61,7 +61,7 @@ The previous audit's self-production requirement was incorrect.
 | Master | Mix an anti-venom potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Mine a piece of runite ore whilst sporting the finest mining gear. | Assigned-task production event and worn outfit checks implemented. |
 | Master | Steal a gem from the Ardougne market. | Native stall theft with level, loot, inventory and restock handling; completion checks the successful theft source and cache-verified Ardougne stall tile. Live acceptance pending. |
-| Master | Pickpocket an elf. | Pending. |
+| Master | Pickpocket an elf. | Adapted upstream target/loot data for 53 native NPCs; committed loot and XP publish success, assigned task retains the clue until Sherlock. Native Op3 and contextual Sherlock/casket tests pass. Live acceptance pending. |
 | Master | Bind a blood rune at the Blood Altar. | Successful output with verified altar identity; Kourend and true Blood Altar accepted. Live acceptance pending. |
 | Master | Mix a ranging mix potion. | Production hook implemented; assignment and dose variants tested. Live brewing validation pending. |
 | Master | Fletch a rune dart. | Native feathering recipe and successful output event implemented; partial batches and rollback tested. |

@@ -136,3 +136,15 @@ Reward source: oldschooljs `c930f5c41da9407600541ee76020661c09e67501`, with the 
 Temperature boundaries were checked against
 [RuneLite HotColdTemperature](https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/cluescrolls/clues/hotcold/HotColdTemperature.java);
 device reference: [Strange device](https://oldschool.runescape.wiki/w/Strange_device).
+
+## User-approved native action checkpoint - 2026-10-07
+
+PR #26 at `676ad6a34ceda1d3a018d279433e37d4e75d0314` was approved for merge.
+Uri recovery, native elf pickpocketing, altar-output matching and watermelon
+planting/Sherlock completion raise task handling to 42/60. Full clues remain
+active; 18 skill-task rows plus routes/maps/puzzles remain open, with Mimic last.
+[Action evidence](clue-completion.md) and [Farming scope](clue-farming.md) record
+180 selected tests, scoped checks, full JAR and isolated startup. The frozen
+clue-farming-20261007 package remains available with its own rollback.
+The CI build/tests passed, but its default game port was occupied. The bootcheck
+now allocates free game/Central test ports; live configuration is not modified.
