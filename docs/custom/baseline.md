@@ -1,6 +1,6 @@
 # Runtime and recovery checkpoints
 
-Recorded evidence through **2026-10-06**. Runtime revision remains **240**.
+Recorded evidence through **2026-10-07**. Runtime revision remains **240**.
 Current work is tracked in [PROGRESS.md](../../PROGRESS.md).
 
 ## Protected Doom / HUD package
@@ -41,6 +41,27 @@ Before this combined package was prepared, the installed `collection-chat-news-2
 baseline matched 821 file hashes. That historical check does not establish what is
 installed now. The merge performed no live installation. Verify the installed manifest
 and current hashes before a future installation; preserve player data and paired artifacts.
+
+## Approved 60/60 clue-task checkpoint
+
+The user approved the current skill-task scope on 2026-10-07. PR #27 merged as
+`c535c713a622d2e15c39da299c38f65945d9d753`, with the same source tree as tested
+head `84616d8057225bc68f29c1c0db928db29b6df496`. CI, Formatting and Gameval
+Conflict Check passed for that exact head. Full Treasure Trails and supporting
+activity parity are not covered by this approval; Mimic remains last.
+
+| Part | Recorded reference |
+|---|---|
+| Immutable approved package | `outputs/clue-tasks-60-20261007/INSTALLEREN.cmd` |
+| Independent rollback | `outputs/checkpoint-20261007-voor-clue-tasks-60` |
+| Server JAR SHA-256 | `6a79a202d6e880e190c6640699e769c777f5344b455d476db211715c56577f8b` |
+| Paired Studio source | `85af63cedb2067b3b82c63ed86b0e55048c0399d`, unchanged |
+| Validation | 226 selected tests, including 132 clues; ten scoped checks; full cache/JAR; isolated revision-240/Nero startup and cleanup |
+| Package/rollback verification | 52 changed targets, 852 prerequisites, 112 package hashes and 52 rollback records; installed 50-task baseline matched 877 manifest hashes when prepared |
+
+Merge and documentation updates do not install or regenerate this package.
+Its rollback targets the verified 50-task baseline; earlier immutable packages
+remain retained. Verify the live manifest before any later installation.
 
 ## Earlier recovery references
 

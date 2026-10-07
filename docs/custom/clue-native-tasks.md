@@ -1,7 +1,9 @@
 # Native clue actions: eight additional tasks
 
-Revision 240; branch `feature/clue-tasks-50`, based on accepted main `6c78dc5b0`.
-This extends task coverage from 42 to 50 of the 60 native skill-challenge rows.
+Revision 240; recorded eight-task slice based on accepted main `6c78dc5b0`.
+This extended task coverage from 42 to 50 of the 60 native skill-challenge rows.
+The user approved PR #27's final 60/60 scope on 2026-10-07; it merged as
+`c535c713a`. See [the final ten-task evidence](clue-final-native-tasks.md).
 It does not declare Treasure Trails or the supporting activities complete.
 Current status and remaining priorities belong in [PROGRESS.md](../../PROGRESS.md).
 
@@ -64,7 +66,7 @@ clue consumer and contextual Sherlock/casket route. They include cancellation,
 stale items/world objects, wrong spellbook, levels, missing materials, staff/pouch
 supplies, full inventory, mismatched god equipment, kill ownership and saved
 completion. Loc repositories and network routing are mocked in the action tests;
-live arrival, visuals and the new gameplay slice require in-game acceptance.
+specific arrival and visual parity checks remain distinct from the user's scope approval.
 
 ## Reviewed sources and choices
 
@@ -109,8 +111,8 @@ a separate follow-up; this is not proof of clean database-save draining.
 Gameplay source: `cad716e29`. Server JAR SHA-256:
 `7ea647fe9b8df6f00485bf50b80c9f373011d2445c7f654779959eb69a94671a`.
 Paired Studio stays `85af63cedb2067b3b82c63ed86b0e55048c0399d`; no client edits.
-[PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) requires in-game
-acceptance before merge. Fresh test package:
+[PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) is approved and
+merged. Historical eight-task test package:
 `outputs/clue-tasks-50-20261007/INSTALLEREN.cmd`, with an independent checkpoint
 at `outputs/checkpoint-20261007-voor-clue-tasks-50`. Earlier immutable packages
 remain available. Preparing this package does not change live software/playerdata.

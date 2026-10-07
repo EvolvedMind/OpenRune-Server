@@ -105,8 +105,9 @@ Keep Barrows mound routing, contextual fallbacks and atomic full-inventory trans
 
 ## Remaining validation and implementation
 
-Finish unsupported task actions, torn master parts, remaining map/puzzle/world routes
-and full hunts. Exercise guardian styles/animations, quest/location rules, step selection,
+All 60 native skill-task rows have completion handling in approved, merged PR #27.
+Complete remaining map/puzzle/world routes and full hunts; extend torn master parts
+beyond the three cached NPC cryptic visits. Exercise guardian styles/animations, quest/location rules, step selection,
 counters, reward reclaim and inventory/reconnect/death paths end to end.
 Confirm queued skilling actions, native interfaces, stall spotting and the noted location
 boundaries. Add Mimic eligibility, private encounter, retries, mechanics and reward bonus
@@ -143,7 +144,8 @@ PR #26's tested gameplay checkpoint `676ad6a34ceda1d3a018d279433e37d4e75d0314`
 was user-approved and merged into main as `e6aa9e06ab5a942e6fbd6185f08f147aab4530a3`.
 Uri recovery, native elf pickpocketing, altar-output matching and watermelon
 planting/Sherlock completion raise task handling to 42/60. Full clues remain
-active; 18 skill-task rows plus routes/maps/puzzles remain open, with Mimic last.
+active at that checkpoint; its 18 remaining skill-task rows were subsequently
+handled by approved PR #27. Routes/maps/puzzles remain open, with Mimic last.
 [Action evidence](clue-completion.md) and [Farming scope](clue-farming.md) record
 180 selected tests, scoped checks, full JAR and isolated startup. The frozen
 clue-farming-20261007 package remains available with its own rollback.

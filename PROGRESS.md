@@ -10,18 +10,19 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 Continue toward full clue gameplay, as requested on 2026-10-06.
 
-- **60/60 skill-task rows have completion handling.** The eighteen new native action routes are in [PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27), branch `feature/clue-tasks-50`; in-game acceptance and merge are pending. This is task coverage, not overall clue completion.
+- **60/60 skill-task rows have completion handling.** The user approved the current scope on 2026-10-07; [PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) merged into `main` as `c535c713a`. This is task coverage, not overall clue completion.
 - Finish the remaining clue routes, maps and puzzles; then validate complete trails and their lifecycle.
 - The guardian progression fix is accepted and merged. User-approved [PR #26](https://github.com/EvolvedMind/OpenRune-Server/pull/26) merged into `main` on 2026-10-07 (`e6aa9e06a`): Uri recovery, native elf pickpocketing, corrected altar consumers and watermelon planting/Sherlock completion. **Mimic comes last and is not implemented.**
 - Previous approved checkpoint: 180 selected tests, scoped Kotlin checks, full server JAR and isolated revision-240/Nero startup pass. Package `clue-farming-20261007` and its independent rollback remain unchanged; merge does not install it.
 - CI for the approved PR #26 merge: [build/tests/boot](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37623645527), Formatting and Gameval checks all passed. The boot-port correction changes CI only. Documentation generator tests: 16/16 pass; generated output check passes.
 - New eight-task slice: dragonstone enchantment, castle chest, Dorgesh lamp, Shayzien platebody, Barrows tablet, spiritual mage, Fiyr cremation and catacomb kill. Validation: 201 selected tests (107 clues), scoped formatting, full JAR and isolated revision-240/Nero startup pass; exit 0, PostgreSQL PID absent, no cleanup errors. Fresh package: `outputs/clue-tasks-50-20261007/INSTALLEREN.cmd`, with its own rollback. It is not installed automatically.
-- Final ten added: aerial eel, Skullball, Ape Atoll/Rellekka laps, black warlock, red chinchompa, own spirit tree, reanimated abyssal, torn parts and Tecu salamander. Native producer/consumer and regression tests pass (226 total, 132 clues). Full JAR/cache, ten scoped formatting checks and isolated revision-240/Nero startup pass; exit 0, private PostgreSQL PID absent, no cleanup errors. Delivery: `outputs/clue-tasks-60-20261007/INSTALLEREN.cmd`, with independent rollback to the verified installed 50-task baseline. In-game acceptance and merge remain pending. [Sources and activity limits](docs/custom/clue-final-native-tasks.md).
+- Final ten added: aerial eel, Skullball, Ape Atoll/Rellekka laps, black warlock, red chinchompa, own spirit tree, reanimated abyssal, torn parts and Tecu salamander. Native producer/consumer and regression tests pass (226 total, 132 clues). Full JAR/cache, ten scoped formatting checks and isolated revision-240/Nero startup pass; exit 0, private PostgreSQL PID absent, no cleanup errors. The approved delivery `outputs/clue-tasks-60-20261007/INSTALLEREN.cmd` remains unchanged, with independent rollback to the verified installed 50-task baseline. Merge performs no installation. [Sources and activity limits](docs/custom/clue-final-native-tasks.md).
+- CI for PR #27's exact reviewed head `84616d805`: [build/tests/boot](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37669314684), [Formatting](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37669314268) and [Gameval Conflict Check](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37669314243) all passed. The merged tree matches that tested head.
 - [Implementation](docs/custom/treasure-trails.md) · [coverage and gaps](docs/custom/clue-task-coverage.md) · [test commands](docs/custom/clue-testing.md) · [native action evidence](docs/custom/clue-completion.md) · [Farming scope](docs/custom/clue-farming.md) · [eight new tasks and activity limits](docs/custom/clue-native-tasks.md).
 
 ## Accepted baseline
 
-**Accepted runtime package:** revision **240**, Doom/HUD: server `f40f4d951`, Nero `b29d93c`.
+**Protected runtime recovery point:** revision **240**, Doom/HUD: server `f40f4d951`, Nero `b29d93c`.
 Exact commits, package and recovery checkpoints: [baseline](docs/custom/baseline.md).
 
 Acceptance below applies to the recorded scope. A merged change does not establish that it was installed in the live runtime.
@@ -35,6 +36,7 @@ Acceptance below applies to the recorded scope. A merged change does not establi
 | 🟢 | Barrows | Accepted native encounter/rewards; `::testloot barrows [count]` uses native chest rewards. |
 | 🟢 | [Doom of Mokhaiotl and NPC combat-stat HUD](docs/custom/doom-of-mokhaiotl.md) | Accepted package; merged through server PR #23 and Nero PR #11. |
 | 🟢 | [Small extensions](docs/custom/small-extensions.md) | OSRS GE Prices, Improved Item Examine, Notification Queue and Collection Log Reward Broadcasts approved and merged into `474296f2b`. Advisory formatting findings remain open. |
+| 🟢 | [Clue skill-task handling](docs/custom/clue-task-coverage.md) | Current 60/60 scope approved and merged in PR #27; supporting activity limits and remaining full trails are tracked separately above. |
 
 ## Existing content and open follow-ups
 

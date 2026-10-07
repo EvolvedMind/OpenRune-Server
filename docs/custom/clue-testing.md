@@ -17,7 +17,7 @@ update the currently installed server by themselves.
 | `::cluetest gem` | Assigned Ardougne gem-stall challenge. Steal a gem at 2667,3303,0, then return to Sherlock. Requires Thieving 75. |
 | `::cluetest elf` | Assigned elf pickpocket challenge. Pickpocket in Lletya or Prifddinas, then return to Sherlock. Requires Thieving 85. |
 | `::cluetest watermelon` | Assigned single-step watermelon planting clue, three seeds, rake, dibber and spade; requires Farming 47. Rake an allotment at Falador farm (3056,3309), plant seeds, then return to Sherlock. |
-| `::cluetest enchant` | New on `feature/clue-tasks-50`: assigned dragonstone enchantment clue, ring and runes. Standard spellbook, Lvl-5 Enchant, Magic 68. |
+| `::cluetest enchant` | Assigned dragonstone enchantment clue, ring and runes. Standard spellbook, Lvl-5 Enchant, Magic 68. |
 | `::cluetest chest` | Assigned castle-chest clue. Search for traps at 2588,3291,1 or 2588,3302,1; Thieving 72 and four free inventory slots. |
 | `::cluetest lamp` | Assigned lamp clue and light orb. Fix a broken lamp at 2699,5294,1; Firemaking 52. |
 | `::cluetest shayzien` | Assigned clue, four lovakite bars and hammer. Bars on an anvil, select tier 2+ platebody; Smithing 63+ and Mining 65 for the clue. |

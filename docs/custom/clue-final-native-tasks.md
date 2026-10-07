@@ -1,8 +1,9 @@
 # Final ten native clue-task routes
 
-Revision 240; continuation of PR #27 on `feature/clue-tasks-50`.
+Revision 240; PR #27 merged into `main` as `c535c713a` on 2026-10-07.
 The task audit reaches 60/60. This count covers skill-challenge rows, not complete
-Treasure Trails or full supporting skills. In-game acceptance remains separate.
+Treasure Trails or full supporting skills. The user approved this current scope;
+the activity and parity limits below remain separate work.
 Current status is maintained only in [PROGRESS.md](../../PROGRESS.md).
 
 | Cached task | Native route |
@@ -22,7 +23,7 @@ Current status is maintained only in [PROGRESS.md](../../PROGRESS.md).
 
 Agility lap progress, spirit-tree timestamps and trap material escrow use permanent
 server-only native vars. No client upgrade is required. The new varp range
-65423–65438 was checked for allocation collisions. Cache/gamevals are rebuilt.
+65423â€“65438 was checked for allocation collisions. Cache/gamevals are rebuilt.
 
 Catch/recipe outputs commit before XP and completion events. Trap resources remain
 in escrow while outside inventory: logout, death, expiry, departure and unload
@@ -82,7 +83,7 @@ patches, quest gating or a complete ordinary public network. Only owned
 outdoor destinations are offered by the new travel menu.
 
 Agility lacks failures, marks of grace, pets and other courses. Skullball's final
-hole landing, timing and full-course visuals require manual client acceptance;
+hole landing, timing and full-course visual parity still need specific client checks;
 the final approach tile was inferred from the mapped hole. Torn parts draw three
 cached NPC cryptics, not all canonical dig/coordinate variants. The entire clue
 route/map/puzzle inventory and Mimic remain separate work.
@@ -104,6 +105,7 @@ Nero server plugin remains `ac517bdbc6b2264720fe4654ef6f98b33de2151e71a3d69ce6d2
 The installed 50-task baseline was verified against all 877 manifest file hashes;
 the new installer carries only the difference from that known baseline.
 
-Use the new installer to test native routes and visuals in the accepted client.
+The approved installer remains tied to tested source `84616d805`; merging and
+updating acceptance documentation do not rebuild or replace its artifacts.
 The 50-task package and prior checkpoints remain unchanged. No package installs
 itself or changes player data automatically.
