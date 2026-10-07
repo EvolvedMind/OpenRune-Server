@@ -117,6 +117,8 @@ Scope: XS = tiny, S = small, M = medium, L = large, XL = very large, XXL = multi
 | 🔴 | Combat Tasks | XXL |
 | 🔴 | Leagues | XXL |
 | 🔴 | Sailing Skill | XXL |
+| 🔴 | Completionist Cape + Particles | TBD |
+| 🔴 | Hooded Slayer Helmets + Variants | TBD |
 
 ### Parked
 

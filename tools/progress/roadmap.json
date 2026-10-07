@@ -689,6 +689,30 @@
       "size": "XXL"
     },
     {
+      "title": "Completionist Cape + Particles",
+      "status": "not_added",
+      "category": "other",
+      "size": "TBD",
+      "summary": "Custom cape for full skill/XP, achievement and Collection Log completion, with an original particle effect.",
+      "details": [
+        "Requirements, appearance, client constraints and acceptance scope: docs/custom/completion-rewards.md#completionist-cape.",
+        "Working target: level 99 and 200m XP per required skill, all required achievements and all required Collection Log entries; every condition must pass.",
+        "Depends on the real achievement framework, legitimately obtainable required content and confirmed revision-240 client/cache particle support. Estimate after those checks.",
+        "Completionist monkey remains an undecided cosmetic alternative within the same design brief, not a separate implementation task."
+      ]
+    },
+    {
+      "title": "Hooded Slayer Helmets + Variants",
+      "status": "not_added",
+      "category": "other",
+      "size": "TBD",
+      "summary": "Hooded Slayer helmet with cosmetic variants based on the supplied image; preserve normal/imbued combat behavior.",
+      "details": [
+        "Design, preserved helmet behavior and image: docs/custom/completion-rewards.md#hooded-slayer-helmets.",
+        "Use the bottom-centre hooded silhouette and the other reference palettes as design directions. Final variant roster, asset availability and unlock method need definition before estimating."
+      ]
+    },
+    {
       "title": "Weapon Special Attacks",
       "status": "started",
       "summary": "Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected.",

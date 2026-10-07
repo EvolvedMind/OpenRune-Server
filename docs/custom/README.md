@@ -17,6 +17,7 @@ This index contains implementation notes and evidence, not a second status list.
 | Commands and loadouts | `content/other/commands`, `content/interfaces/worldmap` | [Commands](commands.md) |
 | Monster, skill and quest interfaces | `content/interfaces/monster-info`, `content/interfaces/skill-guides`, `content/quest` | [Interfaces](interfaces.md) |
 | Max cape | Custom native-menu handlers in `content/other/max-cape` | [Menus and perks](../max-cape.md) |
+| Completionist cape and hooded Slayer helmets | Reward requirements, equipment variants and client/cache visuals | [Design and visual reference](completion-rewards.md) |
 | Weapons, shields and charges | `content/other/special-attacks`, `content/other/special-weapons`, `api/specials`, `api/combat` | [Combat](combat.md) |
 | Boss-item assembly | `content/skills/crafting`, `content/other/special-weapons` | [Recipes and dismantling](boss-item-crafting.md) |
 | Prices, Examine and notifications | `api/market`, `api/player-output`, `content/interfaces/collection-log` | [Four extensions](small-extensions.md) |
