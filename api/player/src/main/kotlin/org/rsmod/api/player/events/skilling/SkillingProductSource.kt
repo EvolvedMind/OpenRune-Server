@@ -7,6 +7,12 @@ import org.rsmod.map.CoordGrid
 
 public sealed class SkillingProductSource {
 
+    public data object JewelleryEnchantment : SkillingProductSource()
+
+    public data class ThievingChest(public val loc: String, public val coords: CoordGrid) : SkillingProductSource()
+
+    public data object TabletMaking : SkillingProductSource()
+
     public data object SacredEel : SkillingProductSource()
 
     public data class ThievingStall(public val loc: String, public val coords: CoordGrid) : SkillingProductSource()

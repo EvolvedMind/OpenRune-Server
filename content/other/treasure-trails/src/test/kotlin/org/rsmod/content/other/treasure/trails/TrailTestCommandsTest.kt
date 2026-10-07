@@ -94,6 +94,25 @@ class TrailTestCommandsTest {
         }
     }
 
+    @Test fun `eight native action fixtures add assigned clues and supplies atomically without completing tasks`() {
+        for (alias in listOf("enchant", "chest", "lamp", "shayzien", "tablet", "cremate", "mage", "shade")) {
+            val f = Fixture()
+            f.run("cluetest", alias)
+            assertEquals(9, f.states().single().phase)
+            assertEquals(1, f.states().single().total)
+            assertTrue(f.player.worn.objs.all { it == null })
+            val before = f.player.inv.objs.toList()
+            f.run("cluetest", alias)
+            assertEquals(before, f.player.inv.objs.toList())
+            val full = Fixture()
+            for (slot in 0..27) full.player.inv[slot] = InvObj("obj.abyssal_whip")
+            val fullBefore = full.player.inv.objs.toList()
+            full.run("cluetest", alias)
+            assertEquals(fullBefore, full.player.inv.objs.toList())
+            assertTrue(full.states().isEmpty())
+        }
+    }
+
     @Test fun `fixture and supplies are one transaction and bad arguments do not mutate inventory`() {
         val f = Fixture()
         for (slot in 0..25) f.player.inv[slot] = InvObj("obj.abyssal_whip")

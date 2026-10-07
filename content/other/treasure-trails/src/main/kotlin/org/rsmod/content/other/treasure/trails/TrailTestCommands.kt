@@ -33,6 +33,13 @@ internal class TrailTestCommands @Inject constructor(
 
     private fun run(player: Player, args: List<String>) {
         val action = args.firstOrNull()?.lowercase()
+        if (action in actionFixtures) {
+            if (args.size != 1) return help(player)
+            val fixture = actionFixtures.getValue(action!!)
+            val clue = progress.catalog.clues.getValue(fixture.row.asRSCM())
+            if (giveClue(player, clue, TrailSkillChallenges.ASSIGNED, 1, fixture.items.map { (symbol, count) -> InvObj(symbol, count) })) player.mes(fixture.message)
+            return
+        }
         when (action) {
             "kit" -> if (args.size == 1) give(player, kit.map { InvObj(it) }) else help(player)
             "info" -> if (args.size == 1) info(player) else help(player)
@@ -117,11 +124,23 @@ internal class TrailTestCommands @Inject constructor(
         player.mes("::cluekit | ::cluetest box [tier] [1-28] | ::cluetest casket [tier] [1-28]")
         player.mes("::cluetest scroll [tier] [kind] | ::cluetest task [tier] [index] | ::cluetest info")
         player.mes("::cluetest eel / gem / elf / watermelon: assigned one-step tests. Tiers: beginner (default), easy, medium, hard, elite, master.")
+        player.mes("::cluetest enchant / chest / lamp / shayzien / tablet / cremate / mage / shade: native action tests, then return to Sherlock.")
     }
 
     private fun tier(value: String?) = TrailTier.entries.firstOrNull { it.key == value?.lowercase() }
 
     companion object {
+        private data class ActionFixture(val row: String, val items: List<Pair<String, Int>>, val message: String)
+        private val actionFixtures = mapOf(
+            "enchant" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_1", listOf("obj.dragonstone_ring" to 1, "obj.cosmicrune" to 1, "obj.waterrune" to 15, "obj.earthrune" to 15), "Cast Lvl-5 Enchant on the ring (standard spellbook, Magic 68), then return to Sherlock."),
+            "chest" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_7", emptyList(), "Search for traps on the Ardougne Castle chest: 2588,3291,1 or 2588,3302,1. Thieving 72."),
+            "lamp" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_17", listOf("obj.dorgesh_light_bulb" to 1), "Fix a broken lamp in Dorgesh-Kaan, e.g. 2699,5294,1. Firemaking 52."),
+            "shayzien" to ActionFixture("dbrow.cluehelper_skillchallenge_elite_23", listOf("obj.lovakite_bar" to 4, "obj.hammer" to 1), "Use lovakite bars on an anvil and smith a tier 2+ Shayzien platebody. Smithing 63+."),
+            "tablet" to ActionFixture("dbrow.cluehelper_skillchallenge_master_3", listOf("obj.arceuus_essence_block_dark" to 1, "obj.lawrune" to 2, "obj.soulrune" to 2, "obj.bloodrune" to 1), "Use the Arceuus lectern at 1679,3765,0. Arceuus spellbook and Magic 83 are required."),
+            "cremate" to ActionFixture("dbrow.cluehelper_skillchallenge_master_17", listOf("obj.shade_bones5" to 1, "obj.magic_logs_pyre" to 1, "obj.tinderbox" to 1), "Build a funeral pyre in Mort'ton, e.g. 3462,3282,0. Firemaking 80."),
+            "mage" to ActionFixture("dbrow.cluehelper_skillchallenge_master_5", listOf("obj.saradomin_staff" to 1), "Wear the Saradomin staff and kill a Saradomin spiritual mage in God Wars Dungeon. Slayer 83."),
+            "shade" to ActionFixture("dbrow.cluehelper_skillchallenge_master_24", emptyList(), "Kill a Fiyr shade inside Mort'ton's catacombs, e.g. 3460,9695,0, then return to Sherlock."),
+        )
         val kit = listOf("obj.spade", "obj.trail_sextant", "obj.trail_watch", "obj.trail_chart", "obj.rope", "obj.knife", "obj.tinderbox", "obj.hammer", "obj.chisel")
     }
 }

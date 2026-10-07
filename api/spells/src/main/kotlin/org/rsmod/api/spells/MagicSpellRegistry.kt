@@ -20,6 +20,12 @@ public class MagicSpellRegistry {
 
     public fun getObjSpell(obj: ItemServerType): MagicSpell? = objSpells[obj.id]
 
+    /** Utility submenu spells are not necessarily members of the top-level spellbook enum. */
+    public fun getUtilitySpell(obj: ItemServerType): MagicSpell =
+        (objSpells[obj.id] ?: obj.toMagicSpell()).also {
+            require(it.type == MagicSpellType.Utility) { "Expected a utility spell: $obj" }
+        }
+
     public fun getAutocastSpell(autocastId: Int): MagicSpell? = autocastSpells[autocastId]
 
     public fun allSpells(): Collection<MagicSpell> = objSpells.values
