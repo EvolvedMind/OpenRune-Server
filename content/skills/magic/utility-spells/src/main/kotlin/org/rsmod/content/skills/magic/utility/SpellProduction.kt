@@ -14,7 +14,7 @@ import org.rsmod.game.entity.Player
 /** Rune pouch quantities change only after the same transaction commits both runes and output. */
 internal fun produceSpell(
     player: Player, manager: MagicRuneManager, spell: MagicSpell,
-    input: Int, slot: Int, output: Int,
+    input: Int, slot: Int, output: Int?,
 ): Boolean {
     if (!manager.canCastSpell(player, spell)) return false
     val validations = manager.validateSpell(player, spell)
@@ -28,7 +28,7 @@ internal fun produceSpell(
         for (source in sources.filterIsInstance<MagicRunes.Source.InvSource>()) {
             delete(target, source.obj.asRSCM(), source.count, source.slot)
         }
-        add(target, output, 1, 0, slot.takeIf { player.inv[it]?.count == 1 })
+        if (output != null) add(target, output, 1, 0, slot.takeIf { player.inv[it]?.count == 1 })
     }
     if (!transaction.success) return false
     for ((varbit, count) in quantities) VarPlayerIntMapSetter.set(player, varbit, player.vars[varbit] - count)
