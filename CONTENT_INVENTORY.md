@@ -309,6 +309,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 
 | Module |
 |---|
+| [content/activities/shades-of-mortton](content/activities/shades-of-mortton) |
 | [content/areas/city/ardougne](content/areas/city/ardougne) |
 | [content/areas/city/draynor](content/areas/city/draynor) |
 | [content/areas/city/draynor/pack](content/areas/city/draynor/pack) |

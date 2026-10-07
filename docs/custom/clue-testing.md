@@ -15,8 +15,16 @@ update the currently installed server by themselves.
 | `::cluetest task master 18` | Assigned sacred-eel challenge, single-step test, without supplies. |
 | `::cluetest eel` | Assigned sacred-eel challenge, knife and three eels in one transaction. Requires normal skill levels. |
 | `::cluetest gem` | Assigned Ardougne gem-stall challenge. Steal a gem at 2667,3303,0, then return to Sherlock. Requires Thieving 75. |
-| `::cluetest elf` | New on `feature/clue-completion`: assigned elf pickpocket challenge. Pickpocket in Lletya or Prifddinas, then return to Sherlock. Requires Thieving 85. |
+| `::cluetest elf` | Assigned elf pickpocket challenge. Pickpocket in Lletya or Prifddinas, then return to Sherlock. Requires Thieving 85. |
 | `::cluetest watermelon` | Assigned single-step watermelon planting clue, three seeds, rake, dibber and spade; requires Farming 47. Rake an allotment at Falador farm (3056,3309), plant seeds, then return to Sherlock. |
+| `::cluetest enchant` | New on `feature/clue-tasks-50`: assigned dragonstone enchantment clue, ring and runes. Standard spellbook, Lvl-5 Enchant, Magic 68. |
+| `::cluetest chest` | Assigned castle-chest clue. Search for traps at 2588,3291,1 or 2588,3302,1; Thieving 72 and four free inventory slots. |
+| `::cluetest lamp` | Assigned lamp clue and light orb. Fix a broken lamp at 2699,5294,1; Firemaking 52. |
+| `::cluetest shayzien` | Assigned clue, four lovakite bars and hammer. Bars on an anvil, select tier 2+ platebody; Smithing 63+ and Mining 65 for the clue. |
+| `::cluetest tablet` | Assigned Barrows-tablet clue, dark essence block and runes. Lectern at 1679,3765,0; Arceuus spellbook, Magic 83. |
+| `::cluetest cremate` | Assigned Fiyr-cremation clue, remains, magic pyre logs and tinderbox. Funeral pyre at 3462,3282,0; Firemaking 80. |
+| `::cluetest mage` | Assigned spiritual-mage clue and Saradomin staff. Wear it and kill a Saradomin spiritual mage; Slayer 83. |
+| `::cluetest shade` | Assigned Fiyr-shade clue. Kill one inside catacombs, e.g. 3460,9695,0; Firemaking 65. Door/key access remains outside this task slice. |
 | `::cluetest info` | Current initialized inventory clues: row, kind, step, phase and clue text. |
 | `::cluetest` | Usage help. |
 | `::cluerewards` | Existing command to collect pending casket rewards after freeing inventory space. |
