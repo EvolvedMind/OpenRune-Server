@@ -1,0 +1,8 @@
+# Two observed Temple placements from the supplied 2026-10-07 Nero capture.
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_69_43_11"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_63_69_48_11"
