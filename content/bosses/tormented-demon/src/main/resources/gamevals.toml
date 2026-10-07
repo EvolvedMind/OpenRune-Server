@@ -1,3 +1,3 @@
 [gamevals.npc]
-tormented_demon_defenceless_1 = -1
-tormented_demon_defenceless_2 = -1
+tormented_demon_defenceless_1 = 65535
+tormented_demon_defenceless_2 = 65534
