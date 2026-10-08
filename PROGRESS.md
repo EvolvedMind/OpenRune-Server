@@ -6,7 +6,7 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Ready for owner testing: prayers, spellbook travel and gorillas
+## 🟡 Ready for authorized merge: prayers, spellbook travel and gorillas
 
 Branch `feature/prayer-teleports-gorillas` extends the accepted TD options baseline
 `8eafd7595` in separate prayer, teleport and gorilla commits. It is not merged or
@@ -20,23 +20,30 @@ automatically installed. Revision 240, accepted bosses, specials, gear and the
   unlocked and rune-free, with no travel XP. Existing teleport safety and
   recipient consent remain. Native spell metadata still supplies the accepted
   Barrows tablet's crafting level/runes/essence/XP.
-- Gorilla access is added beside `(2108,5654,0)`, with a native exit route.
+- Screenshot correction: outside Hole at `(2428,3522,0)` and Danger sign at
+  `(2429,3521,0)`; inside Climbing rope at `(2108,5651,0)`. Climb-down lands at
+  `(2108,5654,0)`; Climb-up returns outside to `(2428,3521,0)`.
   Tortured gorillas share Demonic attack animations and switch after four
   consecutive zero-damage impacts; Demonic gorillas keep three.
 - `::testprayers` supplies five scrolls; `::testgorillas` reaches the screenshot
-  lobby. Future CoX/Royal Titans loot and dynamic POH/boat/Bounty Hunter/minigame
+  outside entrance. Future CoX/Royal Titans loot and dynamic POH/boat/Bounty Hunter/minigame
   destinations remain separate systems.
 - **574 selected tests pass**, including 132 clue regressions; scoped formatter,
   revision-240 cache and full JAR pass. Isolated revision-240/Nero startup and
   real map-collision checks pass; private PostgreSQL stops and process exits 0.
   Native client rendering and in-game acceptance remain open.
-- Test package: `outputs/prayer-teleports-gorillas-20261008/INSTALLEREN.cmd`, with
-  an independent rollback to the verified installed TD options software/cache.
-  No playerdata or RSA replacement.
+- First test package `prayer-teleports-gorillas-20261008` remains unchanged.
+  The entrance correction passes **121 selected tests**, formatter/cache/JAR and
+  isolated startup with actual runtime placements and walkable landing tiles.
+  New package: `outputs/gorilla-entrance-fix-20261008/INSTALLEREN.cmd`, with an
+  independent rollback to the verified installed first package, including the
+  four task-specific Nero preview replacements. Other world edits are preserved;
+  no playerdata or RSA replacement or automatic installation.
 - Published after the owner's explicit push approval on 2026-10-08:
   [draft PR #29](https://github.com/EvolvedMind/OpenRune-Server/pull/29).
-  In-game acceptance and merge remain pending. The installer retains its exact
-  tested source checkpoint `f94663e17`; this follow-up changes documentation only.
+  The owner requested merge after the screenshot placement correction on
+  2026-10-08. Final CI/merge are pending; original installer source `f94663e17`
+  remains an immutable checkpoint.
 - [Policy, sources, native interactions and manual tests](docs/custom/prayers-teleports-gorillas.md).
 
 ## 🟢 Complete: Tormented Demons — accepted encounter

@@ -4,7 +4,9 @@ import dev.openrune.rscm.RSCM.asRSCM
 import dev.or2.central.account.Rights
 import jakarta.inject.Inject
 import org.rsmod.api.player.hook.TeleportType
+import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
+import org.rsmod.api.player.stat.hitpoints
 import org.rsmod.api.repo.loc.LocRepository
 import org.rsmod.api.script.*
 import org.rsmod.game.loc.LocEntity
@@ -14,31 +16,53 @@ import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
 class GorillaAccessScript @Inject constructor(private val locs: LocRepository, private val access: ProtectedAccessLauncher) : PluginScript() {
-    private val entrance by lazy { LocInfo(2, ENTRANCE, LocEntity(ACCESS.asRSCM(), 10, 0)) }
+    private val ownedLocs by lazy {
+        listOf(
+            LocInfo(2, ENTRANCE, LocEntity(HOLE.asRSCM(), 10, 0)),
+            LocInfo(2, SIGN_COORD, LocEntity(SIGN.asRSCM(), 10, 2)),
+            LocInfo(2, ROPE_COORD, LocEntity(ROPE.asRSCM(), 10, 0)),
+        )
+    }
     override fun ScriptContext.startup() {
-        onGameStartup { check(locs.add(entrance, Int.MAX_VALUE)) { "Could not create the gorilla cavern entrance" } }
-        for (symbol in listOf(ACCESS, "loc.mm2_cavern_entrance")) {
+        onGameStartup {
+            for (loc in ownedLocs) check(locs.add(loc, Int.MAX_VALUE)) { "Could not create gorilla access object ${loc.id}" }
+        }
+        for (symbol in listOf(HOLE, "loc.mm2_cavern_entrance")) {
             onOpLoc1(symbol) {
-                vars["varp.gorilla_entry_return"] = coords.packed
+                arriveDelay()
+                anim("seq.human_reachforladder")
+                delay(1)
+                if (player.pendingLogout || player.hitpoints == 0) return@onOpLoc1
                 telejump(CAVERN, TeleportType.Exempt)
             }
         }
-        onOpLoc1("loc.mm2_cave_boss_exit") {
-            val returnCoord = vars["varp.gorilla_entry_return"]
-            telejump(if (returnCoord == 0) LOBBY else CoordGrid(returnCoord), TeleportType.Exempt)
-            vars["varp.gorilla_entry_return"] = 0
+        for (symbol in listOf(ROPE, "loc.mm2_cave_boss_exit")) {
+            onOpLoc1(symbol) {
+                arriveDelay()
+                anim("seq.human_reachforladder")
+                delay(1)
+                if (player.pendingLogout || player.hitpoints == 0) return@onOpLoc1
+                telejump(LOBBY, TeleportType.Exempt)
+                vars["varp.gorilla_entry_return"] = 0
+            }
         }
+        onOpLoc1(SIGN) { mes("Danger! Demonic and tortured gorillas lurk below. Make sure you are prepared.") }
         onCommand("testgorillas") {
             requiredRights = Rights.ADMINISTRATOR
             desc = "Teleport to the gorilla cavern entrance shown in the test screenshot"
             cheat { access.launch(player) { telejump(LOBBY, TeleportType.Exempt) } }
         }
     }
-    override fun ScriptContext.shutdown() { locs.del(entrance, Int.MAX_VALUE) }
+    override fun ScriptContext.shutdown() { for (loc in ownedLocs) locs.del(loc, Int.MAX_VALUE) }
     companion object {
-        const val ACCESS = "loc.gorilla_cavern_access"
-        val LOBBY = CoordGrid(2108, 5654)
-        val ENTRANCE = CoordGrid(2106, 5652)
-        val CAVERN = CoordGrid(2076, 5646)
+        // Keep the installed custom ID; its cavern-arch appearance becomes the requested rope.
+        const val ROPE = "loc.gorilla_cavern_access"
+        const val HOLE = "loc.gorilla_cavern_hole"
+        const val SIGN = "loc.gorilla_cavern_danger_sign"
+        val LOBBY = CoordGrid(2428, 3521)
+        val ENTRANCE = CoordGrid(2428, 3522)
+        val SIGN_COORD = CoordGrid(2429, 3521)
+        val ROPE_COORD = CoordGrid(2108, 5651)
+        val CAVERN = CoordGrid(2108, 5654)
     }
 }

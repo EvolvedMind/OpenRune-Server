@@ -1,9 +1,26 @@
 [[object]]
 id = "loc.gorilla_cavern_access"
-inherit = "loc.mm2_cavern_entrance"
-name = "Cavern entrance"
+inherit = "loc.climbing_rope2"
+name = "Climbing rope"
 solid = 0
 impenetrable = false
+[object.actions]
+ops = [{ text = "Climb-up" }]
+
+[[object]]
+id = "loc.gorilla_cavern_hole"
+inherit = "loc.yanilleholein"
+name = "Hole"
+solid = 0
+impenetrable = false
+
+[[object]]
+id = "loc.gorilla_cavern_danger_sign"
+inherit = "loc.dangersign"
+name = "Danger sign"
+[object.actions]
+ops = [{ text = "Read" }]
+
 
 [[varp]]
 id = "varp.gorilla_entry_return"

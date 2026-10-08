@@ -1,5 +1,7 @@
 [gamevals.loc]
 gorilla_cavern_access = 62522
+gorilla_cavern_hole = 62523
+gorilla_cavern_danger_sign = 62524
 
 [gamevals.varp]
 gorilla_entry_return = 65406

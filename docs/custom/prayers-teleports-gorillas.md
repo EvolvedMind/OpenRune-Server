@@ -64,14 +64,29 @@ systems. Respawn teleport currently uses the existing Lumbridge death default.
 
 ## Gorilla access and combat
 
-An owned native cavern entrance is placed at `(2106,5652,0)`, beside the screenshot
-position `(2108,5654,0)`. `Enter` leads to `(2076,5646,0)` in the existing demon
-cavern. The native cavern entrance is also registered. The native exit rope at
-`(2129,5647,0)` returns to the entry tile remembered for that session, or the
-screenshot lobby after relog. The temporary return varp is not saved as permanent
-progress. Plugin shutdown removes only the newly owned entrance.
+The owner's screenshot correction uses the exact saved Nero placement tiles:
 
-`::testgorillas` takes an administrator to the screenshot lobby. Native spawns,
+| Object | Native appearance | Position | Operation |
+|---|---|---|---|
+| Hole | `loc.yanilleholein` (2823) | `(2428,3522,0)` | Climb-down to `(2108,5654,0)` |
+| Danger sign | `loc.dangersign` (1032), angle 2 | `(2429,3521,0)` | Read a short warning |
+| Climbing rope | `loc.climbing_rope2` (18969) | `(2108,5651,0)` | Climb-up to `(2428,3521,0)` |
+
+Both climbing routes use the native `human_reachforladder` sequence and one tick
+of climbing delay, plus native arrival delay where applicable. Interrupted
+coroutines and pending logout/death cannot land later. The outside return is
+fixed and works after relog; the old temporary return varp is retained for cache
+compatibility and cleared on exit. The original native cavern entrance/exit
+also remain usable. Shutdown removes only the three module-owned objects.
+
+The previously installed custom loc ID 62522 is retained and changes from the
+cavern arch to the rope; the hole/sign use verified free IDs 62523/62524. The
+fresh installer replaces the four task-specific Nero preview placements with
+these three permanent definitions, preserving every other placement and all
+deletions. The live world-edit file is not changed during development. Its exact
+before/after hashes are included in the scoped rollback and boot evidence.
+
+`::testgorillas` takes an administrator to the outside entrance. Native spawns,
 models, stats, drops, kill counts and other accepted combat behavior are retained.
 
 Only combat Tortured variants `npc.mm2_tortured_gorilla_1`/`_2` (7150/7151) receive
@@ -117,13 +132,21 @@ flags: both are walkable. The process exits 0 and its private PostgreSQL PID fil
 is absent. The previously recorded database-close warning remains a separate
 [persistence follow-up](upstream-review-20261006.md).
 
+The screenshot access correction additionally passes 121 selected tests (11
+gorilla tests plus prayer, teleport, boss/API/registry/network/game regressions),
+formatting/cache/JAR and isolated startup with the migrated Nero overlay. The
+runtime storage contains exactly the three expected custom objects on their
+specified tiles; both production arrival constants resolve to walkable tiles.
+
 Final test/build/boot evidence is recorded with the installer. Server tests do not
 prove pixel-perfect client rendering. Manual acceptance: install the review
 package, test prayer scroll Read/Cancel/already-unlocked and relog, cast with empty
 rune inventory on each book, check prayer/spell icons in fixed/resizable mode,
-then use `::testgorillas`, Enter/rope, and compare all three Tortured attack styles
+then use `::testgorillas`, Climb-down/Climb-up/Read, and compare all three Tortured attack styles
 with Demonic gorillas. Verify three versus four blocked hits before switching.
 
-The fresh installer has an independent software/cache rollback to the verified
-installed TD options package (`8eafd7595`). It never changes playerdata or RSA and
-is not automatically installed.
+The first installer retains its independent TD options rollback (`8eafd7595`).
+The entrance correction gets a separate installer and rollback to the verified
+installed prayer/teleport/gorilla package (`f94663e17`), including only the
+task-specific Nero preview migration. Neither changes playerdata or RSA or is
+automatically installed.

@@ -2,6 +2,7 @@ package org.rsmod.content.bosses.demonicgorilla
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.definition.codec.NPCCodec
+import dev.openrune.definition.codec.ObjectCodec
 import dev.openrune.filesystem.Cache
 import dev.openrune.rscm.RSCM.asRSCM
 import java.nio.file.Path
@@ -26,9 +27,21 @@ internal class GorillaAssetsTest {
                 assertEquals(210, server.hitpoints)
                 assertEquals("seq.demonic_gorilla_death".asRSCM(), server.param(params.death_anim).id)
             }
-            val entrance = ServerCacheManager.getObject(GorillaAccessScript.ACCESS.asRSCM())!!
-            assertEquals(0, entrance.blockWalk)
-            assertEquals("Cavern entrance", entrance.name)
+            val objectCodec = ObjectCodec(240)
+            for ((symbol, native, operation) in listOf(
+                Triple(GorillaAccessScript.ROPE, "loc.climbing_rope2", "Climb-up"),
+                Triple(GorillaAccessScript.HOLE, "loc.yanilleholein", "Climb-down"),
+                Triple(GorillaAccessScript.SIGN, "loc.dangersign", "Read"),
+            )) {
+                val id = symbol.asRSCM(); val original = native.asRSCM()
+                val definition = objectCodec.loadData(id, live.data(2, 6, id)!!)
+                val base = objectCodec.loadData(original, live.data(2, 6, original)!!)
+                assertEquals(base.objectModels, definition.objectModels)
+                assertEquals(operation, definition.actions.getOpOrNull(0))
+                assertEquals(operation, ServerCacheManager.getObject(id)!!.actions.getOpOrNull(0))
+            }
+            assertEquals(0, ServerCacheManager.getObject(GorillaAccessScript.ROPE.asRSCM())!!.blockWalk)
+            assertEquals(0, ServerCacheManager.getObject(GorillaAccessScript.HOLE.asRSCM())!!.blockWalk)
         } finally { live.close() }
     }
 }
