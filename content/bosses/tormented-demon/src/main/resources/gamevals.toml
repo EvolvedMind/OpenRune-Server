@@ -1,16 +1,17 @@
+# Pin the native IDs validated by the revision-240 cache and interaction tests.
 [gamevals.npc]
-tormented_demon_defenceless_1 = -1
-tormented_demon_defenceless_2 = -1
+tormented_demon_defenceless_1 = 65524
+tormented_demon_defenceless_2 = 65523
 
 [gamevals.varp]
-td_crafting_state = -1
-td_heart_ticks = -1
-td_gland_ticks = -1
+td_crafting_state = 65472
+td_heart_ticks = 65471
+td_gland_ticks = 65470
 
 [gamevals.varobj]
-td_arclight_charges = -1
-td_arclight_infusion = -1
+td_arclight_charges = 65525
+td_arclight_infusion = 65524
 
 [gamevals.inv]
-td_smouldering_items = -1
-td_smouldering_meta = -1
+td_smouldering_items = 65525
+td_smouldering_meta = 65524
