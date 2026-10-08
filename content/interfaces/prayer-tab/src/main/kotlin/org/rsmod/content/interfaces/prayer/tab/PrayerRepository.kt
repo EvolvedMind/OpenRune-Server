@@ -12,6 +12,7 @@ import org.rsmod.api.enums.PrayerEnums.prayer_oc
 import org.rsmod.api.enums.PrayerEnums.prayer_overhead_collisions
 import org.rsmod.api.enums.PrayerEnums.prayer_strength_collisions
 import org.rsmod.content.interfaces.prayer.tab.configs.prayer_params
+import org.rsmod.game.entity.Player
 
 class PrayerRepository() {
     lateinit var prayerComponents: Map<ComponentType, Prayer>
@@ -24,6 +25,14 @@ class PrayerRepository() {
         private set
 
     fun toPrayerList(packed: Int) = prayerList.filter { packed and (1 shl it.id) != 0 }
+
+    fun resolve(player: Player, prayer: Prayer): Prayer = when {
+        prayer.name == "Eagle Eye" && player.vars["varbit.prayer_deadeye_unlocked"] == 1 ->
+            prayer.copy(name = "Deadeye", level = 62, sound = 10194)
+        prayer.name == "Mystic Might" && player.vars["varbit.prayer_mystic_vigour_unlocked"] == 1 ->
+            prayer.copy(name = "Mystic Vigour", level = 63, sound = 10100)
+        else -> prayer
+    }
 
     fun load() {
         val components = loadMappedComponents()
@@ -45,13 +54,14 @@ class PrayerRepository() {
             val name = obj.param(prayer_params.name)
             val level = obj.param(prayer_params.level)
             val sound = obj.param(prayer_params.sound).id
-            val enabled = RSCM.getReverseMapping(RSCMType.VARBIT,obj.param(prayer_params.varbit).id)
+            val enabled = RSCM.getReverseMapping(RSCMType.VARBIT, obj.param(prayer_params.varbit).id)
             val drain = obj.param(prayer_params.drain_effect)
             val overhead = obj.paramOrNull(prayer_params.overhead)
-            val unlockVar = obj.paramOrNull(prayer_params.unlock_varbit)
+            val defaultUnlocked = name == "Chivalry" || name == "Piety"
+            val unlockVar = if (defaultUnlocked) null else obj.paramOrNull(prayer_params.unlock_varbit)
             val unlockState = obj.param(prayer_params.unlock_state)
             val defenceReq = obj.paramOrNull(params.statreq1_level)
-            val lockedMessage = obj.paramOrNull(prayer_params.locked_message)
+            val lockedMessage = if (defaultUnlocked) "You need a Prayer level of $level and a Defence level of $defenceReq to use $name." else obj.paramOrNull(prayer_params.locked_message)
 
             check(idCollision.add(id)) { "Prayer with id `$id` is already in use." }
             check(component !in prayers) { "Prayer with component `$component` is already in use." }

@@ -100,7 +100,7 @@ constructor(
             return
         }
 
-        val quickPrayers = repo.toPrayerList(quickPrayerVars)
+        val quickPrayers = repo.toPrayerList(quickPrayerVars).map { repo.resolve(player, it) }.filter { it.hasAllRequirements(player) }
         val lockedProtection =
             player.overheadsLocked &&
                 quickPrayers.any { it.enabled in overheadProtectionPrayerVarbits }
@@ -112,7 +112,7 @@ constructor(
             }
 
         if (grantedPrayers.isEmpty()) {
-            mes("You've been injured and can't use protection prayers!")
+            mes("You cannot use the selected quick-prayers with your current requirements.")
             soundSynth("synth.prayer_disable")
             player.resyncVar("varbit.quickprayer_active")
             return
@@ -174,7 +174,7 @@ constructor(
     }
 
     private fun Player.toggleQuickPrayer(comsub: Int) {
-        val prayer = repo.prayerList.getOrNull(comsub)
+        val prayer = repo.prayerList.getOrNull(comsub)?.let { repo.resolve(this, it) }
         if (prayer == null) {
             throw IllegalArgumentException("Invalid quick prayer comsub: $comsub")
         }
