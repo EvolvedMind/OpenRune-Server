@@ -1,8 +1,104 @@
-# Two observed Temple placements from the supplied 2026-10-07 Nero capture.
+# 26 post-quest spawns from the OSRS Wiki Tormented Demon location table (reviewed 2026-10-08).
 [[spawn]]
 npc = "npc.tormented_demon_1"
-coords = "0_63_69_43_11"
+coords = "0_64_68_40_20"
 
 [[spawn]]
 npc = "npc.tormented_demon_2"
-coords = "0_63_69_48_11"
+coords = "0_64_68_21_33"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_64_69_53_14"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_63_68_56_27"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_68_6_27"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_63_68_7_39"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_64_69_38_50"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_69_51_36"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_64_69_16_50"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_68_39_47"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_69_8_3"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_68_52_29"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_68_51_21"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_68_27_29"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_64_69_8_51"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_68_50_14"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_68_56_15"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_68_35_11"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_64_68_44_40"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_69_43_34"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_69_6_33"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_69_55_9"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_68_9_33"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_64_69_45_48"
+
+[[spawn]]
+npc = "npc.tormented_demon_1"
+coords = "0_63_69_39_10"
+
+[[spawn]]
+npc = "npc.tormented_demon_2"
+coords = "0_63_69_47_14"
