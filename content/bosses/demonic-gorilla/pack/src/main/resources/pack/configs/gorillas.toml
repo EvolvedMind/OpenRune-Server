@@ -1,0 +1,11 @@
+[[npc]]
+id = "npc.mm2_tortured_gorilla_1"
+inherit = "npc.mm2_tortured_gorilla_1"
+[npc.params]
+"param.death_anim" = "seq.demonic_gorilla_death"
+
+[[npc]]
+id = "npc.mm2_tortured_gorilla_2"
+inherit = "npc.mm2_tortured_gorilla_2"
+[npc.params]
+"param.death_anim" = "seq.demonic_gorilla_death"

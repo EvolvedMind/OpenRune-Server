@@ -36,7 +36,7 @@ private constructor(
 ) : PluginScript() {
     override fun ScriptContext.startup() {
         for ((component, prayer) in repo.prayerComponents.map { RSCM.getReverseMapping(RSCMType.COMPONENT, it.key.packed) to it.value }) {
-            onIfOverlayButton(component) { player.selectPrayer(prayer) }
+            onIfOverlayButton(component) { player.selectPrayer(repo.resolve(player, prayer)) }
         }
         onPlayerQueueWithArgs("queue.prayer_toggle") { togglePrayer(it.args) }
     }

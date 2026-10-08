@@ -1,5 +1,6 @@
 plugins {
     id("base-conventions")
+    id("game-cache-test-conventions")
 
 }
 
@@ -8,6 +9,8 @@ kotlin {
 }
 
 dependencies {
+    testImplementation(libs.or2.all.cache)
+    testImplementation(libs.fastutil)
     implementation(libs.guice)
     implementation(projects.api.combatAccuracy)
     implementation(projects.api.combatMaxhit)

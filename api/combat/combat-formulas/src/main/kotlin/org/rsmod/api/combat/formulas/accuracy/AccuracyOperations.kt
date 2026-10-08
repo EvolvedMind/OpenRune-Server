@@ -168,7 +168,7 @@ public object AccuracyOperations {
             vars["varbit.prayer_steelskin"] == 1 -> 1.15
             vars["varbit.prayer_rockskin"] == 1 -> 1.10
             vars["varbit.prayer_thickskin"] == 1 -> 1.05
-            vars["varbit.prayer_hawkeye"] == 1 && vars["varbit.prayer_deadeye_unlocked"] == 1 -> {
+            vars["varbit.prayer_eagleeye"] == 1 && vars["varbit.prayer_deadeye_unlocked"] == 1 -> {
                 1.05
             }
             vars["varbit.prayer_mysticmight"] == 1 && vars["varbit.prayer_mystic_vigour_unlocked"] == 1 -> {

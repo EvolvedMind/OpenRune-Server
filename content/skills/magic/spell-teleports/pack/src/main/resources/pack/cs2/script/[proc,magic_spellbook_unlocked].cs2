@@ -1,0 +1,25 @@
+// 4131
+[proc,magic_spellbook_unlocked](obj $obj)(boolean)
+// Custom travel policy: fixed and targeted teleports need no unlocks or runes.
+if (oc_param($obj, param_605) = 2) {
+    return(true);
+}
+if (~script7627($obj) = 1) {
+    return(true);
+}
+if (~script4510($obj) = false) {
+    return(false);
+}
+if (~script4128($obj) = false) {
+    return(false);
+}
+if (~script4129($obj) = false) {
+    return(false);
+}
+if (~script5556($obj) = false) {
+    return(false);
+}
+if ($obj = placeholder_caveorb4dot & (%bh_in_bh = 0 | ~target_world = false)) {
+    return(false);
+}
+return(true);

@@ -6,6 +6,46 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Ready for authorized merge: prayers, spellbook travel and gorillas
+
+Branch `feature/prayer-teleports-gorillas` extends the accepted TD options baseline
+`8eafd7595` in separate prayer, teleport and gorilla commits. It is not merged or
+automatically installed. Revision 240, accepted bosses, specials, gear and the
+60/60 clue-task slice are preserved.
+
+- Chivalry/Piety are quest-free with their normal Prayer/Defence levels. The five
+  prayer scrolls permanently unlock Rigour, Augury, Preserve, Deadeye and Mystic
+  Vigour after confirmed Read; upgraded native quick-prayer slots are handled.
+- Fixed travel, homes, group and Teleother routes on all four spellbooks are
+  unlocked and rune-free, with no travel XP. Existing teleport safety and
+  recipient consent remain. Native spell metadata still supplies the accepted
+  Barrows tablet's crafting level/runes/essence/XP.
+- Screenshot correction: outside Hole at `(2428,3522,0)` and Danger sign at
+  `(2429,3521,0)`; inside Climbing rope at `(2108,5651,0)`. Climb-down lands at
+  `(2108,5654,0)`; Climb-up returns outside to `(2428,3521,0)`.
+  Tortured gorillas share Demonic attack animations and switch after four
+  consecutive zero-damage impacts; Demonic gorillas keep three.
+- `::testprayers` supplies five scrolls; `::testgorillas` reaches the screenshot
+  outside entrance. Future CoX/Royal Titans loot and dynamic POH/boat/Bounty Hunter/minigame
+  destinations remain separate systems.
+- **574 selected tests pass**, including 132 clue regressions; scoped formatter,
+  revision-240 cache and full JAR pass. Isolated revision-240/Nero startup and
+  real map-collision checks pass; private PostgreSQL stops and process exits 0.
+  Native client rendering and in-game acceptance remain open.
+- First test package `prayer-teleports-gorillas-20261008` remains unchanged.
+  The entrance correction passes **121 selected tests**, formatter/cache/JAR and
+  isolated startup with actual runtime placements and walkable landing tiles.
+  New package: `outputs/gorilla-entrance-fix-20261008/INSTALLEREN.cmd`, with an
+  independent rollback to the verified installed first package, including the
+  four task-specific Nero preview replacements. Other world edits are preserved;
+  no playerdata or RSA replacement or automatic installation.
+- Published after the owner's explicit push approval on 2026-10-08:
+  [draft PR #29](https://github.com/EvolvedMind/OpenRune-Server/pull/29).
+  The owner requested merge after the screenshot placement correction on
+  2026-10-08. Final CI/merge are pending; original installer source `f94663e17`
+  remains an immutable checkpoint.
+- [Policy, sources, native interactions and manual tests](docs/custom/prayers-teleports-gorillas.md).
+
 ## 🟢 Complete: Tormented Demons — accepted encounter
 
 The user tested the encounter and approved merge after the two menu/arrival
@@ -32,8 +72,8 @@ content are preserved.
 
 ## 🟡 Parked: Treasure Trails
 
-The accepted 60/60 task slice is preserved. Full clue gameplay resumes after the
-current Tormented Demon work; Mimic remains last.
+The accepted 60/60 task slice is preserved. Full clue gameplay remains parked
+until the owner's next instruction; Mimic remains last.
 
 - **60/60 skill-task rows have completion handling.** The user approved the current scope on 2026-10-07; [PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) merged into `main` as `c535c713a`. This is task coverage, not overall clue completion.
 - Finish the remaining clue routes, maps and puzzles; then validate complete trails and their lifecycle.

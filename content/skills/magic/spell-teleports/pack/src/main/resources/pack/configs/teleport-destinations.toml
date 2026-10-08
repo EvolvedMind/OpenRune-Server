@@ -1,0 +1,5 @@
+[[item]]
+id = "obj.58_watchtower_teleport"
+inherit = "obj.58_watchtower_teleport"
+[item.params]
+"param.spell_telecoord" = 578636840

@@ -338,6 +338,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [content/areas/wilderness](content/areas/wilderness) |
 | [content/areas/zeah](content/areas/zeah) |
 | [content/bosses/demonic-gorilla](content/bosses/demonic-gorilla) |
+| [content/bosses/demonic-gorilla/pack](content/bosses/demonic-gorilla/pack) |
 | [content/bosses/tormented-demon](content/bosses/tormented-demon) |
 | [content/bosses/tormented-demon/pack](content/bosses/tormented-demon/pack) |
 | [content/devtools/nero-studio/pack](content/devtools/nero-studio/pack) |
@@ -364,6 +365,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [content/interfaces/notifications](content/interfaces/notifications) |
 | [content/interfaces/omnishop](content/interfaces/omnishop) |
 | [content/interfaces/prayer-tab](content/interfaces/prayer-tab) |
+| [content/interfaces/prayer-tab/pack](content/interfaces/prayer-tab/pack) |
 | [content/interfaces/settings](content/interfaces/settings) |
 | [content/interfaces/skill-guides](content/interfaces/skill-guides) |
 | [content/interfaces/spellbook](content/interfaces/spellbook) |
