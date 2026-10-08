@@ -6,12 +6,14 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Ready for authorized merge: prayers, spellbook travel and gorillas
+## 🟢 Complete: prayers, spellbook travel and gorilla access — approved scope
 
-Branch `feature/prayer-teleports-gorillas` extends the accepted TD options baseline
-`8eafd7595` in separate prayer, teleport and gorilla commits. It is not merged or
-automatically installed. Revision 240, accepted bosses, specials, gear and the
-60/60 clue-task slice are preserved.
+The owner authorized merge after the screenshot placement correction on
+2026-10-08. [PR #29](https://github.com/EvolvedMind/OpenRune-Server/pull/29) merged
+as `b9baac5a8`; its tree matches tested head `66ca7608c`. Prayer, teleport and
+gorilla changes remain in separate commits. Revision 240, accepted bosses,
+specials, gear and the 60/60 clue-task slice are preserved. Merge performs no
+automatic installation.
 
 - Chivalry/Piety are quest-free with their normal Prayer/Defence levels. The five
   prayer scrolls permanently unlock Rigour, Augury, Preserve, Deadeye and Mystic
@@ -31,7 +33,8 @@ automatically installed. Revision 240, accepted bosses, specials, gear and the
 - **574 selected tests pass**, including 132 clue regressions; scoped formatter,
   revision-240 cache and full JAR pass. Isolated revision-240/Nero startup and
   real map-collision checks pass; private PostgreSQL stops and process exits 0.
-  Native client rendering and in-game acceptance remain open.
+  Client rendering is not certified by server tests; manual checks are documented
+  for the owner when installing the requested placement correction.
 - First test package `prayer-teleports-gorillas-20261008` remains unchanged.
   The entrance correction passes **121 selected tests**, formatter/cache/JAR and
   isolated startup with actual runtime placements and walkable landing tiles.
@@ -39,11 +42,11 @@ automatically installed. Revision 240, accepted bosses, specials, gear and the
   independent rollback to the verified installed first package, including the
   four task-specific Nero preview replacements. Other world edits are preserved;
   no playerdata or RSA replacement or automatic installation.
-- Published after the owner's explicit push approval on 2026-10-08:
-  [draft PR #29](https://github.com/EvolvedMind/OpenRune-Server/pull/29).
-  The owner requested merge after the screenshot placement correction on
-  2026-10-08. Final CI/merge are pending; original installer source `f94663e17`
-  remains an immutable checkpoint.
+- CI on the exact reviewed head `66ca7608c`: [build/tests/boot](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37844865414),
+  [Formatting](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37844865443)
+  and [Gameval Conflict Check](https://github.com/EvolvedMind/OpenRune-Server/actions/runs/37844865555)
+  all passed. Original installer source `f94663e17` and corrected installer source
+  `66ca7608c` remain immutable checkpoints; this merge record changes docs only.
 - [Policy, sources, native interactions and manual tests](docs/custom/prayers-teleports-gorillas.md).
 
 ## 🟢 Complete: Tormented Demons — accepted encounter
@@ -102,6 +105,7 @@ Acceptance below applies to the recorded scope. A merged change does not establi
 | 🟢 | [Doom of Mokhaiotl and NPC combat-stat HUD](docs/custom/doom-of-mokhaiotl.md) | Accepted package; merged through server PR #23 and Nero PR #11. |
 | 🟢 | [Small extensions](docs/custom/small-extensions.md) | OSRS GE Prices, Improved Item Examine, Notification Queue and Collection Log Reward Broadcasts approved and merged into `474296f2b`. Advisory formatting findings remain open. |
 | 🟢 | [Clue skill-task handling](docs/custom/clue-task-coverage.md) | Current 60/60 scope approved and merged in PR #27; supporting activity limits and remaining full trails are tracked separately above. |
+| 🟢 | [Prayer unlocks, free spellbook travel and gorilla access](docs/custom/prayers-teleports-gorillas.md) | Owner-authorized scope merged in PR #29, including the requested outside hole/sign and inside rope correction; future encounter loot/dynamic destinations remain separate. |
 
 ## Existing content and open follow-ups
 
