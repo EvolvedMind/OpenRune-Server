@@ -6,26 +6,29 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Active: Tormented Demons
+## 🟡 Active: Tormented Demons — final in-game acceptance
 
-The user requested Tormented Demons, then explicitly requested repairing the known
-disabled model transition. The existing PR #213 encounter is retained and extended
-in `feature/tormented-demons`; accepted encounters and revision 240 are preserved.
+The requested full TD scope is implemented in `feature/tormented-demons` / draft
+[PR #28](https://github.com/EvolvedMind/OpenRune-Server/pull/28). Revision 240 and
+accepted content are retained. This remains Started until rendered acceptance and
+remaining source-parity checks are resolved.
 
-- Native appearance variants replace the disabled body-customisation route. The
-  same NPC retains HP/identity and returns to its normal appearance on reset/death.
-- First combat slice: six-tick passive demons, prayer switching from actual HP loss,
-  defenceless timing, bomb damage/cancellation, reset cleanup and atomic recipes.
-- `::testtd` and `::testloot td [1-1000]` support testing; two observed Temple placements
-  are included. This is not the complete Temple population or entry flow.
-- Full cache/JAR build, five scoped formatting checks and **137 selected tests** pass
-  (13 Tormented Demon tests, native packet tests and accepted-boss regressions).
-  Isolated revision-240/Nero startup passes; exit 0, no private PostgreSQL PID or cleanup errors.
-- Test package: `outputs/tormented-demons-model-fix-20261008/INSTALLEREN.cmd`, with
-  independent rollback to the verified installed 60-task clue package. No automatic installation.
-- Remaining: full access/area layout, coordinated multiple demons, drop odds/ashes,
-  smouldering items, full crafting requirements and rendered in-game acceptance.
-- [Source review and implementation evidence](docs/custom/tormented-demons.md).
+- Protection-prayer zeros give no damage/Hitpoints XP; native impact awards actual
+  damage XP. Shield, 150-HP prayer switches, defenceless models, slow-weapon/spell
+  punish, bombs, grouped roles/timing and lifecycle cleanup are implemented.
+- All 26 native spawns, single/dual/triple chamber limits, scroll/light-creature
+  access, climb/skull entrance and exit, and native chamber indicator are present.
+- Ordered rare/ordinary loot, guaranteed ashes, native log/reward hooks, persistent
+  ground-only smouldering items/buff icons and complete synapse/claw recipes.
+- `::testtd [entrance|1|2|3|kit|items]` and `::testloot td [1-1000]` support acceptance.
+- **412 scoped tests pass**, including 49 TD tests and existing weapons/bosses.
+  Candidate cache/JAR and isolated revision-240/Nero startup evidence is packaged.
+- New test installer: `outputs/tormented-demons-complete-20261008/INSTALLEREN.cmd`;
+  rollback returns to the verified currently installed TD model-fix package.
+- Open: rendered model/effect/routing/timing acceptance, live reward/Slayer lifecycle,
+  and independent parity checks for undocumented lower-level smouldering formulas.
+  While Guthix Sleeps and global Combat Achievements are separate systems.
+- [Mechanics, sources and test evidence](docs/custom/tormented-demons.md).
 
 ## 🟡 Parked: Treasure Trails
 
