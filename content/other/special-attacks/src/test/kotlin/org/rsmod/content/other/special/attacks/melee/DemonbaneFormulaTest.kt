@@ -26,7 +26,7 @@ class DemonbaneFormulaTest {
         for ((weapon, normal, resistant) in listOf(
             Triple("obj.silverlight", 160, 142), Triple("obj.darklight", 160, 142),
             Triple("obj.agrith_silverlight_dyed", 160, 142),
-            Triple("obj.arclight", 170, 149), Triple("obj.emberlight", 170, 149),
+            Triple("obj.arclight_inactive", 160, 142), Triple("obj.arclight", 170, 149), Triple("obj.emberlight", 170, 149),
             Triple("obj.dragon_shortsword", 100, 100))) {
             player.worn[Wearpos.RightHand.slot] = InvObj(weapon)
             val attributes = CombatMeleeAttributeCollector().collect(player, MeleeAttackType.Stab)

@@ -1,9 +1,12 @@
 package org.rsmod.content.slayer.dialogue
 
 import dev.openrune.rscm.RSCM.asRSCM
+import org.rsmod.api.invtx.add
+import org.rsmod.api.invtx.invTransaction
+import org.rsmod.api.invtx.select
 import org.rsmod.api.player.dialogue.Dialogue
-import org.rsmod.content.slayer.slayerDuradelNotesReceived
 import org.rsmod.content.slayer.dialogue.StandardSlayerDialogue.openMain
+import org.rsmod.content.slayer.slayerDuradelNotesReceived
 
 object SlayerMasters {
 
@@ -240,15 +243,17 @@ object SlayerMasters {
             )
             chatPlayer(neutral, "Those sound interesting. May I see them?")
             chatNpc(neutral, "Of course. If we expect to defeat Lucien, we must work together.")
+            val received = access.player.invTransaction(access.inv) { add(select(access.inv), "obj.duradels_notes_on_demon_slaying".asRSCM(), 1) }.success
+            if (!received) { mesbox("You need an inventory space for Duradel's notes."); return }
             access.player.slayerDuradelNotesReceived = true
             mesbox("Kuradal hands you an old notebook.")
             return
         }
         if (access.inv.freeSpace() > 0) {
-            chatNpc(
-                neutral,
-                "I will not suffer the same fate as my father. That fate is reserved for Lucien!",
-            )
+            if (!access.inv.contains("obj.duradels_notes_on_demon_slaying")) {
+                access.player.invTransaction(access.inv) { add(select(access.inv), "obj.duradels_notes_on_demon_slaying".asRSCM(), 1) }
+            }
+            chatNpc(neutral, "Here is a copy of my father's notes. Read them carefully.")
             chatPlayer(neutral, "I hope you're right...")
         } else {
             chatNpc(

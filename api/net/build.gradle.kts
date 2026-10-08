@@ -4,6 +4,8 @@ plugins {
 }
 
 dependencies {
+    testImplementation("net.rsprot:osrs-240-desktop:${libs.versions.rsprot.get()}")
+    testImplementation("org.mockito:mockito-core:5.14.2")
     implementation(libs.openrune.central)
     implementation(libs.openrune.central.common)
     implementation(libs.openrune.central.worldlink)

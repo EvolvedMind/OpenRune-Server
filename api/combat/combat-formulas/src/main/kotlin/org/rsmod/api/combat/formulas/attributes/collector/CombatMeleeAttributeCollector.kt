@@ -50,7 +50,7 @@ public class CombatMeleeAttributeCollector {
         }
 
         val weapon = player.righthand
-        if (weapon.isAnyType("obj.silverlight", "obj.darklight")) {
+        if (weapon.isAnyType("obj.silverlight", "obj.darklight", "obj.arclight_inactive")) {
             attributes += CombatMeleeAttributes.SilverlightAccuracy
         }
         if (weapon.isAnyType("obj.arclight", "obj.emberlight")) {
@@ -112,7 +112,7 @@ public class CombatMeleeAttributeCollector {
                     CombatMeleeAttributes.RevenantWeapon
                 }
 
-                weapon.isAnyType("obj.silverlight", "obj.darklight", "obj.agrith_silverlight_dyed") -> {
+                weapon.isAnyType("obj.silverlight", "obj.darklight", "obj.arclight_inactive", "obj.agrith_silverlight_dyed") -> {
                     CombatMeleeAttributes.Silverlight
                 }
 

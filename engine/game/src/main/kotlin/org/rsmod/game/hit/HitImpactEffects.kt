@@ -6,10 +6,13 @@ public class HitImpactEffects {
     private var completed: Boolean = false
     private var beforeImpact: MutableList<(Int) -> Int>? = null
     private var preparedDamage: Int? = null
+    public var hasBeforeImpactEffects: Boolean = false
+        private set
 
     /** Resolve target-dependent damage at arrival, shared once across hit copies. */
     public fun beforeImpact(action: (damage: Int) -> Int) {
         check(preparedDamage == null && !completed)
+        hasBeforeImpactEffects = true
         (beforeImpact ?: mutableListOf<(Int) -> Int>().also { beforeImpact = it }).add(action)
     }
 

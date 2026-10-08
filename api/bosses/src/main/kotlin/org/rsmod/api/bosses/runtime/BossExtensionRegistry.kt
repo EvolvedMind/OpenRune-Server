@@ -49,4 +49,6 @@ class BossExtensionRegistry {
     }
 
     fun contains(name: String): Boolean = name in handlers
+
+    fun unregister(name: String): Boolean = handlers.remove(name) != null
 }

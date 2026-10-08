@@ -374,6 +374,18 @@ class MeleeSpecialAttacksTest {
         assertEquals(50.toByte(), source.statMap.getCurrentLevel("stat.hitpoints"))
     }
 
+    @Test fun `Healing Blade excludes Tormented Demon flat punish damage`() {
+        for ((damage, expectedHp, expectedPrayer) in listOf(Triple(60, 40, 30), Triple(6, 20, 20))) {
+            val source = Player().apply { slotId = 1; uuid = 1; assignUid(); statMap.setBaseLevel("stat.hitpoints", 99); statMap.setCurrentLevel("stat.hitpoints", 20); statMap.setBaseLevel("stat.prayer", 99); statMap.setCurrentLevel("stat.prayer", 20) }
+            val target = npc().apply { slotId = 2; assignUid() }
+            val hit = Hit(org.rsmod.game.hit.HitType.Melee, org.rsmod.game.hit.Hitmark(0).copy(damage = damage), null, null, null)
+            MeleeWeaponSpecialAttacks.attachEffect(hit, source, target, MeleeEffect.Saradomin, mock(GameRandom::class.java), tdPunishBonus = 20)
+            hit.impactEffects.complete(damage)
+            assertEquals(expectedHp.toByte(), source.statMap.getCurrentLevel("stat.hitpoints"))
+            assertEquals(expectedPrayer.toByte(), source.statMap.getCurrentLevel("stat.prayer"))
+        }
+    }
+
     @Test fun `prayer piercing weapons use penetrating hit route with their own effects`() {
         for (spec in listOf(MeleeWeaponSpec.DragonSword, MeleeWeaponSpec.AncientMace)) {
             for (weapon in spec.weapons) {

@@ -2,7 +2,6 @@ package org.rsmod.content.other.commands
 
 import com.github.michaelbull.logging.InlineLogger
 import com.google.inject.Injector
-import org.rsmod.content.bosses.doom.DoomTestLoot
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCM.asRSCM
@@ -53,6 +52,7 @@ import org.rsmod.api.spells.autocast.MagicSpellbookManager
 import org.rsmod.api.utils.format.formatAmount
 import org.rsmod.api.utils.system.SafeServiceExit
 import org.rsmod.content.bosses.barrows.BarrowsTestLoot
+import org.rsmod.content.bosses.doom.DoomTestLoot
 import org.rsmod.game.GameUpdate
 import org.rsmod.game.cheat.Cheat
 import org.rsmod.game.entity.Npc
@@ -687,9 +687,10 @@ constructor(
                     "zulrah" -> "snakeboss_boss_ranged"
                     "kraken" -> "slayer_kraken_boss"
                     "corp", "corporeal", "corporeal_beast" -> "corp_beast"
+                    "td", "tds", "tormented", "tormented_demon", "tormented_demons" -> "tormented_demon_1"
                     else -> args[0]
                 }
-            if (npcName in setOf("corp_beast", "slayer_kraken_boss") && (args.size > 2 ||
+            if (npcName in setOf("corp_beast", "slayer_kraken_boss", "tormented_demon_1") && (args.size > 2 ||
                 (args.size == 2 && args[1].toIntOrNull() !in 1..1000))) {
                 player.mes("Use as ::testloot ${args[0]} [count: 1-1000] (default: 100)")
                 return
