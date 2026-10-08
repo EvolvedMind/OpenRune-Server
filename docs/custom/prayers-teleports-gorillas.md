@@ -150,3 +150,31 @@ The entrance correction gets a separate installer and rollback to the verified
 installed prayer/teleport/gorilla package (`f94663e17`), including only the
 task-specific Nero preview migration. Neither changes playerdata or RSA or is
 automatically installed.
+
+## Underlying cavern arch follow-up
+
+The first live package remains `f94663e17`; hashes prove the screenshot
+correction's JAR/cache were not installed. The owner subsequently removed the
+four Nero previews, so the replacement package uses the current overlay as its
+guarded baseline and retains other placements/deletions.
+
+An actual boot map scan exposed native `loc.mm2_cave_boss_waterfall_small`
+(28719, Ruptured cavern) at `(2106,5652,0)`. Removing the custom object alone
+reveals this original arch. The module now deletes that verified native type at
+only this tile during startup, before creating its hole/sign/rope. Unload restores
+the native arch only if the tile still has no visible object; subsequent editor
+placements are preserved. Other occurrences of the native type are untouched.
+
+The prior placement check counted only custom objects and did not prove this
+native arch was absent. The follow-up checks effective static and spawned
+objects together, including deletion masks, and explicitly rejects the native
+arch at its original tile. Real LocRepository/LocRegistry tests cover removal,
+unload restoration and preservation of other tiles/later editor placements.
+
+The follow-up passes 124 selected tests (14 in the gorilla module), scoped
+formatting and the runtime JAR. Isolated revision-240/Nero boot confirms exactly
+the expected hole/sign/rope and walkable landing tiles. The effective map scan
+no longer contains 28719 at `(2106,5652,0)`; the private server exits 0 and
+PostgreSQL is stopped. Installer `gorilla-rope-complete-20261008` replaces the
+matched live baseline as a complete JAR/cache/mapping/placement set, with its own
+rollback. Live installation and the owner's client check remain pending.
