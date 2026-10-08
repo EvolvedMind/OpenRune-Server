@@ -1,0 +1,11 @@
+[[object]]
+id = "loc.gorilla_cavern_access"
+inherit = "loc.mm2_cavern_entrance"
+name = "Cavern entrance"
+solid = 0
+impenetrable = false
+
+[[varp]]
+id = "varp.gorilla_entry_return"
+scope = "Temp"
+transmit = "Never"

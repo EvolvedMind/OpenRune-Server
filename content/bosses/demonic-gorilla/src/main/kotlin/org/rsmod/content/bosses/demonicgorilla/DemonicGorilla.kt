@@ -42,6 +42,8 @@ private val GORILLA_TYPE_NAMES: List<String> =
         "npc.mm2_demon_gorilla_2_magic",
     )
 
+private val TORTURED_TYPE_NAMES = listOf("npc.mm2_tortured_gorilla_1", "npc.mm2_tortured_gorilla_2")
+
 class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val npcList: NpcList) :
     PluginScript() {
 
@@ -50,15 +52,18 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
             requireNotNull(it.npcTypeId()) { "Missing npc type: $it" }
         }
 
-    val spec: BossSpec =
-        boss(*GORILLA_TYPE_NAMES.toTypedArray()) {
+    val spec: BossSpec = gorillaSpec(GORILLA_TYPE_NAMES, MAX_HIT, true)
+    val torturedSpec: BossSpec = gorillaSpec(TORTURED_TYPE_NAMES, 13, false)
+
+    private fun gorillaSpec(types: List<String>, maxHit: Int, boulders: Boolean): BossSpec =
+        boss(*types.toTypedArray()) {
             stats(attackRate = ATTACK_RATE, aggressionRadius = 8)
 
             val meleeAttack =
                 ability("melee_attack") {
                     anim(MELEE_ATTACK_SEQ)
                     hit {
-                        damage(Accuracy(Roll(0..MAX_HIT), meleeAttackType = MeleeAttackType.Crush))
+                        damage(Accuracy(Roll(0..maxHit), meleeAttackType = MeleeAttackType.Crush))
                         type(Melee)
                         delay = MELEE_HIT_DELAY
                     }
@@ -70,7 +75,7 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
                         spotanim = RANGED_PROJECTILE_SPOT
                         config = RANGED_PROJECTILE_CONFIG
                         hit {
-                            damage(Accuracy(Roll(0..MAX_HIT)))
+                            damage(Accuracy(Roll(0..maxHit)))
                             type(Ranged)
                             spotanim(RANGED_IMPACT_SPOT)
                         }
@@ -83,7 +88,7 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
                         spotanim = MAGIC_PROJECTILE_SPOT
                         config = MAGIC_PROJECTILE_CONFIG
                         hit {
-                            damage(Accuracy(Roll(0..MAX_HIT)))
+                            damage(Accuracy(Roll(0..maxHit)))
                             type(Magic)
                             spotanim(MAGIC_IMPACT_SPOT, height = MAGIC_IMPACT_HEIGHT)
                         }
@@ -100,24 +105,25 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
             phase(PHASE_RANGED) {
                 weightedSelectorRandom {
                     +random(rangedAttack, weight = 3)
-                    +random(boulder, weight = 1)
+                    if (boulders) +random(boulder, weight = 1)
                 }
             }
             phase(PHASE_MAGIC) {
                 weightedSelectorRandom {
                     +random(magicAttack, weight = 3)
-                    +random(boulder, weight = 1)
+                    if (boulders) +random(boulder, weight = 1)
                 }
             }
         }
 
     override fun ScriptContext.startup() {
         BossCombat.register(this, spec, deps, onModifyHit = { onModifyProtectionHit(this) })
+        BossCombat.register(this, torturedSpec, deps)
         deps.extensionRegistry.register(BOULDER_HANDLER) { _, npc, target, _ ->
             throwBoulder(npc, target)
         }
 
-        val bossIds = spec.npcTypes.mapNotNullTo(mutableSetOf()) { it.npcTypeId() }
+        val bossIds = (spec.npcTypes + torturedSpec.npcTypes).mapNotNullTo(mutableSetOf()) { it.npcTypeId() }
         onEvent<NpcStateEvents.Create> { if (npc.type.id in bossIds) resetGorilla(npc) }
         onEvent<NpcStateEvents.Respawn> { if (npc.type.id in bossIds) resetGorilla(npc) }
         onEvent<PlayerHitEvents.Impact> { onAttackImpact(bossIds, hit) }
@@ -150,12 +156,12 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
     }
 
     private fun resetGorilla(npc: Npc) {
-        val protectStyle = nameByTypeId[npc.type.id]?.substringAfterLast('_') ?: return
+        val protectStyle = nameByTypeId[npc.type.id]?.substringAfterLast('_')
         npc.vars["varn.gorilla_protect_damage"] = 0
         npc.vars["varn.gorilla_protect_hits"] = 0
         npc.vars["varn.gorilla_protect_switching"] = 0
         npc.vars["varn.gorilla_miss_streak"] = 0
-        applyImmunity(npc, protectStyle)
+        if (protectStyle != null) applyImmunity(npc, protectStyle)
 
         val startStyle = PHASES[deps.random.of(PHASES.size)]
         deps.encounter(npc).transitionTo(startStyle, deps.mapClock.cycle)
@@ -232,7 +238,8 @@ class DemonicGorilla @Inject constructor(private val deps: BossDeps, private val
         val encounter = deps.encounter(npc)
         val style = encounter.currentPhaseName
         val missStreak = npc.vars["varn.gorilla_miss_streak"] + 1
-        if (missStreak >= MISS_STREAK_THRESHOLD) {
+        val threshold = if (npc.type.id in nameByTypeId) MISS_STREAK_THRESHOLD else 4
+        if (missStreak >= threshold) {
             val others = PHASES.filter { it != style }
             val next = others[deps.random.of(others.size)]
             encounter.transitionTo(next, deps.mapClock.cycle)
