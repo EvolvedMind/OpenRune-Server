@@ -13,6 +13,12 @@ The requested full TD scope is implemented in `feature/tormented-demons` / draft
 accepted content are retained. This remains Started until rendered acceptance and
 remaining source-parity checks are resolved.
 
+The user authorized merge on 2026-10-08 after two acceptance fixes: native Wield
+must equip (Check `Op3`, Revert `Op4`), and scroll/default `::testtd` travel must
+arrive at `(4061,4464,0)`. These corrections pass 51 TD tests; final merge checks
+are in progress. The full test installer remains preserved; the correction
+package has its own rollback to that installed baseline.
+
 - Protection-prayer zeros give no damage/Hitpoints XP; native impact awards actual
   damage XP. Shield, 150-HP prayer switches, defenceless models, slow-weapon/spell
   punish, bombs, grouped roles/timing and lifecycle cleanup are implemented.

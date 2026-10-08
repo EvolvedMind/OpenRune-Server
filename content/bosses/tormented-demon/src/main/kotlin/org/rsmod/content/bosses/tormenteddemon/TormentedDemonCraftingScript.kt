@@ -9,7 +9,7 @@ import org.rsmod.api.player.stat.fletchingLvl
 import org.rsmod.api.player.stat.hitpoints
 import org.rsmod.api.player.stat.smithingLvl
 import org.rsmod.api.script.onOpHeld1
-import org.rsmod.api.script.onOpHeld2
+import org.rsmod.api.script.onOpHeld4
 import org.rsmod.api.script.onOpHeldU
 import org.rsmod.api.script.onOpLocCategoryU
 import org.rsmod.content.quest.manager.QuestRequirements
@@ -26,7 +26,7 @@ class TormentedDemonCraftingScript : PluginScript() {
             } else mesbox("You must complete While Guthix Sleeps before using these notes.")
         }
         for (weapon in listOf("obj.emberlight", "obj.scorching_bow", "obj.purging_staff")) {
-            onOpHeld2(weapon) { event ->
+            onOpHeld4(weapon) { event ->
                 if (inv[event.slot] === event.obj && mesboxChoice("Revert this weapon? Only the tormented synapse is returned.", "Revert", "Cancel") == 1) {
                     if (inv[event.slot] === event.obj) craft(listOf(weapon to 1), "obj.tormented_synapse", event.slot)
                 }

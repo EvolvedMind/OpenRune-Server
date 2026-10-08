@@ -32,11 +32,11 @@ Bombs snapshot valid landing tiles, bind for two ticks and land after four, with
 
 All 26 canonical starting placements are in `.data/raw-cache/map/npcs/tormented_demons.toml`: ten single-room spawns, ten double-room spawns and six triple-room spawns. The compiled map test counts unique native placements, rather than only inspecting TOML.
 
-The Guthixian Temple scroll consumes one scroll after validated travel to `(4063,4557,0)`. Native climbing walls reach the skull entrance on level 2; the transformed open skull door enters at `(4062,4466,0)`. The entrance hole returns outside. A lit sapphire lantern used on a light creature offers Temple travel. Native `td_multiway_indicator` updates on login/movement and clears outside the dungeon.
+The Guthixian Temple scroll consumes one scroll after validated travel to the user-approved cave arrival `(4061,4464,0)` (2026-10-08 screenshot `CoordGrid(0_63_69_29_48)`). The default admin teleport uses the same destination. Native climbing walls reach the skull entrance on level 2; the transformed open skull door enters at `(4062,4466,0)`. The entrance hole returns outside. A lit sapphire lantern used on a light creature offers Temple travel from the exterior arrival `(4063,4557,0)`. Native `td_multiway_indicator` updates on login/movement and clears outside the dungeon.
 
 Admin test commands preserve existing items and add kits atomically:
 
-- `::testtd` / `::testtd 2`: central pair.
+- `::testtd`: approved cave arrival; `::testtd 2`: central pair.
 - `::testtd 1`: single chamber; `::testtd 3`: triple chamber.
 - `::testtd entrance`: full normal entry route.
 - `::testtd kit`: combat weapons, ammunition, runes and supplies.
@@ -66,10 +66,12 @@ Duradel's notes are actually delivered by the existing Kuradal dialogue, includi
 
 All consumption/output uses inventory transactions; no XP or unlock flag is committed before successful output. Tests cover normal native item/anvil interaction, full inventory, cancellation, first/subsequent XP, charged/infused blades, reversion and shard combinations.
 
+Native inventory options are checked against the revision-240 cache: Wield is `HeldOp.Op2`, Arclight Check is `Op3`, and synapse weapon Revert is `Op4`. Check/Revert handlers do not intercept Wield. Acceptance regression tests call the real `HeldInteractions` producer and `HeldEquipOp` consumer, rather than publishing guessed menu events.
+
 ## Validation and final acceptance
 
 The scoped regression run passes **412 tests**, including **49 TD tests**, 100 special-attack tests, 46 weapon tests, native boss/packet/registry tests and the accepted Araxxor, Kraken, Corporeal Beast, Zulrah, Barrows and Doom suites. The Slayer module compiles; it has no standalone test suite. Heart tests exercise native divine application/expiry, coexistence with other maintained sources, stat drains, death and logout/unload cleanup. Scoped formatting, cache/gamevals, runtime JAR and isolated revision-240/Nero boot are required for the packaged candidate; evidence is included in the installer.
 
-The installed baseline is the accepted `tormented-demons-model-fix-20261008` package, verified by hashes. The new `tormented-demons-complete-20261008` package has its own checkpoint/rollback to that exact installation. No live files, player database, client revision or RSA are replaced by development validation.
+The full `tormented-demons-complete-20261008` package remains immutable. Its follow-up `tormented-demons-options-fix-20261008` installer has a separate checkpoint/rollback to the verified installed full TD package. The menu/arrival patch passes **51 TD tests**, including native Wield, Check, Revert and scroll producers. No live files, player database, client revision or RSA are replaced by development validation.
 
-Full rendered acceptance remains open: enter normally, test both appearances, all protection styles/XP, dodging and death-in-flight bombs, single/dual/triple fights and role changes, consumables/logout, crafting and actual loot/log/KC/Slayer/respawn. The available computer tooling cannot operate the native revision-240 game client. Technical test success is not a claim of perfect rendered in-game behavior or independently proved parity for undocumented low-level consumable formulas. Current status is maintained only in `PROGRESS.md`.
+The user tested the encounter and authorized merge after the menu/arrival corrections on 2026-10-08. The available computer tooling cannot operate the native revision-240 game client. Technical test success is not a claim of independently proved parity for undocumented low-level consumable formulas. Current status is maintained only in `PROGRESS.md`.

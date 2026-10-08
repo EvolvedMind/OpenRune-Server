@@ -16,14 +16,17 @@ import org.rsmod.api.invtx.InvTransactionsScript
 import org.rsmod.api.player.dialogue.align.TextAlignment
 import org.rsmod.api.player.events.interact.HeldObjEvents
 import org.rsmod.api.player.input.ResumePauseButtonInput
+import org.rsmod.api.player.interact.HeldInteractions
 import org.rsmod.api.player.interact.HeldUInteractions
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
+import org.rsmod.api.player.worn.HeldEquipOp
 import org.rsmod.coroutine.GameCoroutine
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.client.Client
 import org.rsmod.game.entity.Player
+import org.rsmod.game.interact.HeldOp
 import org.rsmod.game.inv.InvObj
 import org.rsmod.game.inv.Inventory
 import org.rsmod.game.queue.EngineQueueCache
@@ -32,6 +35,36 @@ import org.rsmod.plugin.scripts.ScriptContext
 @Execution(ExecutionMode.SAME_THREAD)
 @ResourceLock("ServerCacheManager")
 class TormentedDemonCraftingTest {
+    @Test fun `native Wield equips Arclight and synapse weapons without opening Check or Revert`() {
+        for (weapon in listOf("obj.arclight", "obj.arclight_inactive", "obj.emberlight", "obj.scorching_bow", "obj.purging_staff")) {
+            val f = Fixture(99); f.put(0, weapon)
+            val type = ServerCacheManager.getItem(weapon.asRSCM())!!
+            assertEquals("Wield", type.interfaceOptions[1], type.interfaceOptions.toString())
+            f.heldOp(HeldOp.Op2)
+            assertNotNull(f.result, "Wield must not suspend in a revert dialogue")
+            f.result!!.getOrThrow()
+            assertEquals(weapon.asRSCM(), f.player.worn[type.wearpos1]?.id)
+            assertEquals(0, f.player.inv.count(weapon))
+            assertEquals(0, f.player.inv.count("obj.tormented_synapse"))
+            assertFalse(f.player.ui.containsModal("interface.messagebox"))
+        }
+    }
+
+    @Test fun `native Arclight Check reports charges without equipping or consuming the blade`() {
+        for (weapon in listOf("obj.arclight", "obj.arclight_inactive")) {
+            val f = Fixture(99)
+            f.player.inv[0] = InvObj(weapon, vars = ArclightState.pack(1000, 7000))
+            val item = f.player.inv[0]
+            val type = ServerCacheManager.getItem(weapon.asRSCM())!!
+            assertEquals("Check", type.interfaceOptions[2], type.interfaceOptions.toString())
+            f.heldOp(HeldOp.Op3)
+            assertNotNull(f.result); f.result!!.getOrThrow()
+            assertSame(item, f.player.inv[0])
+            assertTrue(f.player.worn.objs.all { it == null })
+            assertTrue(f.client.messages.any { it.toString().contains("1000 charges; 70% infusion") }, f.client.messages.toString())
+        }
+    }
+
     @Test fun `native notes read unlocks bow and subsequent craft gives one tenth XP`() {
         val f = Fixture(99)
         f.put(0, "obj.duradels_notes_on_demon_slaying"); f.read(); f.finish()
@@ -87,6 +120,8 @@ class TormentedDemonCraftingTest {
     @Test fun `revert returns only synapse cancellation is safe and repeated input does not duplicate`() {
         for (weapon in listOf("obj.emberlight", "obj.scorching_bow", "obj.purging_staff")) for (accept in listOf(true, false)) {
             val f = Fixture(99); f.put(0, weapon)
+            val type = ServerCacheManager.getItem(weapon.asRSCM())!!
+            assertEquals("Revert", type.interfaceOptions[3], type.interfaceOptions.toString())
             for (slot in 1..27) f.put(slot, "obj.abyssal_whip")
             f.revert(); f.finish(accept)
             assertEquals(if (accept) 1 else 0, f.player.inv.count("obj.tormented_synapse"))
@@ -133,13 +168,15 @@ class TormentedDemonCraftingTest {
         val context = ProtectedAccessContextFactory.empty().copy(
             getEventBus = { events }, getAlignment = { TextAlignment() },
         )
-        val player = Player(RecordingClient()).apply {
+        val client = RecordingClient()
+        val player = Player(client).apply {
             inv = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.inv".asRSCM())), arrayOfNulls(28))
             worn = Inventory(checkNotNull(ServerCacheManager.getInventory("inv.worn".asRSCM())), arrayOfNulls(14))
             statMap.setCurrentLevel("stat.crafting", level.toByte())
             statMap.setCurrentLevel("stat.fletching", level.toByte())
         }
         init {
+            for (stat in listOf("attack", "strength", "defence", "ranged", "magic")) player.statMap.setBaseLevel("stat.$stat", level.toByte())
             player.statMap.setBaseLevel("stat.smithing", level.toByte())
             player.statMap.setBaseLevel("stat.crafting", level.toByte())
             player.statMap.setBaseLevel("stat.fletching", level.toByte())
@@ -157,10 +194,12 @@ class TormentedDemonCraftingTest {
             val obj = player.inv[slot]!!
             events.publish(this, HeldObjEvents.Op1(slot, obj, ServerCacheManager.getItem(obj.id)!!, player.inv))
         }
-        fun revert(slot: Int = 0) = launch {
-            val obj = player.inv[slot]!!
-            events.publish(this, HeldObjEvents.Op2(slot, obj, ServerCacheManager.getItem(obj.id)!!, player.inv))
+        private val held by lazy {
+            val constructor = HeldInteractions::class.java.declaredConstructors.single().apply { isAccessible = true }
+            constructor.newInstance(events, org.mockito.Mockito.mock(constructor.parameterTypes[1]), org.mockito.Mockito.mock(constructor.parameterTypes[2]), HeldEquipOp(events)) as HeldInteractions
         }
+        fun heldOp(op: HeldOp, slot: Int = 0) = launch { held.interact(this, player.inv, slot, op) }
+        fun revert(slot: Int = 0) = heldOp(HeldOp.Op4, slot)
         fun anvil(slot: Int = 0, symbol: String = "loc.anvil") = launch {
             val type = ServerCacheManager.getObject(symbol.asRSCM())!!
             val loc = org.rsmod.game.loc.BoundLocInfo(org.rsmod.game.loc.LocInfo(2, org.rsmod.map.CoordGrid(3200, 3200), org.rsmod.game.loc.LocEntity(type.id, 10, 0)), type)
@@ -205,7 +244,8 @@ class TormentedDemonCraftingTest {
         }
     }
     private class RecordingClient : Client<Any, Any> {
-        override fun write(message: Any) = Unit
+        val messages = mutableListOf<Any>()
+        override fun write(message: Any) { messages.add(message) }
         override fun close() = Unit
         override fun read(player: Player) = Unit
         override fun flush() = Unit

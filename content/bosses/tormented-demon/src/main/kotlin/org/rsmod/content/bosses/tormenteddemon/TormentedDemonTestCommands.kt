@@ -28,7 +28,8 @@ internal class TormentedDemonTestCommands @Inject constructor(private val access
                         }.success
                         player.mes(if (added) "TD test items added. Read Duradel's notes before crafting synapse weapons." else "Make room in your inventory. Nothing was added or removed.")
                     }
-                    null, "2" -> access.launch(player) { telejump(CoordGrid(4072, 4422), TeleportType.Exempt) }
+                    null -> access.launch(player) { telejump(TormentedTempleScript.TELEPORT_DESTINATION, TeleportType.Exempt) }
+                    "2" -> access.launch(player) { telejump(CoordGrid(4072, 4422), TeleportType.Exempt) }
                     "entrance" -> access.launch(player) { telejump(TormentedTempleScript.ENTRANCE, TeleportType.Exempt) }
                     "1" -> access.launch(player) { telejump(CoordGrid(4136, 4376), TeleportType.Exempt) }
                     "3" -> access.launch(player) { telejump(CoordGrid(4045, 4390), TeleportType.Exempt) }

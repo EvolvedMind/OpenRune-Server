@@ -10,17 +10,19 @@ import org.mockito.Mockito.*
 import org.rsmod.api.area.checker.AreaChecker
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
-import org.rsmod.api.player.events.interact.HeldObjEvents
 import org.rsmod.api.player.hook.PlayerTeleportValidateHook
 import org.rsmod.api.player.hook.PlayerTeleportValidator
+import org.rsmod.api.player.interact.HeldInteractions
 import org.rsmod.api.player.interact.LocInteractions
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
+import org.rsmod.api.player.worn.HeldEquipOp
 import org.rsmod.api.route.BoundValidator
 import org.rsmod.coroutine.GameCoroutine
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.entity.Player
+import org.rsmod.game.interact.HeldOp
 import org.rsmod.game.interact.InteractionOp
 import org.rsmod.game.inv.InvObj
 import org.rsmod.game.inv.Inventory
@@ -32,11 +34,11 @@ import org.rsmod.routefinder.collision.CollisionFlagMap
 
 @ResourceLock("ServerCacheManager")
 class TormentedTempleTest {
-    @Test fun `scroll sends player to native entrance and consumes only one scroll`() {
+    @Test fun `native scroll action reaches the approved cave arrival and consumes only one scroll`() {
         val f = Fixture(); f.player.inv[0] = InvObj("obj.teleportscroll_guthixian_temple", 2)
         f.scroll(); assertEquals(2, f.player.inv.count("obj.teleportscroll_guthixian_temple"))
         f.finish()
-        assertEquals(TormentedTempleScript.ENTRANCE, f.player.coords)
+        assertEquals(CoordGrid(4061, 4464, 0), f.player.coords)
         assertEquals(1, f.player.inv.count("obj.teleportscroll_guthixian_temple"))
     }
 
@@ -83,12 +85,16 @@ class TormentedTempleTest {
         val context = ProtectedAccessContextFactory.empty().copy(getEventBus = { bus }, getCollision = { collision }, getAreaChecker = { areas }, getTeleportValidator = { validator })
         val locs = LocInteractions(mock(BoundValidator::class.java), bus)
         init {
-            for (c in listOf(CoordGrid(3222, 3218), TormentedTempleScript.ENTRANCE, TormentedTempleScript.CAVE_ENTRANCE, CoordGrid(4061, 4553, 1), CoordGrid(4060, 4551, 2), CoordGrid(4063, 4547, 2))) collision.allocateIfAbsent(c.x, c.z, c.level)
+            for (c in listOf(CoordGrid(3222, 3218), TormentedTempleScript.TELEPORT_DESTINATION, TormentedTempleScript.ENTRANCE, TormentedTempleScript.CAVE_ENTRANCE, CoordGrid(4061, 4553, 1), CoordGrid(4060, 4551, 2), CoordGrid(4063, 4547, 2))) collision.allocateIfAbsent(c.x, c.z, c.level)
             val scripts = ScriptContext(bus, CheatCommandMap(), EngineQueueCache())
             with(InvTransactionsScript(PlayerItemStorage(emptySet()))) { scripts.startup() }
             with(TormentedTempleScript(validator, areas, collision)) { scripts.startup() }
         }
-        fun scroll() = launch { val item = player.inv[0]!!; bus.publish(this, HeldObjEvents.Op1(0, item, ServerCacheManager.getItem(item.id)!!, player.inv)) }
+        fun scroll() = launch {
+            val constructor = HeldInteractions::class.java.declaredConstructors.single().apply { isAccessible = true }
+            val held = constructor.newInstance(bus, mock(constructor.parameterTypes[1]), mock(constructor.parameterTypes[2]), HeldEquipOp(bus)) as HeldInteractions
+            held.interact(this, player.inv, 0, HeldOp.Op1)
+        }
         fun loc(symbol: String, coords: CoordGrid) = launch {
             val type = ServerCacheManager.getObject(symbol.asRSCM())!!
             val loc = BoundLocInfo(LocInfo(2, coords, LocEntity(type.id, 10, 0)), type)

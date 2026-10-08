@@ -4,7 +4,7 @@ import dev.openrune.rscm.RSCM.asRSCM
 import org.rsmod.api.combat.commons.CombatAttack
 import org.rsmod.api.invtx.*
 import org.rsmod.api.player.protect.ProtectedAccess
-import org.rsmod.api.script.onOpHeld2
+import org.rsmod.api.script.onOpHeld3
 import org.rsmod.api.script.onOpHeldU
 import org.rsmod.api.script.onOpLocU
 import org.rsmod.api.weapons.*
@@ -65,7 +65,7 @@ internal class ArclightChargingScript : PluginScript() {
         }
         for (weapon in listOf("obj.arclight", "obj.arclight_inactive")) {
             onOpHeldU("obj.cata_shard", weapon) { recharge(weapon) }
-            onOpHeld2(weapon) { e ->
+            onOpHeld3(weapon) { e ->
                 mes("Arclight: ${ArclightState.charges(e.obj)} charges; ${ArclightState.infusion(e.obj) / 100}% infusion.")
             }
         }

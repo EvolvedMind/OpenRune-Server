@@ -28,14 +28,14 @@ internal class TormentedTempleScript @Inject constructor(
             if (!allowed()) return@onOpHeld1
             val denial = teleports.validate(player, TeleportType.Standard, areas)
             if (denial != null) { mes(denial); return@onOpHeld1 }
-            if (!collision.isZoneValid(ENTRANCE)) return@onOpHeld1
+            if (!collision.isZoneValid(TELEPORT_DESTINATION)) return@onOpHeld1
             anim("seq.teleport_scroll_open")
             delay(2)
             if (inv[event.slot] !== event.obj) return@onOpHeld1
             val finalDenial = teleports.validate(player, TeleportType.Standard, areas)
             if (finalDenial != null) { mes(finalDenial); return@onOpHeld1 }
             if (player.invDel(inv, "obj.teleportscroll_guthixian_temple", 1, slot = event.slot).success) {
-                telejump(ENTRANCE)
+                telejump(TELEPORT_DESTINATION)
                 indicator(player)
             }
         }
@@ -89,6 +89,7 @@ internal class TormentedTempleScript @Inject constructor(
         VarPlayerIntMapSetter.set(player, "varbit.td_multiway_indicator", if (TormentedTemple.contains(player.coords)) TormentedTemple.limit(player.coords) else 0)
     }
     companion object {
+        val TELEPORT_DESTINATION = CoordGrid(4061, 4464)
         val ENTRANCE = CoordGrid(4063, 4557)
         val CAVE_ENTRANCE = CoordGrid(4062, 4466)
     }

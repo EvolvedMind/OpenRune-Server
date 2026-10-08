@@ -48,10 +48,12 @@ class TormentedDemonCommandsTest {
         val f = Fixture(); val start = f.player.coords
         f.commands.execute(f.player, "testtd", listOf("bad")); f.commands.execute(f.player, "testtd", listOf("1", "extra"))
         assertEquals(start, f.player.coords)
+        f.commands.execute(f.player, "testtd", emptyList())
+        assertEquals(CoordGrid(4061, 4464, 0), f.player.coords)
     }
     private class Fixture {
         val commands = CheatCommandMap(); val bus = EventBus()
-        val collision = CollisionFlagMap().apply { for (c in listOf(CoordGrid(4136, 4376), CoordGrid(4072, 4422), CoordGrid(4045, 4390), TormentedTempleScript.ENTRANCE)) allocateIfAbsent(c.x, c.z, c.level) }
+        val collision = CollisionFlagMap().apply { for (c in listOf(CoordGrid(4136, 4376), CoordGrid(4072, 4422), CoordGrid(4045, 4390), TormentedTempleScript.TELEPORT_DESTINATION, TormentedTempleScript.ENTRANCE)) allocateIfAbsent(c.x, c.z, c.level) }
         val context = ProtectedAccessContextFactory.empty().copy(getEventBus = { bus }, getCollision = { collision }, getAreaChecker = { mock(AreaChecker::class.java) }, getTeleportValidator = { PlayerTeleportValidator(emptySet()) })
         val player = Player().apply { modLevel = Rights.ADMINISTRATOR; coords = CoordGrid(3222, 3218); inv = Inventory(ServerCacheManager.getInventory("inv.inv".asRSCM())!!, arrayOfNulls(28)) }
         init {
