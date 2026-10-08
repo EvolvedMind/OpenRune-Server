@@ -33,7 +33,10 @@ automatically installed. Revision 240, accepted bosses, specials, gear and the
 - Test package: `outputs/prayer-teleports-gorillas-20261008/INSTALLEREN.cmd`, with
   an independent rollback to the verified installed TD options software/cache.
   No playerdata or RSA replacement.
-- Remote publication and a draft PR await permission; no merge is authorized.
+- Published after the owner's explicit push approval on 2026-10-08:
+  [draft PR #29](https://github.com/EvolvedMind/OpenRune-Server/pull/29).
+  In-game acceptance and merge remain pending. The installer retains its exact
+  tested source checkpoint `f94663e17`; this follow-up changes documentation only.
 - [Policy, sources, native interactions and manual tests](docs/custom/prayers-teleports-gorillas.md).
 
 ## 🟢 Complete: Tormented Demons — accepted encounter
