@@ -68,13 +68,18 @@ class MeleeWeaponSpecialAttacks @Inject constructor(private val rng: GameRandom,
                     if (player.adminMaxHit) maximum else rng.of((maximum * 15 / 100).coerceAtLeast(1), maximum)
                 } else manager.rollMeleeMaxHit(this, target, attack.type, attack.style, multiplier).coerceAtLeast(1)
                 if (spec.effect == MeleeEffect.GraniteHammer) damage += 5
+                val tdPunishBonus = if (spec.effect == MeleeEffect.Saradomin && target is Npc &&
+                    target.type.paramOrNull(params.tormented_demon) == 1 && target.vars["varn.td_shield_up"] == 0 && attack.type == MeleeAttackType.Crush) {
+                    val rate = attack.weapon?.let { org.rsmod.game.type.getInvObj(it) }.let { it?.paramOrNull(params.attackrate) } ?: 4
+                    (rate * rate - 16).coerceAtLeast(0)
+                } else 0
                 val delay = if (spec.effect == MeleeEffect.ElderMaul) 2 else 1
                 val hit = if (spec.ignoresPrayer) manager.queueMeleeHitIgnoringPrayer(this, target, damage, delay)
                     else manager.queueMeleeHit(this, target, damage, delay)
                 manager.giveCombatXp(this, target, attack, hit.damage)
                 if (spec.effect == MeleeEffect.Tentacle) TentacleSpecialEffects.attach(hit, player, target, rng)
                 if (hit.damage > 0 || (accurate && spec.effect == MeleeEffect.AncientMace)) {
-                    attachEffect(hit, player, target, spec.effect, rng, damage)
+                    attachEffect(hit, player, target, spec.effect, rng, damage, tdPunishBonus)
                 }
             }
             if (spec == MeleeWeaponSpec.AnchorImbued && firstAccurate) manager.setNextAttackDelay(this, 4)
@@ -88,7 +93,7 @@ class MeleeWeaponSpecialAttacks @Inject constructor(private val rng: GameRandom,
 
     internal companion object {
         fun attachEffect(hit: Hit, source: Player, target: PathingEntity, effect: MeleeEffect, rng: GameRandom,
-            rolledDamage: Int = hit.damage) {
+            rolledDamage: Int = hit.damage, tdPunishBonus: Int = 0) {
             if (effect !in setOf(MeleeEffect.Warhammer, MeleeEffect.ElderMaul, MeleeEffect.Bandos,
                 MeleeEffect.Saradomin, MeleeEffect.Zamorak, MeleeEffect.Whip, MeleeEffect.Anchor, MeleeEffect.Scimitar, MeleeEffect.AncientMace)) return
             val sourceUid = source.uid.packed
@@ -106,10 +111,11 @@ class MeleeWeaponSpecialAttacks @Inject constructor(private val rng: GameRandom,
                     val roll = if (effect == MeleeEffect.Zamorak) rng.of(100) else 99
                     // Healing Blade retains its pre-overkill heal basis; drains use applied damage.
                     val damage = when {
-                        effect == MeleeEffect.Saradomin -> hit.damage
+                        effect == MeleeEffect.Saradomin -> (hit.damage - tdPunishBonus).coerceAtLeast(0)
                         effect == MeleeEffect.AncientMace && target is Npc -> rolledDamage
                         else -> actualDamage
                     }
+                    if (effect == MeleeEffect.Saradomin && tdPunishBonus > 0 && damage == 0) return@add
                     applyEffect(source, target, damage, effect, roll)
                 }
             }

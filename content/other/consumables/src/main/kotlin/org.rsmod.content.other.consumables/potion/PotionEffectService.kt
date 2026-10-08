@@ -141,7 +141,7 @@ constructor(
 
                     affectedStats.forEach { stat ->
                         if (
-                            !StatBoostDecayPrevention.prevents(
+                            !StatBoostDecayPrevention.preventsExplicitReset(
                                 player = player,
                                 stat = stat,
                             )

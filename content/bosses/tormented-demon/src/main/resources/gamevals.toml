@@ -1,3 +1,16 @@
 [gamevals.npc]
 tormented_demon_defenceless_1 = -1
 tormented_demon_defenceless_2 = -1
+
+[gamevals.varp]
+td_crafting_state = -1
+td_heart_ticks = -1
+td_gland_ticks = -1
+
+[gamevals.varobj]
+td_arclight_charges = -1
+td_arclight_infusion = -1
+
+[gamevals.inv]
+td_smouldering_items = -1
+td_smouldering_meta = -1

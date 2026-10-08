@@ -1,0 +1,55 @@
+[[varp]]
+id = "varp.td_crafting_state"
+scope = "Perm"
+transmit = "Never"
+
+[[varobj]]
+id = "varobj.td_arclight_charges"
+startBit = 0
+endBit = 13
+
+[[varobj]]
+id = "varobj.td_arclight_infusion"
+startBit = 14
+endBit = 27
+
+[[varp]]
+id = "varp.td_heart_ticks"
+scope = "Perm"
+transmit = "Never"
+
+[[varp]]
+id = "varp.td_gland_ticks"
+scope = "Perm"
+transmit = "Never"
+
+[[inventory]]
+id = "inv.td_smouldering_items"
+isServerOnly = true
+scope = "Perm"
+size = 256
+stack = "Never"
+protect = false
+
+[[inventory]]
+id = "inv.td_smouldering_meta"
+isServerOnly = true
+scope = "Perm"
+size = 256
+stack = "Never"
+protect = false
+
+[[item]]
+id = "obj.smouldering_heart"
+inherit = "obj.smouldering_heart"
+tradeable = false
+
+[[item]]
+id = "obj.smouldering_gland"
+inherit = "obj.smouldering_gland"
+tradeable = false
+
+[[item]]
+id = "obj.smouldering_pile_of_flesh"
+inherit = "obj.smouldering_pile_of_flesh"
+tradeable = false

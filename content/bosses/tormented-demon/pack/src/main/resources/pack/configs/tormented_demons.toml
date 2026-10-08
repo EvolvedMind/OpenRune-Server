@@ -8,10 +8,12 @@ respawnRate = 21
 defaultMode = "Wander"
 [npc.params]
 "param.attackrate" = 6
-"param.elemental_weakness_type" = 0
-"param.elemental_weakness_percent" = 0
+"param.elemental_weakness_type" = 1
+"param.elemental_weakness_percent" = 30
 "param.tormented_demon" = 1
 "param.demon" = 1
+"param.cannon_immunity" = 1
+"param.slayer_experience" = 1065
 
 [[npc]]
 id = "npc.tormented_demon_defenceless_1"
@@ -31,7 +33,9 @@ respawnRate = 21
 defaultMode = "Wander"
 [npc.params]
 "param.attackrate" = 6
-"param.elemental_weakness_type" = 0
-"param.elemental_weakness_percent" = 0
+"param.elemental_weakness_type" = 1
+"param.elemental_weakness_percent" = 30
 "param.tormented_demon" = 1
 "param.demon" = 1
+"param.cannon_immunity" = 1
+"param.slayer_experience" = 1065

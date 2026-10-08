@@ -202,6 +202,7 @@ public object MagicMaxHitOperations {
             if (NpcAttr.TormentedDemonOverheadMagic in npcAttributes) {
                 bonusDamage /= 3
             }
+            modifiedMin += bonusDamage
             modifiedMax += bonusDamage
         }
 

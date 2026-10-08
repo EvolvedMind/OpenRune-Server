@@ -39,7 +39,9 @@ public object StandardPlayerHitProcessor : QueuedPlayerHitProcessor {
         }
         val event = PlayerHitEvents.BeforeImpact(player, hit)
         publish(event)
-        processValidated(event.hit)
+        val impact = event.hit
+        val prepared = if (impact.impactEffects.hasBeforeImpactEffects) impact.impactEffects.prepare(impact.damage) else impact.damage
+        processValidated(if (prepared == impact.damage) impact else impact.copy(hitmark = impact.hitmark.copy(damage = prepared)))
     }
 
     private fun ProtectedAccess.processValidated(hit: Hit) {

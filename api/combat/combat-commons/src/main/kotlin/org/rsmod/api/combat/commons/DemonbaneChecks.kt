@@ -10,6 +10,7 @@ public object DemonbaneChecks {
             "obj.silverlight",
             "obj.agrith_silverlight_dyed",
             "obj.darklight",
+            "obj.arclight_inactive",
             "obj.arclight",
             "obj.emberlight",
             "obj.bone_claws",

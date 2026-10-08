@@ -21,6 +21,7 @@ import org.rsmod.api.combat.commons.player.combatPlayDefendAnim
 import org.rsmod.api.combat.commons.player.combatPlayDefendSpot
 import org.rsmod.api.combat.commons.player.queueCombatRetaliate
 import org.rsmod.api.combat.commons.player.resolveCombatXpMultiplier
+import org.rsmod.api.combat.commons.styles.AttackStyle
 import org.rsmod.api.combat.commons.styles.MagicAttackStyle
 import org.rsmod.api.combat.commons.styles.MeleeAttackStyle
 import org.rsmod.api.combat.commons.styles.RangedAttackStyle
@@ -28,6 +29,7 @@ import org.rsmod.api.combat.commons.types.MeleeAttackType
 import org.rsmod.api.combat.commons.types.RangedAttackType
 import org.rsmod.api.combat.formulas.AccuracyFormulae
 import org.rsmod.api.combat.formulas.MaxHitFormulae
+import org.rsmod.api.combat.weapon.styles.AttackStyles
 import org.rsmod.api.config.refs.params
 import org.rsmod.api.death.PvPPlayerHitHook
 import org.rsmod.api.npc.hit.isStyleImmuneTo
@@ -43,6 +45,7 @@ import org.rsmod.api.player.interact.PlayerTInteractions
 import org.rsmod.api.player.ironman.shouldBlockNpcCombatXp
 import org.rsmod.api.player.output.soundSynth
 import org.rsmod.api.player.protect.clearPendingAction
+import org.rsmod.api.player.righthand
 import org.rsmod.api.player.stat.hitpoints
 import org.rsmod.api.player.stat.statAdvance
 import org.rsmod.api.random.GameRandom
@@ -76,6 +79,8 @@ constructor(
     private val pvpPlayerHitHooks: Set<PvPPlayerHitHook>,
     private val npcMaxHits: NpcMaxHitRegistry,
 ) {
+    @Inject private lateinit var attackStyles: AttackStyles
+
     /**
      * Determines if the player is still under an active attack delay.
      *
@@ -255,7 +260,7 @@ constructor(
         }
 
     private fun giveCombatXp(player: Player, target: Npc, attack: CombatAttack.Melee, damage: Int) {
-        if (player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Melee)) {
+        if (target.type.paramOrNull(params.tormented_demon) == 1 || player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Melee)) {
             return
         }
         val cappedDamage = min(damage, target.hitpoints)
@@ -326,7 +331,7 @@ constructor(
         attack: CombatAttack.Ranged,
         damage: Int,
     ) {
-        if (player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Ranged)) {
+        if (target.type.paramOrNull(params.tormented_demon) == 1 || player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Ranged)) {
             return
         }
         val cappedDamage = min(damage, target.hitpoints)
@@ -388,7 +393,7 @@ constructor(
         }
 
     private fun giveCombatXp(player: Player, target: Npc, attack: CombatAttack.Spell, damage: Int) {
-        if (player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Magic)) {
+        if (target.type.paramOrNull(params.tormented_demon) == 1 || player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Magic)) {
             return
         }
         val cappedDamage = min(damage, target.hitpoints)
@@ -442,7 +447,7 @@ constructor(
 
     @Suppress("unused")
     private fun giveCombatXp(player: Player, target: Npc, attack: CombatAttack.Staff, damage: Int) {
-        if (player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Magic)) {
+        if (target.type.paramOrNull(params.tormented_demon) == 1 || player.shouldBlockNpcCombatXp(target) || target.isStyleImmuneTo(HitType.Magic)) {
             return
         }
         val cappedDamage = min(damage, target.hitpoints)
@@ -469,6 +474,46 @@ constructor(
 
     private fun statAdvance(player: Player, stat: String, baseXp: Double, multiplier: Double) {
         player.statAdvance(stat, baseXp * multiplier)
+    }
+
+    /** Grants damage XP for an already processed NPC hit, without capping against its remaining HP. */
+    public fun giveNpcImpactXp(
+        player: Player,
+        target: Npc,
+        type: HitType,
+        damage: Int,
+        style: AttackStyle?,
+        defensiveCasting: Boolean,
+    ) {
+        if (damage <= 0 || player.shouldBlockNpcCombatXp(target)) return
+        val multiplier = target.resolveCombatXpMultiplier()
+        when (type) {
+            HitType.Melee -> when (style) {
+                AttackStyle.ControlledMelee -> {
+                    statAdvance(player, "stat.attack", damage * 1.33, multiplier)
+                    statAdvance(player, "stat.strength", damage * 1.33, multiplier)
+                    statAdvance(player, "stat.defence", damage * 1.33, multiplier)
+                }
+                AttackStyle.AccurateMelee -> statAdvance(player, "stat.attack", damage * 4.0, multiplier)
+                AttackStyle.AggressiveMelee -> statAdvance(player, "stat.strength", damage * 4.0, multiplier)
+                AttackStyle.DefensiveMelee -> statAdvance(player, "stat.defence", damage * 4.0, multiplier)
+                else -> return
+            }
+            HitType.Ranged -> when (style) {
+                AttackStyle.LongrangeRanged -> {
+                    statAdvance(player, "stat.ranged", damage * 2.0, multiplier)
+                    statAdvance(player, "stat.defence", damage * 2.0, multiplier)
+                }
+                AttackStyle.AccurateRanged, AttackStyle.RapidRanged -> statAdvance(player, "stat.ranged", damage * 4.0, multiplier)
+                else -> return
+            }
+            HitType.Magic -> {
+                statAdvance(player, "stat.magic", damage * if (defensiveCasting) 1.33 else 2.0, multiplier)
+                if (defensiveCasting) statAdvance(player, "stat.defence", damage.toDouble(), multiplier)
+            }
+            else -> return
+        }
+        statAdvance(player, "stat.hitpoints", damage * 1.33, multiplier)
     }
 
     /**
@@ -1331,9 +1376,17 @@ constructor(
             spell = spell,
             spellbook = spellbook,
             baseMaxHit = baseMaxHit,
-            attackRate = attackRate,
+            attackRate = tormentedSpellBonusRate(source, target, attackRate),
             usedSunfireRune = sunfireRune,
         )
+
+    private fun tormentedSpellBonusRate(source: Player, target: Npc, spellRate: Int): Int {
+        if (target.type.paramOrNull(params.tormented_demon) != 1 || target.vars["varn.td_shield_up"] != 0) return spellRate
+        val weapon = getOrNull(source.righthand) ?: return spellRate
+        val style = if (::attackStyles.isInitialized) attackStyles.resolve(weapon, source.vars["varp.com_mode"]) else null
+        val weaponRate = (weapon.paramOrNull(params.attackrate) ?: spellRate) - if (style == AttackStyle.RapidRanged) 1 else 0
+        return maxOf(spellRate, weaponRate)
+    }
 
     private fun calculateSpellMaxHit(
         source: Player,

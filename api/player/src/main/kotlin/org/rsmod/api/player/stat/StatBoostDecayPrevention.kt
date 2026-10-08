@@ -11,6 +11,7 @@ import org.rsmod.game.entity.Player
  * decay only after every source protecting it has been removed.
  */
 public object StatBoostDecayPrevention {
+    private val decayOnlySources = AttributeKey<MutableSet<String>>(resetOnDeath = true, temp = true)
     private val sources =
         AttributeKey<
             MutableMap<String, MutableSet<String>>
@@ -100,6 +101,7 @@ public object StatBoostDecayPrevention {
         player: Player,
         source: String,
     ) {
+        player.attr[decayOnlySources]?.remove(source)
         val byStat =
             player.attr[sources]
                 ?: return
@@ -132,6 +134,17 @@ public object StatBoostDecayPrevention {
             ?.get(stat)
             .orEmpty()
             .isNotEmpty()
+    }
+
+    /** Maintain ordinary decay while allowing divine expiry to clear this source's boosts. */
+    public fun addDecayOnly(player: Player, stats: Iterable<String>, source: String) {
+        add(player, stats, source)
+        player.attr.getOrPut(decayOnlySources) { mutableSetOf() }.add(source)
+    }
+
+    public fun preventsExplicitReset(player: Player, stat: String): Boolean {
+        val decayOnly = player.attr[decayOnlySources].orEmpty()
+        return player.attr[sources]?.get(stat).orEmpty().any { it !in decayOnly }
     }
 }
 
