@@ -76,13 +76,20 @@ internal class GorillaAccessTest {
         for (loc in owned) verify(f.repo).add(loc, Int.MAX_VALUE, null)
         with(f.script) { f.scripts.shutdown() }
         for (loc in owned) verify(f.repo).del(loc, Int.MAX_VALUE)
+        verify(f.repo).findAll(GorillaAccessScript.OLD_ENTRANCE)
         verifyNoMoreInteractions(f.repo)
     }
 
     private class Fixture {
         val bus = EventBus(); val collision = sharedCollision
         val player = Player().apply { coords = GorillaAccessScript.LOBBY; currentMapClock = 100; processedMapClock = 100 }
-        val repo = mock(LocRepository::class.java) { invocation -> if (invocation.method.returnType == Boolean::class.javaPrimitiveType) true else org.mockito.Answers.RETURNS_DEFAULTS.answer(invocation) }
+        val repo = mock(LocRepository::class.java) { invocation ->
+            when {
+                invocation.method.returnType == Boolean::class.javaPrimitiveType -> true
+                invocation.method.name.startsWith("findAll") -> emptySequence<LocInfo>()
+                else -> org.mockito.Answers.RETURNS_DEFAULTS.answer(invocation)
+            }
+        }
         val script = GorillaAccessScript(repo, mock(ProtectedAccessLauncher::class.java))
         val scripts = ScriptContext(bus, CheatCommandMap(), EngineQueueCache())
         val locs = LocInteractions(mock(BoundValidator::class.java), bus)

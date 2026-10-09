@@ -28,10 +28,34 @@ and restored on leaving. Admin delve selection is available only in dev mode.
 
 ## Rewards
 
+### Delve-specific drop chances — PR #30, 2026-10-09
+
+The accepted Doom package is unchanged. This feature branch corrects the delve-sensitive
+reward table without modifying combat, saved loot, collection logs or reward quantity scaling.
+
+- Delves 2/3/4 unlock cloth, Eye of Ayak and Avernic treads, respectively.
+  Each available item rolls at 1/2,500 (delve 2), 1/2,000 (3), 1/1,350 (4),
+  1/810 (5), 1/765 (6), 1/720 (7), 1/630 (8), then 1/540 at delve 9+.
+- The three principal uniques share an exclusive selection roll; a kill cannot
+  independently award multiple main uniques. The server/player drop-rate multiplier
+  still affects the roll, capped at one main unique per kill.
+- Dom rolls separately at 1/1,000 (6), 1/750 (7), 1/500 (8), 1/250 (9+).
+  Elite clues roll separately at 1/75 (1-2) or 1/50 (3+), unboosted as before.
+- Existing common drops, demon tears, delve quantity multipliers, native claim/escrow
+  and ::testloot/::doomsim all retain their existing code paths. Preview reports
+  the initial available rate, not a live per-player/per-delve rate.
+
+Source: [Jagex's 6 August 2025 announcement](https://secure.runescape.com/m=news/varlamore--summer-sweep-up-combat-tweaks?oldschool=1),
+including both the rare-rate tables and elite-clue change. The owner authorized
+updating, implementing and merging [PR #30](https://github.com/EvolvedMind/OpenRune-Server/pull/30)
+on 2026-10-09. Validation now uses the real project APIs and production drop table,
+including the native DoomRewards path and active-level restoration. See PROGRESS.md
+for final validation/merge/installation status.
+
 `DoomRewards` is the single native drop-table roll path for kills and samples:
 delve conditions, bonuses, transforms, quantity scaling and guaranteed demon
-tears all apply. Uniques use the upstream table gates and rates. Real kills update
-Doom counters. Test rolls preserve counters and run state. On user request (2026-10-06),
+tears all apply. The correction uses the level-specific OSRS bonus table above.
+Real kills update Doom counters. Test rolls preserve counters and run state. On user request (2026-10-06),
 `::testloot doom` registers successfully spawned Collection Log rewards, including repeats;
 `::doomsim` remains an unlogged simulation. Both preserve earned/claimed reward piles.
 
@@ -75,3 +99,16 @@ Merged on 2026-10-06: server PR #23 / c2ccd5c762f98fa24568b66458edad814be1c1f0;
 paired Nero PR #11 / 85af63cedb2067b3b82c63ed86b0e55048c0399d.
 Those merges identify the Doom/HUD checkpoint. Later gameplay changes, including
 the testloot logging correction, are tracked in [baseline](baseline.md).
+
+## PR #30 validation — 2026-10-09
+
+234 selected project tests pass: drops (15), Doom (36), native drop APIs (9),
+commands (20), Collection Log (8), gorillas (14) and clues (132). The five new
+rate/preview tests use the real APIs; an additional production-table test drives
+the actual DoomRewards roller at shallow/deep levels with saturated boosts,
+checks exclusive unlocked uniques/independent Dom and restores the active delve.
+Scoped formatting, the runtime JAR and isolated revision-240/Nero startup pass.
+The candidate uses the exact installed cache/mappings/world overlay; all three
+gorilla access objects and removal of the native arch remain correct. Server
+and private PostgreSQL stop cleanly. No new cache assets or client changes are
+needed, and no live Doom install is claimed by these checks.

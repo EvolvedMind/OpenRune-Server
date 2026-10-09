@@ -2,8 +2,10 @@ package org.rsmod.content.bosses.doom
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
+import dtx.impl.chance.RateBoosts
 import dtx.rs.RSDropTable
 import dtx.rs.rsGuaranteedTable
+import net.rsprot.protocol.game.outgoing.misc.player.MessageGame
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -11,29 +13,56 @@ import org.junit.jupiter.api.parallel.ResourceLock
 import org.mockito.Mockito.*
 import org.rsmod.api.droptable.DropRollItem
 import org.rsmod.api.droptable.DropTableRegistry
-import org.rsmod.api.random.DefaultGameRandom
-import org.rsmod.api.repo.obj.ObjRepository
-import org.rsmod.game.entity.Npc
-import org.rsmod.game.entity.Player
-import org.rsmod.api.player.vars.VarPlayerIntMapSetter
-import org.rsmod.map.CoordGrid
-import org.rsmod.game.obj.Obj
-import org.rsmod.content.interfaces.collectionlog.CollectionLog
-import org.rsmod.content.interfaces.collectionlog.collectionTransmit
-import org.rsmod.game.entity.PlayerList
-import org.rsmod.game.client.Client
-import org.rsmod.game.inv.InvObj
 import org.rsmod.api.inv.storage.PlayerItemStorage
 import org.rsmod.api.invtx.InvTransactionsScript
 import org.rsmod.api.market.MarketPrices
+import org.rsmod.api.player.vars.VarPlayerIntMapSetter
+import org.rsmod.api.random.DefaultGameRandom
+import org.rsmod.api.repo.obj.ObjRepository
+import org.rsmod.content.drops.tables.monsters.doomOfMokhaiotlDropTable
+import org.rsmod.content.interfaces.collectionlog.CollectionLog
+import org.rsmod.content.interfaces.collectionlog.collectionTransmit
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
+import org.rsmod.game.client.Client
+import org.rsmod.game.entity.Npc
+import org.rsmod.game.entity.Player
+import org.rsmod.game.entity.PlayerList
+import org.rsmod.game.inv.InvObj
+import org.rsmod.game.obj.Obj
 import org.rsmod.game.queue.EngineQueueCache
+import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.ScriptContext
-import net.rsprot.protocol.game.outgoing.misc.player.MessageGame
 
 @ResourceLock("ServerCacheManager")
+@ResourceLock("RateBoosts")
 class DoomRewardsTest {
+    @Test fun `production drop table flows through native reward rolls without changing the active delve`() {
+        val player = Player()
+        VarPlayerIntMapSetter.set(player, DoomRewards.LEVEL_VARP, 7)
+        val npc = Npc(checkNotNull(ServerCacheManager.getNpc("npc.dom_boss".asRSCM())), CoordGrid(1310, 9570, 0))
+        val registry = mock(DropTableRegistry::class.java)
+        `when`(registry.forNpc("npc.dom_boss")).thenReturn(doomOfMokhaiotlDropTable)
+        val rewards = DoomRewards(registry, DefaultGameRandom(42))
+        val principal = listOf("obj.mokhaiotl_cloth", "obj.eye_of_ayak_uncharged", "obj.avernic_treads").map { it.asRSCM() }
+        val previous = RateBoosts.multiplier
+        try {
+            // Saturating the existing boost makes rare-roll coverage deterministic.
+            RateBoosts.multiplier = { _, _ -> Double.POSITIVE_INFINITY }
+            for (level in listOf(1, 2, 3, 4, 5, 6, 8, 9, 1000)) {
+                val rolled = rewards.roll(player, npc, level)
+                val unique = rolled.filter { it.id in principal }
+                assertEquals(if (level == 1) 0 else 1, unique.size, "delve $level")
+                assertTrue(unique.all { it.id in principal.take((level - 1).coerceIn(0, 3)) && it.count == 1 })
+                assertEquals(if (level >= 6) 1 else 0, rolled.count { it.id == "obj.dompet".asRSCM() })
+                assertEquals(7, player.vars[DoomRewards.LEVEL_VARP])
+                assertTrue(player.invMap.isEmpty())
+            }
+        } finally {
+            RateBoosts.multiplier = previous
+        }
+    }
+
     @Test fun `quantity scaling and guaranteed tears cover shallow and unbounded deep levels`() {
         assertEquals(50, DoomRewards.scaledCount(100, 1))
         assertEquals(65, DoomRewards.scaledCount(100, 2))
@@ -85,6 +114,7 @@ class DoomRewardsTest {
         verifyNoInteractions(log)
         assertThrows(IllegalArgumentException::class.java) { DoomTestLoot(roller, objs, log).generate(player, 0) }
     }
+
     @Test fun `delivered Doom test uniques increment real collection counts on each roll`() {
         val f = SampleFixture(delivered = true)
         f.loot.generate(f.player, 2, 8, logRewards = true)
@@ -95,6 +125,7 @@ class DoomRewardsTest {
         assertEquals(100, f.player.invMap.getOrPut("inv.dom_lootpile_during").objs.filterNotNull().single().count)
         assertEquals(50, f.player.invMap.getOrPut("inv.dom_lootpile").objs.filterNotNull().single().count)
     }
+
     @Test fun `rejected ground delivery and simulation never register collection obtains`() {
         val rejected = SampleFixture(delivered = false)
         rejected.loot.generate(rejected.player, 1, 8, logRewards = true)
@@ -105,6 +136,7 @@ class DoomRewardsTest {
         assertTrue(simulation.player.collectionTransmit.objs.all { it == null })
         assertTrue(simulation.broadcasts().isEmpty())
     }
+
     @Test fun `delivered cheap Doom samples still log while only the valuable uniques and pet send news`() {
         val f = SampleFixture(delivered = true, filterCheapItems = true)
         f.loot.generate(f.player, 2, 8, logRewards = true)

@@ -26,5 +26,6 @@ dependencies {
     testImplementation(libs.fastutil)
     testImplementation(libs.rsprot.api)
     testImplementation(projects.api.invStorage)
+    testImplementation(projects.content.drops)
     testImplementation("org.mockito:mockito-core:5.14.2")
 }
