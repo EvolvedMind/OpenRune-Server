@@ -6,6 +6,15 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Active: Doom delve loot-rate parity — feature candidate
+
+The accepted Doom/HUD build remains protected and installed software is untouched.
+A small branch corrects the missing delve progression for Mokhaiotl cloth, Eye of Ayak,
+Avernic treads, Dom and elite clues, including the delve-9 cap and exclusive main
+unique roll. New rate/unlock, independence, boost and preview tests are included.
+Pending CI, owner review and in-game reward acceptance; do not mark this correction
+as installed or merge it silently. See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
+
 ## 🟢 Complete: prayers, spellbook travel and gorilla access — approved scope
 
 The owner authorized merge after the screenshot placement correction on
