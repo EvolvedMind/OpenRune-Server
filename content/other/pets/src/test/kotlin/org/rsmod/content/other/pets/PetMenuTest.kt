@@ -21,6 +21,7 @@ import org.rsmod.api.player.interact.HeldInteractions
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
 import org.rsmod.api.player.worn.HeldEquipOp
+import org.rsmod.content.other.pets.PetMenu.Companion.GalleryTab
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.client.Client
@@ -105,6 +106,47 @@ class PetMenuTest {
         verifyNoInteractions(f.rewards)
     }
 
+    @Test fun `native tab and label buttons separate categories and reset pagination`() {
+        val f = Fixture()
+        f.open(); f.click("tab_dogs"); f.click("next")
+        assertEquals("Page 2/4", f.text("page"))
+        f.click("tab_label_cats")
+        assertEquals("Page 1/2", f.text("page"))
+        assertEquals("35 pets - select a pet to obtain it", f.text("status"))
+        for (tab in GalleryTab.entries) {
+            f.click("tab_${tab.key}")
+            val choices = PetMenu.matches("", tab)
+            assertTrue(choices.isNotEmpty(), tab.label)
+            assertEquals(choices.first().name, f.text("pet_0"))
+            assertEquals("<col=ffff00>${tab.label}</col>", f.text("tab_label_${tab.key}"))
+        }
+        verifyNoInteractions(f.rewards)
+    }
+
+    @Test fun `search stays within the selected tab and switching tabs retains the query`() {
+        val f = Fixture()
+        f.open(); f.click("tab_skilling"); f.click("search")
+        f.player.resumeActiveCoroutine(ResumePStringDialogInput("Butch"))
+        assertEquals("No pets found", f.text("status"))
+        f.click("icon_0")
+        verifyNoInteractions(f.rewards)
+        f.click("tab_boss")
+        assertEquals("Butch", f.text("pet_0"))
+        f.click("icon_0")
+        verify(f.rewards).give(f.player, Pets.all.first { it.name == "Butch" }.base.obj)
+    }
+
+    @Test fun `each item belongs to one category with activity and hunting pets classified`() {
+        val categorized = GalleryTab.entries.filter { it != GalleryTab.All }.flatMap { PetMenu.matches("", it) }
+        assertEquals(PetMenu.entries.map { it.obj }.toSet(), categorized.map { it.obj }.toSet())
+        assertEquals(PetMenu.entries.size, categorized.size)
+        for (name in listOf("Phoenix", "Tiny tempor", "Abyssal protector", "Lil' Creator", "Pet Penance Queen")) {
+            assertEquals(GalleryTab.Minigames, PetMenu.entries.first { it.name == name }.tab, name)
+        }
+        for (name in listOf("Herbi", "Quetzin", "Beaver")) assertEquals(GalleryTab.Skilling, PetMenu.entries.first { it.name == name }.tab, name)
+        assertEquals(GalleryTab.Other, PetMenu.entries.first { it.name == "Archibald" }.tab)
+    }
+
     @Test fun `ordinary owner paints held Archibald and cannot turn paint into a pet grant`() {
         val f = Fixture()
         f.player.modLevel = Rights.NONE
@@ -112,7 +154,7 @@ class PetMenuTest {
         f.player.inv[0] = original
         repeat(27) { f.player.inv[it + 1] = InvObj("obj.spade", 1) }
         f.paint()
-        f.click("search"); f.click("clear")
+        f.click("search"); f.click("clear"); f.click("tab_boss")
         assertEquals("Select a pattern to paint your Archibald", f.text("status"))
         f.click("icon_6")
         assertEquals(CompanionPets.archibald[6].objId, f.player.inv[0]?.id)

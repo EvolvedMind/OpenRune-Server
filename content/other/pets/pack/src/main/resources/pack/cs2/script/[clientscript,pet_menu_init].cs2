@@ -5,3 +5,10 @@
 ~stonebutton_draw(false, "Clear", p11_full, 1, pet_menu:clear);
 ~stonebutton_draw(false, "Back", p11_full, 1, pet_menu:previous);
 ~stonebutton_draw(false, "Next", p11_full, 1, pet_menu:next);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_all);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_boss);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_skilling);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_minigames);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_cats);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_dogs);
+~stonebutton_draw(false, "", p11_full, 1, pet_menu:tab_other);
