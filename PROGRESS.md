@@ -6,6 +6,29 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Started: screenshot companions and expanded `::pet` gallery — ready to test
+
+The owner's screenshot roster is available in the existing administrator gallery:
+Archibald (seven paint patterns), Broav, Cats, Dogs, Hellcats, Humphrey Dumphrey,
+Mayor of Catherby, Pet fish (three bowls), Pet rock, Spooky chair and Toy cat.
+**194 native item choices** reuse the accepted interface. New companions have
+native item actions and ownership-checked actor pickup where applicable;
+Cats/Dogs retain their existing care/follower scripts. Paint and fish-food
+conversion use inventory transactions. The temporary chair safely waits for
+inventory room and retains its saved follower when a full inventory prevents
+logout return. No originating quest/event or POH menagerie is implemented by
+this bounded extension. See [pet actions and source decision](docs/custom/pets.md).
+
+**92 selected tests pass**: 27 Pets, 8 Collection Log, 43 Doom and 14 gorilla.
+Full formatter, gameval check, runtime JAR and isolated rev240/Nero startup pass
+against the exact installed PR #31 cache/mappings/overlay. Runtime checks confirm
+all 194 choices, native actor definitions and unchanged Doom/gorilla access.
+Guarded test package: `outputs/misc-pets-menu-20261009/INSTALLEREN.cmd`, with an
+independent rollback to the matched installed PR #31 software. Nothing is
+installed or merged automatically. Owner in-game acceptance remains open,
+especially native item/NPC rendering and the Spooky chair Spin effect.
+Treasure Trails remains parked with its remaining-work review recorded below.
+
 ## 🟢 Complete: Mokhaiotl waystone and Confliction maxmage — PR #31 merged
 
 Native **Channel** now teleports to Doom's pre-lair and consumes one waystone
