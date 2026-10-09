@@ -51,11 +51,10 @@ This is a source/test candidate, **not** a new installed runtime or completed
 in-game acceptance. Run the new DoomDelveBonusRollsTest plus existing Doom reward
 regressions, then full build/boot before user approval.
 
-
 `DoomRewards` is the single native drop-table roll path for kills and samples:
 delve conditions, bonuses, transforms, quantity scaling and guaranteed demon
-tears all apply. Uniques use the upstream table gates and rates. Real kills update
-Doom counters. Test rolls preserve counters and run state. On user request (2026-10-06),
+tears all apply. The correction uses the level-specific OSRS bonus table above.
+Real kills update Doom counters. Test rolls preserve counters and run state. On user request (2026-10-06),
 `::testloot doom` registers successfully spawned Collection Log rewards, including repeats;
 `::doomsim` remains an unlogged simulation. Both preserve earned/claimed reward piles.
 
