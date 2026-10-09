@@ -16,6 +16,7 @@ import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
 class GorillaAccessScript @Inject constructor(private val locs: LocRepository, private val access: ProtectedAccessLauncher) : PluginScript() {
+    private var removedCavern: LocInfo? = null
     private val ownedLocs by lazy {
         listOf(
             LocInfo(2, ENTRANCE, LocEntity(HOLE.asRSCM(), 10, 0)),
@@ -25,6 +26,12 @@ class GorillaAccessScript @Inject constructor(private val locs: LocRepository, p
     }
     override fun ScriptContext.startup() {
         onGameStartup {
+            // The original map arch survives removal of the custom entrance that covered it.
+            val cavern = locs.findAll(OLD_ENTRANCE).firstOrNull { it.id == "loc.mm2_cave_boss_waterfall_small".asRSCM() }
+            if (cavern != null) {
+                check(locs.del(cavern, Int.MAX_VALUE)) { "Could not remove the old gorilla cavern arch" }
+                removedCavern = cavern
+            }
             for (loc in ownedLocs) check(locs.add(loc, Int.MAX_VALUE)) { "Could not create gorilla access object ${loc.id}" }
         }
         for (symbol in listOf(HOLE, "loc.mm2_cavern_entrance")) {
@@ -53,7 +60,13 @@ class GorillaAccessScript @Inject constructor(private val locs: LocRepository, p
             cheat { access.launch(player) { telejump(LOBBY, TeleportType.Exempt) } }
         }
     }
-    override fun ScriptContext.shutdown() { for (loc in ownedLocs) locs.del(loc, Int.MAX_VALUE) }
+    override fun ScriptContext.shutdown() {
+        for (loc in ownedLocs) locs.del(loc, Int.MAX_VALUE)
+        removedCavern?.let { cavern ->
+            if (locs.findAll(cavern.coords).none()) locs.add(cavern, Int.MAX_VALUE)
+        }
+        removedCavern = null
+    }
     companion object {
         // Keep the installed custom ID; its cavern-arch appearance becomes the requested rope.
         const val ROPE = "loc.gorilla_cavern_access"
@@ -64,5 +77,6 @@ class GorillaAccessScript @Inject constructor(private val locs: LocRepository, p
         val SIGN_COORD = CoordGrid(2429, 3521)
         val ROPE_COORD = CoordGrid(2108, 5651)
         val CAVERN = CoordGrid(2108, 5654)
+        val OLD_ENTRANCE = CoordGrid(2106, 5652)
     }
 }

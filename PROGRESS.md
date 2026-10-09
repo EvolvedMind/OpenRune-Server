@@ -15,6 +15,23 @@ unique roll. New rate/unlock, independence, boost and preview tests are included
 Pending CI, owner review and in-game reward acceptance; do not mark this correction
 as installed or merge it silently. See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
+## 🟡 Started: gorilla access installation and underlying map arch repair
+
+The owner reported the old cave entrance and inactive hole/rope after PR #29.
+Live hashes still match the first package (`f94663e17`), so the correction's
+JAR/cache/handlers are not installed. Current Nero world edits no longer contain
+the four preview objects; the replacement installer must preserve that state.
+An isolated map scan additionally found the native Ruptured cavern
+(`loc.mm2_cave_boss_waterfall_small`, 28719) at `(2106,5652,0)` underneath the old
+custom entrance. The gorilla module now removes only this native object at that
+tile, creates the outside hole/sign and inside rope, and restores its own map
+change on unload without overwriting later editor changes. **124 selected tests**,
+scoped formatting and the full JAR pass. Isolated startup confirms exactly the
+three requested objects, both walkable arrival tiles and absence of the native
+arch after applying the persisted overlay. Live installation and owner testing
+remain pending; the guarded replacement package is
+`outputs/gorilla-rope-complete-20261008/INSTALLEREN.cmd`.
+
 ## 🟢 Complete: prayers, spellbook travel and gorilla access — approved scope
 
 The owner authorized merge after the screenshot placement correction on
