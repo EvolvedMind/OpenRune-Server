@@ -28,7 +28,7 @@ and restored on leaving. Admin delve selection is available only in dev mode.
 
 ## Rewards
 
-### Delve-specific drop chances (candidate, 2026-10-09)
+### Delve-specific drop chances — PR #30, 2026-10-09
 
 The accepted Doom package is unchanged. This feature branch corrects the delve-sensitive
 reward table without modifying combat, saved loot, collection logs or reward quantity scaling.
@@ -45,11 +45,12 @@ reward table without modifying combat, saved loot, collection logs or reward qua
   and ::testloot/::doomsim all retain their existing code paths. Preview reports
   the initial available rate, not a live per-player/per-delve rate.
 
-Sources: [Jagex August 2025 drop-rate announcement](https://steamdb.info/patchnotes/19467992/)
-and [the OSRS Wiki Doom of Mokhaiotl](https://oldschool.runescape.wiki/w/Doom_of_Mokhaiotl).
-This is a source/test candidate, **not** a new installed runtime or completed
-in-game acceptance. Run the new DoomDelveBonusRollsTest plus existing Doom reward
-regressions, then full build/boot before user approval.
+Source: [Jagex's 6 August 2025 announcement](https://secure.runescape.com/m=news/varlamore--summer-sweep-up-combat-tweaks?oldschool=1),
+including both the rare-rate tables and elite-clue change. The owner authorized
+updating, implementing and merging [PR #30](https://github.com/EvolvedMind/OpenRune-Server/pull/30)
+on 2026-10-09. Validation now uses the real project APIs and production drop table,
+including the native DoomRewards path and active-level restoration. See PROGRESS.md
+for final validation/merge/installation status.
 
 `DoomRewards` is the single native drop-table roll path for kills and samples:
 delve conditions, bonuses, transforms, quantity scaling and guaranteed demon
@@ -98,3 +99,16 @@ Merged on 2026-10-06: server PR #23 / c2ccd5c762f98fa24568b66458edad814be1c1f0;
 paired Nero PR #11 / 85af63cedb2067b3b82c63ed86b0e55048c0399d.
 Those merges identify the Doom/HUD checkpoint. Later gameplay changes, including
 the testloot logging correction, are tracked in [baseline](baseline.md).
+
+## PR #30 validation — 2026-10-09
+
+234 selected project tests pass: drops (15), Doom (36), native drop APIs (9),
+commands (20), Collection Log (8), gorillas (14) and clues (132). The five new
+rate/preview tests use the real APIs; an additional production-table test drives
+the actual DoomRewards roller at shallow/deep levels with saturated boosts,
+checks exclusive unlocked uniques/independent Dom and restores the active delve.
+Scoped formatting, the runtime JAR and isolated revision-240/Nero startup pass.
+The candidate uses the exact installed cache/mappings/world overlay; all three
+gorilla access objects and removal of the native arch remain correct. Server
+and private PostgreSQL stop cleanly. No new cache assets or client changes are
+needed, and no live Doom install is claimed by these checks.

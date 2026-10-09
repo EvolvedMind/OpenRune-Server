@@ -1,6 +1,6 @@
 # Project overview
 
-Reviewed **2026-10-08**. This is the source for current status and priorities.
+Reviewed **2026-10-09**. This is the source for current status and priorities.
 Implementation details: [custom documentation](docs/custom/README.md).
 Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
@@ -12,15 +12,19 @@ The accepted Doom/HUD build remains protected and installed software is untouche
 A small branch corrects the missing delve progression for Mokhaiotl cloth, Eye of Ayak,
 Avernic treads, Dom and elite clues, including the delve-9 cap and exclusive main
 unique roll. New rate/unlock, independence, boost and preview tests are included.
-Pending CI, owner review and in-game reward acceptance; do not mark this correction
-as installed or merge it silently. See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
+The owner authorized update, implementation and merge of PR #30 on 2026-10-09.
+All **234 selected project tests** pass, including five rare-rate tests, the
+production DoomRewards pipeline, Collection Log/command coverage and 132 clue
+regressions. Scoped formatting, JAR and isolated revision-240/Nero boot pass
+against the exact installed cache/mappings/overlay. The gorilla hole/sign/rope
+and absent old arch are preserved. GitHub checks and merge are next; no live Doom
+installation has been performed. See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
-## 🟡 Started: gorilla access installation and underlying map arch repair
+## 🟢 Complete: gorilla hole/rope and underlying map arch repair — installed
 
 The owner reported the old cave entrance and inactive hole/rope after PR #29.
-Live hashes still match the first package (`f94663e17`), so the correction's
-JAR/cache/handlers are not installed. Current Nero world edits no longer contain
-the four preview objects; the replacement installer must preserve that state.
+The replacement installer preserves the current Nero edits and replaces the
+four task-specific preview objects with the three functional access objects.
 An isolated map scan additionally found the native Ruptured cavern
 (`loc.mm2_cave_boss_waterfall_small`, 28719) at `(2106,5652,0)` underneath the old
 custom entrance. The gorilla module now removes only this native object at that
@@ -28,9 +32,10 @@ tile, creates the outside hole/sign and inside rope, and restores its own map
 change on unload without overwriting later editor changes. **124 selected tests**,
 scoped formatting and the full JAR pass. Isolated startup confirms exactly the
 three requested objects, both walkable arrival tiles and absence of the native
-arch after applying the persisted overlay. Live installation and owner testing
-remain pending; the guarded replacement package is
-`outputs/gorilla-rope-complete-20261008/INSTALLEREN.cmd`.
+arch after applying the persisted overlay. The owner installed and accepted
+`outputs/gorilla-rope-complete-20261008/INSTALLEREN.cmd`. All 21 live target hashes
+match its after-install manifest on 2026-10-09. Its source commit `0d2079013` is
+retained in PR #30 so the next Doom runtime cannot regress this installed repair.
 
 ## 🟢 Complete: prayers, spellbook travel and gorilla access — approved scope
 
