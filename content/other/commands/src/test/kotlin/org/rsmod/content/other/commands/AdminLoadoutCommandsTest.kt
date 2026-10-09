@@ -38,6 +38,13 @@ import org.rsmod.utils.bits.getBits
 class AdminLoadoutCommandsTest {
     private var Player.specialEnergy by intVarp("varp.sa_energy")
 
+    @Test fun `maxmage supplies Confliction gauntlets instead of tormented bracelet`() {
+        val fixture = Fixture()
+        fixture.run("maxmage")
+        assertEquals(1, fixture.player.inv.count("obj.confliction_gauntlets"))
+        assertEquals(0, fixture.player.inv.count("obj.zenyte_bracelet_enchanted"))
+    }
+
     @Test fun `maxrange supplies necklace of rupture in inventory`() {
         val fixture = Fixture()
         fixture.run("maxrange")
