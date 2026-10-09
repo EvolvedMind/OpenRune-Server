@@ -89,7 +89,7 @@ internal enum class AdminLoadout(
         "maxmage", "Max magic gear", "Spawn Ancestral, charged Shadow and Kodai with fortified ward",
         listOf(
             "ancestral_hat", "ancestral_robe_top", "ancestral_robe_bottom", "ma2_saradomin_cape",
-            "occult_necklace", "tumekens_shadow", "zenyte_bracelet_enchanted", "avernic_treads_max",
+            "occult_necklace", "tumekens_shadow", "confliction_gauntlets", "avernic_treads_max",
             "magus_ring", "kodai_wand", "elidinis_ward_fortified",
         ),
     );

@@ -6,6 +6,17 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Started: Mokhaiotl waystone and Confliction maxmage — merge authorized
+
+Native **Channel** now teleports to Doom's pre-lair and consumes one waystone
+only on arrival. Normal teleport restrictions and native instance lifecycle
+remain in place. `::maxmage` supplies Confliction gauntlets; other gear and Shadow
+charges are preserved. **101 selected tests**, full formatter, gameval checks and
+runtime JAR pass. Isolated rev240/Nero startup confirms the native Channel option,
+wearable gauntlets, walkable Doom lobby and preserved gorilla objects. Server and
+private database stop cleanly. Final merge and guarded installer are pending.
+See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
+
 ## 🟢 Complete: Doom delve loot-rate correction — PR #30 merged
 
 The owner authorized update, implementation and merge of
@@ -22,7 +33,8 @@ and absent old arch are preserved. Full local `spotlessCheck` and gameval confli
 checks pass. GitHub Actions is disabled for this repository (workflow dispatch
 returned HTTP 422); no online CI is claimed. Installer:
 `outputs/doom-delve-rates-20261009/INSTALLEREN.cmd`, with rollback to the matched
-installed gorilla package. No live Doom installation has been performed.
+installed gorilla package. On 2026-10-09, all nine live target hashes match this
+package's after-install manifest, confirming the installed PR #30 baseline.
 See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
 ## 🟢 Complete: gorilla hole/rope and underlying map arch repair — installed
