@@ -6,7 +6,7 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Started: companions, categorized `::pet` gallery and Items fix — ready to test
+## 🟢 Complete: companions, categorized `::pet` gallery and Items fix — PR #32 merged
 
 The owner's screenshot roster is available in the existing administrator gallery:
 Archibald (seven paint patterns), Broav, Cats, Dogs, Hellcats, Humphrey Dumphrey,
@@ -37,9 +37,15 @@ cache. Checks preserve every other archive and all existing mapping IDs.
 Runtime checks confirm all 194 choices, seven native tab buttons, native actor
 definitions and unchanged Doom/gorilla access.
 Guarded test package: `outputs/pets-tabs-items-fix-20261009/INSTALLEREN.cmd`, with
-an independent rollback to the verified installed companion package. Nothing
-is installed or merged automatically. Owner in-game acceptance remains open:
-tab layout, Items navigation, native rendering and the Spooky chair Spin effect.
+an independent rollback to the verified installed companion package. The owner
+accepted the package and authorized merge on 2026-10-09. All **23 live target
+hashes** and **958 prerequisite hashes** match the approved installer; its
+candidate cache matches the isolated runtime. [PR #32](https://github.com/EvolvedMind/OpenRune-Server/pull/32)
+merged as `c6afd938f`; its complete tree matches reviewed head `26cbf8b7c` exactly,
+whose runtime code matches tested commit `96634b327`. GitHub reports no commit
+statuses or PR workflow runs; the repository's previously disabled Actions
+remain a separate limitation, with no online CI pass claimed. The merge changes
+no live files; the installed test package is retained without rebuilding it.
 Treasure Trails remains parked with its remaining-work review recorded below.
 
 ## 🟢 Complete: Mokhaiotl waystone and Confliction maxmage — PR #31 merged
