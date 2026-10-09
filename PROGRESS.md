@@ -6,12 +6,15 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Started: screenshot companions and expanded `::pet` gallery — ready to test
+## 🟡 Started: companions, categorized `::pet` gallery and Items fix — ready to test
 
 The owner's screenshot roster is available in the existing administrator gallery:
 Archibald (seven paint patterns), Broav, Cats, Dogs, Hellcats, Humphrey Dumphrey,
 Mayor of Catherby, Pet fish (three bowls), Pet rock, Spooky chair and Toy cat.
-**194 native item choices** reuse the accepted interface. New companions have
+**194 native item choices** are separated into **All, Boss, Skilling, Minigames,
+Cats, Dogs and Other** tabs in the existing native interface. Search stays within
+the selected tab, switching tabs resets the page, and two-line pet names retain
+their space. New companions have
 native item actions and ownership-checked actor pickup where applicable;
 Cats/Dogs retain their existing care/follower scripts. Paint and fish-food
 conversion use inventory transactions. The temporary chair safely waits for
@@ -19,14 +22,24 @@ inventory room and retains its saved follower when a full inventory prevents
 logout return. No originating quest/event or POH menagerie is implemented by
 this bounded extension. See [pet actions and source decision](docs/custom/pets.md).
 
-**92 selected tests pass**: 27 Pets, 8 Collection Log, 43 Doom and 14 gorilla.
-Full formatter, gameval check, runtime JAR and isolated rev240/Nero startup pass
-against the exact installed PR #31 cache/mappings/overlay. Runtime checks confirm
-all 194 choices, native actor definitions and unchanged Doom/gorilla access.
-Guarded test package: `outputs/misc-pets-menu-20261009/INSTALLEREN.cmd`, with an
-independent rollback to the matched installed PR #31 software. Nothing is
-installed or merged automatically. Owner in-game acceptance remains open,
-especially native item/NPC rendering and the Spooky chair Spin effect.
+The reported screenshot is the Monster Guide (`::drops`). Its **Items** button
+failed while indexing an old, unavailable clue-item symbol. The preview now
+ignores unavailable item references in its item index and retains an unavailable
+drop row without sending an invalid item icon. Actual loot tables are preserved.
+The full production catalogue loads **818 monsters and 1,425 items** successfully;
+native `::spawn` remains available. See [interface fix](docs/custom/interfaces.md).
+
+**108 selected tests pass**: 30 Pets, 13 Monster Info, 8 Collection Log, 43 Doom
+and 14 gorilla. Full formatter, gameval check, runtime JAR and isolated
+rev240/Nero startup pass. Only the existing pet interface, its initialization
+script and pet-interface metadata are patched into the installed companion
+cache. Checks preserve every other archive and all existing mapping IDs.
+Runtime checks confirm all 194 choices, seven native tab buttons, native actor
+definitions and unchanged Doom/gorilla access.
+Guarded test package: `outputs/pets-tabs-items-fix-20261009/INSTALLEREN.cmd`, with
+an independent rollback to the verified installed companion package. Nothing
+is installed or merged automatically. Owner in-game acceptance remains open:
+tab layout, Items navigation, native rendering and the Spooky chair Spin effect.
 Treasure Trails remains parked with its remaining-work review recorded below.
 
 ## 🟢 Complete: Mokhaiotl waystone and Confliction maxmage — PR #31 merged
@@ -41,8 +54,9 @@ private database stop cleanly. [PR #31](https://github.com/EvolvedMind/OpenRune-
 merged as `59a71addd`; its tree matches tested head `b152effda` exactly.
 Guarded installer: `outputs/doom-waystone-maxmage-20261009/INSTALLEREN.cmd`,
 with rollback to the verified installed PR #30 baseline. Cache, client plugins,
-world edits, RSA and playerdata are preserved. This feature has not been installed
-live; visual confirmation of the standard teleport effect is a manual game check.
+world edits, RSA and playerdata are preserved. Its changes are included in the
+installed companion package, whose live hashes match the accepted installer;
+visual confirmation of the standard teleport effect is a manual game check.
 See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
 ## 🟢 Complete: Doom delve loot-rate correction — PR #30 merged
