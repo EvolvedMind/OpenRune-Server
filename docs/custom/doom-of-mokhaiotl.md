@@ -163,3 +163,11 @@ overlay, resolves Channel and wearable gauntlets, and confirms a walkable Doom
 lobby. The accepted gorilla hole/sign/rope and removal of the old arch remain
 correct. Server and private PostgreSQL stop cleanly. In-game visual acceptance
 of the native standard teleport effect remains a manual check.
+
+[PR #31](https://github.com/EvolvedMind/OpenRune-Server/pull/31) merged as
+`59a71addd718db3d449511cb604fa64a1653785f`; its tree matches tested head
+`b152effda75f55d815c9c33a0fe9e4139f0a5abc`. The guarded
+`doom-waystone-maxmage-20261009` installer changes only the feature source/docs
+and tested runtime JAR, with rollback to the exact installed PR #30 package.
+No cache assets, mappings, Nero plugins, world edits, RSA or playerdata are
+replaced. There is no online CI result: GitHub Actions is disabled for this repo.

@@ -6,7 +6,7 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Started: Mokhaiotl waystone and Confliction maxmage — merge authorized
+## 🟢 Complete: Mokhaiotl waystone and Confliction maxmage — PR #31 merged
 
 Native **Channel** now teleports to Doom's pre-lair and consumes one waystone
 only on arrival. Normal teleport restrictions and native instance lifecycle
@@ -14,7 +14,12 @@ remain in place. `::maxmage` supplies Confliction gauntlets; other gear and Shad
 charges are preserved. **101 selected tests**, full formatter, gameval checks and
 runtime JAR pass. Isolated rev240/Nero startup confirms the native Channel option,
 wearable gauntlets, walkable Doom lobby and preserved gorilla objects. Server and
-private database stop cleanly. Final merge and guarded installer are pending.
+private database stop cleanly. [PR #31](https://github.com/EvolvedMind/OpenRune-Server/pull/31)
+merged as `59a71addd`; its tree matches tested head `b152effda` exactly.
+Guarded installer: `outputs/doom-waystone-maxmage-20261009/INSTALLEREN.cmd`,
+with rollback to the verified installed PR #30 baseline. Cache, client plugins,
+world edits, RSA and playerdata are preserved. This feature has not been installed
+live; visual confirmation of the standard teleport effect is a manual game check.
 See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
 ## 🟢 Complete: Doom delve loot-rate correction — PR #30 merged
