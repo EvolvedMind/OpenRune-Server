@@ -79,11 +79,10 @@ constructor(
             return
         }
         val obj = "obj.${args[0]}"
-        if (Pets.forObj(obj) == null) {
+        if (!petMenu.give(player, obj)) {
             player.mes("That obj is not a pet: $obj")
             return
         }
-        rewards.give(player, obj)
     }
 
     private companion object {
