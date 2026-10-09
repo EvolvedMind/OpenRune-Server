@@ -30,7 +30,7 @@ and restored on leaving. Admin delve selection is available only in dev mode.
 
 ### Delve-specific drop chances — PR #30, 2026-10-09
 
-The accepted Doom package is unchanged. This feature branch corrects the delve-sensitive
+PR #30 corrects the delve-sensitive
 reward table without modifying combat, saved loot, collection logs or reward quantity scaling.
 
 - Delves 2/3/4 unlock cloth, Eye of Ayak and Avernic treads, respectively.
@@ -112,3 +112,12 @@ The candidate uses the exact installed cache/mappings/world overlay; all three
 gorilla access objects and removal of the native arch remain correct. Server
 and private PostgreSQL stop cleanly. No new cache assets or client changes are
 needed, and no live Doom install is claimed by these checks.
+
+PR #30 merged as `4d9d974d10ab9fbff0570583d060d49c8b769c82`; its tree matches
+tested head `a3bfe1c746b04c7cea4f80bd99ee95869055b2bd`. Full local `spotlessCheck`
+and the native gameval conflict checker pass. GitHub Actions is disabled for the
+repository; manual dispatch returned HTTP 422 with that explicit reason, so no
+online CI result is claimed. The guarded `doom-delve-rates-20261009` installer
+replaces only the changed source/docs and runtime JAR. Cache, mappings, paired
+Nero plugins, world edits, RSA and playerdata are preserved. Its rollback restores
+the exact matched gorilla package; live installation remains a separate action.

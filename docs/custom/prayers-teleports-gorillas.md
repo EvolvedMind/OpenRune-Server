@@ -153,8 +153,8 @@ automatically installed.
 
 ## Underlying cavern arch follow-up
 
-The first live package remains `f94663e17`; hashes prove the screenshot
-correction's JAR/cache were not installed. The owner subsequently removed the
+During diagnosis, live hashes matched `f94663e17`; the screenshot correction's
+JAR/cache were not installed. The owner subsequently removed the
 four Nero previews, so the replacement package uses the current overlay as its
 guarded baseline and retains other placements/deletions.
 
@@ -177,4 +177,7 @@ the expected hole/sign/rope and walkable landing tiles. The effective map scan
 no longer contains 28719 at `(2106,5652,0)`; the private server exits 0 and
 PostgreSQL is stopped. Installer `gorilla-rope-complete-20261008` replaces the
 matched live baseline as a complete JAR/cache/mapping/placement set, with its own
-rollback. Live installation and the owner's client check remain pending.
+rollback. On 2026-10-09 all 21 live target hashes match this installed package.
+PR #30 retains commit `0d2079013`, preserving these accepted access changes in
+the merged main branch and subsequent Doom build. This hash check does not
+replace visual client acceptance.

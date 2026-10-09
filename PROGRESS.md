@@ -6,19 +6,24 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Active: Doom delve loot-rate parity — feature candidate
+## 🟢 Complete: Doom delve loot-rate correction — PR #30 merged
 
-The accepted Doom/HUD build remains protected and installed software is untouched.
-A small branch corrects the missing delve progression for Mokhaiotl cloth, Eye of Ayak,
-Avernic treads, Dom and elite clues, including the delve-9 cap and exclusive main
-unique roll. New rate/unlock, independence, boost and preview tests are included.
-The owner authorized update, implementation and merge of PR #30 on 2026-10-09.
+The owner authorized update, implementation and merge of
+[PR #30](https://github.com/EvolvedMind/OpenRune-Server/pull/30) on 2026-10-09.
+Merged as `4d9d974d1`; its tree exactly matches tested head `a3bfe1c74`.
+Mokhaiotl cloth, Eye of Ayak, Avernic treads, Dom and elite clues now use
+delve-specific odds, capped at delve 9. The main uniques share an exclusive roll;
+Dom and clues are independent. Existing reward/claim/logging paths are preserved.
 All **234 selected project tests** pass, including five rare-rate tests, the
 production DoomRewards pipeline, Collection Log/command coverage and 132 clue
 regressions. Scoped formatting, JAR and isolated revision-240/Nero boot pass
 against the exact installed cache/mappings/overlay. The gorilla hole/sign/rope
-and absent old arch are preserved. GitHub checks and merge are next; no live Doom
-installation has been performed. See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
+and absent old arch are preserved. Full local `spotlessCheck` and gameval conflict
+checks pass. GitHub Actions is disabled for this repository (workflow dispatch
+returned HTTP 422); no online CI is claimed. Installer:
+`outputs/doom-delve-rates-20261009/INSTALLEREN.cmd`, with rollback to the matched
+installed gorilla package. No live Doom installation has been performed.
+See [Doom mechanics](docs/custom/doom-of-mokhaiotl.md).
 
 ## 🟢 Complete: gorilla hole/rope and underlying map arch repair — installed
 
@@ -32,7 +37,7 @@ tile, creates the outside hole/sign and inside rope, and restores its own map
 change on unload without overwriting later editor changes. **124 selected tests**,
 scoped formatting and the full JAR pass. Isolated startup confirms exactly the
 three requested objects, both walkable arrival tiles and absence of the native
-arch after applying the persisted overlay. The owner installed and accepted
+arch after applying the persisted overlay. The owner installed
 `outputs/gorilla-rope-complete-20261008/INSTALLEREN.cmd`. All 21 live target hashes
 match its after-install manifest on 2026-10-09. Its source commit `0d2079013` is
 retained in PR #30 so the next Doom runtime cannot regress this installed repair.
