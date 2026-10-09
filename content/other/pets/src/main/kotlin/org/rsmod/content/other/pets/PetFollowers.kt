@@ -1,6 +1,9 @@
 package org.rsmod.content.other.pets
 
+import dev.openrune.ServerCacheManager
+import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.types.NpcMode
+import dev.openrune.util.BlockWalk
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.npc.owner.assignSpawnOwner
@@ -39,6 +42,7 @@ constructor(
         Pets.formForObj(player.followerObj)
             ?: Cats.formForObj(player.followerObj)
             ?: Dogs.formForObj(player.followerObj)
+            ?: CompanionPets.formForObj(player.followerObj)
 
     fun follower(player: Player): Npc? {
         val packed = player.followerNpc
@@ -69,7 +73,8 @@ constructor(
         val coords = previous?.coords ?: besideTile(player)
         val facedNpc = previous?.facingTarget(npcList)
         despawn(player)
-        val npc = Npc(form.npc, coords)
+        val type = checkNotNull(ServerCacheManager.getNpc(form.npc.asRSCM()))
+        val npc = Npc(if (CompanionPets.formForObj(form.objId) != null) type.copy(blockWalk = BlockWalk.None).also { it.paramMap = type.paramMap } else type, coords)
         npc.mode = NpcMode.None
         npc.defaultMoveSpeed = if (form.runs) MoveSpeed.Run else MoveSpeed.Walk
         npcRepo.add(npc, Int.MAX_VALUE)

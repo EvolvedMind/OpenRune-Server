@@ -1,7 +1,9 @@
 package org.rsmod.content.interfaces.monsterinfo
 
 import dev.openrune.ServerCacheManager
+import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCM.asRSCM
+import dev.openrune.rscm.RSCMType
 import dev.openrune.types.ItemServerType
 import dev.openrune.types.NpcServerType
 import dtx.rs.RSDropTable
@@ -46,7 +48,7 @@ class MonsterCatalogue @Inject constructor(
     private val byItem: Map<Int, List<MonsterEntry>> by lazy {
         buildMap<Int, MutableList<MonsterEntry>> {
             for (monster in monsters) {
-                val ids = monster.drops.mapNotNull { it.item?.obj?.asRSCM() }.map(::canonicalItem).toSet()
+                val ids = monster.drops.mapNotNull { it.item?.obj?.let(::resolveItem)?.id }.map(::canonicalItem).toSet()
                 for (id in ids) getOrPut(id) { mutableListOf() }.add(monster)
             }
         }
@@ -69,6 +71,11 @@ class MonsterCatalogue @Inject constructor(
     }
 
     fun sources(item: Int): List<MonsterEntry> = byItem[canonicalItem(item)].orEmpty()
+
+    // Legacy drop tables can reference item symbols absent from the current cache.
+    // A preview must not disconnect the player while indexing unrelated tables.
+    internal fun resolveItem(symbol: String): ItemServerType? =
+        RSCM.getRSCMOrNull(symbol, RSCMType.OBJ)?.let(ServerCacheManager::getItem)
 
     fun find(type: NpcServerType, table: RSDropTable<Player, DropRollItem>?): MonsterEntry? =
         monsters.firstOrNull { type.id in it.variants && (table == null || it.table.tableIdentifier == table.tableIdentifier) }

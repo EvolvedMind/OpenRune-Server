@@ -14,6 +14,7 @@ class PetsModule : PluginModule() {
         addSetBinding<PlayerPostTickHook>(PetScript::class.java)
         addSetBinding<PlayerPostTickHook>(CatScript::class.java)
         addSetBinding<PlayerPostTickHook>(DogScript::class.java)
+        addSetBinding<PlayerPostTickHook>(CompanionPetScript::class.java)
         addSetBinding<NpcDeathDropHook>(PetDropHook::class.java)
         addSetBinding<NpcDeathKillHook>(PetNpcDropHook::class.java)
         addSetBinding<PlayerDeathHook>(CatDeathHook::class.java)

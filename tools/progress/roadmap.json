@@ -702,6 +702,22 @@
       ]
     },
     {
+      "title": "Treasure Trails — remaining completion work",
+      "status": "started",
+      "category": "parked",
+      "summary": "Owner parked further implementation on 2026-10-09. Preserve the accepted 60/60 Charlie/Sherlock task checkpoint; full Treasure Trails and Mimic remain unfinished.",
+      "details": [
+        "Review source and cache evidence: docs/custom/treasure-trails.md#remaining-work-review--2026-10-09. No clue gameplay was changed by this review.",
+        "Of 37 selectable normal map clues, eight have map interfaces and 29 currently show blank text; two extra cache map rows lack a clue-scroll item and are already excluded. Complete native map rendering.",
+        "Validate world routes, doors/keys, puzzle/light-box variants, guardian animations and supporting access; retain the accepted guardian progression fix.",
+        "Extend torn-master subclues beyond current NPC cryptics to persistent dig, coordinate, combat and puzzle variants, with safe assembly.",
+        "Add permanent completed-trail counters per tier, integrate Bloodhound with the native pet-obtain/insurance lifecycle, and verify tier loot probabilities and quantities.",
+        "Exercise normal-length hunts for all six tiers with save/reconnect, death/logout, bank/drop/pickup, stale/foreign ownership, full inventories and repeated claims.",
+        "Mimic is last: eligibility/opt-in, strange casket/keyhole, private fight/minions, attempts/retry, cleanup and final bonus reward. Native cache assets do not prove a working encounter.",
+        "Resume only when explicitly selected; do not activate clue gameplay while implementing the current companion-pet request."
+      ]
+    },
+    {
       "title": "Weapon Special Attacks",
       "status": "started",
       "summary": "Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected.",

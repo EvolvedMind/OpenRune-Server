@@ -15,7 +15,7 @@ This index contains implementation notes and evidence, not a second status list.
 | Doom of Mokhaiotl | `content/bosses/doom-of-mokhaiotl` and `pack` | [Encounter and rewards](doom-of-mokhaiotl.md) |
 | Barrows reward testing | `content/bosses/barrows` | [Administrator commands](commands.md#barrows-loot-test) |
 | Treasure Trails | `content/other/treasure-trails` | [Implementation](treasure-trails.md), [task coverage](clue-task-coverage.md), [test commands](clue-testing.md), [guardian fix](clue-guardians.md) |
-| Pets and gallery | `content/other/pets` | [Followers, relog and morphs](pets.md) |
+| Pets and gallery | `content/other/pets` | [Followers, gallery, companion actions and morphs](pets.md) |
 | Commands and loadouts | `content/other/commands`, `content/interfaces/worldmap` | [Commands](commands.md) |
 | Monster, skill and quest interfaces | `content/interfaces/monster-info`, `content/interfaces/skill-guides`, `content/quest` | [Interfaces](interfaces.md) |
 | Max cape | Custom native-menu handlers in `content/other/max-cape` | [Menus and perks](../max-cape.md) |

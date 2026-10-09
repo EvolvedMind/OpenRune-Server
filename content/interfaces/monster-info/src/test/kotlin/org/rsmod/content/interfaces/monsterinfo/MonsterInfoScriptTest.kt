@@ -2,9 +2,9 @@ package org.rsmod.content.interfaces.monsterinfo
 
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
-import dev.openrune.types.aconverted.interf.IfButtonOp
 import dtx.rs.RSDropTable
 import dtx.rs.rsGuaranteedTable
+import net.rsprot.protocol.game.incoming.buttons.If3Button
 import net.rsprot.protocol.game.outgoing.interfaces.IfSetObject
 import net.rsprot.protocol.game.outgoing.interfaces.IfSetText
 import org.junit.jupiter.api.Assertions.*
@@ -19,12 +19,12 @@ import org.rsmod.api.area.checker.AreaChecker
 import org.rsmod.api.droptable.DropRollItem
 import org.rsmod.api.droptable.DropTableRegistry
 import org.rsmod.api.instances.BossInstanceRegistry
+import org.rsmod.api.net.rsprot.handlers.If3ButtonHandler
 import org.rsmod.api.player.events.NpcExamineEvent
 import org.rsmod.api.player.input.ResumePStringDialogInput
 import org.rsmod.api.player.input.ResumePauseButtonInput
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
-import org.rsmod.api.player.ui.IfModalButton
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
 import org.rsmod.game.client.Client
@@ -91,6 +91,26 @@ class MonsterInfoScriptTest {
     }
 
     @Test
+    fun `native Items button survives the reported missing legacy clue mapping`() {
+        val f = Fixture(legacyDrop = true)
+        f.examine(); f.choose(1)
+        f.click("item")
+        f.click("clear")
+        assertEquals("1 results", f.text("list_status"))
+        assertTrue(f.text("result_0").contains("Coins"))
+        f.click("result_icon_0")
+        assertEquals("1 NPC tables", f.text("list_status"))
+        f.click("result_0")
+        f.click("next")
+        assertEquals("Unavailable drop", f.text("row_3"))
+        f.click("icon_3")
+        assertEquals("1 NPC tables", f.text("list_status"))
+        f.click("item"); f.click("npc"); f.click("item")
+        assertTrue(f.player.ui.containsModal("interface.monster_drops"))
+        assertTrue(f.player.inv.isEmpty())
+    }
+
+    @Test
     fun `empty search has no stale clickable rows and pagination is bounded`() {
         val f = Fixture()
         f.examine(); f.choose(1); f.click("search")
@@ -111,7 +131,7 @@ class MonsterInfoScriptTest {
         assertFalse(f.player.ui.containsModal("interface.dream_monster_stat"))
     }
 
-    private class Fixture {
+    private class Fixture(legacyDrop: Boolean = false) {
         val events = EventBus()
         val client = RecordingClient()
         val player = Player(client).apply { username = "monster-info-test"; inv = Inventory.create("inv.inv") }
@@ -125,6 +145,7 @@ class MonsterInfoScriptTest {
             val areas = mock(AreaChecker::class.java)
             val table = RSDropTable<Player, DropRollItem>("test", guaranteed = rsGuaranteedTable {
                 repeat(8) { add(DropRollItem("obj.coins", it + 1)) }
+                if (legacyDrop) add(DropRollItem("obj.trail_clue_elite_combat001", 1))
             })
             `when`(registry.forNpcType(type.internalName, player.coords, areas)).thenReturn(table)
             `when`(registry.npcTables()).thenReturn(mapOf(type.internalName to listOf(table)))
@@ -137,8 +158,9 @@ class MonsterInfoScriptTest {
         fun examine() { events.publish(NpcExamineEvent(player, type)) }
         fun choose(choice: Int) { player.resumeActiveCoroutine(ResumePauseButtonInput("component.chatmenu:options", choice)) }
         fun click(name: String) {
-            val component = ServerCacheManager.fromComponent("component.monster_drops:$name".asRSCM())
-            launcher.launchLenient(player) { events.publish(this, IfModalButton(component, -1, null, IfButtonOp.Op1)) }
+            val constructor = If3Button::class.java.declaredConstructors.single { it.parameterCount == 5 }
+            val packet = constructor.newInstance("component.monster_drops:$name".asRSCM(), -1, -1, 1, null) as If3Button
+            If3ButtonHandler(events, launcher).handle(player, packet)
         }
         fun text(name: String) = client.messages.filterIsInstance<IfSetText>()
             .last { it.combinedId == "component.monster_drops:$name".asRSCM() }.text
