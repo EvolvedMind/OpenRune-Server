@@ -118,6 +118,72 @@ The existing cache places the strange casket `loc.trail_mimic_enabler` (34733) a
 and walls/corners 34720–34732 in the same region. Preserve these native placements.
 Boss/minion assets alone do not provide encounter logic or verified animation configuration.
 
+### Remaining-work review — 2026-10-09
+
+Reviewed against main `35c1817c7`, current runtime source and the revision-240
+production catalog. A read-only cache probe finds 997 records and 60 skill tasks.
+There are 39 map records: 37 belong to normally selectable starting clues; the
+two treasure-scroll/mysterious-orb records have no catalog scroll item and are
+already excluded from selection. They are not counted as ordinary clue blockers.
+
+| Normally selectable map clues | Total | Native map interface | Missing interface |
+|---|---:|---:|---:|
+| Beginner | 5 | 0 | 5 |
+| Easy | 7 | 1 | 6 |
+| Medium | 12 | 5 | 7 |
+| Hard | 7 | 2 | 5 |
+| Elite | 6 | 0 | 6 |
+| Total | 37 | 8 | 29 |
+
+`TrailScrollScript.read` falls back to the text interface when `TrailMaps` has
+no entry; all 29 affected ordinary map rows have empty `clue_text`. This is a
+confirmed player-facing blocker, not just missing acceptance evidence.
+
+Ordered implementation/acceptance chunks:
+
+1. **Map reading:** link/draw all 29 remaining ordinary maps, select beginner
+   maps by their stored row rather than the shared generic scroll item, and
+   verify target tile/dig/next-step/casket through native interactions.
+2. **World routes, puzzles and guardians:** audit every selectable target's
+   actual NPC/object presence and access, including keys and location/quest
+   rules. Slider and light-board engines already exist. Verify each puzzle's
+   assignment/type, physical box, native buttons, reopen/save/load and hand-in;
+   the ambiguous cache challenge description "A puzzle or a light box." currently
+   always selects light on first assignment. Retain the accepted guardian
+   progression fix while repairing the reported Armadylean/Bandosian combat
+   animation configuration. Mort'ton catacomb door/key access and sacred-eel
+   fishing access remain supporting activity gaps; completing all other skill
+   systems is not required just to finish clues.
+3. **Full torn-master variants:** `TrailTornParts.choices` currently draws only
+   NPC-target cryptics without combat or box/question challenges. Extend it to
+   the required dig/coordinate/combat/puzzle variants with persistent independent
+   subclue ownership and safe three-part assembly.
+4. **Completion and rewards:** tier casket tables, escrow, reclaim and Collection
+   Log integration already exist. Add permanent completed-trail counters per
+   tier; current `TrailProgress.advance`/`TrailRewards.open` do not update them.
+   Wire Bloodhound through the native pet-obtain/insurance/duplicate lifecycle:
+   the current master table rolls its item into escrow and logs it, but the casket
+   path does not call `PetRewards.give`. Probita's existing manual insurance path
+   is separate. Recheck tier loot probabilities, amounts and master-clue rewards
+   against the pinned source and agreed fork rules before claiming full parity.
+5. **Complete hunts:** exercise normal-length trails for all six tiers, not just
+   assigned one-step fixtures. Include bank/drop/pickup, actual save/reconnect,
+   death/logout, stale/foreign ownership, simultaneous guardians, full inventory,
+   repeated casket/reward clicks and contextual fallback preservation. Existing
+   132 clue tests are checkpoint evidence; this review did not rerun them.
+6. **Mimic last:** implement master-casket eligibility/opt-in, native strange
+   casket and keyhole access, private encounter/minions/attacks, attempts/retry
+   behaviour, death/logout/leave cleanup and the resulting bonus reward/casket
+   hand-in. Native assets/placements exist; no local Mimic runtime handler was
+   found in the boss or Treasure Trails modules.
+
+The source review and cache probe add no gameplay changes. Upstream default-branch
+code and PR searches were checked for Treasure Trails, clue scrolls and Mimic;
+results supplied no complete encounter/trail implementation to port. The
+returned drop-table PRs are general loot infrastructure, and the old Neversink
+PR uses "mimic" to mean OSRS similarity, not the boss. No upstream code was
+imported. Further implementation must recheck any relevant new upstream work.
+
 ## Recorded evidence
 
 The 2026-10-05 candidate recorded 54 clue, 3 Cooking, 2 Thieving and 3 Fletching tests,

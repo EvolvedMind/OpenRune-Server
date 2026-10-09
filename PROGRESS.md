@@ -126,10 +126,19 @@ content are preserved.
   global Combat Achievements remain separate systems.
 - [Mechanics, sources, commands and evidence](docs/custom/tormented-demons.md).
 
-## 🟡 Parked: Treasure Trails
+## 🟡 Parked: Treasure Trails — remaining-work review recorded
 
-The accepted 60/60 task slice is preserved. Full clue gameplay remains parked
-until the owner's next instruction; Mimic remains last.
+The owner requested the remaining-work review on 2026-10-09, then parked further
+implementation until later. The accepted 60/60 task slice is preserved; Mimic
+remains last. The current production-catalog review confirms
+37 normally selectable map clues, of which eight have native map interfaces and
+29 fall back to empty clue text. Complete those maps first, then world routes,
+puzzle variants and reported guardian animations; expand torn-master parts,
+wire permanent tier completion counters and the native Bloodhound obtain route,
+and validate complete six-tier trails before adding master-casket Mimic.
+The review changes no gameplay. The 132 clue tests remain recorded regression
+evidence, not a fresh test run or proof of all 997 catalog records being playable.
+See [review and ordered chunks](docs/custom/treasure-trails.md#remaining-work-review--2026-10-09).
 
 - **60/60 skill-task rows have completion handling.** The user approved the current scope on 2026-10-07; [PR #27](https://github.com/EvolvedMind/OpenRune-Server/pull/27) merged into `main` as `c535c713a`. This is task coverage, not overall clue completion.
 - Finish the remaining clue routes, maps and puzzles; then validate complete trails and their lifecycle.
@@ -253,6 +262,7 @@ Scope: XS = tiny, S = small, M = medium, L = large, XL = very large, XXL = multi
 
 | Status | Feature | Note |
 |:---:|---|---|
+| 🟡 | Treasure Trails — remaining completion work | Owner parked further implementation on 2026-10-09. Preserve the accepted 60/60 Charlie/Sherlock task checkpoint; full Treasure Trails and Mimic remain unfinished. |
 | 🟡 | Weapon Special Attacks | Accepted checkpoint: 191/285 item registrations; 94 deferred. Registration is not full mechanics validation. Resume only when selected. |
 | 🔴 | RSPS AgentCraft — In-Game Developer Observatory | Parked concept: real Claude/Codex agents through an in-game developer scene, with an external runner and isolated worktrees. Full-system scope XXL. |
 
