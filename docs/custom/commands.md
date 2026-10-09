@@ -54,3 +54,10 @@ Normal Barrows chest play was accepted by the user on 2026-10-04.
 `::maxrange` now supplies necklace of rupture instead of necklace of anguish.
 Delivery remains inventory-only and atomic; worn items and existing inventory are preserved.
 The command integration test verifies the actual native item identifier.
+
+## Max magic gloves — 2026-10-09
+
+`::maxmage` supplies native Confliction gauntlets instead of a tormented bracelet.
+All other loadout items, inventory-only delivery, administrator rights, atomic
+rollback and Shadow's 20,000 charges are preserved. The real command-dispatch
+test checks both the new gauntlets and absence of the old bracelet.

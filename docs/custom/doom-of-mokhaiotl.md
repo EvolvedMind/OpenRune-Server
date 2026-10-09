@@ -70,6 +70,8 @@ run. Prior claimed rewards remain in the chest for collection.
 ## Administrator tests
 
 - `::testdoom`: teleport to the lobby, then use the native gap to enter.
+- `::maxmage`: supplies Confliction gauntlets instead of a tormented bracelet;
+  the rest of the loadout, including Shadow's 20,000 charges, is unchanged.
 - `::testloot doom`: 100 ground-sample kills at delve 8.
 - `::testloot doom 100 3`: 100 rolls at delve 3; counts/delves 1-1000.
 - `::doomsim 100 8`: ground samples without Collection Log grants; run state/counters stay intact.
@@ -121,3 +123,43 @@ online CI result is claimed. The guarded `doom-delve-rates-20261009` installer
 replaces only the changed source/docs and runtime JAR. Cache, mappings, paired
 Nero plugins, world edits, RSA and playerdata are preserved. Its rollback restores
 the exact matched gorilla package; live installation remains a separate action.
+
+## Mokhaiotl waystone — 2026-10-09
+
+The existing revision-240 item `obj.dom_teleport_item` (31099) has a native
+first inventory option, **Channel**. `DoomWaystone` now handles that actual option:
+a standard native teleport animation/effect runs for four game ticks, then
+teleports to `DoomArena.LOBBY` `(1311,9551,0)`. This is the pre-lair; entry through
+the gap still starts the existing private encounter. No quest requirement is
+added to the fork's accepted Doom access policy.
+
+Normal teleport validation applies, including late denial. A prepared native
+inventory transaction consumes exactly one held waystone only after the player
+reaches the destination. Cancellation, death, logout/disconnection, displacement,
+a replaced inventory stack, unavailable destination or rejected final teleport
+preserve the item. The existing instance leave/reward lifecycle remains native;
+the waystone does not manually rewrite run state or reward inventories.
+
+The native `obj.confliction_gauntlets` (31106) is the hands item in `::maxmage`.
+No equipment stats, drops, delve rates or other loadout entries are changed.
+
+Upstream comparison: the default-branch search and relevant closed/merged
+[OpenRune PR #275](https://github.com/OpenRune/OpenRune-Server/pull/275), merged
+as `fc10877fd39600637506de645f584467c11039c3`, reference the waystone in the
+drop table without a held-item handler. The local native handler fills that
+gap; no upstream branch or unrelated changes are imported. The OSRS Wiki item
+page could not be read because access was blocked. The chosen ordinary teleport
+animation is verified in this cache, not asserted as an exact OSRS waystone
+animation reproduction.
+
+Validation: **101 selected tests** pass (Doom 43, commands 21, drops 15, gorillas
+14, Collection Log 8), including seven new actual HeldInteractions producer
+tests and the native maxmage command test. Prepared consumption, initial/late
+denial, stale references, death/logout/disconnect, cancellation and unavailable
+destinations are covered. Full `spotlessCheck`, gameval conflict check and the
+runtime JAR pass. Final runtime/package evidence is recorded in PROGRESS.md.
+Isolated rev240/Nero startup uses the exact installed PR #30 cache/mappings/world
+overlay, resolves Channel and wearable gauntlets, and confirms a walkable Doom
+lobby. The accepted gorilla hole/sign/rope and removal of the old arch remain
+correct. Server and private PostgreSQL stop cleanly. In-game visual acceptance
+of the native standard teleport effect remains a manual check.
