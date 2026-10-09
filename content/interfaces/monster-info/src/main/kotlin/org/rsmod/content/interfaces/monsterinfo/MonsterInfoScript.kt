@@ -1,7 +1,6 @@
 package org.rsmod.content.interfaces.monsterinfo
 
 import dev.openrune.ServerCacheManager
-import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.types.NpcServerType
 import jakarta.inject.Inject
 import java.util.Locale
@@ -77,7 +76,8 @@ class MonsterInfoScript @Inject constructor(
                 val view = views[player] ?: return@onIfModalButton
                 val drop = view.selected?.drops?.getOrNull(view.page * PAGE_SIZE + index)?.item ?: return@onIfModalButton
                 if (view.tab != Tab.DROPS) return@onIfModalButton
-                view.sourceItem = drop.obj.asRSCM(); view.search = Search.SOURCES; view.listPage = 0
+                view.sourceItem = catalogue.resolveItem(drop.obj)?.id ?: return@onIfModalButton
+                view.search = Search.SOURCES; view.listPage = 0
                 render(view)
             }
         }
@@ -136,8 +136,9 @@ class MonsterInfoScript @Inject constructor(
         repeat(PAGE_SIZE) { index ->
             val entry = entries.getOrNull(view.page * PAGE_SIZE + index).takeIf { view.tab == Tab.DROPS }
             val item = entry?.item
-            ifSetHide(comp("icon_$index"), item == null)
-            if (item != null) ifSetObj(comp("icon_$index"), item.obj, 1)
+            val type = item?.obj?.let(catalogue::resolveItem)
+            ifSetHide(comp("icon_$index"), type == null)
+            if (type != null) ifSetObj(comp("icon_$index"), type.internalName, 1)
             ifSetText(comp("row_$index"), entry?.let(::dropName).orEmpty())
             ifSetText(comp("quantity_$index"), item?.let { "Min: ${it.countChoices?.minOrNull() ?: it.count.first}   Max: ${it.countChoices?.maxOrNull() ?: it.count.last}" }.orEmpty())
             ifSetText(comp("chance_$index"), entry?.let { "${odds(it)}<br>${it.stage}${if (it.rolls > 1) " x${it.rolls}" else ""}" }.orEmpty())
@@ -153,9 +154,9 @@ class MonsterInfoScript @Inject constructor(
     }
 
     private fun dropName(entry: DropPreviewEntry): String {
-        val item = entry.item?.let { ServerCacheManager.getItem(it.obj.asRSCM()) }
+        val item = entry.item?.obj?.let(catalogue::resolveItem)
         val name = if (item?.isCert == true) ServerCacheManager.getItem(item.certlink)?.name?.plus(" (noted)") else item?.name
-        return MonsterStats.safeText(name?.takeIf { it.isNotBlank() } ?: "Special / conditional drop")
+        return MonsterStats.safeText(name?.takeIf { it.isNotBlank() } ?: if (entry.item != null) "Unavailable drop" else "Special / conditional drop")
     }
     private fun odds(entry: DropPreviewEntry): String = when {
         entry.item == null -> "Varies"

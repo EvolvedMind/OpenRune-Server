@@ -51,6 +51,20 @@ class MonsterCatalogueTest {
         assertEquals(listOf("World spawn: 3200, 3201 (plane 0)"), c.locations(c.monsters.single()))
     }
 
+    @Test fun `unavailable native mappings cannot poison item indexing or reverse lookup`() {
+        val npc = ServerCacheManager.getNpcs().values.first { it.name == "Waterfiend" }
+        val table = RSDropTable<Player, DropRollItem>("legacy", guaranteed = rsGuaranteedTable {
+            add(DropRollItem("obj.trail_clue_elite_combat001", 1))
+            add(DropRollItem("obj.coins", 1))
+        })
+        val registry = mock(DropTableRegistry::class.java)
+        `when`(registry.npcTables()).thenReturn(mapOf(npc.internalName to listOf(table)))
+        val c = MonsterCatalogue(registry, NpcList(), BossInstanceRegistry())
+        assertNull(c.resolveItem("obj.trail_clue_elite_combat001"))
+        assertEquals(listOf("Coins"), c.searchItems("").map { it.name })
+        assertEquals(c.monsters, c.sources(checkNotNull(c.resolveItem("obj.coins")).id))
+    }
+
     companion object {
         @JvmStatic @BeforeAll fun loadCache() { ServerCacheManager.init(240).close() }
     }

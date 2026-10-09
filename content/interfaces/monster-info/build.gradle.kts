@@ -13,4 +13,5 @@ dependencies {
     implementation(projects.api.registry)
     testImplementation("org.mockito:mockito-core:5.14.2")
     testImplementation(libs.rsprot.api)
+    testImplementation(projects.api.net)
 }
