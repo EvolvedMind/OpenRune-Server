@@ -152,8 +152,8 @@
     "path": "outputs/npc-animations-login-fix-20261010",
     "payloads": 1,
     "prerequisites": 995,
-    "installed": false,
-    "clientLoginAccepted": false,
+    "installed": true,
+    "clientLoginAccepted": true,
     "preservation": {
       "serverArchivesPreserved": 22973,
       "clientArchivesPreserved": 117585,
@@ -184,6 +184,7 @@
       "cacheSha256": "a30c491264ee364e5fa999d550c59060f8868705ae179e05074fc799ec385132",
       "serverSha256": "b77f21ea4cc53c3aaddb368f274f20450be430633f7288199ba0724a3d32403f",
       "postgresPidFileAbsent": true
-    }
+    },
+    "ownerAcceptedDate": "2026-10-10"
   }
 }

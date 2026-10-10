@@ -166,7 +166,7 @@ fixtures pass. All **19,438 varbits** resolve their base varp, and the real
 account flag setter/getter passes for new and existing players. Isolated rev240
 boot, Nero bridge snapshots, pet tabs, gorilla access and clean database/server
 shutdown pass with the recovered cache. This regression check does not require
-an external market-price refresh. A paired-client login remains an owner check;
+an external market-price refresh. The owner confirmed the paired-client login and authorized merge on 2026-10-10;
 no live account records or running processes were changed by development tests.
 
 Reproduction commands and native evidence rules: [offline tools](../../tools/npc-animations/README.md).
