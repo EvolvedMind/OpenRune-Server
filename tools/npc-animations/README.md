@@ -46,7 +46,8 @@ unsafe. Export a new audit from the rebuilt copy and compare it:
 python tools/npc-animations/verify_overlays.py --before baseline.json --after candidate.json --report overlays.json --output preservation.json
 ```
 
-`PatchNpcAnimations.java` takes compiled checkout, accepted runtime copy, marked
+`PatchNpcAnimations.java` (compiled with `PreserveConfigReference.java`) takes
+compiled checkout, accepted runtime copy, marked
 `npc-animations-runtime-stage` or `npc-animations-lifecycle-runtime-stage`, and overlays JSON as its four arguments. It patches
 only the selected files in **SERVER 2/58**, then compares every other client/server
 archive and all other NPC files against the accepted runtime. It refuses unmarked
@@ -70,3 +71,18 @@ unresolved actions/candidates are in
 The runtime JAR must accompany lifecycle changes. The frozen 90.46% package was
 data-only and cannot install this module. A source cache build alone does not
 certify actor visuals, every combat style, new boss phases or special effects.
+
+The config reference table needs its own preservation check. The Displee writer
+decodes the native `-1` varp file sentinel as `32767`; rewriting the shared index
+then shifts all varp IDs by 32768 without changing archive contents. The patcher
+retains the original reference table, updates only NPC checksums/lengths/revision
+and compares file-ID tables for every archive. Compile both Java files together.
+`PreserveConfigReferenceTest.java` provides eight regression fixtures, including
+the signed sentinel and optional metadata. `ValidateLoginVars.java` checks every
+varbit base and invokes the actual login account flag setter/getter for new and
+existing players against an isolated candidate. Archive checksums and a ready
+listener alone do not establish login compatibility.
+
+For recovery of an already affected test copy, the bounded command is
+`PatchNpcAnimations --repair-reference ACCEPTED_COPY npc-animations-login-fix-runtime-stage`.
+Both paths must be isolated; the repair stage requires `ISOLATED-CANDIDATE`.

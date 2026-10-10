@@ -70,9 +70,10 @@ behaviour. No body-customisation packet or replacement model is introduced.
 This is **97.15% technical action coverage**; **3,844 / 3,993 types** have their
 three roles accounted for. A touched definition is not a completed encounter.
 Source review and no-named-block evidence are distinct from visual acceptance.
-The earlier 90.46% data-only package was detected as installed by matching every
-payload and prerequisite hash. The current lifecycle candidate changes the JAR
-as well as the selected server cache; it is **not installed or merged**.
+The owner installed the lifecycle package on 2026-10-10; all 17 payloads and
+979 prerequisites match its manifest. Login then failed on the new-account
+varbit. The reference-table recovery below retains that exact runtime JAR and
+all NPC animation data. Neither package has been merged.
 
 The [measurement and checks](npc-animation-evidence.json) and
 [149 unresolved native types/action candidates](npc-animation-open-actions.json)
@@ -127,14 +128,46 @@ snapshots and clean shutdown. No live playerdata or world edit is altered. Nativ
 apps are unavailable through this session's computer tools, so no paired-client
 visual acceptance is claimed.
 
-The guarded `outputs/npc-animations-lifecycle-20261010/INSTALLEREN.cmd` package
-requires the currently installed 90.46% snapshot, and has a separate rollback to
-that exact snapshot. Close the local client/server before owner installation.
+The frozen `npc-animations-20261010` and `npc-animations-lifecycle-20261010`
+packages contain the reference-table regression described below. Their archive
+content checks and successful boot did not establish login compatibility. The
+guarded `outputs/npc-animations-login-fix-20261010/INSTALLEREN.cmd` recovery
+requires the installed lifecycle snapshot and has its own rollback. Close the
+local client/server before owner installation.
 Test Wyrm/Killerwatt/shadow activation, lethal first hits, the two tentacle spawn
 forms, complete Maiden/Xarpus/Jormungand/Maggot King death parts, static portal/
 flower deaths and normal respawn. Check the clue guardians through actual clues,
 weapon variants, jaguars and the accepted bosses/specials in fixed/resizable views.
 This is a test candidate; the remaining 341 slots are not advertised as complete.
+
+### Login regression and reference-table recovery — 2026-10-10
+
+The supplied startup/login log records `CONNECT_FAIL` after
+`Error getting varp from varbit: 65485`. RSProx forwards the request correctly;
+its disconnected status follows the rejected server login. The actual
+`AccountLoadResponseHook` account flag setter fails for both new and existing
+players. `new_player_account` points to base varp 65516, which is absent under
+that ID in the affected cache.
+
+Displee rewrote shared config index metadata while patching the NPC archive.
+The native `-1` first file sentinel in server varp archive **2/67** became
+`32767`, shifting all **5,971 reference file IDs by 32,768**. The archive bytes
+were unchanged, so the original preservation check missed the corruption.
+`PreserveConfigReference.java` retains the original reference metadata and
+copies only NPC CRC/checksum/digest, length and revision fields plus index version.
+The patcher now compares file-ID arrays for every archive as well as its payload.
+
+Recovery changes only **SERVER/main_file_cache.dat2** and
+**SERVER/main_file_cache.idx255**. All **22,973 server archive payloads** and
+**117,585 client archives** match the installed lifecycle package, including
+NPC animation archive 2/58; the runtime JAR is unchanged. Every reference file-ID
+table now matches the accepted pre-import cache. Eight metadata regression
+fixtures pass. All **19,438 varbits** resolve their base varp, and the real
+account flag setter/getter passes for new and existing players. Isolated rev240
+boot, Nero bridge snapshots, pet tabs, gorilla access and clean database/server
+shutdown pass with the recovered cache. This regression check does not require
+an external market-price refresh. A paired-client login remains an owner check;
+no live account records or running processes were changed by development tests.
 
 Reproduction commands and native evidence rules: [offline tools](../../tools/npc-animations/README.md).
 

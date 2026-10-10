@@ -122,7 +122,7 @@
   },
   "visualAcceptance": false,
   "remainingEvidence": "npc-animation-open-actions.json",
-  "installedSnapshot": "The earlier 90.46% data-only package was independently detected as installed; the lifecycle candidate has not been installed.",
+  "installedSnapshot": "Owner-installed lifecycle snapshot verified (17 payloads, 979 prerequisites); login failed due to shifted server varp reference IDs. Recovery package prepared separately; no runtime JAR change.",
   "packagePreservation": {
     "revision": 240,
     "npcDefinitionsChecked": 16579,
@@ -143,7 +143,46 @@
     "path": "outputs/npc-animations-lifecycle-20261010",
     "payloads": 17,
     "prerequisites": 979,
+    "installed": true,
+    "rollback": "installed 90.46% snapshot",
+    "loginCompatible": false,
+    "supersededBy": "outputs/npc-animations-login-fix-20261010"
+  },
+  "loginRecovery": {
+    "path": "outputs/npc-animations-login-fix-20261010",
+    "payloads": 2,
+    "prerequisites": 994,
     "installed": false,
-    "rollback": "installed 90.46% snapshot"
+    "clientLoginAccepted": false,
+    "preservation": {
+      "serverArchivesPreserved": 22973,
+      "clientArchivesPreserved": 117585,
+      "npcArchivePayloadUnchanged": true,
+      "runtimeJarUnchanged": true,
+      "runtimeJarSha256": "b77f21ea4cc53c3aaddb368f274f20450be430633f7288199ba0724a3d32403f",
+      "originalFileIdTablesPreserved": true,
+      "varpFileIdsRestored": 5971,
+      "correctedFileIdShift": 32768,
+      "regressionFixturesPassed": 8
+    },
+    "varbitCount": 19438,
+    "unresolvedVarbitBases": 0,
+    "accountInitialisation": [
+      {
+        "newAccount": true,
+        "passed": true
+      },
+      {
+        "newAccount": false,
+        "passed": true
+      }
+    ],
+    "isolatedBoot": {
+      "passed": true,
+      "exitCode": 0,
+      "cacheSha256": "a30c491264ee364e5fa999d550c59060f8868705ae179e05074fc799ec385132",
+      "serverSha256": "b77f21ea4cc53c3aaddb368f274f20450be430633f7288199ba0724a3d32403f",
+      "postgresPidFileAbsent": true
+    }
   }
 }
