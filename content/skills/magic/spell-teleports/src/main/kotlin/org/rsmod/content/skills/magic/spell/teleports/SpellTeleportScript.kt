@@ -107,6 +107,8 @@ constructor(
     private fun ProtectedAccess.startTeleport(teleport: SpellTeleport, destination: CoordGrid) {
         val style = teleport.style
         actionDelay = mapClock + TeleportActionDelay
+        resetAnim()
+        resetSpotanim()
         anim(style.startAnim)
         spotanim(style.spotanim, height = style.spotanimHeight)
         soundSynth(TeleportSound)
@@ -115,10 +117,12 @@ constructor(
     }
 
     private fun ProtectedAccess.processQueuedTeleport(task: PendingSpellTeleport) {
-        val spell = task.teleport.resolveSpell() ?: return
-        if (player.pendingLogout || player.hitpoints == 0 || !canTeleport()) {
-            return
-        }
+        // The outgoing sequences contain invisible/shrunken frames. Stop them even when
+        // a late restriction cancels travel; map rebuilds do not reset client animations.
+        resetSpotanim()
+        if (player.hitpoints == 0) return
+        resetAnim()
+        if (player.pendingLogout || !canTeleport()) return
         telejump(CoordGrid(task.destination))
         task.teleport.style.endAnim?.let { anim(it) }
     }

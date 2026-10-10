@@ -18,6 +18,7 @@ import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessContextFactory
 import org.rsmod.api.player.worn.HeldEquipOp
 import org.rsmod.api.route.BoundValidator
+import org.rsmod.content.skills.magic.spell.teleports.TeleportScrollScript
 import org.rsmod.coroutine.GameCoroutine
 import org.rsmod.events.EventBus
 import org.rsmod.game.cheat.CheatCommandMap
@@ -88,7 +89,8 @@ class TormentedTempleTest {
             for (c in listOf(CoordGrid(3222, 3218), TormentedTempleScript.TELEPORT_DESTINATION, TormentedTempleScript.ENTRANCE, TormentedTempleScript.CAVE_ENTRANCE, CoordGrid(4061, 4553, 1), CoordGrid(4060, 4551, 2), CoordGrid(4063, 4547, 2))) collision.allocateIfAbsent(c.x, c.z, c.level)
             val scripts = ScriptContext(bus, CheatCommandMap(), EngineQueueCache())
             with(InvTransactionsScript(PlayerItemStorage(emptySet()))) { scripts.startup() }
-            with(TormentedTempleScript(validator, areas, collision)) { scripts.startup() }
+            with(TormentedTempleScript()) { scripts.startup() }
+            with(TeleportScrollScript(validator, areas, collision)) { scripts.startup() }
         }
         fun scroll() = launch {
             val constructor = HeldInteractions::class.java.declaredConstructors.single().apply { isAccessible = true }

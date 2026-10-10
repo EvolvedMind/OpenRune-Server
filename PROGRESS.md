@@ -6,6 +6,20 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Started: teleport animation correction and all scroll routes
+
+Arceuus/Lunar outgoing animations and graphics now clear at arrival or late
+cancellation. All **20 real rev240 teleport scrolls** have native inventory
+handlers, exact single-scroll consumption and safe cancellation. Guthix keeps
+its accepted TD-cave destination and uses the shared scroll animation cleanup;
+the duplicate Temple handler is removed. Revenant uses its real third option
+and all three entrances with a Wilderness confirmation.
+
+**69 selected tests**, scoped formatter checks and the runtime JAR build pass.
+Isolated rev240/Nero boot and all **22 arrival tiles** pass.
+Paired-client visual acceptance of the corrected arrival effects remains open.
+[Routes, upstream decision and validation](docs/custom/teleport-scrolls.md).
+
 ## 🟢 Complete: Lizardman Shamans — accepted; PR #34 merged
 
 [PR #34](https://github.com/EvolvedMind/OpenRune-Server/pull/34) merged on

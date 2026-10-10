@@ -3,42 +3,18 @@ package org.rsmod.content.bosses.tormenteddemon
 import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM.asRSCM
 import jakarta.inject.Inject
-import org.rsmod.api.area.checker.AreaChecker
-import org.rsmod.api.invtx.invDel
-import org.rsmod.api.player.hook.PlayerTeleportValidator
 import org.rsmod.api.player.hook.TeleportType
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.vars.VarPlayerIntMapSetter
 import org.rsmod.api.script.*
 import org.rsmod.content.quest.manager.QuestRequirements
 import org.rsmod.game.entity.Player
-import org.rsmod.game.map.collision.isZoneValid
 import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
-import org.rsmod.routefinder.collision.CollisionFlagMap
 
-internal class TormentedTempleScript @Inject constructor(
-    private val teleports: PlayerTeleportValidator,
-    private val areas: AreaChecker,
-    private val collision: CollisionFlagMap,
-) : PluginScript() {
+internal class TormentedTempleScript @Inject constructor() : PluginScript() {
     override fun ScriptContext.startup() {
-        onOpHeld1("obj.teleportscroll_guthixian_temple") { event ->
-            if (!allowed()) return@onOpHeld1
-            val denial = teleports.validate(player, TeleportType.Standard, areas)
-            if (denial != null) { mes(denial); return@onOpHeld1 }
-            if (!collision.isZoneValid(TELEPORT_DESTINATION)) return@onOpHeld1
-            anim("seq.teleport_scroll_open")
-            delay(2)
-            if (inv[event.slot] !== event.obj) return@onOpHeld1
-            val finalDenial = teleports.validate(player, TeleportType.Standard, areas)
-            if (finalDenial != null) { mes(finalDenial); return@onOpHeld1 }
-            if (player.invDel(inv, "obj.teleportscroll_guthixian_temple", 1, slot = event.slot).success) {
-                telejump(TELEPORT_DESTINATION)
-                indicator(player)
-            }
-        }
         onOpLoc1("loc.luc2_gt_temple_wall_climb1") { e ->
             anim("seq.human_climbing")
             delay(2)
