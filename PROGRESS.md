@@ -6,6 +6,32 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
+## 🟡 Started: Lizardman Shamans — combat, rewards and test commands
+
+The five ordinary canyon/cave/Temple variants now have a Boss DSL controller:
+melee, normal ranged spit, dodgeable green acid spit, jump/landing and three
+finite purple spawns. Native attack/block/death assets remain intact. Tier-5
+Shayzien pieces reduce acid damage by 20% each; the full worn set blocks acid
+damage while poison and antipoison keep their native rules. Pending specials
+and minions are cancelled on death, logout, departure, respawn and unload.
+
+Dragon warhammer is in the ordinary loot table at **1/3000**. `::test shamans`
+arrives at the owner's **1451, 3696, 0**; `::testloot shamans [1–1000]` uses the
+native death/loot hooks and increments the shared permanent Shaman killcount.
+Successful warhammer drops also reach the Collection Log and loot tracker.
+Chambers of Xeric variants retain their separate existing content.
+
+**137 selected Kotlin tests and 14 reference-metadata fixtures pass**, including
+native approach → combat → hit-consumer routes, prayer/armour/dodge, minion
+cleanup, teleport, killcount and forced successful warhammer reward delivery.
+The candidate preserves every LIVE archive and all **220,157 existing gameval
+mappings**, changing only five server NPCs and adding one server-only varp.
+Both account types and all **19,438 varbit bases** pass the real login check.
+Isolated rev240/Nero boot, native Shaman bindings, exact teleport tile, bridge,
+pet tabs/gorilla access and clean shutdown pass. Test package:
+`outputs/shamans-20261010/INSTALLEREN.cmd`. The owner still needs to test
+visuals/timing and repeated fights in the paired client. See [implementation and sources](docs/custom/lizardman-shamans.md).
+
 ## 🟢 Complete: companions, categorized `::pet` gallery and Items fix — PR #32 merged
 
 The owner's screenshot roster is available in the existing administrator gallery:
@@ -220,7 +246,7 @@ Acceptance below applies to the recorded scope. A merged change does not establi
 | 🟡 | [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
 | 🟡 | [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
 | 🟡 | [Slayer menus and helmet crafting](docs/custom/slayer.md) | Source audit: existing task/unlock/extension handlers and ordinary helmet recipes. Fix Trade routing, task state, purchases, block slots, toggles and Suqah mapping; complete the requested menu and conversion paths. |
-| 🟡 | [NPC combat animation import](docs/custom/combat.md#ordinary-npc-combat-animations) | Work round closed on 2026-10-10 at the owner's request; implementation remains Started. 97.15% technical attack/block/death coverage across 3,993 Attack-option types; 3,844 types have all three roles accounted for. Pack: 3,749 definitions / 10,671 missing parameters. Runtime: 56 spawn forms, 11 combat transitions, 29 multipart deaths (24 Maiden corpse forms) and 40 non-retaliating props. Verified: 370 Kotlin tests, 8 importer checks, 225 lifecycle bindings, build, cache preservation and isolated boot. Tested code: `925f17d4e` on local `feature/npc-combat-animations`. Owner installed lifecycle package; login regression reproduced from a 32,768 shift in varp reference IDs. Recovery: `outputs/npc-animations-login-fix-20261010/INSTALLEREN.cmd`, one servercache file with rollback. All NPC data/JAR retained; original file IDs, 19,438 varbit bases, real new/existing-account flag writes, eight metadata fixtures and isolated boot pass. Owner accepted the installed recovery and authorized merge on 2026-10-10; the bounded animation import is accepted, while the listed remaining scope stays Started. Remaining: 341 action slots across 149 types, secondary attack styles, specials/phase integration and native-client visual acceptance. Accepted controllers and unrelated files are preserved. |
+| 🟡 | [NPC combat animation import](docs/custom/combat.md#ordinary-npc-combat-animations) | Work round closed on 2026-10-10 at the owner's request; implementation remains Started. 97.15% technical attack/block/death coverage across 3,993 Attack-option types; 3,844 types have all three roles accounted for. Pack: 3,749 definitions / 10,671 missing parameters. Runtime: 56 spawn forms, 11 combat transitions, 29 multipart deaths (24 Maiden corpse forms) and 40 non-retaliating props. Verified: 370 Kotlin tests, 8 importer checks, 225 lifecycle bindings, build, cache preservation and isolated boot. Tested code: `925f17d4e` on local `feature/npc-combat-animations`. Owner installed lifecycle package; login regression reproduced from a 32,768 shift in varp reference IDs. Recovery: `outputs/npc-animations-login-fix-20261010/INSTALLEREN.cmd`, one servercache file with rollback. All NPC data/JAR retained; original file IDs, 19,438 varbit bases, real new/existing-account flag writes, eight metadata fixtures and isolated boot pass. Owner accepted the installed recovery on 2026-10-10; [PR #33](https://github.com/EvolvedMind/OpenRune-Server/pull/33) merged as `64ab394119d10df87b3a87e4458ef4462cb3ae78` from reviewed head `29286cc0a`; the bounded animation import is accepted, while the listed remaining scope stays Started. Remaining: 341 action slots across 149 types, secondary attack styles, specials/phase integration and native-client visual acceptance. Accepted controllers and unrelated files are preserved. |
 | 🔴 | [Persistence warning follow-up](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
 | 🟢 | Upstream research (review only) | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed; not imported. Implementation has not started. Any adoption requires a scoped revision-240 port. |
 

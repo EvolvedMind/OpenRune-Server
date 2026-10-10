@@ -8,6 +8,7 @@ This index contains implementation notes and evidence, not a second status list.
 | Runtime and recovery | Server packages, paired Nero Studio | [Checkpoints](baseline.md), [architecture](architecture.md) |
 | Zulrah | `content/bosses/zulrah` | [Encounter](zulrah.md) |
 | Araxxor | `content/bosses/araxxor` | [Encounter and fang recipes](araxxor.md) |
+| Lizardman Shamans | `content/bosses/lizardman-shaman` and `pack` | [Combat, Shayzien protection, drops and test commands](lizardman-shamans.md) |
 | Kraken | `content/bosses/kraken` | [Public-cave encounter](kraken.md) |
 | Tormented Demons | `content/bosses/tormented-demon` and `pack` | [Encounter, Temple, rewards, crafting and acceptance evidence](tormented-demons.md) |
 | Prayer scrolls, spellbook travel and gorillas | `content/interfaces/prayer-tab`, `content/skills/magic/spell-teleports`, `content/bosses/demonic-gorilla` | [Custom policy, native interactions, sources and tests](prayers-teleports-gorillas.md) |

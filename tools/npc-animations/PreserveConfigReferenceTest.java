@@ -10,6 +10,10 @@ public final class PreserveConfigReferenceTest {
   }
 
   private static byte[] fixture(int flags,boolean shifted,int version,int npc) throws IOException {
+    return fixture(flags,shifted,version,npc,false);
+  }
+
+  private static byte[] fixture(int flags,boolean shifted,int version,int npc,boolean addedVarp) throws IOException {
     var bytes = new ByteArrayOutputStream();
     var out = new DataOutputStream(bytes);
     out.writeByte(7); out.writeInt(version); out.writeByte(flags);
@@ -26,10 +30,11 @@ public final class PreserveConfigReferenceTest {
       out.writeInt(npc+2); out.writeInt(npc+3); out.writeInt(673); out.writeInt(674);
     }
     out.writeInt(npc+4); out.writeInt(675);
-    smart(out,2); smart(out,3);
+    smart(out,2); smart(out,addedVarp ? 4 : 3);
     smart(out,1); smart(out,4);
-    smart(out,shifted ? 32767 : -1); smart(out,1); smart(out,65516);
-    if ((flags & 1) != 0) for (int i=0;i<5;i++) out.writeInt(700+i);
+    smart(out,shifted ? 32767 : -1); smart(out,1);
+    if(addedVarp) { smart(out,65469); smart(out,47); } else smart(out,65516);
+    if ((flags & 1) != 0) for (int i=0;i<(addedVarp ? 6 : 5);i++) out.writeInt(700+i);
     return bytes.toByteArray();
   }
 
@@ -51,6 +56,12 @@ public final class PreserveConfigReferenceTest {
       PreserveConfigReference.merge(fixture(0,false,1,10),fixture(0,true,2,20),90);
       throw new AssertionError("Missing group accepted");
     } catch (IllegalStateException expected) { cases++; }
+    for(int flags:new int[]{0,1,2,4,8,15}) {
+      byte[] result=PreserveConfigReference.mergeGroups(fixture(flags,false,1,10),fixture(flags,true,2,20),
+        Map.of(67,fixture(flags,false,3,30,true)));
+      if(!Arrays.equals(result,fixture(flags,false,2,20,true))) throw new AssertionError("Native new varp metadata lost");
+      cases++;
+    }
     System.out.println("PASS: " + cases + " reference-table regression fixtures");
   }
 }
