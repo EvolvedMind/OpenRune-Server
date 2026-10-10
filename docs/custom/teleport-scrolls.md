@@ -103,3 +103,17 @@ Arceuus teleport, then a Guthix scroll; confirm the full-size player is visible
 immediately on arrival and can move normally. Test a clue reward scroll and the
 Revenant warning/decline route as well. These checks are not claimed as observed
 by the isolated server tests.
+
+## Merge and test package
+
+[PR #35](https://github.com/EvolvedMind/OpenRune-Server/pull/35) merged as
+`4b7a1ad840784cac8699ca1e47abbf82fbbd9a7e`. Its tree equals the tested head
+`a113bdc44362b59c5e56b3a72452c957797e7511`. Local validation is documented above;
+GitHub had no commit statuses or Actions runs for that head.
+
+`outputs/teleport-fixes-20261010/INSTALLEREN.cmd` is a guarded candidate for the
+accepted Shaman installation. It supplies the new server JAR and relevant
+sources/docs; no cache payload is required. The package checks prerequisite
+hashes and keeps a recoverable checkpoint. Close client/server/launcher before
+installing, then use the existing launcher. No live installation was performed
+while developing or merging this correction.

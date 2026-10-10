@@ -8,6 +8,8 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 ## 🟡 Started: teleport animation correction and all scroll routes
 
+[PR #35](https://github.com/EvolvedMind/OpenRune-Server/pull/35) is merged
+(`4b7a1ad84`); its tree matches tested head `a113bdc44`.
 Arceuus/Lunar outgoing animations and graphics now clear at arrival or late
 cancellation. All **20 real rev240 teleport scrolls** have native inventory
 handlers, exact single-scroll consumption and safe cancellation. Guthix keeps
@@ -17,6 +19,7 @@ and all three entrances with a Wilderness confirmation.
 
 **69 selected tests**, scoped formatter checks and the runtime JAR build pass.
 Isolated rev240/Nero boot and all **22 arrival tiles** pass.
+The guarded test package is `outputs/teleport-fixes-20261010/INSTALLEREN.cmd`.
 Paired-client visual acceptance of the corrected arrival effects remains open.
 [Routes, upstream decision and validation](docs/custom/teleport-scrolls.md).
 
