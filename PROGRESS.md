@@ -6,13 +6,15 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Started: Lizardman Shamans — PR #34 merged; client acceptance pending
+## 🟢 Complete: Lizardman Shamans — accepted; PR #34 merged
 
 [PR #34](https://github.com/EvolvedMind/OpenRune-Server/pull/34) merged on
 2026-10-10 as `d5f5cc3d0f619ff278b88859a29e89419f92956a`; its complete tree
 matches tested head `02361e283f8f7f83e131e890cc77e0ba2f1668d7`. GitHub reports
 no commit statuses or workflow runs, so no online CI pass is claimed.
-The guarded test package is ready; the merge does not install it live.
+The owner accepted the installed test package on **2026-10-10**. All **29 installed
+target hashes and 985 prerequisite hashes** match the guarded package; its cache
+and runtime match the isolated validation. The accepted installation is retained.
 
 The five ordinary canyon/cave/Temple variants now have a Boss DSL controller:
 melee, normal ranged spit, dodgeable green acid spit, jump/landing and three
@@ -35,8 +37,10 @@ mappings**, changing only five server NPCs and adding one server-only varp.
 Both account types and all **19,438 varbit bases** pass the real login check.
 Isolated rev240/Nero boot, native Shaman bindings, exact teleport tile, bridge,
 pet tabs/gorilla access and clean shutdown pass. Test package:
-`outputs/shamans-20261010/INSTALLEREN.cmd`. The owner still needs to test
-visuals/timing and repeated fights in the paired client. See [implementation and sources](docs/custom/lizardman-shamans.md).
+`outputs/shamans-20261010/INSTALLEREN.cmd`. The owner confirmed the gameplay
+result and authorized closeout. Complete covers the agreed ordinary Shaman
+extension; raids, diary unlocks and exact OSRS probability reconstruction are
+outside this scope. See [implementation and sources](docs/custom/lizardman-shamans.md).
 
 ## 🟢 Complete: companions, categorized `::pet` gallery and Items fix — PR #32 merged
 

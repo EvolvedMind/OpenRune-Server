@@ -18,9 +18,10 @@ was robots-blocked. Indexed wiki content, including [tier-5 Shayzien protection]
 was available: protection stacks per worn piece and does not prevent poison.
 The current Dragon warhammer **1/3000** rate comes directly from
 [Jagex's 29 May 2024 Project Rebalance](https://secure.runescape.com/m=news/project-rebalance-combat-changes?oldschool=1).
-Old 1/5000 references are superseded. Exact probabilities and visual/timing
-parity for specials remain a paired-client acceptance check; cache-native IDs
-and automated technical coverage are separate evidence.
+Old 1/5000 references are superseded. The owner accepted the implemented behaviour in the paired client on 2026-10-10.
+Exact OSRS server probabilities were not extracted; the documented selector
+and timing choices remain explicit implementation decisions. Cache-native IDs,
+automated checks and owner acceptance are separate evidence.
 
 ## Native bindings and mechanics
 
@@ -103,9 +104,19 @@ Guarded package: `outputs/shamans-20261010/INSTALLEREN.cmd`, built against the
 accepted installed NPC login-recovery package. The installer checks prior hashes,
 refuses running live processes, backs up affected software and has a separate
 rollback. It does not modify client/cache revision, RSA or playerdata.
-Owner paired-client checks: normal ranged/prayer, acid with no/partial/full T5,
-move out of spit/jump/spawns, repeated attacks after landing, leave/re-enter,
-and loot/KC/log progression. No owner visual acceptance is claimed yet.
+The requested paired-client checks were normal ranged/prayer, acid with
+no/partial/full T5, movement out of spit/jump/spawns, repeated attacks after
+landing, leave/re-enter and loot/KC/log progression. The owner accepted the
+provided result on **2026-10-10** with “perfect. update en merge”. This records
+owner acceptance, not a claim that Codex independently observed every scenario.
+
+A subsequent read-only installation audit (`verify_shamans_package.py --installed`)
+confirmed all **29 payload targets and 985 prerequisites**, the backup and the
+candidate cache fingerprint. The accepted live files match the tested package;
+no rebuild, reinstall or gameplay modification was performed for closeout.
+The agreed ordinary Shaman extension is complete. Raids variants, diary/Slayer-
+helm substitution and extraction of exact OSRS probabilities remain outside
+this bounded feature.
 
 
 ## Merge evidence
@@ -115,4 +126,6 @@ and loot/KC/log progression. No owner visual acceptance is claimed yet.
 `02361e283f8f7f83e131e890cc77e0ba2f1668d7`. Both resolve to tree
 `577a086c7579c1753dc3cc510e61aa9ed66a96e1`. GitHub reported mergeable/clean,
 zero commit statuses and zero Actions runs; the validation above is local.
-Live installation remains the owner's next step using the guarded package.
+The owner installed and accepted the guarded package on 2026-10-10; its
+installed target hashes were independently verified during closeout. The two
+merged feature branches were already removed after ancestry checks.
