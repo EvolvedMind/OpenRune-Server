@@ -1,0 +1,3669 @@
+{
+  "revision": 240,
+  "purpose": "Unresolved native action/phase evidence; not a second progress log. Runtime/visual acceptance is tracked in PROGRESS.md.",
+  "types": 149,
+  "actionSlots": 341,
+  "npcs": [
+    {
+      "id": 413,
+      "npc": "npc.slayer_gargoyle_dead",
+      "name": "Gargoyle",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 561,
+      "npc": "npc.brain_sawbones_1",
+      "name": "Sorebones",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "brain_sawbones_ready",
+        "brain_sawbones_walk"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 562,
+      "npc": "npc.brain_sawbones_2",
+      "name": "Sorebones",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "brain_sawbones_ready",
+        "brain_sawbones_walk"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 2910,
+      "npc": "npc.hunting_chinchompa",
+      "name": "Chinchompa",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "hunting_chinchompa_ready",
+        "hunting_chinchompa_walking"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 2911,
+      "npc": "npc.hunting_chinchompa_big",
+      "name": "Carnivorous chinchompa",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "hunting_chinchompa_ready",
+        "hunting_chinchompa_walking"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 2912,
+      "npc": "npc.hunting_chinchompa_black",
+      "name": "Black chinchompa",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "hunting_chinchompa_ready",
+        "hunting_chinchompa_walking"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 3476,
+      "npc": "npc.dream_illusive",
+      "name": "The Illusive",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "dream_illusive_ready",
+        "dream_illusive_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "dream_illusive_defend_p1",
+          "dream_illusive_defend_p2"
+        ]
+      }
+    },
+    {
+      "id": 3696,
+      "npc": "npc.sang_myq3_male_juvenile_held",
+      "name": "Vampyre Juvenile",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 3697,
+      "npc": "npc.sang_myq3_female_juvenile_held",
+      "name": "Vampyre Juvenile",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 3698,
+      "npc": "npc.sang_myq3_male_juvinate_held",
+      "name": "Vampyre Juvinate",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 3699,
+      "npc": "npc.sang_myq3_female_juvinate_held",
+      "name": "Vampyre Juvinate",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 4188,
+      "npc": "npc.ics_little_plague_frog",
+      "name": "null",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "chompy_toad_ready",
+        "chompy_toad_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5886,
+      "npc": "npc.abyssalsire_sire_stasis_sleeping",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "sire_sleeping",
+        "sire_sleeping"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 5887,
+      "npc": "npc.abyssalsire_sire_stasis_awake",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "sire_idle_one",
+        "sire_idle_one"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "sire_attack_spawns",
+          "sire_attack_miasma",
+          "sire_attack_miasma_two",
+          "sire_attack_teleport_player",
+          "sire_attack_right_whip",
+          "sire_attack_double_hook",
+          "sire_attack_double_whips",
+          "sire_attack_spawns_two"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5888,
+      "npc": "npc.abyssalsire_sire_stasis_stunned",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "sire_sleeping",
+        "sire_sleeping"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 5889,
+      "npc": "npc.abyssalsire_sire_puppet",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "sire_idle_two",
+        "sire_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "sire_attack_spawns",
+          "sire_attack_miasma",
+          "sire_attack_miasma_two",
+          "sire_attack_teleport_player",
+          "sire_attack_right_whip",
+          "sire_attack_double_hook",
+          "sire_attack_double_whips",
+          "sire_attack_spawns_two"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5890,
+      "npc": "npc.abyssalsire_sire_wandering",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "sire_idle_two",
+        "sire_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "sire_attack_spawns",
+          "sire_attack_miasma",
+          "sire_attack_miasma_two",
+          "sire_attack_teleport_player",
+          "sire_attack_right_whip",
+          "sire_attack_double_hook",
+          "sire_attack_double_whips",
+          "sire_attack_spawns_two"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5891,
+      "npc": "npc.abyssalsire_sire_panicking",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "sire_idle_three",
+        "sire_idle_three"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "sire_attack_spawns",
+          "sire_attack_miasma",
+          "sire_attack_miasma_two",
+          "sire_attack_teleport_player",
+          "sire_attack_right_whip",
+          "sire_attack_double_hook",
+          "sire_attack_double_whips",
+          "sire_attack_spawns_two"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5908,
+      "npc": "npc.abyssalsire_sire_apocalypse",
+      "name": "Abyssal Sire",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "sire_idle_four",
+        "sire_idle_four"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "sire_attack_spawns",
+          "sire_attack_miasma",
+          "sire_attack_miasma_two",
+          "sire_attack_teleport_player",
+          "sire_attack_right_whip",
+          "sire_attack_double_hook",
+          "sire_attack_double_whips",
+          "sire_attack_spawns_two"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 5914,
+      "npc": "npc.abyssalsire_lung",
+      "name": "Respiratory system",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 6574,
+      "npc": "npc.deadman_guard_gnome_vis",
+      "name": "Gnome guard",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim"
+      ],
+      "movement": [
+        "gnome_ready",
+        "gnome_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "gnome_cast_teleport",
+          "gnome_cast_globes",
+          "gnome_staff_attack",
+          "gnome_mage_attack",
+          "gnome_unarmed_attack"
+        ]
+      }
+    },
+    {
+      "id": 6611,
+      "npc": "npc.vetion",
+      "name": "Vet'ion",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_vetion_idle_01",
+        "npc_vetion_walk_01"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "npc_vetion_defend_parry_01",
+          "npc_vetion_defend_parry_02",
+          "npc_vetion_defend_shield_01",
+          "npc_vetion_defend_shield_02"
+        ]
+      }
+    },
+    {
+      "id": 6612,
+      "npc": "npc.vetion_2",
+      "name": "Vet'ion",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_vetion_idle_02",
+        "npc_vetion_walk_02"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "npc_vetion_defend_parry_01",
+          "npc_vetion_defend_parry_02",
+          "npc_vetion_defend_shield_01",
+          "npc_vetion_defend_shield_02"
+        ]
+      }
+    },
+    {
+      "id": 6699,
+      "npc": "npc.deadman_guard_sophanem_vis",
+      "name": "Guard",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "human_staffready",
+        "human_halberdwalk_f"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7221,
+      "npc": "npc.rat_boss_normal",
+      "name": "Scurrius",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_rat_boss_idle_01",
+        "npc_rat_boss_walk_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_rat_boss_attack_melee_01",
+          "npc_rat_boss_attack_melee_02",
+          "npc_rat_boss_attack_ranged_01",
+          "npc_rat_boss_feeding_attack_ranged_01",
+          "npc_rat_boss_attack_magic_01",
+          "npc_rat_boss_feeding_attack_magic_01",
+          "npc_rat_boss_attack_stomp_01",
+          "npc_rat_boss_feeding_attack_stomp_01",
+          "npc_rat_boss_attack_summon_01",
+          "npc_rat_boss_attack_summon_02",
+          "npc_rat_boss_feeding_attack_summon_01",
+          "npc_rat_boss_feeding_attack_summon_02"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7222,
+      "npc": "npc.rat_boss_instance",
+      "name": "Scurrius",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_rat_boss_idle_01",
+        "npc_rat_boss_walk_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_rat_boss_attack_melee_01",
+          "npc_rat_boss_attack_melee_02",
+          "npc_rat_boss_attack_ranged_01",
+          "npc_rat_boss_feeding_attack_ranged_01",
+          "npc_rat_boss_attack_magic_01",
+          "npc_rat_boss_feeding_attack_magic_01",
+          "npc_rat_boss_attack_stomp_01",
+          "npc_rat_boss_feeding_attack_stomp_01",
+          "npc_rat_boss_attack_summon_01",
+          "npc_rat_boss_attack_summon_02",
+          "npc_rat_boss_feeding_attack_summon_01",
+          "npc_rat_boss_feeding_attack_summon_02"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7288,
+      "npc": "npc.cata_boss_altar_open_n",
+      "name": "Awakened Altar",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "altar_active"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7290,
+      "npc": "npc.cata_boss_altar_open_e",
+      "name": "Awakened Altar",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "altar_active"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7292,
+      "npc": "npc.cata_boss_altar_open_s",
+      "name": "Awakened Altar",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "altar_active"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7294,
+      "npc": "npc.cata_boss_altar_open_w",
+      "name": "Awakened Altar",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "altar_active"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 7408,
+      "npc": "npc.superior_gargoyle_dead",
+      "name": "Marble gargoyle",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7514,
+      "npc": "npc.ma2_guthix_healer",
+      "name": "<col=ff9040>Energy ball</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7526,
+      "npc": "npc.raids_vanguard_walking",
+      "name": "Vanguard",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "vanguard_idle_basic",
+        "vanguard_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "vanguard_defend_magic",
+          "vanguard_defend_melee",
+          "vanguard_defend_ranged"
+        ]
+      }
+    },
+    {
+      "id": 7530,
+      "npc": "npc.raids_vespula_flying",
+      "name": "Vespula",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "vespula_flying",
+        "vespula_flying"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "vespula_attack_ranged",
+          "vespula_attack_melee_flying",
+          "vespula_attack_ranged_flying"
+        ],
+        "defend_anim": [
+          "vespula_defend",
+          "vespula_defend_flying"
+        ]
+      }
+    },
+    {
+      "id": 7531,
+      "npc": "npc.raids_vespula_enraged",
+      "name": "Vespula",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vespula_attack_melee_flying",
+        "vespula_attack_melee_flying"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7532,
+      "npc": "npc.raids_vespula_walking",
+      "name": "Vespula",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim"
+      ],
+      "movement": [
+        "vespula_idle",
+        "vespula_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "vespula_attack_ranged",
+          "vespula_attack_melee_flying",
+          "vespula_attack_ranged_flying"
+        ]
+      }
+    },
+    {
+      "id": 7538,
+      "npc": "npc.raids_vespula_vespine_flying",
+      "name": "Vespine soldier",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "vespula_flying",
+        "vespula_flying"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "vespula_attack_ranged",
+          "vespula_attack_melee_flying",
+          "vespula_attack_ranged_flying"
+        ],
+        "defend_anim": [
+          "vespula_defend",
+          "vespula_defend_flying"
+        ]
+      }
+    },
+    {
+      "id": 7539,
+      "npc": "npc.raids_vespula_vespine_walking",
+      "name": "Vespine soldier",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim"
+      ],
+      "movement": [
+        "vespula_idle",
+        "vespine_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "vespula_attack_ranged",
+          "vespula_attack_melee_flying",
+          "vespula_attack_ranged_flying"
+        ]
+      }
+    },
+    {
+      "id": 7553,
+      "npc": "npc.olm_hand_right",
+      "name": "Great Olm (Right claw)",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7554,
+      "npc": "npc.olm_head",
+      "name": "Great Olm",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7555,
+      "npc": "npc.olm_hand_left",
+      "name": "Great Olm (Left claw)",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7567,
+      "npc": "npc.raids_vasanistirio_healing",
+      "name": "Vasa Nistirio",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vasa_heal_idle",
+        "vasa_heal_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 7802,
+      "npc": "npc.fossil_hoopsnake",
+      "name": "Hoop Snake",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "fossil_npc_hoopsnake_idle",
+        "fossil_npc_hoopsnake_walk"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8060,
+      "npc": "npc.vorkath_quest",
+      "name": "Vorkath",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "ds2_vorkath_idle",
+        "ds2_vorkath_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "ds2_vorkath_defend_up",
+          "ds2_vorkath_defend_down"
+        ]
+      }
+    },
+    {
+      "id": 8061,
+      "npc": "npc.vorkath",
+      "name": "Vorkath",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "ds2_vorkath_idle",
+        "ds2_vorkath_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "ds2_vorkath_defend_up",
+          "ds2_vorkath_defend_down"
+        ]
+      }
+    },
+    {
+      "id": 8096,
+      "npc": "npc.galvek_water",
+      "name": "Galvek",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "galvek_flight_ready",
+        "galvek_flight_ready"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8097,
+      "npc": "npc.galvek_wind",
+      "name": "Galvek",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "galvek_flight_ready",
+        "galvek_flight_ready"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8359,
+      "npc": "npc.tob_bloat",
+      "name": "Pestilent Bloat",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_bloat_ready",
+        "tob_bloat_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8366,
+      "npc": "npc.maiden_elemental",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8367,
+      "npc": "npc.maiden_blood_slug",
+      "name": "Blood spawn",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_blood_spawn_idle",
+        "tob_blood_spawn_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8384,
+      "npc": "npc.tob_verzik_phase2_armourednylocas",
+      "name": "Nylocas Athanatos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_spider_tank_idle",
+        "tob_spider_tank_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8385,
+      "npc": "npc.tob_verzik_phase2_bloodnylocas",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8609,
+      "npc": "npc.hydra",
+      "name": "Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "hydra_lesser_ready",
+        "hydra_lesser_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_lesser_attack_ranged",
+          "hydra_lesser_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8615,
+      "npc": "npc.hydraboss",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hydra_stage_1_ready",
+        "hydra_stage_1_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_1_attack_ranged",
+          "hydra_stage_1_attack_magic",
+          "hydra_stage_1_switch_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8616,
+      "npc": "npc.hydraboss_p1_transition",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8617,
+      "npc": "npc.hydraboss_p2_transition",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hydra_stage_2_ready",
+        "hydra_stage_2_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_2_attack_ranged",
+          "hydra_stage_2_attack_magic",
+          "hydra_stage_2_switch_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8618,
+      "npc": "npc.hydraboss_p3_transition",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hydra_stage_3_ready",
+        "hydra_stage_3_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_3_attack_ranged",
+          "hydra_stage_3_attack_magic",
+          "hydra_stage_3_switch_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8619,
+      "npc": "npc.hydraboss_4",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hydra_stage_2_ready",
+        "hydra_stage_2_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_2_attack_ranged",
+          "hydra_stage_2_attack_magic",
+          "hydra_stage_2_switch_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8620,
+      "npc": "npc.hydraboss_3",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hydra_stage_3_ready",
+        "hydra_stage_3_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_3_attack_ranged",
+          "hydra_stage_3_attack_magic",
+          "hydra_stage_3_switch_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 8621,
+      "npc": "npc.hydraboss_2",
+      "name": "Alchemical Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "hydra_stage_4_ready",
+        "hydra_stage_4_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "hydra_stage_4_attack_magic",
+          "hydra_stage_4_attack_ranged",
+          "hydra_stage_4_switch_attack"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 8921,
+      "npc": "npc.dark_seren_healer",
+      "name": "<col=00ffff>Crystal Whirlwind</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "hunllef_tornado_proj",
+        "hunllef_tornado_proj"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 9452,
+      "npc": "npc.nightmare_parasite",
+      "name": "Parasite",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "nightmare_parasite_idle",
+        "nightmare_parasite_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "nightmare_parasite_attack_ranged",
+          "nightmare_parasite_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 9453,
+      "npc": "npc.nightmare_parasite_weak",
+      "name": "Parasite",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "nightmare_parasite_idle",
+        "nightmare_parasite_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "nightmare_parasite_attack_ranged",
+          "nightmare_parasite_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 9468,
+      "npc": "npc.nightmare_challenge_parasite",
+      "name": "Parasite",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "nightmare_parasite_idle",
+        "nightmare_parasite_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "nightmare_parasite_attack_ranged",
+          "nightmare_parasite_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 9469,
+      "npc": "npc.nightmare_challenge_parasite_weak",
+      "name": "Parasite",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "nightmare_parasite_idle",
+        "nightmare_parasite_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "nightmare_parasite_attack_ranged",
+          "nightmare_parasite_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 9569,
+      "npc": "npc.myq5_vanstrom_combat",
+      "name": "Vanstrom Klause",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vyrelord_ready",
+        "vyrelord_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "vyrelord_ground_defend_female",
+          "vyrelord_ground_defend_male",
+          "vyrelord_vanstrom_klaus_defend"
+        ],
+        "death_anim": [
+          "vyrelord_grounded_death",
+          "vyrelord_obliterate_death"
+        ]
+      }
+    },
+    {
+      "id": 9571,
+      "npc": "npc.myq5_vanstrom_combat_enrage",
+      "name": "Vanstrom Klause",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vyrelord_ready",
+        "vyrelord_walk"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "vyrelord_ground_defend_female",
+          "vyrelord_ground_defend_male",
+          "vyrelord_vanstrom_klaus_defend"
+        ],
+        "death_anim": [
+          "vyrelord_grounded_death",
+          "vyrelord_obliterate_death"
+        ]
+      }
+    },
+    {
+      "id": 9729,
+      "npc": "npc.darkm_juvinate_01_held",
+      "name": "Vampyre Juvinate",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 9730,
+      "npc": "npc.darkm_juvinate_02_held",
+      "name": "Vampyre Juvinate",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 9733,
+      "npc": "npc.darkm_juvenile_01_held",
+      "name": "Vampyre Juvenile",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 9734,
+      "npc": "npc.darkm_juvenile_02_held",
+      "name": "Vampyre Juvenile",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "myq3_juvinate_juvenile_holding_capture_loop"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 10402,
+      "npc": "npc.superior_hydra",
+      "name": "Colossal Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "superior_hydra_idle",
+        "superior_hydra_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "superior_hydra_attack_ranged",
+          "superior_hydra_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10812,
+      "npc": "npc.tob_bloat_story",
+      "name": "Pestilent Bloat",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_bloat_ready",
+        "tob_bloat_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10813,
+      "npc": "npc.tob_bloat_hard",
+      "name": "Pestilent Bloat",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_bloat_ready",
+        "tob_bloat_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10820,
+      "npc": "npc.maiden_elemental_story",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10821,
+      "npc": "npc.maiden_blood_slug_story",
+      "name": "Blood spawn",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_blood_spawn_idle",
+        "tob_blood_spawn_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10828,
+      "npc": "npc.maiden_elemental_hard",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10829,
+      "npc": "npc.maiden_blood_slug_hard",
+      "name": "Blood spawn",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_blood_spawn_idle",
+        "tob_blood_spawn_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10844,
+      "npc": "npc.tob_verzik_phase2_armourednylocas_story",
+      "name": "Nylocas Athanatos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_spider_tank_idle",
+        "tob_spider_tank_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10845,
+      "npc": "npc.tob_verzik_phase2_bloodnylocas_story",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10861,
+      "npc": "npc.tob_verzik_phase2_armourednylocas_hard",
+      "name": "Nylocas Athanatos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_spider_tank_idle",
+        "tob_spider_tank_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10862,
+      "npc": "npc.tob_verzik_phase2_bloodnylocas_hard",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 10955,
+      "npc": "npc.akd_xamphur_combat",
+      "name": "Xamphur",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_xamphur_combat_idle",
+        "npc_xamphur_combat_idle"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 10956,
+      "npc": "npc.akd_xamphur_combat_nohands",
+      "name": "Xamphur",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_xamphur_combat_idle",
+        "npc_xamphur_combat_idle"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11199,
+      "npc": "npc.deadman_guard_gnome_range_vis",
+      "name": "Gnome guard",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim"
+      ],
+      "movement": [
+        "gnome_ready",
+        "gnome_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "gnome_cast_teleport",
+          "gnome_cast_globes",
+          "gnome_staff_attack",
+          "gnome_mage_attack",
+          "gnome_unarmed_attack"
+        ]
+      }
+    },
+    {
+      "id": 11485,
+      "npc": "npc.bcs_champion_rift",
+      "name": "<col=00ffff>Shadow Rift</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "bcs_rift_idle",
+        "bcs_rift_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11586,
+      "npc": "npc.ics_little_plague_frog_vis",
+      "name": "Plague frog",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "chompy_toad_ready",
+        "chompy_toad_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 11719,
+      "npc": "npc.toa_kephri_boss_shielded",
+      "name": "Kephri",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_kephri_idle",
+        "npc_kephri_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_kephri_attack_ranged",
+          "npc_kephri_attack_ranged_radial",
+          "npc_kephri_attack_magic_radial"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 11721,
+      "npc": "npc.toa_kephri_boss_enrage",
+      "name": "Kephri",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_kephri_idle",
+        "npc_kephri_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_kephri_attack_ranged",
+          "npc_kephri_attack_ranged_radial",
+          "npc_kephri_attack_magic_radial"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 11723,
+      "npc": "npc.toa_kephri_shield_scarab",
+      "name": "Scarab Swarm",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_swarm01_scarab01_idle01",
+        "npc_swarm01_scarab01_idle01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 11728,
+      "npc": "npc.kephri_egg_explode",
+      "name": "<col=00ffff>Egg</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11729,
+      "npc": "npc.kephri_egg_hatch",
+      "name": "<col=00ffff>Egg</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11736,
+      "npc": "npc.toa_zebak_jug_rolling",
+      "name": "<col=00ffff>Jug</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "boulder_rolling"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11751,
+      "npc": "npc.toa_wardens_p1_obelisk_npc",
+      "name": "<col=00ffff>Obelisk</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "fx_obelisk_wardens_phase01_idle01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11763,
+      "npc": "npc.toa_warden_elidinis_phase3_charging",
+      "name": "Elidinis' Warden",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_wardens_charging01",
+        "npc_wardens_charging01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11764,
+      "npc": "npc.toa_warden_tumeken_phase3_charging",
+      "name": "Tumeken's Warden",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_wardens_charging01",
+        "npc_wardens_charging01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11770,
+      "npc": "npc.toa_warden_tumeken_core",
+      "name": "<col=00ffff>Core</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "spotanim_wardens01_core01_beat01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11771,
+      "npc": "npc.toa_warden_elidinis_core",
+      "name": "<col=00ffff>Core</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "spotanim_wardens01_core01_beat01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11772,
+      "npc": "npc.wardens_p3_orb_blue",
+      "name": "<col=00ffff>Energy Siphon</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "fx_wardens_energy_grounded01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11780,
+      "npc": "npc.toa_baba_digging",
+      "name": "Ba-Ba",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_mandrill_attack_special_idle01",
+        "npc_mandrill_walk01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_mandrill_attack_melee",
+          "npc_mandrill_attack_ranged_01",
+          "npc_mandrill_attack_ranged_02",
+          "npc_mandrill_attack_magic",
+          "npc_mandrill_attack_magic_02"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11782,
+      "npc": "npc.toa_baba_boulder",
+      "name": "<col=00ffff>Boulder</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "toa_boulder_rolling",
+        "toa_boulder_rolling"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11783,
+      "npc": "npc.toa_baba_boulder_weak",
+      "name": "<col=00ffff>Boulder</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "toa_boulder_rolling",
+        "toa_boulder_rolling"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 11993,
+      "npc": "npc.vetion_single",
+      "name": "Calvar'ion",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_vetion_idle_01",
+        "npc_vetion_walk_01"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "npc_vetion_defend_parry_01",
+          "npc_vetion_defend_parry_02",
+          "npc_vetion_defend_shield_01",
+          "npc_vetion_defend_shield_02"
+        ]
+      }
+    },
+    {
+      "id": 11994,
+      "npc": "npc.vetion_2_single",
+      "name": "Calvar'ion",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_vetion_idle_02",
+        "npc_vetion_walk_02"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [
+          "npc_vetion_defend_parry_01",
+          "npc_vetion_defend_parry_02",
+          "npc_vetion_defend_shield_01",
+          "npc_vetion_defend_shield_02"
+        ]
+      }
+    },
+    {
+      "id": 12025,
+      "npc": "npc.general_khazard",
+      "name": "General Khazard",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle04",
+        "mahjarrat_walk_forward04"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "mahjarrat_attack_melee01",
+          "mahjarrat_attack_magic01",
+          "mahjarrat_attack_summon01",
+          "mahjarrat_attack_melee02",
+          "mahjarrat_attack_magic02",
+          "mahjarrat_attack_summon02",
+          "mahjarrat_attack_melee03",
+          "mahjarrat_attack_magic03",
+          "mahjarrat_attack_summon03",
+          "mahjarrat_attack_magic04",
+          "mahjarrat_attack_summon04",
+          "mahjarrat_attack_melee_slash01",
+          "mahjarrat_attack_melee_crush01",
+          "mahjarrat_attack_magic_05",
+          "mahjarrat_attack_melee_stab_01",
+          "mahjarrat_attack_summon05",
+          "mahjarrat_attack_stab02",
+          "mahjarrat_attack_magic06",
+          "mahjarrat_attack_summon_06",
+          "mahjarrat_attack_lightning05",
+          "mahjarrat_attack_lightning05_silent",
+          "mahjarrat_attack_summon_undead05"
+        ],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12081,
+      "npc": "npc.muspah_teleport_quest",
+      "name": "Strange Creature",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_muspah_teleport_appear_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12125,
+      "npc": "npc.osb10_toa_kephri_cutscene",
+      "name": "Kephri",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_kephri_idle",
+        "npc_kephri_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_kephri_attack_ranged",
+          "npc_kephri_attack_ranged_radial",
+          "npc_kephri_attack_magic_radial"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12191,
+      "npc": "npc.duke_sucellus_awake",
+      "name": "Duke Sucellus",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_duke_sucellus01_rig_idle_awake_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12195,
+      "npc": "npc.duke_sucellus_awake_quest",
+      "name": "Duke Sucellus",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_duke_sucellus01_rig_idle_awake_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12204,
+      "npc": "npc.whisperer",
+      "name": "The Whisperer",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_whisperer_01_idle_01",
+        "npc_whisperer_01_walk_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_whisperer_01_attack_melee_01",
+          "npc_whisperer_01_attack_ranged_01",
+          "npc_whisperer_01_attack_ranged_02",
+          "npc_whisperer_01_attack_ranged_03",
+          "npc_whisperer_01_attack_ranged_04",
+          "npc_whisperer_01_attack_ranged_05",
+          "npc_whisperer_01_attack_ranged_06",
+          "npc_whisperer_01_attack_magic_01",
+          "npc_whisperer_01_attack_magic_02",
+          "npc_whisperer_01_attack_magic_03",
+          "npc_whisperer_01_attack_magic_04",
+          "npc_whisperer_01_attack_magic_05",
+          "npc_whisperer_01_attack_magic_06",
+          "npc_whisperer_01_attack_screech_01_start",
+          "npc_whisperer_01_attack_screech_01_end",
+          "npc_whisperer_01_attack_screech_01_end_pet",
+          "npc_whisperer_01_teleport_summon_souls_01_attack"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12205,
+      "npc": "npc.whisperer_melee",
+      "name": "The Whisperer",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_whisperer_01_idle_01",
+        "npc_whisperer_01_walk_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_whisperer_01_attack_melee_01",
+          "npc_whisperer_01_attack_ranged_01",
+          "npc_whisperer_01_attack_ranged_02",
+          "npc_whisperer_01_attack_ranged_03",
+          "npc_whisperer_01_attack_ranged_04",
+          "npc_whisperer_01_attack_ranged_05",
+          "npc_whisperer_01_attack_ranged_06",
+          "npc_whisperer_01_attack_magic_01",
+          "npc_whisperer_01_attack_magic_02",
+          "npc_whisperer_01_attack_magic_03",
+          "npc_whisperer_01_attack_magic_04",
+          "npc_whisperer_01_attack_magic_05",
+          "npc_whisperer_01_attack_magic_06",
+          "npc_whisperer_01_attack_screech_01_start",
+          "npc_whisperer_01_attack_screech_01_end",
+          "npc_whisperer_01_attack_screech_01_end_pet",
+          "npc_whisperer_01_teleport_summon_souls_01_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": [
+          "npc_whisperer_01_death_01",
+          "npc_whisperer_01_death_02",
+          "npc_whisperer_01_death_02_pet"
+        ]
+      }
+    },
+    {
+      "id": 12212,
+      "npc": "npc.whisperer_soul_vulnerable",
+      "name": "Lost Soul",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "ghost_update_tendrill_ready",
+        "ghost_update_tendrill_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "ghost_update_tendrill_attack"
+        ],
+        "defend_anim": [
+          "ghost_update_tendrill_defend"
+        ]
+      }
+    },
+    {
+      "id": 12214,
+      "npc": "npc.leviathan",
+      "name": "The Leviathan",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_leviathan_01_idle_01",
+        "npc_leviathan_01_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_leviathan_01_melee_01",
+          "npc_leviathan_01_melee_02"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12223,
+      "npc": "npc.vardorvis",
+      "name": "Vardorvis",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_vardorvis_01_idle_01",
+        "npc_vardorvis_01_walk_forward_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_vardorvis_01_melee_01"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12288,
+      "npc": "npc.dt2_strangled_bear",
+      "name": "Strangled Bear",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "peng_polar_bear_ready",
+        "bear_headless_beast_walk"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12334,
+      "npc": "npc.dt2_wight_persten_portal",
+      "name": "<col=00ffff>Portal</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "prif_agility_shortcut_portal_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12353,
+      "npc": "npc.dt2_jhallan_chase",
+      "name": "Jhallan",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle03",
+        "mahjarrat_walk_forward03"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12354,
+      "npc": "npc.dt2_jhallan_combat",
+      "name": "Jhallan",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle03",
+        "mahjarrat_walk_forward03"
+      ],
+      "nativeCandidates": {
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12579,
+      "npc": "npc.league_superior_gargoyle_dead",
+      "name": "Bloodthirsty gargoyle",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 12588,
+      "npc": "npc.league_superior_hydra",
+      "name": "Bloodthirsty Hydra",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "superior_hydra_idle",
+        "superior_hydra_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "superior_hydra_attack_ranged",
+          "superior_hydra_attack_magic"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 12825,
+      "npc": "npc.colosseum_healing_totem",
+      "name": "Healing totem",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_colosseum_totem_idle_01",
+        "npc_colosseum_totem_idle_01"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13011,
+      "npc": "npc.pmoon_boss_blood_moon_vis",
+      "name": "Blood Moon",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13012,
+      "npc": "npc.pmoon_boss_eclipse_moon_vis",
+      "name": "Eclipse Moon",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13013,
+      "npc": "npc.pmoon_boss_blue_moon_vis",
+      "name": "Blue Moon",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13022,
+      "npc": "npc.pmoon_boss_icicle_1",
+      "name": "null",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13023,
+      "npc": "npc.pmoon_boss_icicle_2",
+      "name": "null",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13024,
+      "npc": "npc.pmoon_boss_icicle_3",
+      "name": "null",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13025,
+      "npc": "npc.pmoon_boss_icicle_uncracked",
+      "name": "<col=00ffff>Frozen weapons</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13026,
+      "npc": "npc.pmoon_boss_icicle_cracked",
+      "name": "<col=00ffff>Cracked ice</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_03"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [
+          "vfx_djinn_blue_ice_block_spawn_01",
+          "vfx_djinn_blue_ice_block_idle_02",
+          "vfx_djinn_blue_ice_block_cracking_01",
+          "vfx_djinn_blue_ice_block_uncracked_01",
+          "vfx_djinn_blue_ice_block_idle_03",
+          "vfx_djinn_blue_ice_block_explode_01"
+        ],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13505,
+      "npc": "npc.earth_surge_raised",
+      "name": "<col=00ffff>Earth spell</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "wgs_surok_surge_earth01",
+        "wgs_surok_surge_earth01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13506,
+      "npc": "npc.water_surge_raised",
+      "name": "<col=00ffff>Water spell</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "wgs_surok_surge_water01",
+        "wgs_surok_surge_water01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13507,
+      "npc": "npc.fire_surge_raised",
+      "name": "<col=00ffff>Fire spell</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "wgs_surok_surge_fire01",
+        "wgs_surok_surge_fire01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13508,
+      "npc": "npc.wind_surge_raised",
+      "name": "<col=00ffff>Wind spell</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "wgs_surok_surge_wind01",
+        "wgs_surok_surge_wind01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 13685,
+      "npc": "npc.amoxliatl",
+      "name": "Amoxliatl",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "existing"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "amoxliatl_idle",
+        "amoxliatl_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "amoxliatl_attack",
+          "amoxliatl_pet_attack"
+        ],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 13688,
+      "npc": "npc.amoxliatl_ice_block",
+      "name": "<col=00ffff>Unstable ice</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "vfx_djinn_blue_ice_block_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 14009,
+      "npc": "npc.huey_head",
+      "name": "The Hueycoatl",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "huey_idle"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 14011,
+      "npc": "npc.huey_head_invulnerable",
+      "name": "The Hueycoatl",
+      "actions": {
+        "attack_anim": "mapped",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "huey_shield_idle"
+      ],
+      "nativeCandidates": {
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 14014,
+      "npc": "npc.huey_tail",
+      "name": "Hueycoatl tail",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_huey_tail_idle_01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 14017,
+      "npc": "npc.huey_body_part",
+      "name": "Hueycoatl body",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 14179,
+      "npc": "npc.yama_voidflare",
+      "name": "Void Flare",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "npc_voidflare_idle",
+        "npc_voidflare_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 14779,
+      "npc": "npc.gemstone_crab",
+      "name": "Gemstone Crab",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "crab_boss_idle"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "crab_boss_attack"
+        ],
+        "defend_anim": [],
+        "death_anim": [
+          "crab_boss_death"
+        ]
+      }
+    },
+    {
+      "id": 15237,
+      "npc": "npc.deadman_breach_lucien",
+      "name": "Zemouregal",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle_05",
+        "mahjarrat_walk_forward_05"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "mahjarrat_attack_melee01",
+          "mahjarrat_attack_magic01",
+          "mahjarrat_attack_summon01",
+          "mahjarrat_attack_melee02",
+          "mahjarrat_attack_magic02",
+          "mahjarrat_attack_summon02",
+          "mahjarrat_attack_melee03",
+          "mahjarrat_attack_magic03",
+          "mahjarrat_attack_summon03",
+          "mahjarrat_attack_magic04",
+          "mahjarrat_attack_summon04",
+          "mahjarrat_attack_melee_slash01",
+          "mahjarrat_attack_melee_crush01",
+          "mahjarrat_attack_magic_05",
+          "mahjarrat_attack_melee_stab_01",
+          "mahjarrat_attack_summon05",
+          "mahjarrat_attack_stab02",
+          "mahjarrat_attack_magic06",
+          "mahjarrat_attack_summon_06",
+          "mahjarrat_attack_lightning05",
+          "mahjarrat_attack_lightning05_silent",
+          "mahjarrat_attack_summon_undead05"
+        ],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 15556,
+      "npc": "npc.deadman_breach_bloat",
+      "name": "Pestilent Bloat",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_bloat_ready",
+        "tob_bloat_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 15563,
+      "npc": "npc.deadman_breach_khazard_minion",
+      "name": "Zemouregal Summon",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle04",
+        "mahjarrat_walk_forward04"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "mahjarrat_attack_melee01",
+          "mahjarrat_attack_magic01",
+          "mahjarrat_attack_summon01",
+          "mahjarrat_attack_melee02",
+          "mahjarrat_attack_magic02",
+          "mahjarrat_attack_summon02",
+          "mahjarrat_attack_melee03",
+          "mahjarrat_attack_magic03",
+          "mahjarrat_attack_summon03",
+          "mahjarrat_attack_magic04",
+          "mahjarrat_attack_summon04",
+          "mahjarrat_attack_melee_slash01",
+          "mahjarrat_attack_melee_crush01",
+          "mahjarrat_attack_magic_05",
+          "mahjarrat_attack_melee_stab_01",
+          "mahjarrat_attack_summon05",
+          "mahjarrat_attack_stab02",
+          "mahjarrat_attack_magic06",
+          "mahjarrat_attack_summon_06",
+          "mahjarrat_attack_lightning05",
+          "mahjarrat_attack_lightning05_silent",
+          "mahjarrat_attack_summon_undead05"
+        ],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 15564,
+      "npc": "npc.deadman_chest_zemouregal",
+      "name": "Zemouregal",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "mapped",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "mahjarrat_idle_05",
+        "mahjarrat_walk_forward_05"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "mahjarrat_attack_melee01",
+          "mahjarrat_attack_magic01",
+          "mahjarrat_attack_summon01",
+          "mahjarrat_attack_melee02",
+          "mahjarrat_attack_magic02",
+          "mahjarrat_attack_summon02",
+          "mahjarrat_attack_melee03",
+          "mahjarrat_attack_magic03",
+          "mahjarrat_attack_summon03",
+          "mahjarrat_attack_magic04",
+          "mahjarrat_attack_summon04",
+          "mahjarrat_attack_melee_slash01",
+          "mahjarrat_attack_melee_crush01",
+          "mahjarrat_attack_magic_05",
+          "mahjarrat_attack_melee_stab_01",
+          "mahjarrat_attack_summon05",
+          "mahjarrat_attack_stab02",
+          "mahjarrat_attack_magic06",
+          "mahjarrat_attack_summon_06",
+          "mahjarrat_attack_lightning05",
+          "mahjarrat_attack_lightning05_silent",
+          "mahjarrat_attack_summon_undead05"
+        ],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 15993,
+      "npc": "npc.myq6_maiden_elemental",
+      "name": "Nylocas Matomenos",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "elemental_idle",
+        "elemental_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 15994,
+      "npc": "npc.myq6_maiden_blood_slug",
+      "name": "Blood spawn",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "mapped"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim"
+      ],
+      "movement": [
+        "tob_blood_spawn_idle",
+        "tob_blood_spawn_walk"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": []
+      }
+    },
+    {
+      "id": 16212,
+      "npc": "npc.safalaan_wyrd",
+      "name": "Wyrd",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "npc_wyrd01_ready01",
+        "npc_wyrd01_walk01"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [
+          "npc_wyrd01_punch_right",
+          "npc_wyrd01_punch_left"
+        ],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    },
+    {
+      "id": 16251,
+      "npc": "npc.myq6_bridge_defence_portal",
+      "name": "<col=00ffff>Portal</col>",
+      "actions": {
+        "attack_anim": "open",
+        "defend_anim": "open",
+        "death_anim": "open"
+      },
+      "missing": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "movement": [
+        "portal_vampyrium01_idle02",
+        "portal_vampyrium01_idle02"
+      ],
+      "nativeCandidates": {
+        "attack_anim": [],
+        "defend_anim": [],
+        "death_anim": []
+      }
+    }
+  ]
+}

@@ -3,44 +3,147 @@
   "attackableNpcTypes": 3993,
   "actionSlots": 11979,
   "counts": {
-    "mapped": 10217,
-    "no_named_native_block": 315,
-    "open": 1143,
-    "existing": 304
+    "mapped": 10668,
+    "no_named_native_block": 385,
+    "reviewed_existing_script_route": 16,
+    "accepted_existing_script_route": 95,
+    "existing": 304,
+    "open": 341,
+    "runtime_combat_form": 32,
+    "runtime_non_retaliating_target": 40,
+    "static_no_block": 40,
+    "runtime_static_removal": 30,
+    "runtime_multipart_death": 28
   },
-  "technicalActionCoveragePercent": 90.46,
-  "fullyMappedNpcTypes": 3506,
+  "technicalActionCoveragePercent": 97.15,
+  "fullyMappedNpcTypes": 3844,
   "measurement": "attack, block, death; excludes visual acceptance and new boss special/phase mechanics",
   "patches": {
-    "npcDefinitions": 3635,
+    "npcDefinitions": 3749,
     "parameters": {
-      "attack_anim": 3499,
-      "defend_anim": 3166,
-      "death_anim": 3555
+      "attack_anim": 3673,
+      "defend_anim": 3298,
+      "death_anim": 3700
     },
     "runemonk": {
       "sequences": 14513,
       "confirmedParameters": {
-        "attack_anim": 3425,
-        "defend_anim": 3147,
-        "death_anim": 3473
+        "attack_anim": 3582,
+        "defend_anim": 3277,
+        "death_anim": 3609
       }
     }
   },
   "preservation": {
     "revision": 240,
     "npcDefinitionsChecked": 16579,
-    "patchedNpcs": 3635,
-    "parametersAdded": 10220,
+    "patchedNpcs": 3749,
+    "parametersAdded": 10671,
     "statsModelsAndOtherParametersPreserved": true,
     "clientSequencesAndTimingsPreserved": true
   },
+  "lifecycleValidation": {
+    "revision": 240,
+    "nativePositiveDurationBindings": 225,
+    "multipartDeathTypes": 29,
+    "spawnTransitionTypes": 56,
+    "combatTransitionTypes": 11,
+    "staticTargetTypes": 40,
+    "sourceHashesVerified": true,
+    "visualAcceptance": false
+  },
+  "tests": {
+    "content/other/npc-animations": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "api/combat/combat-scripts": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/other/treasure-trails": {
+      "tests": 132,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/tormented-demon": {
+      "tests": 51,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/doom-of-mokhaiotl": {
+      "tests": 43,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/demonic-gorilla": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/other/special-weapons": {
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/araxxor": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/kraken": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/corporeal-beast": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "content/bosses/barrows": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "visualAcceptance": false,
+  "remainingEvidence": "npc-animation-open-actions.json",
+  "installedSnapshot": "The earlier 90.46% data-only package was independently detected as installed; the lifecycle candidate has not been installed.",
   "packagePreservation": {
     "revision": 240,
     "npcDefinitionsChecked": 16579,
-    "patchedNpcs": 3635,
-    "parametersAdded": 10220,
+    "patchedNpcs": 3749,
+    "parametersAdded": 10671,
     "statsModelsAndOtherParametersPreserved": true,
     "clientSequencesAndTimingsPreserved": true
+  },
+  "isolatedBoot": {
+    "passed": true,
+    "exitCode": 0,
+    "serverSha256": "b77f21ea4cc53c3aaddb368f274f20450be430633f7288199ba0724a3d32403f",
+    "cacheSha256": "a980ae572d7c7d64c8c9d6d104a0e592dd68970ec0ddde4c2fa968f947449a9e",
+    "runtimeMappingSha256": "9e6d4a59e6340504dcc6bdd315425b965de0c27df12d667811d13147b1364c0f",
+    "postgresPidFileAbsent": true
+  },
+  "testPackage": {
+    "path": "outputs/npc-animations-lifecycle-20261010",
+    "payloads": 17,
+    "prerequisites": 979,
+    "installed": false,
+    "rollback": "installed 90.46% snapshot"
   }
 }

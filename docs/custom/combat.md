@@ -18,90 +18,125 @@ Boss DSL and stats/bonuses. Preserve current behaviour while evaluating any repl
 
 ## Ordinary NPC combat animations
 
-Revision-240 import, measured **2026-10-10** against accepted `main` commit
-`66f18993d`. The owner supplied RuneMonk-Data after identifying incomplete combat
-animations. The native cache remains the authority for IDs, skeletons and timing.
+Revision-240 import and lifecycle routes, measured **2026-10-10** against accepted
+`main` **66f18993d**. Native IDs, framebases, models and timings remain authoritative;
+the RuneMonk reference cache is never installed over the accepted cache.
 
-The dedicated [parameter pack](../../content/other/npc-animations/pack/src/main/resources/pack/configs/npc-combat-animations.toml)
-adds **10,220 missing parameters to 3,635 definitions**: 3,499 attacks, 3,166 blocks
-and 3,555 deaths. This includes non-attackable active transform definitions.
-The generic attack, incoming-hit and death producers consume these existing
-parameters; no combat dispatcher or global animation default is changed.
+The [parameter pack](../../content/other/npc-animations/pack/src/main/resources/pack/configs/npc-combat-animations.toml)
+adds **10,671 missing parameters to 3,749 definitions**: 3,673 attacks, 3,298 blocks
+and 3,700 deaths. Three additions belong to non-Attack active transform children.
+Existing animation parameters are not replaced. The KBD attack script and the
+three GWD attack scripts stay intact; only their missing ordinary block/death
+roles are filled where explicitly allowed by the importer.
 
-Measurement uses **3,993 Attack-option NPC types / 11,979 action slots**:
-10,217 new mappings, 304 existing parameters, 315 reviewed named families without
-a block, and **1,143 open slots**. This is **90.46% technical action coverage**.
-**3,506 / 3,993 types** have all three roles accounted for; this is 87.80% of types,
-not 90% completed encounters. Named-family absence is retained explicitly for
-visual review. Untouched script-owned boss actions are conservatively left open
-in this numerical measurement unless their parameter was already explicit.
-The [machine-readable measurement](npc-animation-evidence.json) records the inputs
-and preservation checks. Status and remaining work are in [PROGRESS.md](../../PROGRESS.md).
+The [runtime module](../../content/other/npc-animations/src/main/kotlin/org/rsmod/content/other/npc/animations)
+adds bounded, native visual routes:
 
-The reported clue guards now use the Armadyl cannon/block/death and armed-ork
-attack/block/death families. Jaguars, cubs and dark jaguars use native lynx attack
-and death; incoming hits introduce no human block. Additional groups include
-ordinary animals, Slayer creatures, demons, goblins, skeletons, gnomes, TzHaar,
-Armadyl variants and humans carrying verified swords, axes, bows, spears, staves
-and blunt weapons. TzHaar-Xil ring meshes are distinguished from melee weapons.
+- **56 spawn forms:** 54 Lumberjack emergence variants and two Temple Trekking
+  tentacle variants. Native form/sequence changes precede the active body. Each
+  part waits its own native duration and guards the real attack cooldown; NPC
+  identity, HP and coordinates remain.
+- **11 combat forms:** five ground Wyrms, the Killerwatt ball and five shadow
+  shades enter their active body on a real hit. Death/despawn/foreign form changes
+  cancel remaining work. The accepted Fiyr validation hook stays unchanged.
+- **29 multipart deaths:** Xarpus, Jormungand, 24 Maiden variants and Maggot King.
+  Maiden uses its two native corpse meshes as well as the corresponding sequence
+  parts. The original visual type is restored before reward attribution.
+- **40 non-retaliating props:** dummies, barricades, portals, webs, flowers and
+  reviewed static targets suppress human attack fallback. Named portal/flower
+  deaths are retained; truly unanimated targets use native removal/rewards.
 
-### Evidence and source decision
+A small optional extension in [NpcDeath](../../api/death/src/main/kotlin/org/rsmod/api/death/NpcDeath.kt)
+plays multipart sequences/forms before the existing removal, drop and respawn
+route. Existing public death entry points retain their signatures and default
+behaviour. No body-customisation packet or replacement model is introduced.
 
-The user package supplies **14,513 sequence entries**; **14,408** agree with the
-accepted cache's decoded framebase. Of the names, 12,156 match, 2,314 are absent,
-and 43 differ. Old labels and unlabelled entries never overwrite native gamevals.
-The earlier NPC dump and PossibleAnimations list supply movement/candidate
-information rather than authoritative combat-role assignments.
+### Measurement and remaining evidence
 
-[Upstream NPC configuration](https://github.com/OpenRune/OpenRune-Server/blob/ed27808014f232cefd8087fc956fc08e6292c2b7/.data/raw-cache/server/npcs.toml)
-and [PR #216](https://github.com/OpenRune/OpenRune-Server/pull/216), head
-`375581c32314973d7de6a04e5e7f3713ef429f22`, were reviewed. The latter is closed,
-unmerged, and includes a large mixed content drop; its reviews do not establish
-complete NPC animation acceptance. Existing ordinary-family examples support the
-native parameter route, but neither source provides a verified 99% NPC-to-action
-catalogue. Keep this fork's accepted implementations and build bounded missing
-parameter overlays rather than import the broad upstream content drop.
+**3,993 Attack-option NPC types / 11,979 attack, block and death slots**:
 
-The official [RuneLite ModelLoader](https://github.com/runelite/runelite/blob/master/cache/src/main/java/net/runelite/cache/definitions/loaders/ModelLoader.java)
-is used through its published 1.13.1 offline decoder. Exact triangle geometry
-identifies recoloured worn weapons; native limb bindings identify rigid hand
-meshes. Seventy-one additionally rendered weapon meshes have explicit reviewed
-weapon-class profiles. Compatible framebases alone do not choose among different
-weapons, spells, specials or multi-stage deaths.
+| Evidence category | Slots |
+|---|---:|
+| Missing parameters now mapped | 10,668 |
+| Existing explicit parameters | 304 |
+| Named families without a native block | 385 |
+| Accepted existing script routes | 95 |
+| Separately reviewed existing script routes | 16 |
+| Combat-form runtime routes | 32 |
+| Non-retaliating / static no-block / static removal | 110 |
+| Multipart runtime deaths without a parameter | 28 |
+| **Still open** | **341** |
 
-### Validation and limits
+This is **97.15% technical action coverage**; **3,844 / 3,993 types** have their
+three roles accounted for. A touched definition is not a completed encounter.
+Source review and no-named-block evidence are distinct from visual acceptance.
+The earlier 90.46% data-only package was detected as installed by matching every
+payload and prerequisite hash. The current lifecycle candidate changes the JAR
+as well as the selected server cache; it is **not installed or merged**.
 
-- All **16,579 server NPC definitions** are compared against the accepted runtime.
-  Only the reported missing animation parameters differ; stats, models, existing
-  parameters, sequence assets, sequence timing and weapon definitions are equal.
-- The selective staged cache preserves **117,585 LIVE archives** and **22,972
-  other SERVER archives**. Only 3,635 selected NPC files in SERVER 2/58 change.
-  The installed JAR, client models, gamevals, interfaces, CS2, RSA, world edits and
-  playerdata remain outside the runtime update.
-- **357 selected Kotlin tests** pass across combat scripts, Treasure Trails, TD,
-  Doom, gorillas, special weapons, Araxxor, Kraken, Corp and Barrows. Six new
-  runtime route tests exercise attack/cooldown, real incoming-hit block producers,
-  native death delay, temporary removal and world respawn. Six Python import
-  safety checks also pass. Formatter, gameval checks and runtime JAR build pass.
-- Isolated rev240/Nero startup passes with the selected cache. Pet catalogue/tabs,
-  gorilla access geometry, real bridge snapshots and clean shutdown are checked.
-  A second startup uses the exact accepted JAR retained by the data-only package.
+The [measurement and checks](npc-animation-evidence.json) and
+[149 unresolved native types/action candidates](npc-animation-open-actions.json)
+make the remaining work explicit. These include quest-held/dormant actors,
+ambiguous deaths/blocks, and boss/raid phases whose controller or exact visual
+role remains unproven. Cached movement or a compatible skeleton alone cannot
+choose a special attack, a death phase or its trigger. Secondary ranged/magic
+styles, specials, projectile/effect placement and complete paired-client visual
+acceptance remain outside the three-slot percentage and must still be verified.
+Current status is recorded only in [PROGRESS.md](../../PROGRESS.md).
 
-The remaining actions include dormant/transition-only models, ambiguous or
-multi-stage deaths, and new boss/raid special and phase routes. Generic parameters
-cannot replace those mechanics. Existing scripted boss specials are preserved;
-this import does not certify unimplemented encounters. Secondary ranged/magic
-styles, projectiles and effect placement still require the corresponding
-mechanics and client checks. No cache-wide live visual acceptance is claimed.
+### Sources and preserved decisions
 
-Use the guarded `outputs/npc-animations-20261010/INSTALLEREN.cmd` package after
-closing the local client/server. Test the two clue guards through an actual clue,
-Jaguar/cub/Black jaguar attack and death, incoming blocks on weapon variants and
-world respawn. Check existing accepted bosses and specials in fixed/resizable
-client views. The package has a separate rollback to the accepted pets-tabs
-baseline; it is prepared for owner testing and is not installed automatically.
+The supplied RuneMonk package has 14,513 sequence entries: 14,408 agree with the
+paired cache's framebase; 12,156 names match, 2,314 are absent and 43 differ.
+Native revision-240 mappings take precedence. The older dump and candidate list
+provide movement/candidate evidence, not verified combat-role assignments.
 
-Reproduction and import/patch commands: [offline tools](../../tools/npc-animations/README.md).
+[Official upstream NPC configuration](https://github.com/OpenRune/OpenRune-Server/blob/ed27808014f232cefd8087fc956fc08e6292c2b7/.data/raw-cache/server/npcs.toml)
+and [PR #216](https://github.com/OpenRune/OpenRune-Server/pull/216), closed and
+unmerged at **375581c32314973d7de6a04e5e7f3713ef429f22**, were reviewed. They
+provide useful ordinary-family examples, not a verified 99% action catalogue.
+Keep the fork's accepted controllers; do not import the mixed upstream drop.
+
+The official [RuneLite ModelLoader](https://github.com/runelite/runelite/blob/master/cache/src/main/java/net/runelite/cache/definitions/loaders/ModelLoader.java),
+published decoder 1.13.1, supports offline exact-geometry/limb comparisons. Native
+worn-model matches and 81 separately rendered weapon meshes establish weapon
+classes; a shared human skeleton never selects a weapon. In the RuneMonk model
+preview, **Scarabs 729** appear through **1949 scarab_spiral** and disappear through
+**5464 scarab_spiral_rev**. The reviewed reverse sequence is used for death rather
+than the forward spawn sequence. This preview does not replace live acceptance.
+
+### Validation and owner testing
+
+**370 Kotlin tests** pass across native combat, the new lifecycle module, Treasure
+Trails, TD, Doom, gorillas, specials, Araxxor, Kraken, Corp and Barrows. The 13 new
+module tests use actual create/hit/retaliation/death-queue producers and exercise
+interruption, corpse meshes, native timing, reward identity, one reward and world
+respawn. Eight importer safety tests and 225 independently checked positive-duration
+lifecycle/source bindings pass. Formatter and runtime JAR build pass.
+
+All **16,579 NPC definitions** are compared against the accepted cache. Only the
+reported missing parameters differ; stats, native models, other parameters,
+sequence assets/timings and weapons are unchanged. The selective stage preserves
+**117,585 LIVE archives** and **22,972 unrelated SERVER archives**, changing only
+3,749 selected NPC files in **SERVER 2/58**. Client NPC archive 9, gamevals, models,
+interfaces, CS2 and the paired revision stay intact.
+
+The new JAR and selective cache pass isolated rev240/Nero boot with private ports
+and an isolated database, pet/tabs checks, gorilla access geometry, real bridge
+snapshots and clean shutdown. No live playerdata or world edit is altered. Native
+apps are unavailable through this session's computer tools, so no paired-client
+visual acceptance is claimed.
+
+The guarded `outputs/npc-animations-lifecycle-20261010/INSTALLEREN.cmd` package
+requires the currently installed 90.46% snapshot, and has a separate rollback to
+that exact snapshot. Close the local client/server before owner installation.
+Test Wyrm/Killerwatt/shadow activation, lethal first hits, the two tentacle spawn
+forms, complete Maiden/Xarpus/Jormungand/Maggot King death parts, static portal/
+flower deaths and normal respawn. Check the clue guardians through actual clues,
+weapon variants, jaguars and the accepted bosses/specials in fixed/resizable views.
+This is a test candidate; the remaining 341 slots are not advertised as complete.
+
+Reproduction commands and native evidence rules: [offline tools](../../tools/npc-animations/README.md).
 
 ## Weapon implementation record (2026-10-03–04)
 

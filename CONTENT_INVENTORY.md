@@ -381,6 +381,7 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [content/other/mapclock](content/other/mapclock) |
 | [content/other/max-cape](content/other/max-cape) |
 | [content/other/max-cape/pack](content/other/max-cape/pack) |
+| [content/other/npc-animations](content/other/npc-animations) |
 | [content/other/npc-animations/pack](content/other/npc-animations/pack) |
 | [content/other/pets](content/other/pets) |
 | [content/other/pets/pack](content/other/pets/pack) |
