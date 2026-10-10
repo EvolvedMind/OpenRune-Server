@@ -150,8 +150,8 @@
   },
   "loginRecovery": {
     "path": "outputs/npc-animations-login-fix-20261010",
-    "payloads": 2,
-    "prerequisites": 994,
+    "payloads": 1,
+    "prerequisites": 995,
     "installed": false,
     "clientLoginAccepted": false,
     "preservation": {
@@ -163,7 +163,8 @@
       "originalFileIdTablesPreserved": true,
       "varpFileIdsRestored": 5971,
       "correctedFileIdShift": 32768,
-      "regressionFixturesPassed": 8
+      "regressionFixturesPassed": 8,
+      "index255Unchanged": true
     },
     "varbitCount": 19438,
     "unresolvedVarbitBases": 0,

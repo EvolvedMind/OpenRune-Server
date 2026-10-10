@@ -157,8 +157,8 @@ were unchanged, so the original preservation check missed the corruption.
 copies only NPC CRC/checksum/digest, length and revision fields plus index version.
 The patcher now compares file-ID arrays for every archive as well as its payload.
 
-Recovery changes only **SERVER/main_file_cache.dat2** and
-**SERVER/main_file_cache.idx255**. All **22,973 server archive payloads** and
+Recovery changes only **SERVER/main_file_cache.dat2**; the existing idx255
+pointer/length remain valid and its file hash is unchanged. All **22,973 server archive payloads** and
 **117,585 client archives** match the installed lifecycle package, including
 NPC animation archive 2/58; the runtime JAR is unchanged. Every reference file-ID
 table now matches the accepted pre-import cache. Eight metadata regression
