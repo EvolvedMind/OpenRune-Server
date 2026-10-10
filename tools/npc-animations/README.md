@@ -77,7 +77,7 @@ decodes the native `-1` varp file sentinel as `32767`; rewriting the shared inde
 then shifts all varp IDs by 32768 without changing archive contents. The patcher
 retains the original reference table, updates only NPC checksums/lengths/revision
 and compares file-ID tables for every archive. Compile both Java files together.
-`PreserveConfigReferenceTest.java` provides eight regression fixtures, including
+`PreserveConfigReferenceTest.java` provides fourteen regression fixtures, including
 the signed sentinel and optional metadata. `ValidateLoginVars.java` checks every
 varbit base and invokes the actual login account flag setter/getter for new and
 existing players against an isolated candidate. Archive checksums and a ready
@@ -86,3 +86,13 @@ listener alone do not establish login compatibility.
 For recovery of an already affected test copy, the bounded command is
 `PatchNpcAnimations --repair-reference ACCEPTED_COPY npc-animations-login-fix-runtime-stage`.
 Both paths must be isolated; the repair stage requires `ISOLATED-CANDIDATE`.
+
+
+`PatchShamans` is a separate, bounded installer-stage builder. Compile it with
+`PreserveConfigReference.java`; run with `COMPILED ACCEPTED_COPY shamans-runtime-stage`.
+The marked stage receives only five ordinary Shaman NPC definitions and native
+server-only varp 65469. Unlike an NPC-only patch, adding a varp deliberately changes
+group 67's file list. Its complete native metadata is copied from the native
+builder; every pre-existing varp ID/payload and every unrelated archive/file-ID
+list must remain identical. No LIVE archive is changed. Six additional fixtures
+cover deliberate native file insertion under every supported metadata flag.

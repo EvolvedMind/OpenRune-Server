@@ -7,7 +7,7 @@ import java.util.zip.*;
 
 /** Keeps native file-ID metadata, including the signed -1 varp sentinel, intact. */
 public final class PreserveConfigReference {
-  private record Layout(int protocol, int flags, int[] archives, Map<Integer,List<int[]>> fields) {}
+  private record Layout(int protocol, int flags, int[] archives, Map<Integer,List<int[]>> fields, int prefix, Map<Integer,int[]> counts, Map<Integer,int[]> files, Map<Integer,int[]> names) {}
 
   private static int smart(ByteBuffer in) {
     if (in.get(in.position()) < 0) return in.getInt() & 0x7fffffff;
@@ -32,17 +32,31 @@ public final class PreserveConfigReference {
     var fields = new LinkedHashMap<Integer,List<int[]>>();
     for (int archive : archives) fields.put(archive,new ArrayList<>());
     if ((flags & 1) != 0) in.position(in.position() + archives.length * 4);
+    int prefix = in.position();
     section(in,archives,fields,4); // CRCs
     if ((flags & 8) != 0) section(in,archives,fields,4);
     if ((flags & 2) != 0) section(in,archives,fields,64);
     if ((flags & 4) != 0) section(in,archives,fields,8);
     section(in,archives,fields,4); // Revisions
     int[] files = new int[archives.length];
-    for (int i = 0; i < files.length; i++) files[i] = count(in,protocol);
-    for (int size : files) for (int i = 0; i < size; i++) count(in,protocol);
-    if ((flags & 1) != 0) for (int size : files) in.position(in.position() + size * 4);
+    var counts = new LinkedHashMap<Integer,int[]>();
+    var fileIds = new LinkedHashMap<Integer,int[]>();
+    var names = new LinkedHashMap<Integer,int[]>();
+    for (int i = 0; i < files.length; i++) {
+      int start = in.position(); files[i] = count(in,protocol);
+      counts.put(archives[i],new int[]{start,in.position()-start});
+    }
+    for (int i = 0; i < files.length; i++) {
+      int start = in.position();
+      for (int j = 0; j < files[i]; j++) count(in,protocol);
+      fileIds.put(archives[i],new int[]{start,in.position()-start});
+    }
+    if ((flags & 1) != 0) for (int i = 0; i < files.length; i++) {
+      int start = in.position(); in.position(start + files[i] * 4);
+      names.put(archives[i],new int[]{start,in.position()-start});
+    }
     if (in.hasRemaining()) throw new IllegalStateException("Unexpected reference-table tail");
-    return new Layout(protocol,flags,archives,fields);
+    return new Layout(protocol,flags,archives,fields,prefix,counts,fileIds,names);
   }
 
   private static void section(ByteBuffer in, int[] ids, Map<Integer,List<int[]>> fields, int size) {
@@ -69,7 +83,41 @@ public final class PreserveConfigReference {
     return result;
   }
 
-  private static byte[] reference(Path cache) throws IOException {
+  /** Copies selected archive metadata from native builders, including deliberate new file IDs. */
+  static byte[] mergeGroups(byte[] original, byte[] npcCandidate, Map<Integer,byte[]> fullSources) throws IOException {
+    byte[] metadata = merge(original,npcCandidate,58);
+    Layout base = layout(metadata);
+    var layouts = new HashMap<Integer,Layout>();
+    for (var entry : fullSources.entrySet()) {
+      Layout source = layout(entry.getValue());
+      if (base.protocol != source.protocol || base.flags != source.flags ||
+          !Arrays.equals(base.archives,source.archives) || !base.fields.containsKey(entry.getKey()))
+        throw new IllegalStateException("Reference structure changed");
+      layouts.put(entry.getKey(),source);
+    }
+    var out = new ByteArrayOutputStream();
+    out.write(metadata,0,base.prefix);
+    for (int section = 0; section < base.fields.values().iterator().next().size(); section++) {
+      for (int id : base.archives) {
+        Layout source = layouts.getOrDefault(id,base);
+        byte[] bytes = fullSources.getOrDefault(id,metadata);
+        int[] range = source.fields.get(id).get(section);
+        out.write(bytes,range[0],range[1]);
+      }
+    }
+    for (int section = 0; section < ((base.flags & 1) != 0 ? 3 : 2); section++) {
+      for (int id : base.archives) {
+        Layout source = layouts.getOrDefault(id,base);
+        byte[] bytes = fullSources.getOrDefault(id,metadata);
+        int[] range = (section == 0 ? source.counts : section == 1 ? source.files : source.names).get(id);
+        out.write(bytes,range[0],range[1]);
+      }
+    }
+    byte[] result = out.toByteArray(); layout(result);
+    return result;
+  }
+
+  static byte[] reference(Path cache) throws IOException {
     try (RandomAccessFile index = new RandomAccessFile(cache.resolve("main_file_cache.idx255").toFile(),"r");
          RandomAccessFile data = new RandomAccessFile(cache.resolve("main_file_cache.dat2").toFile(),"r")) {
       index.seek(2 * 6);
@@ -105,7 +153,10 @@ public final class PreserveConfigReference {
   }
 
   static void preserve(Path original, Path candidate, int changedArchive) throws IOException {
-    byte[] merged = merge(reference(original),reference(candidate),changedArchive);
+    write(candidate,merge(reference(original),reference(candidate),changedArchive));
+  }
+
+  static void write(Path candidate, byte[] merged) throws IOException {
     var packed = new ByteArrayOutputStream();
     try (var gzip = new GZIPOutputStream(packed)) { gzip.write(merged); }
     byte[] compressed = packed.toByteArray();

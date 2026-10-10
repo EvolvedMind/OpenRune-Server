@@ -339,6 +339,8 @@ Edit source/configuration, then run `node tools/progress/content-progress.mjs`.
 | [content/areas/zeah](content/areas/zeah) |
 | [content/bosses/demonic-gorilla](content/bosses/demonic-gorilla) |
 | [content/bosses/demonic-gorilla/pack](content/bosses/demonic-gorilla/pack) |
+| [content/bosses/lizardman-shaman](content/bosses/lizardman-shaman) |
+| [content/bosses/lizardman-shaman/pack](content/bosses/lizardman-shaman/pack) |
 | [content/bosses/tormented-demon](content/bosses/tormented-demon) |
 | [content/bosses/tormented-demon/pack](content/bosses/tormented-demon/pack) |
 | [content/devtools/nero-studio/pack](content/devtools/nero-studio/pack) |

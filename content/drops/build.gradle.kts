@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     testImplementation(libs.or2.all.cache)
+    testImplementation(libs.jackson.module.kotlin)
     testImplementation(libs.fastutil)
     testImplementation(projects.api.pluginCommons)
     testImplementation(projects.api.invStorage)

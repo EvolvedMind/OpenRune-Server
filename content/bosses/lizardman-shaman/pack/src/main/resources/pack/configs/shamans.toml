@@ -1,0 +1,49 @@
+[[varp]]
+id = "varp.shaman_killcount"
+scope = "Perm"
+transmit = "Never"
+
+[[npc]]
+id = "npc.zeah_lizardshaman_1"
+inherit = "npc.zeah_lizardshaman_1"
+attackRange = 8
+
+[npc.params]
+"param.killcount_varp" = "varp.shaman_killcount"
+"param.killcount_notify" = 0
+
+[[npc]]
+id = "npc.zeah_lizardshaman_2"
+inherit = "npc.zeah_lizardshaman_2"
+attackRange = 8
+
+[npc.params]
+"param.killcount_varp" = "varp.shaman_killcount"
+"param.killcount_notify" = 0
+
+[[npc]]
+id = "npc.lizardman_cave_shaman_1"
+inherit = "npc.lizardman_cave_shaman_1"
+attackRange = 8
+
+[npc.params]
+"param.killcount_varp" = "varp.shaman_killcount"
+"param.killcount_notify" = 0
+
+[[npc]]
+id = "npc.lizardman_cave_shaman_2"
+inherit = "npc.lizardman_cave_shaman_2"
+attackRange = 8
+
+[npc.params]
+"param.killcount_varp" = "varp.shaman_killcount"
+"param.killcount_notify" = 0
+
+[[npc]]
+id = "npc.molch_lizardshaman_1"
+inherit = "npc.molch_lizardshaman_1"
+attackRange = 8
+
+[npc.params]
+"param.killcount_varp" = "varp.shaman_killcount"
+"param.killcount_notify" = 0
