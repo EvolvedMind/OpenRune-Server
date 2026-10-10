@@ -9,6 +9,7 @@ dependencies {
     testImplementation(projects.api.combat.combatFormulas)
     testImplementation(projects.api.registry)
     testImplementation(projects.api.invStorage)
+    testImplementation(projects.content.skills.magic.spellTeleports)
     testImplementation(projects.content.drops)
     testImplementation(projects.content.other.consumables)
     testImplementation(projects.content.interfaces.collectionLog)

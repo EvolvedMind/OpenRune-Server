@@ -25,7 +25,6 @@ import org.rsmod.game.inv.*
 import org.rsmod.game.queue.EngineQueueCache
 import org.rsmod.map.CoordGrid
 import org.rsmod.plugin.scripts.ScriptContext
-import org.rsmod.routefinder.collision.CollisionFlagMap
 
 @org.junit.jupiter.api.parallel.Execution(org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD)
 @ResourceLock("ServerCacheManager")
@@ -123,6 +122,35 @@ internal class SpellTeleportTest {
         assertEquals(target.coords, f.player.coords)
     }
 
+    @Test fun `all books explicitly clear outgoing animation and graphics on arrival`() {
+        for ((name, start) in listOf(
+            "obj.25_varrock_teleport" to 714,
+            "obj.96_ghorrock_teleport" to 1979,
+            "obj.69_tele_moonclan" to 4423,
+            "obj.br_air_staff" to 6575,
+        )) {
+            val f = Fixture()
+            val spell = spells.getObjSpell(ServerCacheManager.getItem(name.asRSCM())!!)!!
+            val destination = spell.obj.param(params.spell_telecoord)
+            f.collision.allocateIfAbsent(destination.x, destination.z, destination.level)
+            f.click(name)
+            assertEquals(start, f.player.pendingSequence.id)
+            f.finish()
+            assertEquals(if (start == 714) 715 else 0, f.player.pendingSequence.id, name)
+            assertEquals(65535, org.rsmod.game.spot.EntitySpotanim(f.player.pendingSpotanims.single()).id, name)
+        }
+    }
+
+    @Test fun `late cancellation clears Lunar and Arceuus hidden model frames`() {
+        for (name in listOf("obj.69_tele_moonclan", "obj.br_air_staff")) {
+            val f = Fixture(); val start = f.player.coords
+            f.click(name); f.denial = "Blocked"; f.finish()
+            assertEquals(start, f.player.coords)
+            assertEquals(org.rsmod.game.seq.EntitySeq.ZERO, f.player.pendingSequence)
+            assertEquals(65535, org.rsmod.game.spot.EntitySpotanim(f.player.pendingSpotanims.single()).id)
+        }
+    }
+
     private class Fixture {
         val bus = EventBus(); val collision = sharedCollision; val areas = mock(AreaChecker::class.java)
         var denial: String? = null
@@ -166,7 +194,7 @@ internal class SpellTeleportTest {
         fun finish(player: Player = this.player) { repeat(6) { player.currentMapClock++; player.processedMapClock = player.currentMapClock; queues.process(player) } }
     }
     companion object {
-        private val sharedCollision = CollisionFlagMap()
+        private val sharedCollision = TeleportTestCollision.map
         private lateinit var spells: MagicSpellRegistry
 
         @JvmStatic @BeforeAll fun cache() {

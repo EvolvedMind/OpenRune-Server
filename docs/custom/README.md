@@ -11,6 +11,7 @@ This index contains implementation notes and evidence, not a second status list.
 | Lizardman Shamans | `content/bosses/lizardman-shaman` and `pack` | [Combat, Shayzien protection, drops and test commands](lizardman-shamans.md) |
 | Kraken | `content/bosses/kraken` | [Public-cave encounter](kraken.md) |
 | Tormented Demons | `content/bosses/tormented-demon` and `pack` | [Encounter, Temple, rewards, crafting and acceptance evidence](tormented-demons.md) |
+| Teleport animations and scrolls | `content/skills/magic/spell-teleports` | [Rev240 animation cleanup, all scroll routes and validation](teleport-scrolls.md) |
 | Prayer scrolls, spellbook travel and gorillas | `content/interfaces/prayer-tab`, `content/skills/magic/spell-teleports`, `content/bosses/demonic-gorilla` | [Custom policy, native interactions, sources and tests](prayers-teleports-gorillas.md) |
 | Corporeal Beast | `content/bosses/corporeal-beast` | [Encounter](corporeal-beast.md) |
 | Doom of Mokhaiotl | `content/bosses/doom-of-mokhaiotl` and `pack` | [Encounter and rewards](doom-of-mokhaiotl.md) |

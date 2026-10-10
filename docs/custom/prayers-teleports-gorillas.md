@@ -50,7 +50,9 @@ native crafting XP. Only Watchtower's incorrect destination metadata changes:
 
 Normal teleport restrictions remain checked when casting and again when landing.
 Pending logout or death cancels the queued landing. Native animation families,
-sound, action delay and queued teleport timing are retained.
+sound, action delay and queued teleport timing are retained. The subsequent
+[teleport correction](teleport-scrolls.md) explicitly clears outgoing animation
+and graphics at arrival or cancellation, including Lunar and Arceuus.
 
 Group/Teleother recipients must enable Accept Aid and explicitly accept a native
 dialogue. Decline, expired offers, movement, death/logout or a newly active
