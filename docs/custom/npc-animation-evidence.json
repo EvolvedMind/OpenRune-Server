@@ -1,0 +1,46 @@
+{
+  "revision": 240,
+  "attackableNpcTypes": 3993,
+  "actionSlots": 11979,
+  "counts": {
+    "mapped": 10217,
+    "no_named_native_block": 315,
+    "open": 1143,
+    "existing": 304
+  },
+  "technicalActionCoveragePercent": 90.46,
+  "fullyMappedNpcTypes": 3506,
+  "measurement": "attack, block, death; excludes visual acceptance and new boss special/phase mechanics",
+  "patches": {
+    "npcDefinitions": 3635,
+    "parameters": {
+      "attack_anim": 3499,
+      "defend_anim": 3166,
+      "death_anim": 3555
+    },
+    "runemonk": {
+      "sequences": 14513,
+      "confirmedParameters": {
+        "attack_anim": 3425,
+        "defend_anim": 3147,
+        "death_anim": 3473
+      }
+    }
+  },
+  "preservation": {
+    "revision": 240,
+    "npcDefinitionsChecked": 16579,
+    "patchedNpcs": 3635,
+    "parametersAdded": 10220,
+    "statsModelsAndOtherParametersPreserved": true,
+    "clientSequencesAndTimingsPreserved": true
+  },
+  "packagePreservation": {
+    "revision": 240,
+    "npcDefinitionsChecked": 16579,
+    "patchedNpcs": 3635,
+    "parametersAdded": 10220,
+    "statsModelsAndOtherParametersPreserved": true,
+    "clientSequencesAndTimingsPreserved": true
+  }
+}

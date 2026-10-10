@@ -18,38 +18,90 @@ Boss DSL and stats/bonuses. Preserve current behaviour while evaluating any repl
 
 ## Ordinary NPC combat animations
 
-Source review: **2026-10-07**, commit `32ce078f2319ef86c6a34311b8e497449133336a`.
-The owner reports human-like animation glitches on the two elite clue guards during
-the 2026-10-06 clue test, and on unspecified NPCs around Tlati Rainforest.
+Revision-240 import, measured **2026-10-10** against accepted `main` commit
+`66f18993d`. The owner supplied RuneMonk-Data after identifying incomplete combat
+animations. The native cache remains the authority for IDs, skeletons and timing.
 
-| NPC / group | Evidence and remaining check |
-|---|---|
-| Armadylean guard — `npc.elite_npc_1`, dump ID 6587 | Native movement uses the Armadyl animation family. Its server override sets elemental weakness only; no explicit combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
-| Bandosian guard — `npc.elite_npc_2`, dump ID 6588 | Native movement uses the armed-ork animation family. No explicit server combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
-| Tlati Jaguar / Jaguar cub / Black jaguar — dump IDs 12976/12977/12978 | Map spawns, Attack actions, stats and native lynx movement exist; drop tables were found for Jaguar and Black jaguar. Server overrides contain weakness only. These are source-audit candidates; the owner has not identified which Tlati NPCs glitched. |
-| Tlati frog — `npc.little_frog_nodrops` | Has explicit attack/block/death sequences. Use it as a comparison case; its presence does not certify live visuals or the whole region. |
+The dedicated [parameter pack](../../content/other/npc-animations/pack/src/main/resources/pack/configs/npc-combat-animations.toml)
+adds **10,220 missing parameters to 3,635 definitions**: 3,499 attacks, 3,166 blocks
+and 3,555 deaths. This includes non-attackable active transform definitions.
+The generic attack, incoming-hit and death producers consume these existing
+parameters; no combat dispatcher or global animation default is changed.
 
-Sources: [native NPC dump](../../osrs-dumps/dump.npc), [server overrides](../../.data/raw-cache/server/npcs.toml), [Tlati map spawns](../../.data/raw-cache/map/npcs/varlamore.toml), [clue guardian spawn route](../../content/other/treasure-trails/src/main/kotlin/org/rsmod/content/other/treasure/trails/TrailGuards.kt).
+Measurement uses **3,993 Attack-option NPC types / 11,979 action slots**:
+10,217 new mappings, 304 existing parameters, 315 reviewed named families without
+a block, and **1,143 open slots**. This is **90.46% technical action coverage**.
+**3,506 / 3,993 types** have all three roles accounted for; this is 87.80% of types,
+not 90% completed encounters. Named-family absence is retained explicitly for
+visual review. Untouched script-owned boss actions are conservatively left open
+in this numerical measurement unless their parameter was already explicit.
+The [machine-readable measurement](npc-animation-evidence.json) records the inputs
+and preservation checks. Status and remaining work are in [PROGRESS.md](../../PROGRESS.md).
 
-The [generic attack route](../../api/combat/combat-scripts/src/main/kotlin/org/rsmod/api/combat/NvPCombat.kt)
-reads one `attack_anim`. When absent, [parameter defaults](../../.data/raw-cache/server/param.toml)
-provide `human_unarmedpunch`; generic death similarly falls back to `human_death`.
-The [defend route](../../api/combat/combat-commons/src/main/kotlin/org/rsmod/api/combat/commons/npc/NpcExtensions.kt)
-uses `paramOrNull`, so an absent defend parameter produces no defend animation.
-Spawning correctly and having stats/drops do not establish complete combat behavior.
+The reported clue guards now use the Armadyl cannon/block/death and armed-ork
+attack/block/death families. Jaguars, cubs and dark jaguars use native lynx attack
+and death; incoming hits introduce no human block. Additional groups include
+ordinary animals, Slayer creatures, demons, goblins, skeletons, gnomes, TzHaar,
+Armadyl variants and humans carrying verified swords, axes, bows, spears, staves
+and blunt weapons. TzHaar-Xil ring meshes are distinguished from melee weapons.
 
-### Audit and repair scope
+### Evidence and source decision
 
-- Inspect the **final merged revision-240 NPC definitions**, resolved sequences and selected handlers. Include attackable world NPCs, their active forms and dynamically spawned encounter NPCs such as clue guards. Do not count raw TOML rows as live NPC coverage.
-- Record whether each sequence is explicit, inherited, supplied by a script or a fallback. Check attack style, projectile and hit timing alongside the animation where applicable; do not enable an invented attack just to remove a visual glitch.
-- Start with the two reported guards, then the Tlati candidates and other NPCs using the same incomplete generic route. Group by verified model/animation compatibility, not merely name or region. Jaguar/cub share a model; Black jaguar is a separate model variant.
-- Verify the proper attack, defend and death sequences in the paired cache/client before assigning them. A related GWD or ork animation name is only a candidate until checked for the exact guardian model and attack.
-- Apply bounded NPC parameter overlays or focused handlers as required. Preserve accepted boss configurations, global defaults, animation priorities and the clue guardian owner/kill-credit lifecycle. Recheck affected shared behavior and accepted bosses if a shared layer changes.
-- Accept a repaired group after real attack/defend/death and relevant variant tests, including clue completion for guards. A valid sequence ID or passing build alone does not prove correct model animation.
+The user package supplies **14,513 sequence entries**; **14,408** agree with the
+accepted cache's decoded framebase. Of the names, 12,156 match, 2,314 are absent,
+and 43 differ. Old labels and unlabelled entries never overwrite native gamevals.
+The earlier NPC dump and PossibleAnimations list supply movement/candidate
+information rather than authoritative combat-role assignments.
 
-This is a source/data review, not a completed cache-wide or in-game audit. The exact
-installed cache/client was unavailable here; no animation IDs were guessed or applied.
-Status is tracked only in [PROGRESS.md](../../PROGRESS.md).
+[Upstream NPC configuration](https://github.com/OpenRune/OpenRune-Server/blob/ed27808014f232cefd8087fc956fc08e6292c2b7/.data/raw-cache/server/npcs.toml)
+and [PR #216](https://github.com/OpenRune/OpenRune-Server/pull/216), head
+`375581c32314973d7de6a04e5e7f3713ef429f22`, were reviewed. The latter is closed,
+unmerged, and includes a large mixed content drop; its reviews do not establish
+complete NPC animation acceptance. Existing ordinary-family examples support the
+native parameter route, but neither source provides a verified 99% NPC-to-action
+catalogue. Keep this fork's accepted implementations and build bounded missing
+parameter overlays rather than import the broad upstream content drop.
+
+The official [RuneLite ModelLoader](https://github.com/runelite/runelite/blob/master/cache/src/main/java/net/runelite/cache/definitions/loaders/ModelLoader.java)
+is used through its published 1.13.1 offline decoder. Exact triangle geometry
+identifies recoloured worn weapons; native limb bindings identify rigid hand
+meshes. Seventy-one additionally rendered weapon meshes have explicit reviewed
+weapon-class profiles. Compatible framebases alone do not choose among different
+weapons, spells, specials or multi-stage deaths.
+
+### Validation and limits
+
+- All **16,579 server NPC definitions** are compared against the accepted runtime.
+  Only the reported missing animation parameters differ; stats, models, existing
+  parameters, sequence assets, sequence timing and weapon definitions are equal.
+- The selective staged cache preserves **117,585 LIVE archives** and **22,972
+  other SERVER archives**. Only 3,635 selected NPC files in SERVER 2/58 change.
+  The installed JAR, client models, gamevals, interfaces, CS2, RSA, world edits and
+  playerdata remain outside the runtime update.
+- **357 selected Kotlin tests** pass across combat scripts, Treasure Trails, TD,
+  Doom, gorillas, special weapons, Araxxor, Kraken, Corp and Barrows. Six new
+  runtime route tests exercise attack/cooldown, real incoming-hit block producers,
+  native death delay, temporary removal and world respawn. Six Python import
+  safety checks also pass. Formatter, gameval checks and runtime JAR build pass.
+- Isolated rev240/Nero startup passes with the selected cache. Pet catalogue/tabs,
+  gorilla access geometry, real bridge snapshots and clean shutdown are checked.
+  A second startup uses the exact accepted JAR retained by the data-only package.
+
+The remaining actions include dormant/transition-only models, ambiguous or
+multi-stage deaths, and new boss/raid special and phase routes. Generic parameters
+cannot replace those mechanics. Existing scripted boss specials are preserved;
+this import does not certify unimplemented encounters. Secondary ranged/magic
+styles, projectiles and effect placement still require the corresponding
+mechanics and client checks. No cache-wide live visual acceptance is claimed.
+
+Use the guarded `outputs/npc-animations-20261010/INSTALLEREN.cmd` package after
+closing the local client/server. Test the two clue guards through an actual clue,
+Jaguar/cub/Black jaguar attack and death, incoming blocks on weapon variants and
+world respawn. Check existing accepted bosses and specials in fixed/resizable
+client views. The package has a separate rollback to the accepted pets-tabs
+baseline; it is prepared for owner testing and is not installed automatically.
+
+Reproduction and import/patch commands: [offline tools](../../tools/npc-animations/README.md).
 
 ## Weapon implementation record (2026-10-03–04)
 

@@ -1,6 +1,6 @@
 # Project overview
 
-Reviewed **2026-10-09**. This is the source for current status and priorities.
+Reviewed **2026-10-10**. This is the source for current status and priorities.
 Implementation details: [custom documentation](docs/custom/README.md).
 Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
@@ -220,7 +220,7 @@ Acceptance below applies to the recorded scope. A merged change does not establi
 | 🟡 | [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
 | 🟡 | [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
 | 🟡 | [Slayer menus and helmet crafting](docs/custom/slayer.md) | Source audit: existing task/unlock/extension handlers and ordinary helmet recipes. Fix Trade routing, task state, purchases, block slots, toggles and Suqah mapping; complete the requested menu and conversion paths. |
-| 🟡 | [Ordinary NPC combat animations](docs/custom/combat.md#ordinary-npc-combat-animations) | Initial source audit found missing explicit combat-animation configuration for the reported Armadylean/Bandosian clue guards and Tlati candidates. Verify resolved cache data, repair affected NPC families and test in-game; preserve accepted bosses and guardian progression. |
+| 🟡 | [NPC combat animation import](docs/custom/combat.md#ordinary-npc-combat-animations) | 90.46% technical attack/block/death action coverage across 3,993 Attack-option types: 10,217 new mappings, 304 existing actions, 315 named families without a block; 1,143 slots remain open. 3,506 types have all three roles accounted for. Parameter pack changes 3,635 definitions; all 16,579 definitions and every other cache archive preserve accepted data. 357 selected Kotlin tests plus 6 import safety checks, build and isolated boot pass. Guarded cache-only test package prepared; live visual acceptance, remaining ambiguous/phase actions and new boss specials remain open. Accepted boss scripts are preserved. |
 | 🔴 | [Persistence warning follow-up](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
 | 🟢 | Upstream research (review only) | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed; not imported. Implementation has not started. Any adoption requires a scoped revision-240 port. |
 
