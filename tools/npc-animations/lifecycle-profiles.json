@@ -1,0 +1,2098 @@
+{
+  "revision": 240,
+  "evidence": "Native named multipart deaths; emitted in order before the existing NPC removal and reward route. Never certifies raid encounter mechanics.",
+  "deaths": {
+    "npc.tob_xarpus_combat": [
+      "seq.tob_xarpus_death_a",
+      "seq.tob_xarpus_death_b"
+    ],
+    "npc.tob_maiden_100": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_70": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_50": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_30": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_a": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_b": [
+      "seq.maiden_death_b"
+    ],
+    "npc.jormungand": [
+      "seq.jormungand_death_part_1",
+      "seq.jormungand_death_part_2"
+    ],
+    "npc.tob_xarpus_combat_story": [
+      "seq.tob_xarpus_death_a",
+      "seq.tob_xarpus_death_b"
+    ],
+    "npc.tob_xarpus_combat_hard": [
+      "seq.tob_xarpus_death_a",
+      "seq.tob_xarpus_death_b"
+    ],
+    "npc.tob_maiden_100_story": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_70_story": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_50_story": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_30_story": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_a_story": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_b_story": [
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_100_hard": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_70_hard": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_50_hard": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_30_hard": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_a_hard": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.tob_maiden_dying_b_hard": [
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_100": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_70": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_50": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_30": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_dying_a": [
+      "seq.maiden_death_a",
+      "seq.maiden_death_b"
+    ],
+    "npc.myq6_maiden_dying_b": [
+      "seq.maiden_death_b"
+    ],
+    "npc.maggot_king": [
+      "seq.npc_maggot_king_death_01",
+      "seq.npc_maggot_king_death_02",
+      "seq.npc_maggot_king_death_03"
+    ]
+  },
+  "spawns": {
+    "npc.ttrek2_zombie_diff_1_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_1_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_1_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_1_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_1_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_1_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_1_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_1_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_2_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_2_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_2_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_3_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_3_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_3_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_4_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_4_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_4_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_5_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_5_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_5_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_6_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_6_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_6_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_7_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_7_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_7_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_8_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_8_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_8_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_1_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_1_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_1_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_1_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_1_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_2_1": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_1",
+          "sequence": "seq.ramble_zombie_emerge_head"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_2_2": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_2",
+          "sequence": "seq.ramble_zombie_emerge_torso"
+        },
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_2_4"
+    },
+    "npc.ttrek2_zombie_diff_9_ver_2_3": {
+      "parts": [
+        {
+          "npc": "npc.ttrek2_zombie_diff_9_ver_2_3",
+          "sequence": "seq.ramble_zombie_emerge_thighs"
+        }
+      ],
+      "active": "npc.ttrek2_zombie_diff_9_ver_2_4"
+    },
+    "npc.templetrek_tentacle_head_spawning": {
+      "active": "npc.templetrek_tentacle_head",
+      "parts": [
+        {
+          "npc": "npc.templetrek_tentacle_head_spawning",
+          "sequence": "seq.templetrek_tentacle_head_spawning"
+        }
+      ]
+    },
+    "npc.templetrek_tentacle_arm_spawning": {
+      "active": "npc.templetrek_tentacle_arm",
+      "parts": [
+        {
+          "npc": "npc.templetrek_tentacle_arm_spawning",
+          "sequence": "seq.templetrek_tentacle_spawning"
+        }
+      ]
+    }
+  },
+  "staticTargets": {
+    "npc.poh_combat_dummy_npc": "Non-retaliating practice target",
+    "npc.test_combat_dummy": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_undeadslayer_npc": "Non-retaliating practice target",
+    "npc.test_combat_dummy_maxhit": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_undeadslayer_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_ether_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_kq_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_kurask_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_vampire_npc": "Non-retaliating practice target",
+    "npc.poh_combat_dummy_upgraded_vorkath_npc": "Non-retaliating practice target",
+    "npc.dps_calc_npc_sea": "Non-retaliating practice target",
+    "npc.test_combat_dummy_2": "Non-retaliating practice target",
+    "npc.castlewars_barricade_saradomin": "Destructible stationary prop",
+    "npc.castlewars_barricade_zamorak": "Destructible stationary prop",
+    "npc.castlewars_barricade_burning_saradomin": "Destructible stationary prop",
+    "npc.castlewars_barricade_burning_zamorak": "Destructible stationary prop",
+    "npc.castlewars_barricade_saradomin_render_under": "Destructible stationary prop",
+    "npc.castlewars_barricade_zamorak_render_under": "Destructible stationary prop",
+    "npc.castlewars_barricade_burning_saradomin_render_under": "Destructible stationary prop",
+    "npc.castlewars_barricade_burning_zamorak_render_under": "Destructible stationary prop",
+    "npc.soul_wars_barricade_blue": "Destructible stationary prop",
+    "npc.soul_wars_barricade_red": "Destructible stationary prop",
+    "npc.verzik_web_npc": "Destructible stationary prop",
+    "npc.verzik_web_npc_story": "Destructible stationary prop",
+    "npc.verzik_web_npc_hard": "Destructible stationary prop",
+    "npc.raids_vespula_portal": "Destructible stationary prop",
+    "npc.raids_vasanistirio_crystal": "Destructible stationary prop",
+    "npc.shayzienquest_puzzle_piece": "Destructible stationary prop",
+    "npc.lanscape_mole_sticky_mud_npc": "Destructible stationary prop",
+    "npc.pest_portal_1_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_2_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_3_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_4_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_1_active_bt1": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_2_active_bt1": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_3_active_bt1": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.pest_portal_4_active_bt1": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.hespori_healer_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    },
+    "npc.tobquest_hespori_healer_active": {
+      "evidence": "Native immobile portal/flower target; does not retaliate. Retain its named portal or alive-to-dead sequence."
+    }
+  },
+  "acceptedRoutes": {
+    "npc.snakeboss_boss_ranged": {
+      "acceptance": "Accepted Zulrah encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahSpec.kt",
+          "sha256": "08e54f693e466ad18e9afba9132f337fe063a0bda9af9db91afb0048459f05d9"
+        },
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahEncounterScript.kt",
+          "sha256": "32c36f37a9aabf3897c590600177a04633102a2b2b43e3a78a4dd755cb0c6d7a"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.snakeboss_boss_melee": {
+      "acceptance": "Accepted Zulrah encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahSpec.kt",
+          "sha256": "08e54f693e466ad18e9afba9132f337fe063a0bda9af9db91afb0048459f05d9"
+        },
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahEncounterScript.kt",
+          "sha256": "32c36f37a9aabf3897c590600177a04633102a2b2b43e3a78a4dd755cb0c6d7a"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.snakeboss_boss_magic": {
+      "acceptance": "Accepted Zulrah encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahSpec.kt",
+          "sha256": "08e54f693e466ad18e9afba9132f337fe063a0bda9af9db91afb0048459f05d9"
+        },
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahEncounterScript.kt",
+          "sha256": "32c36f37a9aabf3897c590600177a04633102a2b2b43e3a78a4dd755cb0c6d7a"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.snakeboss_minion_melee": {
+      "acceptance": "Accepted Zulrah encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahSpec.kt",
+          "sha256": "08e54f693e466ad18e9afba9132f337fe063a0bda9af9db91afb0048459f05d9"
+        },
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahEncounterScript.kt",
+          "sha256": "32c36f37a9aabf3897c590600177a04633102a2b2b43e3a78a4dd755cb0c6d7a"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.snakeboss_minion_magic": {
+      "acceptance": "Accepted Zulrah encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahSpec.kt",
+          "sha256": "08e54f693e466ad18e9afba9132f337fe063a0bda9af9db91afb0048459f05d9"
+        },
+        {
+          "path": "content/bosses/zulrah/src/main/kotlin/org/rsmod/content/bosses/zulrah/ZulrahEncounterScript.kt",
+          "sha256": "32c36f37a9aabf3897c590600177a04633102a2b2b43e3a78a4dd755cb0c6d7a"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.slayer_kraken": {
+      "acceptance": "Accepted Kraken encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenController.kt",
+          "sha256": "16385f1cf363f9641fa3f26f2d5a5cc0604ad0d90646f4eaec43c41c82d45904"
+        },
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenAssets.kt",
+          "sha256": "6d7601523e84864528a225b11a8e027a0e5b89b1906789c1004a9dcb9c23e638"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.slayer_kraken_boss": {
+      "acceptance": "Accepted Kraken encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenController.kt",
+          "sha256": "16385f1cf363f9641fa3f26f2d5a5cc0604ad0d90646f4eaec43c41c82d45904"
+        },
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenAssets.kt",
+          "sha256": "6d7601523e84864528a225b11a8e027a0e5b89b1906789c1004a9dcb9c23e638"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.slayer_kraken_boss_tentacle": {
+      "acceptance": "Accepted Kraken encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenController.kt",
+          "sha256": "16385f1cf363f9641fa3f26f2d5a5cc0604ad0d90646f4eaec43c41c82d45904"
+        },
+        {
+          "path": "content/bosses/kraken/src/main/kotlin/org/rsmod/content/bosses/kraken/KrakenAssets.kt",
+          "sha256": "6d7601523e84864528a225b11a8e027a0e5b89b1906789c1004a9dcb9c23e638"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.corp_beast": {
+      "acceptance": "Accepted Corp encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/corporeal-beast/src/main/kotlin/org/rsmod/content/bosses/corp/CorpController.kt",
+          "sha256": "9cf0948aac9b09dfbba9176aac243649eebea87e8fd990bea0e4e6ff7199ac02"
+        },
+        {
+          "path": "content/bosses/corporeal-beast/src/main/kotlin/org/rsmod/content/bosses/corp/CorpScript.kt",
+          "sha256": "2ccc448d02572aa58598d61e49d7790bfa9994bbcab3f0568af2a5b06f49b445"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.dark_core": {
+      "acceptance": "Accepted Corp encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/corporeal-beast/src/main/kotlin/org/rsmod/content/bosses/corp/CorpController.kt",
+          "sha256": "9cf0948aac9b09dfbba9176aac243649eebea87e8fd990bea0e4e6ff7199ac02"
+        },
+        {
+          "path": "content/bosses/corporeal-beast/src/main/kotlin/org/rsmod/content/bosses/corp/CorpScript.kt",
+          "sha256": "2ccc448d02572aa58598d61e49d7790bfa9994bbcab3f0568af2a5b06f49b445"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_egg_mirrorback": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_egg_explode": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_egg_venom": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_mirrorback": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_explode": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.araxxor_minion_venom": {
+      "acceptance": "Accepted Araxxor encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorScript.kt",
+          "sha256": "d4b9e3cf58910cde15f89ce02a668f83db78e8046b9dce3fe1388fe665550b3a"
+        },
+        {
+          "path": "content/bosses/araxxor/src/main/kotlin/org/rsmod/content/bosses/araxxor/AraxxorController.kt",
+          "sha256": "67aa49654c4d32d0afca2682724e0db21e6c58485e4e4490f679ca68c56cadb1"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_1_melee": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_1_ranged": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_1_magic": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_2_melee": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_2_ranged": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_demon_gorilla_2_magic": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_tortured_gorilla_1": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.mm2_tortured_gorilla_2": {
+      "acceptance": "Accepted gorilla animations",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/demonic-gorilla/src/main/kotlin/org/rsmod/content/bosses/demonicgorilla/DemonicGorilla.kt",
+          "sha256": "b19ee6984fa11c18d05d2bc993c93063cfdb79de08bf0b88ff330d64368c25a8"
+        }
+      ],
+      "note": "Preserve the user-accepted script route, including absence of an ordinary flinch. Do not add unused generic animation parameters."
+    },
+    "npc.dom_boss": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_boss_shielded": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_boss_burrowed": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy_range": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy_mage": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy_melee": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy_giant_range": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_demonic_energy_giant_mage": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    },
+    "npc.dom_shockwave_path_node": {
+      "acceptance": "Accepted Doom encounter",
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "sources": [
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/Doom.kt",
+          "sha256": "048a8ee57e573c733709dc0ea84be00f30252275afd61e2217aa01469719266f"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomDelves.kt",
+          "sha256": "a4e251d1c383fe1299c34da438ecda66746930e5f0302f5d6bc7bbc9bdbfdabf"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomLarvae.kt",
+          "sha256": "22231b6092181f86fe7bd20adf4237819351b44f1b5b36c4fe68fe5301fe3a1e"
+        },
+        {
+          "path": "content/bosses/doom-of-mokhaiotl/src/main/kotlin/org/rsmod/content/bosses/doom/DoomShockwave.kt",
+          "sha256": "ca6dc3f1061024f487e42e19a63672de43730c2f4b3cb5f562a751712d79ea47"
+        }
+      ],
+      "note": "Existing encounter-owned attacks, contact effects, no-retaliation actors and death/despawn handlers remain unchanged."
+    }
+  },
+  "combatForms": {
+    "npc.wyrm_dark": {
+      "active": "npc.wyrm_light",
+      "parts": [
+        {
+          "npc": "npc.wyrm_light",
+          "sequence": "seq.wyrm_transition_up"
+        }
+      ],
+      "death": [
+        "seq.wyrm_death"
+      ]
+    },
+    "npc.superior_wyrm_dark": {
+      "active": "npc.superior_wyrm_light",
+      "parts": [
+        {
+          "npc": "npc.superior_wyrm_light",
+          "sequence": "seq.wyrm_transition_up"
+        }
+      ],
+      "death": [
+        "seq.wyrm_death"
+      ]
+    },
+    "npc.league_superior_wyrm_dark": {
+      "active": "npc.league_superior_wyrm_light",
+      "parts": [
+        {
+          "npc": "npc.league_superior_wyrm_light",
+          "sequence": "seq.wyrm_transition_up"
+        }
+      ],
+      "death": [
+        "seq.wyrm_death"
+      ]
+    },
+    "npc.varlamore_wyrm_dark01": {
+      "active": "npc.varlamore_wyrm_light01",
+      "parts": [
+        {
+          "npc": "npc.varlamore_wyrm_light01",
+          "sequence": "seq.wyrm_transition_up"
+        }
+      ],
+      "death": [
+        "seq.wyrm_death"
+      ]
+    },
+    "npc.wyrmscraig_wyrm01_walk": {
+      "active": "npc.wyrmscraig_wyrm01",
+      "parts": [
+        {
+          "npc": "npc.wyrmscraig_wyrm01",
+          "sequence": "seq.wyrm_transition_up"
+        }
+      ],
+      "death": [
+        "seq.wyrm_death"
+      ]
+    },
+    "npc.slayer_killerwatt_ball": {
+      "active": "npc.slayer_killerwatt",
+      "parts": [
+        {
+          "npc": "npc.slayer_killerwatt",
+          "sequence": "seq.killerwatt_biped_spawn"
+        }
+      ],
+      "death": [
+        "seq.killerwatt_biped_death"
+      ]
+    },
+    "npc.shadeshadow_level1": {
+      "active": "npc.shade_level1",
+      "parts": [
+        {
+          "npc": "npc.shadeshadow_level1",
+          "sequence": "seq.shadeshadow_sink"
+        },
+        {
+          "npc": "npc.shade_level1",
+          "sequence": "seq.shade_rise"
+        }
+      ],
+      "death": [
+        "seq.shade_sink"
+      ]
+    },
+    "npc.shadeshadow_level2": {
+      "active": "npc.shade_level2",
+      "parts": [
+        {
+          "npc": "npc.shadeshadow_level2",
+          "sequence": "seq.shadeshadow_sink"
+        },
+        {
+          "npc": "npc.shade_level2",
+          "sequence": "seq.shade_rise"
+        }
+      ],
+      "death": [
+        "seq.shade_sink"
+      ]
+    },
+    "npc.shadeshadow_level3": {
+      "active": "npc.shade_level3",
+      "parts": [
+        {
+          "npc": "npc.shadeshadow_level3",
+          "sequence": "seq.shadeshadow_sink"
+        },
+        {
+          "npc": "npc.shade_level3",
+          "sequence": "seq.shade_rise"
+        }
+      ],
+      "death": [
+        "seq.shade_sink"
+      ]
+    },
+    "npc.shadeshadow_level4": {
+      "active": "npc.shade_level4",
+      "parts": [
+        {
+          "npc": "npc.shadeshadow_level4",
+          "sequence": "seq.shadeshadow_sink"
+        },
+        {
+          "npc": "npc.shade_level4",
+          "sequence": "seq.shade_rise"
+        }
+      ],
+      "death": [
+        "seq.shade_sink"
+      ]
+    },
+    "npc.shadeshadow_level6": {
+      "active": "npc.shade_level6",
+      "parts": [
+        {
+          "npc": "npc.shadeshadow_level6",
+          "sequence": "seq.shadeshadow_sink"
+        },
+        {
+          "npc": "npc.shade_level6",
+          "sequence": "seq.shade_rise"
+        }
+      ],
+      "death": [
+        "seq.shade_sink"
+      ]
+    }
+  },
+  "deathForms": {
+    "npc.tob_maiden_100": [
+      "npc.tob_maiden_dying_a",
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_70": [
+      "npc.tob_maiden_dying_a",
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_50": [
+      "npc.tob_maiden_dying_a",
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_30": [
+      "npc.tob_maiden_dying_a",
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_dying_a": [
+      "npc.tob_maiden_dying_a",
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_dying_b": [
+      "npc.tob_maiden_dying_b"
+    ],
+    "npc.tob_maiden_100_story": [
+      "npc.tob_maiden_dying_a_story",
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_70_story": [
+      "npc.tob_maiden_dying_a_story",
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_50_story": [
+      "npc.tob_maiden_dying_a_story",
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_30_story": [
+      "npc.tob_maiden_dying_a_story",
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_dying_a_story": [
+      "npc.tob_maiden_dying_a_story",
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_dying_b_story": [
+      "npc.tob_maiden_dying_b_story"
+    ],
+    "npc.tob_maiden_100_hard": [
+      "npc.tob_maiden_dying_a_hard",
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.tob_maiden_70_hard": [
+      "npc.tob_maiden_dying_a_hard",
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.tob_maiden_50_hard": [
+      "npc.tob_maiden_dying_a_hard",
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.tob_maiden_30_hard": [
+      "npc.tob_maiden_dying_a_hard",
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.tob_maiden_dying_a_hard": [
+      "npc.tob_maiden_dying_a_hard",
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.tob_maiden_dying_b_hard": [
+      "npc.tob_maiden_dying_b_hard"
+    ],
+    "npc.myq6_maiden_100": [
+      "npc.myq6_maiden_dying_a",
+      "npc.myq6_maiden_dying_b"
+    ],
+    "npc.myq6_maiden_70": [
+      "npc.myq6_maiden_dying_a",
+      "npc.myq6_maiden_dying_b"
+    ],
+    "npc.myq6_maiden_50": [
+      "npc.myq6_maiden_dying_a",
+      "npc.myq6_maiden_dying_b"
+    ],
+    "npc.myq6_maiden_30": [
+      "npc.myq6_maiden_dying_a",
+      "npc.myq6_maiden_dying_b"
+    ],
+    "npc.myq6_maiden_dying_a": [
+      "npc.myq6_maiden_dying_a",
+      "npc.myq6_maiden_dying_b"
+    ],
+    "npc.myq6_maiden_dying_b": [
+      "npc.myq6_maiden_dying_b"
+    ]
+  },
+  "reviewedRoutes": {
+    "npc.king_dragon": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.dragon_attack",
+        "seq.dragon_firebreath_all_attack"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/kbd/src/main/kotlin/org/rsmod/content/bosses/kbd/KingBlackDragon.kt",
+          "sha256": "b559789b5220802e2cd131bbcac064a35246a7763586c0adbc7522d8b63a8d8a"
+        }
+      ]
+    },
+    "npc.godwars_saradomin_avatar": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.godwars_saradomin_attack",
+        "seq.godwars_saradomin_magic_attack"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/zilyana/src/main/kotlin/org/rsmod/content/bosses/zilyana/CommanderZilyana.kt",
+          "sha256": "68df8dfc8b9ae6dbf5023509856b4bf12aaa6f2fc817cb66cb900129157fb2d7"
+        }
+      ]
+    },
+    "npc.godwars_zamorak_avatar": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.godwars_zamorak_attack",
+        "seq.godwars_zamorak_magic_attack"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/kril/src/main/kotlin/org/rsmod/content/bosses/kril/KrilTsutsaroth.kt",
+          "sha256": "cc4b2f55790b5a458217345e649efa1eee207ddc3f0244ee05d4013ce616d869"
+        }
+      ]
+    },
+    "npc.godwars_armadyl_avatar": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.godwars_armadyl_avatar_claw_attack",
+        "seq.godwars_armadyl_avatar_wind_attack"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/kreearra/src/main/kotlin/org/rsmod/content/bosses/kreearra/KreeArra.kt",
+          "sha256": "662accd0e567230573167c30535903ea4bd9a698abf438cd0b94178d6faf3102"
+        }
+      ]
+    },
+    "npc.callisto": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_callisto_attack_melee01",
+        "seq.npc_callisto_attack_ranged01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/callisto/src/main/kotlin/org/rsmod/content/bosses/callisto/Callisto.kt",
+          "sha256": "0a6db55def702513786b2e105ab7a5e46d11c852a4253daca036d64a284e39b8"
+        }
+      ]
+    },
+    "npc.callisto_singles": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_callisto_attack_melee01",
+        "seq.npc_callisto_attack_ranged01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/callisto/src/main/kotlin/org/rsmod/content/bosses/callisto/Callisto.kt",
+          "sha256": "0a6db55def702513786b2e105ab7a5e46d11c852a4253daca036d64a284e39b8"
+        }
+      ]
+    },
+    "npc.venenatis": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_venenatis_melee_01",
+        "seq.npc_venenatis_ranged_01",
+        "seq.npc_venenatis_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/spindel/src/main/kotlin/org/rsmod/content/bosses/spindel/Venenatis.kt",
+          "sha256": "ca3ad8669f8492119befdea782e2c711f7d47d5e04aa3ca250788e3a80400ce2"
+        }
+      ]
+    },
+    "npc.venenatis_singles": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_venenatis_melee_01",
+        "seq.npc_venenatis_ranged_01",
+        "seq.npc_venenatis_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/spindel/src/main/kotlin/org/rsmod/content/bosses/spindel/Venenatis.kt",
+          "sha256": "ca3ad8669f8492119befdea782e2c711f7d47d5e04aa3ca250788e3a80400ce2"
+        }
+      ]
+    },
+    "npc.muspah": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_muspah_attack_melee_01",
+        "seq.npc_muspah_attack_ranged_01",
+        "seq.npc_muspah_attack_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/muspah/src/main/kotlin/org/rsmod/content/bosses/muspah/Muspah.kt",
+          "sha256": "6b61c0c7c7cc16597fa83e2ddf5c845e530cd4b064ae943c314dcc75f2608a13"
+        }
+      ]
+    },
+    "npc.muspah_melee": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_muspah_attack_melee_01",
+        "seq.npc_muspah_attack_ranged_01",
+        "seq.npc_muspah_attack_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/muspah/src/main/kotlin/org/rsmod/content/bosses/muspah/Muspah.kt",
+          "sha256": "6b61c0c7c7cc16597fa83e2ddf5c845e530cd4b064ae943c314dcc75f2608a13"
+        }
+      ]
+    },
+    "npc.muspah_teleport": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_muspah_attack_melee_01",
+        "seq.npc_muspah_attack_ranged_01",
+        "seq.npc_muspah_attack_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/muspah/src/main/kotlin/org/rsmod/content/bosses/muspah/Muspah.kt",
+          "sha256": "6b61c0c7c7cc16597fa83e2ddf5c845e530cd4b064ae943c314dcc75f2608a13"
+        }
+      ]
+    },
+    "npc.muspah_soulsplit": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_muspah_attack_melee_01",
+        "seq.npc_muspah_attack_ranged_01",
+        "seq.npc_muspah_attack_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/muspah/src/main/kotlin/org/rsmod/content/bosses/muspah/Muspah.kt",
+          "sha256": "6b61c0c7c7cc16597fa83e2ddf5c845e530cd4b064ae943c314dcc75f2608a13"
+        }
+      ]
+    },
+    "npc.muspah_final": {
+      "roles": [
+        "attack_anim"
+      ],
+      "animations": [
+        "seq.npc_muspah_attack_melee_01",
+        "seq.npc_muspah_attack_ranged_01",
+        "seq.npc_muspah_attack_magic_01"
+      ],
+      "note": "Existing registered BossDSL/controller attack route; source review only, not new animation code or owner visual acceptance.",
+      "sources": [
+        {
+          "path": "content/bosses/muspah/src/main/kotlin/org/rsmod/content/bosses/muspah/Muspah.kt",
+          "sha256": "6b61c0c7c7cc16597fa83e2ddf5c845e530cd4b064ae943c314dcc75f2608a13"
+        }
+      ]
+    },
+    "npc.shadeshadow_level5": {
+      "roles": [
+        "attack_anim",
+        "defend_anim",
+        "death_anim"
+      ],
+      "active": "npc.shade_level5",
+      "note": "Preserve the existing Fiyr validation transform and consume the active native body parameters.",
+      "sources": [
+        {
+          "path": "content/activities/shades-of-mortton/src/main/kotlin/org/rsmod/content/activities/shades/ShadeModule.kt",
+          "sha256": "2d289481e5446dc94fe61445b9f8382793bb7d1d1d28412faaff55455dc39093"
+        }
+      ]
+    }
+  }
+}

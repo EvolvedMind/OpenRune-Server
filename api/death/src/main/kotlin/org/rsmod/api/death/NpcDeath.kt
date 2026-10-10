@@ -4,6 +4,7 @@ import dev.openrune.ServerCacheManager
 import dev.openrune.rscm.RSCM
 import dev.openrune.rscm.RSCM.asRSCM
 import dev.openrune.rscm.RSCMType
+import dev.openrune.types.NpcServerType
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.rsmod.api.config.constants
@@ -47,6 +48,16 @@ constructor(
     ) {
         access.death(npcRepo, players, bossRespawns)
         access.npc.spawnDeathDrops(dropCoords)
+    }
+
+    public suspend fun deathWithAnimations(access: StandardNpcAccess, animations: List<String>) {
+        access.death(npcRepo, players, bossRespawns, animations.map { NpcDeathAnimation(it) })
+        access.npc.spawnDeathDrops(access.coords)
+    }
+
+    public suspend fun deathWithAnimationParts(access: StandardNpcAccess, parts: List<NpcDeathAnimation>) {
+        access.death(npcRepo, players, bossRespawns, parts)
+        access.npc.spawnDeathDrops(access.coords)
     }
 
     private fun Npc.spawnDeathDrops(dropCoords: CoordGrid, rewards: NpcDeathRewards = NpcDeathRewards()) {
@@ -122,6 +133,8 @@ private var Player.lastCombat: Int by intVarp("varp.lastcombat")
 private var Player.aggressiveNpc: NpcUid? by typeNpcUidVarp("varp.aggressive_npc")
 private var Npc.aggressivePlayer by typePlayerUidVarn("varn.aggressive_player")
 
+public data class NpcDeathAnimation(val sequence: String, val form: NpcServerType? = null)
+
 /**
  * Handles the death sequence of this [StandardNpcAccess.npc], including clearing interactions and
  * removing (or hiding, if it respawns) the npc from the world.
@@ -141,6 +154,15 @@ public suspend fun StandardNpcAccess.death(
     npcRepo: NpcRepository,
     players: PlayerList,
     bossRespawns: BossRespawnTimers,
+) {
+    death(npcRepo, players, bossRespawns, animations = null)
+}
+
+public suspend fun StandardNpcAccess.death(
+    npcRepo: NpcRepository,
+    players: PlayerList,
+    bossRespawns: BossRespawnTimers,
+    animations: List<NpcDeathAnimation>?,
 ) {
     walk(coords)
     noneMode()
@@ -164,9 +186,27 @@ public suspend fun StandardNpcAccess.death(
         }
     }
 
-    val deathAnim = param(params.death_anim)
-    anim(RSCM.getReverseMapping(RSCMType.SEQ, deathAnim.id))
-    delay(deathAnim)
+    if (animations == null) {
+        val deathAnim = param(params.death_anim)
+        anim(RSCM.getReverseMapping(RSCMType.SEQ, deathAnim.id))
+        delay(deathAnim)
+    } else {
+        // A multipart native death must finish all parts before despawn and loot.
+        // An explicitly empty list represents a static prop with no animated rig.
+        val originalForm = npc.transmog
+        for ((sequence, form) in animations) {
+            if (form != null) npc.transmog(form, Int.MAX_VALUE)
+            val definition = checkNotNull(ServerCacheManager.getAnim(sequence.asRSCM()))
+            check(definition.tickDuration > 0) { "Non-suspending death animation: $sequence" }
+            anim(sequence)
+            delay(definition)
+        }
+        // Visual corpse parts must not change which NPC receives kill/drop credit.
+        if (npc.transmog != originalForm) {
+            if (originalForm == null) npc.resetTransmog()
+            else npc.transmog(originalForm, Int.MAX_VALUE)
+        }
+    }
 
     if (npc.respawns) {
         val bossTicks = BossRespawnPolicy.ticksFor(npc.type.id)

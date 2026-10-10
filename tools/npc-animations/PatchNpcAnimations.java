@@ -8,7 +8,7 @@ import com.google.gson.*;
 public final class PatchNpcAnimations {
   public static void main(String[] args) throws Exception {
     Path compiled=Path.of(args[0]).toRealPath(), original=Path.of(args[1]).toRealPath(), stage=Path.of(args[2]).toRealPath();
-    if(!stage.getFileName().toString().equals("npc-animations-runtime-stage")
+    if(!Set.of("npc-animations-runtime-stage", "npc-animations-lifecycle-runtime-stage").contains(stage.getFileName().toString())
         || !Files.isRegularFile(stage.resolve("ISOLATED-CANDIDATE")) || stage.equals(original) || stage.equals(compiled))
       throw new IllegalStateException("Unmarked or unsafe candidate stage");
     Set<Integer> ids=new TreeSet<>();

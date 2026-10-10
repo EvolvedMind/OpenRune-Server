@@ -918,6 +918,13 @@ id = "npc.jungle_wolf"
 "param.defend_anim" = "seq.dog_update_wolf_defend"
 "param.death_anim" = "seq.dog_update_wolf_death"
 
+# King Black Dragon
+[[npc_params]]
+id = "npc.king_dragon"
+[npc_params.params]
+"param.defend_anim" = "seq.dragon_block"
+"param.death_anim" = "seq.dragon_death"
+
 # Black demon
 [[npc_params]]
 id = "npc.black_demon_strongholdcave_1"
@@ -1780,6 +1787,14 @@ id = "npc.slayer_lizard_small2_sandy"
 "param.defend_anim" = "seq.slayer_lizard_defend"
 "param.death_anim" = "seq.slayer_lizard_death"
 
+# Harpie Bug Swarm
+[[npc_params]]
+id = "npc.slayer_harpiebugswarm"
+[npc_params.params]
+"param.attack_anim" = "seq.slayer_harpie_hit"
+"param.defend_anim" = "seq.slayer_harpie_dodge"
+"param.death_anim" = "seq.slayer_harpie_death"
+
 # Skeletal Wyvern
 [[npc_params]]
 id = "npc.skeletal_wyvern1"
@@ -1816,6 +1831,7 @@ id = "npc.skeletal_wyvern4"
 [[npc_params]]
 id = "npc.slayer_killerwatt"
 [npc_params.params]
+"param.attack_anim" = "seq.killerwatt_biped_attack"
 "param.defend_anim" = "seq.killerwatt_biped_block"
 "param.death_anim" = "seq.killerwatt_biped_death"
 
@@ -2819,6 +2835,7 @@ id = "npc.goblin_red_soldier_underground"
 [[npc_params]]
 id = "npc.goblin_greenarmour"
 [npc_params.params]
+"param.attack_anim" = "seq.goblin_attack_armed"
 "param.defend_anim" = "seq.goblin_block"
 "param.death_anim" = "seq.goblin_death"
 
@@ -2826,6 +2843,7 @@ id = "npc.goblin_greenarmour"
 [[npc_params]]
 id = "npc.goblin_redarmour"
 [npc_params.params]
+"param.attack_anim" = "seq.goblin_attack_armed"
 "param.defend_anim" = "seq.goblin_block"
 "param.death_anim" = "seq.goblin_death"
 
@@ -3075,6 +3093,7 @@ id = "npc.scarab_swarm"
 [npc_params.params]
 "param.attack_anim" = "seq.scarab_attack"
 "param.defend_anim" = "seq.scarab_parry"
+"param.death_anim" = "seq.scarab_spiral_rev"
 
 # Bandit
 [[npc_params]]
@@ -3127,6 +3146,7 @@ id = "npc.myarm_baby_roc"
 [[npc_params]]
 id = "npc.myarm_giant_roc"
 [npc_params.params]
+"param.attack_anim" = "seq.myarm_roc_peck_attack"
 "param.defend_anim" = "seq.myarm_roc_defend"
 "param.death_anim" = "seq.myarm_roc_death"
 
@@ -3230,6 +3250,7 @@ id = "npc.contact_insectoid_mage"
 [[npc_params]]
 id = "npc.contact_locust_lance"
 [npc_params.params]
+"param.attack_anim" = "seq.contact_locust_lance_attack"
 "param.defend_anim" = "seq.contact_locust_defend"
 "param.death_anim" = "seq.contact_locust_death"
 
@@ -3237,6 +3258,7 @@ id = "npc.contact_locust_lance"
 [[npc_params]]
 id = "npc.contact_locust_bow"
 [npc_params.params]
+"param.attack_anim" = "seq.contact_locust_bow_attack"
 "param.defend_anim" = "seq.contact_locust_defend"
 "param.death_anim" = "seq.contact_locust_death"
 
@@ -3260,6 +3282,7 @@ id = "npc.contact_insectoid_mage_b"
 [[npc_params]]
 id = "npc.contact_locust_lance_b"
 [npc_params.params]
+"param.attack_anim" = "seq.contact_locust_lance_attack"
 "param.defend_anim" = "seq.contact_locust_defend"
 "param.death_anim" = "seq.contact_locust_death"
 
@@ -3267,6 +3290,7 @@ id = "npc.contact_locust_lance_b"
 [[npc_params]]
 id = "npc.contact_locust_bow_b"
 [npc_params.params]
+"param.attack_anim" = "seq.contact_locust_bow_attack"
 "param.defend_anim" = "seq.contact_locust_defend"
 "param.death_anim" = "seq.contact_locust_death"
 
@@ -3706,6 +3730,7 @@ id = "npc.kalphite_lord_chamber"
 [[npc_params]]
 id = "npc.kalphite_queen"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_queen_jaws_attack"
 "param.defend_anim" = "seq.kalphite_update_queen_defend"
 "param.death_anim" = "seq.kalphite_update_queen_death"
 
@@ -3713,6 +3738,7 @@ id = "npc.kalphite_queen"
 [[npc_params]]
 id = "npc.kalphite_flyingqueen"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_flying_queen_stinger_attack"
 "param.defend_anim" = "seq.kalphite_update_flying_queen_defend"
 "param.death_anim" = "seq.kalphite_update_flying_queen_death"
 
@@ -4480,7 +4506,9 @@ id = "npc.ramsheered"
 [[npc_params]]
 id = "npc.ramunsheeredshaggy"
 [npc_params.params]
+"param.attack_anim" = "seq.sheep_update_attack"
 "param.defend_anim" = "seq.sheep_update_shaggy_defend"
+"param.death_anim" = "seq.sheep_update_death"
 
 # Vulture
 [[npc_params]]
@@ -4494,7 +4522,9 @@ id = "npc.rag_vulture"
 [[npc_params]]
 id = "npc.rag_vulture_flying"
 [npc_params.params]
+"param.attack_anim" = "seq.vulture_fly_attack"
 "param.defend_anim" = "seq.vulture_ground_block"
+"param.death_anim" = "seq.vulture_fly_death"
 
 # Experiment
 [[npc_params]]
@@ -4596,13 +4626,17 @@ id = "npc.mort_afflicted_woman2"
 [[npc_params]]
 id = "npc.sarim_seagull_pier"
 [npc_params.params]
-"param.death_anim" = "seq.duck_rework_death"
+"param.attack_anim" = "seq.seagull_attack"
+"param.defend_anim" = "seq.seagull_defend"
+"param.death_anim" = "seq.seagull_death"
 
 # Seagull
 [[npc_params]]
 id = "npc.sarim_seagull_pier_big"
 [npc_params.params]
-"param.death_anim" = "seq.duck_rework_death"
+"param.attack_anim" = "seq.seagull_attack"
+"param.defend_anim" = "seq.seagull_defend"
+"param.death_anim" = "seq.seagull_death"
 
 # Dwarf gang member
 [[npc_params]]
@@ -5484,6 +5518,54 @@ id = "npc.pest_brawler_5"
 "param.defend_anim" = "seq.brawler_defend"
 "param.death_anim" = "seq.brawler_death"
 
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_1_active"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death_east"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_2_active"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death_west"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_3_active"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_4_active"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_1_active_bt1"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death_east"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_2_active_bt1"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death_west"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_3_active_bt1"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death"
+
+# Portal
+[[npc_params]]
+id = "npc.pest_portal_4_active_bt1"
+[npc_params.params]
+"param.death_anim" = "seq.pest_portal_death"
+
 # Double agent
 [[npc_params]]
 id = "npc.double_agent_1"
@@ -5506,6 +5588,7 @@ id = "npc.ntk_scarab_swarm"
 [npc_params.params]
 "param.attack_anim" = "seq.scarab_attack"
 "param.defend_anim" = "seq.scarab_parry"
+"param.death_anim" = "seq.scarab_spiral_rev"
 
 # Goat
 [[npc_params]]
@@ -6530,6 +6613,12 @@ id = "npc.tzhaar_fightpit_swarm_3b"
 "param.defend_anim" = "seq.magmaquris_defend"
 "param.death_anim" = "seq.magmaquris_death"
 
+# Commander Zilyana
+[[npc_params]]
+id = "npc.godwars_saradomin_avatar"
+[npc_params.params]
+"param.defend_anim" = "seq.godwars_saradomin_defend"
+
 # Saradomin priest
 [[npc_params]]
 id = "npc.godwars_ancient_saradomin_wizard"
@@ -6591,6 +6680,8 @@ id = "npc.godwars_ancient_ogre"
 id = "npc.godwars_ancient_jogre"
 [npc_params.params]
 "param.attack_anim" = "seq.champions_jogre_attack"
+"param.defend_anim" = "seq.champions_giant_defend"
+"param.death_anim" = "seq.champions_giant_death"
 
 # Cyclops
 [[npc_params]]
@@ -6687,6 +6778,14 @@ id = "npc.godwars_goblin2"
 "param.attack_anim" = "seq.slice_surface_goblin_squat_unarmed_attack"
 "param.defend_anim" = "seq.slice_surface_goblin_defend"
 "param.death_anim" = "seq.slice_surface_goblin_death"
+
+# Goblin
+[[npc_params]]
+id = "npc.godwars_goblin3"
+[npc_params.params]
+"param.attack_anim" = "seq.slice_surface_goblin_squat_unarmed_attack"
+"param.defend_anim" = "seq.slice_surface_goblin_defend"
+"param.death_anim" = "seq.godwars_goblin_update_banner_death"
 
 # Goblin
 [[npc_params]]
@@ -8158,17 +8257,17 @@ id = "npc.ahoy_tortured_soul"
 [[npc_params]]
 id = "npc.fai_varrock_guard"
 [npc_params.params]
-"param.attack_anim" = "seq.fai_varrock_guard_attack"
-"param.defend_anim" = "seq.fai_varrock_guard_defend"
-"param.death_anim" = "seq.fai_varrock_guard_death"
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
 
 # Guard
 [[npc_params]]
 id = "npc.fai_varrock_guard_captain"
 [npc_params.params]
-"param.attack_anim" = "seq.fai_varrock_guard_attack"
-"param.defend_anim" = "seq.fai_varrock_guard_defend"
-"param.death_anim" = "seq.fai_varrock_guard_death"
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
 
 # Man
 [[npc_params]]
@@ -8690,6 +8789,12 @@ id = "npc.tzhaar_fightcave_swarm_boss_cleric"
 "param.defend_anim" = "seq.lizard_cleric_defend"
 "param.death_anim" = "seq.lizard_cleric_death"
 
+# K'ril Tsutsaroth
+[[npc_params]]
+id = "npc.godwars_zamorak_avatar"
+[npc_params.params]
+"param.defend_anim" = "seq.godwars_zamorak_defend"
+
 # Hellhound
 [[npc_params]]
 id = "npc.godwars_ancient_hellhound"
@@ -8785,6 +8890,12 @@ id = "npc.godwars_spiritual_zamorak_mage"
 "param.attack_anim" = "seq.human_caststrike"
 "param.defend_anim" = "seq.human_blunt_block"
 "param.death_anim" = "seq.human_death"
+
+# Kree'arra
+[[npc_params]]
+id = "npc.godwars_armadyl_avatar"
+[npc_params.params]
+"param.defend_anim" = "seq.godwars_armadyl_avatar_defend"
 
 # Spiritual warrior
 [[npc_params]]
@@ -9045,6 +9156,14 @@ id = "npc.al_kharid_man"
 # Barbarian
 [[npc_params]]
 id = "npc.barbarianwoman_varrock"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Drunken man
+[[npc_params]]
+id = "npc.falador_man1"
 [npc_params.params]
 "param.attack_anim" = "seq.human_unarmedpunch"
 "param.defend_anim" = "seq.human_unarmedblock"
@@ -9341,6 +9460,8 @@ id = "npc.newbiechicken"
 [[npc_params]]
 id = "npc.champions_earthwarrior"
 [npc_params.params]
+"param.attack_anim" = "seq.earthwarrior_chop"
+"param.defend_anim" = "seq.earthwarrior_def"
 "param.death_anim" = "seq.earthwarrior_death"
 
 # Giant Champion
@@ -9358,6 +9479,14 @@ id = "npc.champions_ghoul"
 "param.attack_anim" = "seq.human_blunt_pound"
 "param.defend_anim" = "seq.human_blunt_block"
 "param.death_anim" = "seq.human_death"
+
+# Goblin Champion
+[[npc_params]]
+id = "npc.champions_goblin"
+[npc_params.params]
+"param.attack_anim" = "seq.goblin_update_champion_casting"
+"param.defend_anim" = "seq.slice_surface_goblin_defend"
+"param.death_anim" = "seq.godwars_goblin_update_banner_death"
 
 # Hobgoblin Champion
 [[npc_params]]
@@ -9380,6 +9509,8 @@ id = "npc.champions_imp"
 id = "npc.champions_jogre"
 [npc_params.params]
 "param.attack_anim" = "seq.champions_jogre_attack"
+"param.defend_anim" = "seq.champions_giant_defend"
+"param.death_anim" = "seq.champions_giant_death"
 
 # Lesser Demon Champion
 [[npc_params]]
@@ -9402,6 +9533,8 @@ id = "npc.champions_skeleton"
 id = "npc.champions_zombie"
 [npc_params.params]
 "param.attack_anim" = "seq.zombie_update_attack_champion"
+"param.defend_anim" = "seq.zombie_update_defend_weapon"
+"param.death_anim" = "seq.zombie_update_death_weapon"
 
 # Leon d'Cour
 [[npc_params]]
@@ -9575,6 +9708,7 @@ id = "npc.blooddiamond_vampirewarrior_unkillable"
 [[npc_params]]
 id = "npc.dream_inadequacy"
 [npc_params.params]
+"param.attack_anim" = "seq.dream_inadequacy_attack_front"
 "param.defend_anim" = "seq.dream_inadequacy_defend"
 "param.death_anim" = "seq.dream_inadequacy_death"
 
@@ -9622,18 +9756,24 @@ id = "npc.count_draynor"
 id = "npc.priestperilevilmonk1"
 [npc_params.params]
 "param.death_anim" = "seq.human_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 
 # null
 [[npc_params]]
 id = "npc.priestperilevilmonk2"
 [npc_params.params]
 "param.death_anim" = "seq.human_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 
 # null
 [[npc_params]]
 id = "npc.priestperilevilmonk3"
 [npc_params.params]
 "param.death_anim" = "seq.human_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 
 # null
 [[npc_params]]
@@ -9663,7 +9803,9 @@ id = "npc.shadow_maj_bouncer"
 [[npc_params]]
 id = "npc.renegade_knight"
 [npc_params.params]
-"param.defend_anim" = "seq.kr_keep_le_faye_guard_defend"
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
 
 # Thrantax the Mighty
 [[npc_params]]
@@ -9677,9 +9819,9 @@ id = "npc.thrantax"
 [[npc_params]]
 id = "npc.sir_mordred"
 [npc_params.params]
-"param.attack_anim" = "seq.fai_varrock_guard_attack"
-"param.defend_anim" = "seq.fai_varrock_guard_defend"
-"param.death_anim" = "seq.fai_varrock_guard_death"
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
 
 # Snake
 [[npc_params]]
@@ -11101,6 +11243,7 @@ id = "npc.ics_scarab_swarm"
 [npc_params.params]
 "param.attack_anim" = "seq.scarab_attack"
 "param.defend_anim" = "seq.scarab_parry"
+"param.death_anim" = "seq.scarab_spiral_rev"
 
 # Apparition
 [[npc_params]]
@@ -11202,6 +11345,7 @@ id = "npc.jailguard_four_patrol"
 [[npc_params]]
 id = "npc.swan_kalphite_1"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_queen_jaws_attack"
 "param.defend_anim" = "seq.kalphite_update_queen_defend"
 "param.death_anim" = "seq.kalphite_update_queen_death"
 
@@ -11209,6 +11353,7 @@ id = "npc.swan_kalphite_1"
 [[npc_params]]
 id = "npc.swan_kalphite_2"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_flying_queen_stinger_attack"
 "param.defend_anim" = "seq.kalphite_update_flying_queen_defend"
 "param.death_anim" = "seq.kalphite_update_flying_queen_death"
 
@@ -11476,6 +11621,14 @@ id = "npc.burgh_vampire_juve_angry"
 "param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.burgh_vampire_juve_held"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
 # Vampyre Juvenile
 [[npc_params]]
 id = "npc.burgh_vampire_juvenile_1"
@@ -11495,6 +11648,14 @@ id = "npc.burgh_vampire_juvenile_2"
 # Vampyre Juvenile
 [[npc_params]]
 id = "npc.burgh_vampire_juvenile_3"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Vampyre Juvenile
+[[npc_params]]
+id = "npc.burgh_vampire_juvenile_held"
 [npc_params.params]
 "param.attack_anim" = "seq.human_unarmedpunch"
 "param.defend_anim" = "seq.human_unarmedblock"
@@ -12208,6 +12369,7 @@ id = "npc.hundred_minion3"
 [[npc_params]]
 id = "npc.hundred_minion4"
 [npc_params.params]
+"param.attack_anim" = "seq.dessourt_melee_attack"
 "param.defend_anim" = "seq.dessourt_block"
 "param.death_anim" = "seq.dessourt_death"
 
@@ -12696,11 +12858,15 @@ id = "npc.goblin_armed_mcannon_5"
 id = "npc.jonny_the_beard"
 [npc_params.params]
 "param.death_anim" = "seq.human_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 
 # Thief
 [[npc_params]]
 id = "npc.qip_soa_thief_male01"
 [npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
 # Thief
@@ -12715,12 +12881,16 @@ id = "npc.qip_soa_thief_male02"
 [[npc_params]]
 id = "npc.qip_soa_thief_female01"
 [npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
 # Thief
 [[npc_params]]
 id = "npc.qip_soa_thief_female02"
 [npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
 # Skeleton
@@ -12745,6 +12915,7 @@ id = "npc.mm_jungle_bird_green"
 [npc_params.params]
 "param.attack_anim" = "seq.bird_flying_update_attack"
 "param.defend_anim" = "seq.bird_flying_update_defend"
+"param.death_anim" = "seq.bird_flying_update_death_medium_bird"
 
 # Bird
 [[npc_params]]
@@ -13330,6 +13501,30 @@ id = "npc.templetrek_vampire_3"
 "param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.trek_vampire_juve_held_1"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.trek_vampire_juve_held_2"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.trek_vampire_juve_held_3"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
 # Feral Vampyre
 [[npc_params]]
 id = "npc.trek_vampire_juve_angry_1"
@@ -13370,6 +13565,22 @@ id = "npc.templetrek_tentacle_head"
 "param.defend_anim" = "seq.templetrek_tentacle_head_defend"
 "param.death_anim" = "seq.templetrek_tentacle_head_death"
 
+# Head
+[[npc_params]]
+id = "npc.templetrek_tentacle_head_spawning"
+[npc_params.params]
+"param.attack_anim" = "seq.templetrek_tentacle_head_attack"
+"param.defend_anim" = "seq.templetrek_tentacle_head_defend"
+"param.death_anim" = "seq.templetrek_tentacle_head_death"
+
+# Tentacle
+[[npc_params]]
+id = "npc.templetrek_tentacle_arm_spawning"
+[npc_params.params]
+"param.attack_anim" = "seq.tentacle_monster_attack"
+"param.defend_anim" = "seq.tentacle_monster_block"
+"param.death_anim" = "seq.tentacle_monster_death"
+
 # Zombie
 [[npc_params]]
 id = "npc.templetrek_zombie"
@@ -13380,7 +13591,55 @@ id = "npc.templetrek_zombie"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_1_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_1_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13396,7 +13655,55 @@ id = "npc.ttrek2_zombie_diff_1_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_2_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_2_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13412,7 +13719,55 @@ id = "npc.ttrek2_zombie_diff_2_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_3_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_3_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13428,7 +13783,55 @@ id = "npc.ttrek2_zombie_diff_3_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_4_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_4_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13444,7 +13847,55 @@ id = "npc.ttrek2_zombie_diff_4_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_5_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_5_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13460,7 +13911,55 @@ id = "npc.ttrek2_zombie_diff_5_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_6_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_6_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13476,7 +13975,55 @@ id = "npc.ttrek2_zombie_diff_6_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_7_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_7_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13492,7 +14039,55 @@ id = "npc.ttrek2_zombie_diff_7_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_8_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_8_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -13508,7 +14103,55 @@ id = "npc.ttrek2_zombie_diff_8_ver_2_4"
 
 # Undead Lumberjack
 [[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_1_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_1_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_1_3"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
 id = "npc.ttrek2_zombie_diff_9_ver_1_4"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_2_1"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_2_2"
+[npc_params.params]
+"param.attack_anim" = "seq.ramble_zombie_attack"
+"param.defend_anim" = "seq.ramble_zombie_defend"
+"param.death_anim" = "seq.ramble_zombie_death"
+
+# Undead Lumberjack
+[[npc_params]]
+id = "npc.ttrek2_zombie_diff_9_ver_2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.ramble_zombie_attack"
 "param.defend_anim" = "seq.ramble_zombie_defend"
@@ -14364,6 +15007,7 @@ id = "npc.nzone_elvarg_hard"
 [[npc_params]]
 id = "npc.nzone_dream_inadequacy_hard"
 [npc_params.params]
+"param.attack_anim" = "seq.dream_inadequacy_attack_front"
 "param.defend_anim" = "seq.dream_inadequacy_defend"
 "param.death_anim" = "seq.dream_inadequacy_death"
 
@@ -14571,6 +15215,7 @@ id = "npc.nzone_hundred_minion3_hard"
 [[npc_params]]
 id = "npc.nzone_hundred_minion4_hard"
 [npc_params.params]
+"param.attack_anim" = "seq.dessourt_melee_attack"
 "param.defend_anim" = "seq.dessourt_block"
 "param.death_anim" = "seq.dessourt_death"
 
@@ -14666,6 +15311,7 @@ id = "npc.nzone_mdaughter_bearman_fighter_hard"
 [[npc_params]]
 id = "npc.nzone_myarm_giant_roc_hard"
 [npc_params.params]
+"param.attack_anim" = "seq.myarm_roc_peck_attack"
 "param.defend_anim" = "seq.myarm_roc_defend"
 "param.death_anim" = "seq.myarm_roc_death"
 
@@ -14873,6 +15519,7 @@ id = "npc.nzone_elvarg_normal"
 [[npc_params]]
 id = "npc.nzone_dream_inadequacy_normal"
 [npc_params.params]
+"param.attack_anim" = "seq.dream_inadequacy_attack_front"
 "param.defend_anim" = "seq.dream_inadequacy_defend"
 "param.death_anim" = "seq.dream_inadequacy_death"
 
@@ -15048,6 +15695,7 @@ id = "npc.nzone_hundred_minion3_normal"
 [[npc_params]]
 id = "npc.nzone_hundred_minion4_normal"
 [npc_params.params]
+"param.attack_anim" = "seq.dessourt_melee_attack"
 "param.defend_anim" = "seq.dessourt_block"
 "param.death_anim" = "seq.dessourt_death"
 
@@ -15143,6 +15791,7 @@ id = "npc.nzone_mdaughter_bearman_fighter_normal"
 [[npc_params]]
 id = "npc.nzone_myarm_giant_roc_normal"
 [npc_params.params]
+"param.attack_anim" = "seq.myarm_roc_peck_attack"
 "param.defend_anim" = "seq.myarm_roc_defend"
 "param.death_anim" = "seq.myarm_roc_death"
 
@@ -15645,6 +16294,7 @@ id = "npc.lotr_tran_razorlor_mutant"
 [[npc_params]]
 id = "npc.clancup_godwars_armadyl_avatar"
 [npc_params.params]
+"param.attack_anim" = "seq.godwars_armadyl_avatar_claw_attack"
 "param.defend_anim" = "seq.godwars_armadyl_avatar_defend"
 "param.death_anim" = "seq.godwars_armadyl_avatar_death"
 
@@ -15708,6 +16358,7 @@ id = "npc.clancup_mole_giant"
 [[npc_params]]
 id = "npc.clancup_kalphite_queen"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_queen_jaws_attack"
 "param.defend_anim" = "seq.kalphite_update_queen_defend"
 "param.death_anim" = "seq.kalphite_update_queen_death"
 
@@ -15715,6 +16366,7 @@ id = "npc.clancup_kalphite_queen"
 [[npc_params]]
 id = "npc.clancup_kalphite_flyingqueen"
 [npc_params.params]
+"param.attack_anim" = "seq.kalphite_update_flying_queen_stinger_attack"
 "param.defend_anim" = "seq.kalphite_update_flying_queen_defend"
 "param.death_anim" = "seq.kalphite_update_flying_queen_death"
 
@@ -15766,6 +16418,14 @@ id = "npc.deadman_guard_gnome_vis"
 
 # Guard
 [[npc_params]]
+id = "npc.deadman_guard_seers_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
 id = "npc.deadman_guard_catherby_vis"
 [npc_params.params]
 "param.attack_anim" = "seq.human_bow"
@@ -15786,6 +16446,14 @@ id = "npc.deadman_guard_yanille_vis"
 [npc_params.params]
 "param.attack_anim" = "seq.human_blunt_pound"
 "param.defend_anim" = "seq.human_blunt_block"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_falador_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_sword_stab"
+"param.defend_anim" = "seq.human_sword_def"
 "param.death_anim" = "seq.human_death"
 
 # Guard
@@ -15986,6 +16654,14 @@ id = "npc.crazy_archaeologist"
 "param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
+# Chaos Fanatic
+[[npc_params]]
+id = "npc.chaos_fanatic"
+[npc_params.params]
+"param.attack_anim" = "seq.human_caststrike"
+"param.defend_anim" = "seq.human_staff_block"
+"param.death_anim" = "seq.human_death"
+
 # Energy sprite
 [[npc_params]]
 id = "npc.clanwars_teleport_power"
@@ -16151,6 +16827,14 @@ id = "npc.evil_chicken"
 "param.attack_anim" = "seq.roostermagic"
 "param.defend_anim" = "seq.roosterparry"
 "param.death_anim" = "seq.roosterdeath"
+
+# Shade
+[[npc_params]]
+id = "npc.macro_shade"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Zombie
 [[npc_params]]
@@ -16468,6 +17152,7 @@ id = "npc.zeah_mugger"
 [[npc_params]]
 id = "npc.arceuus_reanimated_goblin"
 [npc_params.params]
+"param.attack_anim" = "seq.goblin_attack_unarmed"
 "param.defend_anim" = "seq.goblin_block"
 "param.death_anim" = "seq.goblin_death"
 
@@ -17052,6 +17737,30 @@ id = "npc.cata_boss_minion"
 "param.defend_anim" = "seq.demon_block"
 "param.death_anim" = "seq.demon_death"
 
+# Awakened Altar
+[[npc_params]]
+id = "npc.cata_boss_altar_open_n"
+[npc_params.params]
+"param.death_anim" = "seq.altar_death"
+
+# Awakened Altar
+[[npc_params]]
+id = "npc.cata_boss_altar_open_e"
+[npc_params.params]
+"param.death_anim" = "seq.altar_death"
+
+# Awakened Altar
+[[npc_params]]
+id = "npc.cata_boss_altar_open_s"
+[npc_params.params]
+"param.death_anim" = "seq.altar_death"
+
+# Awakened Altar
+[[npc_params]]
+id = "npc.cata_boss_altar_open_w"
+[npc_params.params]
+"param.death_anim" = "seq.altar_death"
+
 # Dark Ankou
 [[npc_params]]
 id = "npc.cata_boss_ankou"
@@ -17072,8 +17781,8 @@ id = "npc.trail_zaros_wizard"
 [[npc_params]]
 id = "npc.trail_zaros_range"
 [npc_params.params]
-"param.attack_anim" = "seq.xbows_human_fire_and_reload"
-"param.defend_anim" = "seq.human_unarmedblock"
+"param.attack_anim" = "seq.human_caststrike"
+"param.defend_anim" = "seq.human_staff_block"
 "param.death_anim" = "seq.human_death"
 
 # Ancient Wizard
@@ -17345,6 +18054,7 @@ id = "npc.rc_zmi_lizard"
 [npc_params.params]
 "param.attack_anim" = "seq.rc_zmi_lizard_attack"
 "param.defend_anim" = "seq.rc_zmi_lizard_defend"
+"param.death_anim" = "seq.rc_zmi_lizzard_death"
 
 # Zamorak crafter
 [[npc_params]]
@@ -17462,6 +18172,7 @@ id = "npc.raids_vespula_vespine_walking"
 id = "npc.raids_tekton_walking_standard"
 [npc_params.params]
 "param.attack_anim" = "seq.tekton_slash"
+"param.defend_anim" = "seq.tekton_ready_defend"
 "param.death_anim" = "seq.tekton_death"
 
 # Tekton
@@ -17469,6 +18180,7 @@ id = "npc.raids_tekton_walking_standard"
 id = "npc.raids_tekton_fighting_standard"
 [npc_params.params]
 "param.attack_anim" = "seq.tekton_slash"
+"param.defend_anim" = "seq.tekton_ready_defend"
 "param.death_anim" = "seq.tekton_death"
 
 # Tekton (enraged)
@@ -17476,6 +18188,7 @@ id = "npc.raids_tekton_fighting_standard"
 id = "npc.raids_tekton_walking_enraged"
 [npc_params.params]
 "param.attack_anim" = "seq.tekton_slash_enraged"
+"param.defend_anim" = "seq.tekton_ready_defend_enraged"
 "param.death_anim" = "seq.tekton_death"
 
 # Tekton (enraged)
@@ -17483,6 +18196,7 @@ id = "npc.raids_tekton_walking_enraged"
 id = "npc.raids_tekton_fighting_enraged"
 [npc_params.params]
 "param.attack_anim" = "seq.tekton_slash_enraged"
+"param.defend_anim" = "seq.tekton_ready_defend_enraged"
 "param.death_anim" = "seq.tekton_death"
 
 # Tekton
@@ -17490,6 +18204,7 @@ id = "npc.raids_tekton_fighting_enraged"
 id = "npc.raids_tekton_hammering"
 [npc_params.params]
 "param.attack_anim" = "seq.tekton_slash"
+"param.defend_anim" = "seq.tekton_ready_defend"
 "param.death_anim" = "seq.tekton_death"
 
 # Scavenger beast
@@ -17965,6 +18680,7 @@ id = "npc.wildwars_boss_weapons"
 [[npc_params]]
 id = "npc.wyvern_long_tailed"
 [npc_params.params]
+"param.attack_anim" = "seq.fossil_npc_wyvern_flight_claw"
 "param.defend_anim" = "seq.fossil_npc_wyvern_flight_defend"
 "param.death_anim" = "seq.fossil_npc_wyvern_flight_death"
 
@@ -17972,6 +18688,7 @@ id = "npc.wyvern_long_tailed"
 [[npc_params]]
 id = "npc.wyvern_taloned"
 [npc_params.params]
+"param.attack_anim" = "seq.fossil_npc_wyvern_flight_claw"
 "param.defend_anim" = "seq.fossil_npc_wyvern_flight_defend"
 "param.death_anim" = "seq.fossil_npc_wyvern_flight_death"
 
@@ -17979,6 +18696,7 @@ id = "npc.wyvern_taloned"
 [[npc_params]]
 id = "npc.wyvern_spitting"
 [npc_params.params]
+"param.attack_anim" = "seq.fossil_npc_wyvern_flight_claw"
 "param.defend_anim" = "seq.fossil_npc_wyvern_flight_defend"
 "param.death_anim" = "seq.fossil_npc_wyvern_flight_death"
 
@@ -17986,6 +18704,7 @@ id = "npc.wyvern_spitting"
 [[npc_params]]
 id = "npc.ancient_wyvern"
 [npc_params.params]
+"param.attack_anim" = "seq.fossil_npc_wyvern_flight_claw"
 "param.defend_anim" = "seq.fossil_npc_wyvern_flight_defend"
 "param.death_anim" = "seq.fossil_npc_wyvern_flight_death"
 
@@ -18026,6 +18745,7 @@ id = "npc.fossil_tarmonster"
 [npc_params.params]
 "param.attack_anim" = "seq.fossil_npc_lavabeast_attack"
 "param.defend_anim" = "seq.fossil_npc_lavabeast_defend"
+"param.death_anim" = "seq.fossil_npc_lavabeast_despawn"
 
 # Deranged archaeologist
 [[npc_params]]
@@ -18041,17 +18761,21 @@ id = "npc.fossil_mine_lavabeast"
 [npc_params.params]
 "param.attack_anim" = "seq.fossil_npc_lavabeast_attack"
 "param.defend_anim" = "seq.fossil_npc_lavabeast_defend"
+"param.death_anim" = "seq.fossil_npc_lavabeast_despawn"
 
 # Dusk
 [[npc_params]]
 id = "npc.gargboss_dusk_phase1_defensive"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dusk_attack_slash_defensive"
+"param.defend_anim" = "seq.gg_dusk_defend"
 "param.death_anim" = "seq.gg_dusk_death"
 
 # Dawn
 [[npc_params]]
 id = "npc.gargboss_dawn_phase1"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dawn_attack_ranged"
 "param.defend_anim" = "seq.gg_dawn_defend"
 "param.death_anim" = "seq.gg_dawn_death"
 
@@ -18250,6 +18974,7 @@ id = "npc.wild_cave_imp"
 [[npc_params]]
 id = "npc.gargboss_dusk_phase2_attacking"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dusk_attack_slash"
 "param.defend_anim" = "seq.gg_dusk_defend"
 "param.death_anim" = "seq.gg_dusk_death"
 
@@ -18257,14 +18982,25 @@ id = "npc.gargboss_dusk_phase2_attacking"
 [[npc_params]]
 id = "npc.gargboss_dusk_phase3_defensive"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dusk_attack_slash_defensive"
+"param.defend_anim" = "seq.gg_dusk_defend"
 "param.death_anim" = "seq.gg_dusk_death"
 
 # Dawn
 [[npc_params]]
 id = "npc.gargboss_dawn_phase3"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dawn_attack_ranged"
 "param.defend_anim" = "seq.gg_dawn_defend"
 "param.death_anim" = "seq.gg_dawn_death"
+
+# Dusk
+[[npc_params]]
+id = "npc.gargboss_dusk_phase4"
+[npc_params.params]
+"param.attack_anim" = "seq.gg_dusk_enrage_attack_slash"
+"param.defend_anim" = "seq.gg_dusk_defend"
+"param.death_anim" = "seq.gg_dusk_death"
 
 # Sand Snake (hard)
 [[npc_params]]
@@ -18294,8 +19030,8 @@ id = "npc.hosidiusquest_snake"
 [[npc_params]]
 id = "npc.warrens_thief_stall"
 [npc_params.params]
-"param.attack_anim" = "seq.human_sword_stab"
-"param.defend_anim" = "seq.human_sword_def"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
 "param.death_anim" = "seq.human_death"
 
 # Revenant goblin
@@ -18709,12 +19445,26 @@ id = "npc.ds2_rune_dragon"
 id = "npc.galvek_fire"
 [npc_params.params]
 "param.attack_anim" = "seq.galvek_grounded_slash"
+"param.death_anim" = "seq.galvek_death"
+
+# Galvek
+[[npc_params]]
+id = "npc.galvek_water"
+[npc_params.params]
+"param.death_anim" = "seq.galvek_death"
+
+# Galvek
+[[npc_params]]
+id = "npc.galvek_wind"
+[npc_params.params]
+"param.death_anim" = "seq.galvek_death"
 
 # Galvek
 [[npc_params]]
 id = "npc.galvek_earth"
 [npc_params.params]
 "param.attack_anim" = "seq.galvek_grounded_slash"
+"param.death_anim" = "seq.galvek_death"
 
 # Spider
 [[npc_params]]
@@ -18753,12 +19503,16 @@ id = "npc.gb_mossgiant"
 id = "npc.myq4_ranis_vampyre_combat"
 [npc_params.params]
 "param.attack_anim" = "seq.myq4_vampire_claw"
+"param.defend_anim" = "seq.myq3_vampire_grounded_defend_male"
+"param.death_anim" = "seq.myq4_vampyre_death"
 
 # Ranis Drakan
 [[npc_params]]
 id = "npc.myq4_ranis_vampyre_combat_enrage"
 [npc_params.params]
 "param.attack_anim" = "seq.myq4_vampire_claw"
+"param.defend_anim" = "seq.myq3_vampire_grounded_defend_male"
+"param.death_anim" = "seq.myq4_vampyre_death"
 
 # Vyrewatch
 [[npc_params]]
@@ -19148,6 +19902,7 @@ id = "npc.my2arm_mother_battle_magic"
 [[npc_params]]
 id = "npc.my2arm_dontknowwhat_battle"
 [npc_params.params]
+"param.attack_anim" = "seq.my2arm_troll_attack_melee"
 "param.death_anim" = "seq.my2arm_troll_death"
 
 # null
@@ -19243,6 +19998,12 @@ id = "npc.hespori"
 [npc_params.params]
 "param.attack_anim" = "seq.hespori_attack_ranged"
 "param.death_anim" = "seq.hespori_death"
+
+# Flower
+[[npc_params]]
+id = "npc.hespori_healer_active"
+[npc_params.params]
+"param.death_anim" = "seq.hespori_healer_alive_to_dead"
 
 # Hydra
 [[npc_params]]
@@ -20128,37 +20889,49 @@ id = "npc.nightmare_blast"
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_1"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Sleepwalker
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_2"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Sleepwalker
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_3"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Sleepwalker
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_4"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Sleepwalker
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_5"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Sleepwalker
 [[npc_params]]
 id = "npc.nightmare_sleepwalker_6"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Parasite
 [[npc_params]]
@@ -20176,12 +20949,14 @@ id = "npc.nightmare_parasite_weak"
 [[npc_params]]
 id = "npc.nightmare_husk_magic"
 [npc_params.params]
+"param.attack_anim" = "seq.husk_magic_attack"
 "param.death_anim" = "seq.husk_death"
 
 # Husk
 [[npc_params]]
 id = "npc.nightmare_husk_ranged"
 [npc_params.params]
+"param.attack_anim" = "seq.husk_ranged_attack"
 "param.death_anim" = "seq.husk_death"
 
 # Infernal pyrelord
@@ -20196,12 +20971,14 @@ id = "npc.superior_pyrelord"
 [[npc_params]]
 id = "npc.nightmare_challenge_husk_magic"
 [npc_params.params]
+"param.attack_anim" = "seq.husk_magic_attack"
 "param.death_anim" = "seq.husk_death"
 
 # Husk
 [[npc_params]]
 id = "npc.nightmare_challenge_husk_ranged"
 [npc_params.params]
+"param.attack_anim" = "seq.husk_ranged_attack"
 "param.death_anim" = "seq.husk_death"
 
 # Parasite
@@ -20220,7 +20997,9 @@ id = "npc.nightmare_challenge_parasite_weak"
 [[npc_params]]
 id = "npc.nightmare_challenge_sleepwalker"
 [npc_params.params]
-"param.death_anim" = "seq.sleepwalker_death"
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Giant rat
 [[npc_params]]
@@ -20294,7 +21073,9 @@ id = "npc.myq5_vanstrom_bloodveld"
 [[npc_params]]
 id = "npc.ig_seagull"
 [npc_params.params]
-"param.death_anim" = "seq.duck_rework_death"
+"param.attack_anim" = "seq.seagull_attack"
+"param.defend_anim" = "seq.seagull_defend"
+"param.death_anim" = "seq.seagull_death"
 
 # Mutated Bloodveld
 [[npc_params]]
@@ -20331,6 +21112,22 @@ id = "npc.myq5_trek_juvinate_1"
 # Vampyre Juvinate
 [[npc_params]]
 id = "npc.myq5_trek_juvinate_2"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.myq5_trek_juvinate_1_held"
+[npc_params.params]
+"param.attack_anim" = "seq.human_unarmedpunch"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Vampyre Juvinate
+[[npc_params]]
+id = "npc.myq5_trek_juvinate_2_held"
 [npc_params.params]
 "param.attack_anim" = "seq.human_unarmedpunch"
 "param.defend_anim" = "seq.human_unarmedblock"
@@ -20524,17 +21321,25 @@ id = "npc.gh_giant3"
 [[npc_params]]
 id = "npc.gh_warrior_1"
 [npc_params.params]
-"param.attack_anim" = "seq.fai_varrock_guard_attack"
-"param.defend_anim" = "seq.fai_varrock_guard_defend"
-"param.death_anim" = "seq.fai_varrock_guard_death"
+"param.attack_anim" = "seq.human_spear_spike"
+"param.defend_anim" = "seq.human_spear_block"
+"param.death_anim" = "seq.human_death"
 
 # Warrior of Murahs
 [[npc_params]]
 id = "npc.gh_warrior_2"
 [npc_params.params]
-"param.attack_anim" = "seq.fai_varrock_guard_attack"
-"param.defend_anim" = "seq.fai_varrock_guard_defend"
-"param.death_anim" = "seq.fai_varrock_guard_death"
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
+
+# Warrior of Murahs
+[[npc_params]]
+id = "npc.gh_warrior_3"
+[npc_params.params]
+"param.attack_anim" = "seq.human_blunt_pound"
+"param.defend_anim" = "seq.human_blunt_block"
+"param.death_anim" = "seq.human_death"
 
 # Spiked Turoth
 [[npc_params]]
@@ -21958,12 +22763,114 @@ id = "npc.tobquest_hespori"
 "param.attack_anim" = "seq.hespori_attack_ranged"
 "param.death_anim" = "seq.hespori_death"
 
+# Flower
+[[npc_params]]
+id = "npc.tobquest_hespori_healer_active"
+[npc_params.params]
+"param.death_anim" = "seq.hespori_healer_alive_to_dead"
+
 # Gnome guard
 [[npc_params]]
 id = "npc.deadman_guard_gnome_range_vis"
 [npc_params.params]
 "param.defend_anim" = "seq.gnome_block"
 "param.death_anim" = "seq.gnome_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_ardougne_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_yanille_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_falador_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_varrock_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_lumbridge_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Ghost guard
+[[npc_params]]
+id = "npc.deadman_guard_portphas_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_sophanem_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_ja_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_voidknight_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_rellekka_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Guard
+[[npc_params]]
+id = "npc.deadman_guard_zeah_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
+
+# Prifddinas guard
+[[npc_params]]
+id = "npc.deadman_guard_prif_range_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_bow"
+"param.defend_anim" = "seq.human_unarmedblock"
+"param.death_anim" = "seq.human_death"
 
 # Enraged Boar
 [[npc_params]]
@@ -22159,6 +23066,8 @@ id = "npc.nex_icemage"
 id = "npc.nex_prison_warrior"
 [npc_params.params]
 "param.attack_anim" = "seq.dh_sword_update_slash"
+"param.defend_anim" = "seq.dh_sword_update_defend"
+"param.death_anim" = "seq.human_death"
 
 # Spiritual Ranger
 [[npc_params]]
@@ -22221,10 +23130,19 @@ id = "npc.bcs_champion_scarab_swarm"
 [npc_params.params]
 "param.attack_anim" = "seq.scarab_attack"
 "param.defend_anim" = "seq.scarab_parry"
+"param.death_anim" = "seq.scarab_spiral_rev"
 
 # Menaphite Akh
 [[npc_params]]
 id = "npc.bcs_menaphite_akh_combat"
+[npc_params.params]
+"param.attack_anim" = "seq.human_sword_slash"
+"param.defend_anim" = "seq.human_sword_def"
+"param.death_anim" = "seq.human_death"
+
+# Menaphite Akh
+[[npc_params]]
+id = "npc.bcs_menaphite_akh_combat_charging"
 [npc_params.params]
 "param.attack_anim" = "seq.human_sword_slash"
 "param.defend_anim" = "seq.human_sword_def"
@@ -22244,6 +23162,7 @@ id = "npc.bcs_scarab_swarm"
 [npc_params.params]
 "param.attack_anim" = "seq.scarab_attack"
 "param.defend_anim" = "seq.scarab_parry"
+"param.death_anim" = "seq.scarab_spiral_rev"
 
 # Head Menaphite Guard
 [[npc_params]]
@@ -23219,6 +24138,8 @@ id = "npc.dt2_strangled_ruins_t2_2"
 id = "npc.dt2_strangled_ruins_t2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.zombie_update_attack_champion"
+"param.defend_anim" = "seq.zombie_update_defend_weapon"
+"param.death_anim" = "seq.zombie_update_death_weapon"
 
 # Strangled
 [[npc_params]]
@@ -23318,12 +24239,16 @@ id = "npc.dt2_assassin_wight_combat"
 id = "npc.dt2_ketla_wight_combat"
 [npc_params.params]
 "param.attack_anim" = "seq.dwarf_crossbow_attack"
+"param.defend_anim" = "seq.dwarf_block"
+"param.death_anim" = "seq.dwarf_death"
 
 # Ketla the Unworthy
 [[npc_params]]
 id = "npc.dt2_ketla_wight_combat_clone"
 [npc_params.params]
 "param.attack_anim" = "seq.dwarf_crossbow_attack"
+"param.defend_anim" = "seq.dwarf_block"
+"param.death_anim" = "seq.dwarf_death"
 
 # Kasonde the Craven
 [[npc_params]]
@@ -23644,6 +24569,8 @@ id = "npc.dt2_strangled_base_t2_2"
 id = "npc.dt2_strangled_base_t2_3"
 [npc_params.params]
 "param.attack_anim" = "seq.zombie_update_attack_champion"
+"param.defend_anim" = "seq.zombie_update_defend_weapon"
+"param.death_anim" = "seq.zombie_update_death_weapon"
 
 # Dagannoth Rex
 [[npc_params]]
@@ -23681,6 +24608,7 @@ id = "npc.deadman_breach_dks_magic"
 [[npc_params]]
 id = "npc.deadman_breach_godwars_armadyl"
 [npc_params.params]
+"param.attack_anim" = "seq.godwars_armadyl_avatar_claw_attack"
 "param.defend_anim" = "seq.godwars_armadyl_avatar_defend"
 "param.death_anim" = "seq.godwars_armadyl_avatar_death"
 
@@ -24503,24 +25431,28 @@ id = "npc.colosseum_warbander_melee_male"
 [[npc_params]]
 id = "npc.colosseum_javelin_colossus"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_colossi_javelin_01_range_attack"
 "param.death_anim" = "seq.npc_colossi_javelin_01_death"
 
 # Manticore
 [[npc_params]]
 id = "npc.colosseum_manticore"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_manticore_01_triple_throw"
 "param.death_anim" = "seq.npc_manticore_01_death"
 
 # Shockwave Colossus
 [[npc_params]]
 id = "npc.colosseum_shockwave_colossus"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_colossi_shockwave_01_clapattack"
 "param.death_anim" = "seq.npc_colossi_shockwave_01_death"
 
 # Sol Heredit
 [[npc_params]]
 id = "npc.colosseum_sol_p1"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_colossi_finalboss_01_melee_attack"
 "param.death_anim" = "seq.npc_colossi_finalboss_01_death"
 
 # Bee Swarm
@@ -24528,6 +25460,7 @@ id = "npc.colosseum_sol_p1"
 id = "npc.colosseum_modifier_bees"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_colosseum_bees_attack_01"
+"param.death_anim" = "seq.npc_colosseum_bees_despawn_01"
 
 # Healing totem
 [[npc_params]]
@@ -24788,6 +25721,7 @@ id = "npc.pmoon_boss_blue_moon"
 id = "npc.pmoon_boss_eclipse_moon"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_djinn_02_melee"
+"param.death_anim" = "seq.npc_djinn_02_ending"
 
 # Blood jaguar
 [[npc_params]]
@@ -25086,12 +26020,16 @@ id = "npc.varlamore_thief_f_3"
 id = "npc.elite_black_knight_1"
 [npc_params.params]
 "param.attack_anim" = "seq.dh_sword_update_slash"
+"param.defend_anim" = "seq.dh_sword_update_defend"
+"param.death_anim" = "seq.human_death"
 
 # Elite Black Knight
 [[npc_params]]
 id = "npc.elite_black_knight_2"
 [npc_params.params]
 "param.attack_anim" = "seq.dh_sword_update_slash"
+"param.defend_anim" = "seq.dh_sword_update_defend"
+"param.death_anim" = "seq.human_death"
 
 # Elite Dark Warrior
 [[npc_params]]
@@ -25459,6 +26397,14 @@ id = "npc.invisible_tormented_demon_quest_2"
 "param.defend_anim" = "seq.luc2_undead_demon_defend"
 "param.death_anim" = "seq.luc2_undead_demon_death"
 
+# Lucien
+[[npc_params]]
+id = "npc.ikov_lucien2_vis"
+[npc_params.params]
+"param.attack_anim" = "seq.human_staff_pummel"
+"param.defend_anim" = "seq.human_staff_block"
+"param.death_anim" = "seq.human_death"
+
 # Rat
 [[npc_params]]
 id = "npc.rat_lowwander"
@@ -25487,6 +26433,7 @@ id = "npc.deadman_breach_cerberus"
 id = "npc.deadman_breach_bees"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_colosseum_bees_attack_01"
+"param.death_anim" = "seq.npc_colosseum_bees_despawn_01"
 
 # Thermonuclear smoke devil
 [[npc_params]]
@@ -26326,6 +27273,7 @@ id = "npc.pirate3_aggressive"
 id = "npc.yama"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_yama01_melee01"
+"param.death_anim" = "seq.npc_yama01_despawn01"
 
 # Void Flare
 [[npc_params]]
@@ -26772,18 +27720,21 @@ id = "npc.great_conch_hermit_crab"
 [[npc_params]]
 id = "npc.slayer_gryphon_1"
 [npc_params.params]
+"param.attack_anim" = "seq.gryphon_melee_attack01"
 "param.death_anim" = "seq.gryphon_death01"
 
 # Gryphon
 [[npc_params]]
 id = "npc.slayer_gryphon_2"
 [npc_params.params]
+"param.attack_anim" = "seq.gryphon_melee_attack01"
 "param.death_anim" = "seq.gryphon_death01"
 
 # Dire gryphon
 [[npc_params]]
 id = "npc.superior_gryphon"
 [npc_params.params]
+"param.attack_anim" = "seq.gryphon_melee_attack01"
 "param.death_anim" = "seq.gryphon_death01"
 
 # Shellbane gryphon
@@ -26917,7 +27868,9 @@ id = "npc.pirate_pickpocketable_5"
 [[npc_params]]
 id = "npc.sarim_seagull_pier_big_outdoors"
 [npc_params.params]
-"param.death_anim" = "seq.duck_rework_death"
+"param.attack_anim" = "seq.seagull_attack"
+"param.defend_anim" = "seq.seagull_defend"
+"param.death_anim" = "seq.seagull_death"
 
 # Scorpion
 [[npc_params]]
@@ -26939,6 +27892,7 @@ id = "npc.bas_anne_combat"
 [[npc_params]]
 id = "npc.tt_conch_gryphon"
 [npc_params.params]
+"param.attack_anim" = "seq.gryphon_melee_attack01"
 "param.death_anim" = "seq.gryphon_death01"
 
 # Shellbane gryphon
@@ -27258,6 +28212,13 @@ id = "npc.sailing_osprey"
 "param.attack_anim" = "seq.npc_osprey_flying_attack_01"
 "param.death_anim" = "seq.npc_osprey_flying_death_01"
 
+# Albatross
+[[npc_params]]
+id = "npc.sailing_albatross"
+[npc_params.params]
+"param.attack_anim" = "seq.npc_albatross_flying_attack_01"
+"param.death_anim" = "seq.npc_albatross_flying_death_01"
+
 # Frigatebird
 [[npc_params]]
 id = "npc.sailing_frigatebird"
@@ -27277,12 +28238,14 @@ id = "npc.sailing_tern"
 id = "npc.sailing_sea_mogre"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_sea_mogre_attack_melee01"
+"param.death_anim" = "seq.npc_sea_mogre_death_float"
 
 # Mogre
 [[npc_params]]
 id = "npc.sailing_sea_mogre_f"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_sea_mogre_attack_melee01"
+"param.death_anim" = "seq.npc_sea_mogre_death_float"
 
 # Dolphin
 [[npc_params]]
@@ -27301,6 +28264,7 @@ id = "npc.deadman_breach_lucien"
 [[npc_params]]
 id = "npc.praying_mantis"
 [npc_params.params]
+"param.attack_anim" = "seq.ti_mantis_slash_attack"
 "param.defend_anim" = "seq.ti_mantis_defend"
 "param.death_anim" = "seq.ti_mantis_death"
 
@@ -27308,6 +28272,7 @@ id = "npc.praying_mantis"
 [[npc_params]]
 id = "npc.praying_mantis_brown"
 [npc_params.params]
+"param.attack_anim" = "seq.ti_mantis_slash_attack"
 "param.defend_anim" = "seq.ti_mantis_defend"
 "param.death_anim" = "seq.ti_mantis_death"
 
@@ -27315,8 +28280,25 @@ id = "npc.praying_mantis_brown"
 [[npc_params]]
 id = "npc.praying_mantis_orchid"
 [npc_params.params]
+"param.attack_anim" = "seq.ti_mantis_slash_attack"
 "param.defend_anim" = "seq.ti_mantis_defend"
 "param.death_anim" = "seq.ti_mantis_death"
+
+# Giant ant
+[[npc_params]]
+id = "npc.giant_ant"
+[npc_params.params]
+"param.attack_anim" = "seq.ti_giant_ants_attack"
+"param.defend_anim" = "seq.ti_giant_ants_defend"
+"param.death_anim" = "seq.ti_giant_ants_death"
+
+# Giant ant
+[[npc_params]]
+id = "npc.giant_ant_soldier"
+[npc_params.params]
+"param.attack_anim" = "seq.ti_giant_ants_attack"
+"param.defend_anim" = "seq.ti_giant_ants_defend"
+"param.death_anim" = "seq.ti_giant_ants_death"
 
 # Giant wasp
 [[npc_params]]
@@ -27468,6 +28450,7 @@ id = "npc.deadman_breach_dscim_npc"
 [[npc_params]]
 id = "npc.deadman_breach_sol_heredit"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_colossi_finalboss_01_melee_attack"
 "param.death_anim" = "seq.npc_colossi_finalboss_01_death"
 
 # Yama
@@ -27475,6 +28458,7 @@ id = "npc.deadman_breach_sol_heredit"
 id = "npc.deadman_breach_yama"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_yama01_melee01"
+"param.death_anim" = "seq.npc_yama01_despawn01"
 
 # Pestilent Bloat
 [[npc_params]]
@@ -27601,12 +28585,15 @@ id = "npc.league_6_kbd"
 [[npc_params]]
 id = "npc.league_6_gg_dusk_alive"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dusk_attack_slash_defensive"
+"param.defend_anim" = "seq.gg_dusk_defend"
 "param.death_anim" = "seq.gg_dusk_death"
 
 # Dawn
 [[npc_params]]
 id = "npc.league_6_gg_dawn_alive"
 [npc_params.params]
+"param.attack_anim" = "seq.gg_dawn_attack_ranged"
 "param.defend_anim" = "seq.gg_dawn_defend"
 "param.death_anim" = "seq.gg_dawn_death"
 
@@ -27741,12 +28728,14 @@ id = "npc.deadman_all_stars_mission_scurrius"
 [[npc_params]]
 id = "npc.deadman_all_stars_mission_sol_heredit"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_colossi_finalboss_01_melee_attack"
 "param.death_anim" = "seq.npc_colossi_finalboss_01_death"
 
 # Kree'arra
 [[npc_params]]
 id = "npc.deadman_all_stars_mission_godwars_armadyl"
 [npc_params.params]
+"param.attack_anim" = "seq.godwars_armadyl_avatar_claw_attack"
 "param.defend_anim" = "seq.godwars_armadyl_avatar_defend"
 "param.death_anim" = "seq.godwars_armadyl_avatar_death"
 
@@ -27770,11 +28759,13 @@ id = "npc.deadman_all_stars_mission_jad"
 id = "npc.deadman_all_stars_mission_yama"
 [npc_params.params]
 "param.attack_anim" = "seq.npc_yama01_melee01"
+"param.death_anim" = "seq.npc_yama01_despawn01"
 
 # Maggot King
 [[npc_params]]
 id = "npc.maggot_king"
 [npc_params.params]
+"param.attack_anim" = "seq.maggot_king_meleeattack"
 "param.death_anim" = "seq.npc_maggot_king_death_01"
 
 # Ur-maggot larvae
@@ -28132,6 +29123,28 @@ id = "npc.myq6_zamorak_monk_3"
 [[npc_params]]
 id = "npc.myq6_lowerniel_final_combat"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack01"
+"param.death_anim" = "seq.npc_lowerniel_drakan_death01"
+
+# Lowerniel Drakan
+[[npc_params]]
+id = "npc.myq6_lowerniel_combat_3"
+[npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack_lame_wing01"
+"param.death_anim" = "seq.npc_lowerniel_drakan_death01"
+
+# Lowerniel Drakan
+[[npc_params]]
+id = "npc.myq6_lowerniel_combat_2"
+[npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack_lame_wing01"
+"param.death_anim" = "seq.npc_lowerniel_drakan_death01"
+
+# Lowerniel Drakan
+[[npc_params]]
+id = "npc.myq6_lowerniel_combat_1"
+[npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack_lame_wing01"
 "param.death_anim" = "seq.npc_lowerniel_drakan_death01"
 
 # Venator
@@ -28196,6 +29209,13 @@ id = "npc.castle_drakan_crow"
 [npc_params.params]
 "param.attack_anim" = "seq.myq6_crow_attack"
 "param.death_anim" = "seq.myq6_crow_death"
+
+# Lowerniel Drakan
+[[npc_params]]
+id = "npc.sangvesti_drakan_pursuing"
+[npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack_lame_wing01"
+"param.death_anim" = "seq.npc_lowerniel_drakan_death01"
 
 # Ancient feral vyre
 [[npc_params]]
@@ -28346,6 +29366,7 @@ id = "npc.vampyre_snail"
 [[npc_params]]
 id = "npc.lowerniel_drakan_animation_test"
 [npc_params.params]
+"param.attack_anim" = "seq.npc_lowerniel_drakan_melee_attack01"
 "param.death_anim" = "seq.npc_lowerniel_drakan_death01"
 
 # Giant Mole (Zamorak)

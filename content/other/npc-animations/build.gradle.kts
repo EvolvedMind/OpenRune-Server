@@ -1,0 +1,31 @@
+plugins {
+    id("base-conventions")
+    id("game-cache-test-conventions")
+}
+
+dependencies {
+    implementation(libs.guice)
+    implementation(projects.engine.plugin)
+    implementation(projects.engine.map)
+    implementation(projects.engine.game)
+    implementation(projects.engine.events)
+    implementation(projects.api.gameProcess)
+    implementation(projects.api.config)
+    implementation(projects.api.death)
+    implementation(projects.api.npc)
+    implementation(projects.api.script)
+    testImplementation(libs.or2.all.cache)
+    testImplementation(projects.api.gameProcess)
+    testImplementation(projects.api.registry)
+    testImplementation(projects.api.random)
+    testImplementation(projects.engine.coroutine)
+    testImplementation(projects.engine.routefinder)
+    testImplementation(projects.engine.annotations)
+    testImplementation(projects.engine.events)
+    testImplementation(projects.engine.game)
+    testImplementation(projects.engine.map)
+    testImplementation(projects.api.repo)
+    testImplementation(projects.api.route)
+    testImplementation(libs.fastutil)
+    testImplementation("org.mockito:mockito-core:5.14.2")
+}

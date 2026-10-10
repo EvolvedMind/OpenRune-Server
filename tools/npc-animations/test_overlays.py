@@ -44,7 +44,10 @@ class OverlaySafetyTest(unittest.TestCase):
     def test_script_owner_alias_is_resolved_by_native_id(self):
         audit, scope, _ = self.fixture()
         scope['bossSymbols'] = ['npc.guard_alias']
-        self.assertEqual(([], []), build(audit, scope))
+        patches, review = build(audit, scope)
+        self.assertEqual([], patches)
+        # Ownership excludes mutation, but retains candidates for route auditing.
+        self.assertEqual('npc.guard_native', review[0]['npc'])
 
     def test_zero_tick_death_is_not_added_to_suspending_death_route(self):
         audit, scope, _ = self.fixture()
@@ -52,6 +55,28 @@ class OverlaySafetyTest(unittest.TestCase):
         patches, review = build(audit, scope)
         self.assertFalse(patches)
         self.assertIn('death_anim', review[0]['missing'])
+
+    def test_transform_parent_borrows_only_unanimous_visible_child_actions(self):
+        audit, scope, parent = self.fixture()
+        parent['models'] = None
+        parent['transforms'] = [43, 44, -1]
+        for id in (43, 44):
+            audit['npcs'].append(dict(parent, id=id, symbol='npc.child_'+str(id),
+                                     transforms=None, params={'100': 4, '101': 6, '102': 3}))
+        patches, _ = build(audit, scope)
+        result = next(p['params'] for p in patches if p['id'] == 42)
+        self.assertEqual('seq.human_sword_slash', result['attack_anim'])
+        audit['npcs'][-1]['params']['100'] = 5
+        patches, _ = build(audit, scope)
+        self.assertNotIn('attack_anim', next(p['params'] for p in patches if p['id'] == 42))
+
+    def test_transform_refinement_does_not_patch_unrelated_noncombat_roots(self):
+        audit, scope, npc = self.fixture()
+        npc['params'] = {'100': 4, '101': 6, '102': 3}
+        audit['npcs'].append(dict(npc, id=99, symbol='npc.unrelated_shopkeeper', attackable=False,
+                                 params={}, models=None, transforms=[42]))
+        patches, _ = build(audit, scope)
+        self.assertFalse(patches)
 
 
 if __name__ == '__main__':

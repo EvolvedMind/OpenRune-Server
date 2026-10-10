@@ -356,6 +356,66 @@
       "kind": "crossbow",
       "attack_anim": "seq.xbows_human_fire_and_reload",
       "defend_anim": "seq.human_unarmedblock"
+    },
+    "6232": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "11788": {
+      "kind": "greataxe",
+      "attack_anim": "seq.barrow_dharok_crush",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "25685": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "43173": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54036": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54056": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54042": {
+      "kind": "greataxe",
+      "attack_anim": "seq.barrow_dharok_crush",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "25652": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
+    },
+    "25703": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
+    },
+    "25704": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
     }
   }
 }
