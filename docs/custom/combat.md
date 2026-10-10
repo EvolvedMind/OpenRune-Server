@@ -18,38 +18,158 @@ Boss DSL and stats/bonuses. Preserve current behaviour while evaluating any repl
 
 ## Ordinary NPC combat animations
 
-Source review: **2026-10-07**, commit `32ce078f2319ef86c6a34311b8e497449133336a`.
-The owner reports human-like animation glitches on the two elite clue guards during
-the 2026-10-06 clue test, and on unspecified NPCs around Tlati Rainforest.
+Revision-240 import and lifecycle routes, measured **2026-10-10** against accepted
+`main` **66f18993d**. Native IDs, framebases, models and timings remain authoritative;
+the RuneMonk reference cache is never installed over the accepted cache.
 
-| NPC / group | Evidence and remaining check |
-|---|---|
-| Armadylean guard — `npc.elite_npc_1`, dump ID 6587 | Native movement uses the Armadyl animation family. Its server override sets elemental weakness only; no explicit combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
-| Bandosian guard — `npc.elite_npc_2`, dump ID 6588 | Native movement uses the armed-ork animation family. No explicit server combat-animation configuration or dedicated combat handler was found. Owner-reported visual failure. |
-| Tlati Jaguar / Jaguar cub / Black jaguar — dump IDs 12976/12977/12978 | Map spawns, Attack actions, stats and native lynx movement exist; drop tables were found for Jaguar and Black jaguar. Server overrides contain weakness only. These are source-audit candidates; the owner has not identified which Tlati NPCs glitched. |
-| Tlati frog — `npc.little_frog_nodrops` | Has explicit attack/block/death sequences. Use it as a comparison case; its presence does not certify live visuals or the whole region. |
+The [parameter pack](../../content/other/npc-animations/pack/src/main/resources/pack/configs/npc-combat-animations.toml)
+adds **10,671 missing parameters to 3,749 definitions**: 3,673 attacks, 3,298 blocks
+and 3,700 deaths. Three additions belong to non-Attack active transform children.
+Existing animation parameters are not replaced. The KBD attack script and the
+three GWD attack scripts stay intact; only their missing ordinary block/death
+roles are filled where explicitly allowed by the importer.
 
-Sources: [native NPC dump](../../osrs-dumps/dump.npc), [server overrides](../../.data/raw-cache/server/npcs.toml), [Tlati map spawns](../../.data/raw-cache/map/npcs/varlamore.toml), [clue guardian spawn route](../../content/other/treasure-trails/src/main/kotlin/org/rsmod/content/other/treasure/trails/TrailGuards.kt).
+The [runtime module](../../content/other/npc-animations/src/main/kotlin/org/rsmod/content/other/npc/animations)
+adds bounded, native visual routes:
 
-The [generic attack route](../../api/combat/combat-scripts/src/main/kotlin/org/rsmod/api/combat/NvPCombat.kt)
-reads one `attack_anim`. When absent, [parameter defaults](../../.data/raw-cache/server/param.toml)
-provide `human_unarmedpunch`; generic death similarly falls back to `human_death`.
-The [defend route](../../api/combat/combat-commons/src/main/kotlin/org/rsmod/api/combat/commons/npc/NpcExtensions.kt)
-uses `paramOrNull`, so an absent defend parameter produces no defend animation.
-Spawning correctly and having stats/drops do not establish complete combat behavior.
+- **56 spawn forms:** 54 Lumberjack emergence variants and two Temple Trekking
+  tentacle variants. Native form/sequence changes precede the active body. Each
+  part waits its own native duration and guards the real attack cooldown; NPC
+  identity, HP and coordinates remain.
+- **11 combat forms:** five ground Wyrms, the Killerwatt ball and five shadow
+  shades enter their active body on a real hit. Death/despawn/foreign form changes
+  cancel remaining work. The accepted Fiyr validation hook stays unchanged.
+- **29 multipart deaths:** Xarpus, Jormungand, 24 Maiden variants and Maggot King.
+  Maiden uses its two native corpse meshes as well as the corresponding sequence
+  parts. The original visual type is restored before reward attribution.
+- **40 non-retaliating props:** dummies, barricades, portals, webs, flowers and
+  reviewed static targets suppress human attack fallback. Named portal/flower
+  deaths are retained; truly unanimated targets use native removal/rewards.
 
-### Audit and repair scope
+A small optional extension in [NpcDeath](../../api/death/src/main/kotlin/org/rsmod/api/death/NpcDeath.kt)
+plays multipart sequences/forms before the existing removal, drop and respawn
+route. Existing public death entry points retain their signatures and default
+behaviour. No body-customisation packet or replacement model is introduced.
 
-- Inspect the **final merged revision-240 NPC definitions**, resolved sequences and selected handlers. Include attackable world NPCs, their active forms and dynamically spawned encounter NPCs such as clue guards. Do not count raw TOML rows as live NPC coverage.
-- Record whether each sequence is explicit, inherited, supplied by a script or a fallback. Check attack style, projectile and hit timing alongside the animation where applicable; do not enable an invented attack just to remove a visual glitch.
-- Start with the two reported guards, then the Tlati candidates and other NPCs using the same incomplete generic route. Group by verified model/animation compatibility, not merely name or region. Jaguar/cub share a model; Black jaguar is a separate model variant.
-- Verify the proper attack, defend and death sequences in the paired cache/client before assigning them. A related GWD or ork animation name is only a candidate until checked for the exact guardian model and attack.
-- Apply bounded NPC parameter overlays or focused handlers as required. Preserve accepted boss configurations, global defaults, animation priorities and the clue guardian owner/kill-credit lifecycle. Recheck affected shared behavior and accepted bosses if a shared layer changes.
-- Accept a repaired group after real attack/defend/death and relevant variant tests, including clue completion for guards. A valid sequence ID or passing build alone does not prove correct model animation.
+### Measurement and remaining evidence
 
-This is a source/data review, not a completed cache-wide or in-game audit. The exact
-installed cache/client was unavailable here; no animation IDs were guessed or applied.
-Status is tracked only in [PROGRESS.md](../../PROGRESS.md).
+**3,993 Attack-option NPC types / 11,979 attack, block and death slots**:
+
+| Evidence category | Slots |
+|---|---:|
+| Missing parameters now mapped | 10,668 |
+| Existing explicit parameters | 304 |
+| Named families without a native block | 385 |
+| Accepted existing script routes | 95 |
+| Separately reviewed existing script routes | 16 |
+| Combat-form runtime routes | 32 |
+| Non-retaliating / static no-block / static removal | 110 |
+| Multipart runtime deaths without a parameter | 28 |
+| **Still open** | **341** |
+
+This is **97.15% technical action coverage**; **3,844 / 3,993 types** have their
+three roles accounted for. A touched definition is not a completed encounter.
+Source review and no-named-block evidence are distinct from visual acceptance.
+The owner installed the lifecycle package on 2026-10-10; all 17 payloads and
+979 prerequisites match its manifest. Login then failed on the new-account
+varbit. The reference-table recovery below retains that exact runtime JAR and
+all NPC animation data. Neither package has been merged.
+
+The [measurement and checks](npc-animation-evidence.json) and
+[149 unresolved native types/action candidates](npc-animation-open-actions.json)
+make the remaining work explicit. These include quest-held/dormant actors,
+ambiguous deaths/blocks, and boss/raid phases whose controller or exact visual
+role remains unproven. Cached movement or a compatible skeleton alone cannot
+choose a special attack, a death phase or its trigger. Secondary ranged/magic
+styles, specials, projectile/effect placement and complete paired-client visual
+acceptance remain outside the three-slot percentage and must still be verified.
+Current status is recorded only in [PROGRESS.md](../../PROGRESS.md).
+
+### Sources and preserved decisions
+
+The supplied RuneMonk package has 14,513 sequence entries: 14,408 agree with the
+paired cache's framebase; 12,156 names match, 2,314 are absent and 43 differ.
+Native revision-240 mappings take precedence. The older dump and candidate list
+provide movement/candidate evidence, not verified combat-role assignments.
+
+[Official upstream NPC configuration](https://github.com/OpenRune/OpenRune-Server/blob/ed27808014f232cefd8087fc956fc08e6292c2b7/.data/raw-cache/server/npcs.toml)
+and [PR #216](https://github.com/OpenRune/OpenRune-Server/pull/216), closed and
+unmerged at **375581c32314973d7de6a04e5e7f3713ef429f22**, were reviewed. They
+provide useful ordinary-family examples, not a verified 99% action catalogue.
+Keep the fork's accepted controllers; do not import the mixed upstream drop.
+
+The official [RuneLite ModelLoader](https://github.com/runelite/runelite/blob/master/cache/src/main/java/net/runelite/cache/definitions/loaders/ModelLoader.java),
+published decoder 1.13.1, supports offline exact-geometry/limb comparisons. Native
+worn-model matches and 81 separately rendered weapon meshes establish weapon
+classes; a shared human skeleton never selects a weapon. In the RuneMonk model
+preview, **Scarabs 729** appear through **1949 scarab_spiral** and disappear through
+**5464 scarab_spiral_rev**. The reviewed reverse sequence is used for death rather
+than the forward spawn sequence. This preview does not replace live acceptance.
+
+### Validation and owner testing
+
+**370 Kotlin tests** pass across native combat, the new lifecycle module, Treasure
+Trails, TD, Doom, gorillas, specials, Araxxor, Kraken, Corp and Barrows. The 13 new
+module tests use actual create/hit/retaliation/death-queue producers and exercise
+interruption, corpse meshes, native timing, reward identity, one reward and world
+respawn. Eight importer safety tests and 225 independently checked positive-duration
+lifecycle/source bindings pass. Formatter and runtime JAR build pass.
+
+All **16,579 NPC definitions** are compared against the accepted cache. Only the
+reported missing parameters differ; stats, native models, other parameters,
+sequence assets/timings and weapons are unchanged. The selective stage preserves
+**117,585 LIVE archives** and **22,972 unrelated SERVER archives**, changing only
+3,749 selected NPC files in **SERVER 2/58**. Client NPC archive 9, gamevals, models,
+interfaces, CS2 and the paired revision stay intact.
+
+The new JAR and selective cache pass isolated rev240/Nero boot with private ports
+and an isolated database, pet/tabs checks, gorilla access geometry, real bridge
+snapshots and clean shutdown. No live playerdata or world edit is altered. Native
+apps are unavailable through this session's computer tools, so no paired-client
+visual acceptance is claimed.
+
+The frozen `npc-animations-20261010` and `npc-animations-lifecycle-20261010`
+packages contain the reference-table regression described below. Their archive
+content checks and successful boot did not establish login compatibility. The
+guarded `outputs/npc-animations-login-fix-20261010/INSTALLEREN.cmd` recovery
+requires the installed lifecycle snapshot and has its own rollback. Close the
+local client/server before owner installation.
+Test Wyrm/Killerwatt/shadow activation, lethal first hits, the two tentacle spawn
+forms, complete Maiden/Xarpus/Jormungand/Maggot King death parts, static portal/
+flower deaths and normal respawn. Check the clue guardians through actual clues,
+weapon variants, jaguars and the accepted bosses/specials in fixed/resizable views.
+This is a test candidate; the remaining 341 slots are not advertised as complete.
+
+### Login regression and reference-table recovery — 2026-10-10
+
+The supplied startup/login log records `CONNECT_FAIL` after
+`Error getting varp from varbit: 65485`. RSProx forwards the request correctly;
+its disconnected status follows the rejected server login. The actual
+`AccountLoadResponseHook` account flag setter fails for both new and existing
+players. `new_player_account` points to base varp 65516, which is absent under
+that ID in the affected cache.
+
+Displee rewrote shared config index metadata while patching the NPC archive.
+The native `-1` first file sentinel in server varp archive **2/67** became
+`32767`, shifting all **5,971 reference file IDs by 32,768**. The archive bytes
+were unchanged, so the original preservation check missed the corruption.
+`PreserveConfigReference.java` retains the original reference metadata and
+copies only NPC CRC/checksum/digest, length and revision fields plus index version.
+The patcher now compares file-ID arrays for every archive as well as its payload.
+
+Recovery changes only **SERVER/main_file_cache.dat2**; the existing idx255
+pointer/length remain valid and its file hash is unchanged. All **22,973 server archive payloads** and
+**117,585 client archives** match the installed lifecycle package, including
+NPC animation archive 2/58; the runtime JAR is unchanged. Every reference file-ID
+table now matches the accepted pre-import cache. Eight metadata regression
+fixtures pass. All **19,438 varbits** resolve their base varp, and the real
+account flag setter/getter passes for new and existing players. Isolated rev240
+boot, Nero bridge snapshots, pet tabs, gorilla access and clean database/server
+shutdown pass with the recovered cache. This regression check does not require
+an external market-price refresh. The owner confirmed the paired-client login and authorized merge on 2026-10-10;
+no live account records or running processes were changed by development tests.
+
+Reproduction commands and native evidence rules: [offline tools](../../tools/npc-animations/README.md).
 
 ## Weapon implementation record (2026-10-03–04)
 

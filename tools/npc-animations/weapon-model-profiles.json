@@ -1,0 +1,421 @@
+{
+  "revision": 240,
+  "evidence": "Native revision-240 meshes rendered with RuneLite cache 1.13.1; compare with canonical server worn-weapon actions. This classifies weapon shape, never combat specials.",
+  "profiles": {
+    "491": {
+      "kind": "axe",
+      "attack_anim": "seq.human_axe_chop",
+      "defend_anim": "seq.human_axe_block"
+    },
+    "46752": {
+      "kind": "axe",
+      "attack_anim": "seq.human_axe_chop",
+      "defend_anim": "seq.human_axe_block"
+    },
+    "495": {
+      "kind": "pitchfork",
+      "attack_anim": "seq.human_farmersfork_stab",
+      "defend_anim": "seq.human_farmersfork_def"
+    },
+    "520": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "1898": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "10315": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "11790": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "11792": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "27200": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "31889": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "46755": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "51156": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "51177": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "54990": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "54996": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "54999": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "55014": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "55017": {
+      "kind": "blunt",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "553": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "3711": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "6135": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "9650": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "25683": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "54039": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "54988": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "54998": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block"
+    },
+    "4045": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "5437": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "6366": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "11196": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "19336": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "23948": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "27195": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "28618": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "44193": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "44776": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "46758": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "46962": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "50104": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "50105": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "51166": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "51167": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54033": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54034": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54048": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54057": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54061": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54984": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "54992": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "55008": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "57171": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "11791": {
+      "kind": "spear",
+      "attack_anim": "seq.human_spear_spike",
+      "defend_anim": "seq.human_spear_block"
+    },
+    "11793": {
+      "kind": "spear",
+      "attack_anim": "seq.human_spear_spike",
+      "defend_anim": "seq.human_spear_block"
+    },
+    "27194": {
+      "kind": "spear",
+      "attack_anim": "seq.human_spear_spike",
+      "defend_anim": "seq.human_spear_block"
+    },
+    "27202": {
+      "kind": "spear",
+      "attack_anim": "seq.human_spear_spike",
+      "defend_anim": "seq.human_spear_block"
+    },
+    "46757": {
+      "kind": "spear",
+      "attack_anim": "seq.human_spear_spike",
+      "defend_anim": "seq.human_spear_block"
+    },
+    "10318": {
+      "kind": "two-handed-sword",
+      "attack_anim": "seq.human_dhsword_slash",
+      "defend_anim": "seq.human_dhsword_block"
+    },
+    "27647": {
+      "kind": "two-handed-sword",
+      "attack_anim": "seq.human_dhsword_slash",
+      "defend_anim": "seq.human_dhsword_block"
+    },
+    "9431": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "38288": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "38295": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "43171": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "57164": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "57177": {
+      "kind": "bow",
+      "attack_anim": "seq.human_bow",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "55013": {
+      "kind": "mace",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "55020": {
+      "kind": "mace",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "57157": {
+      "kind": "mace",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "57159": {
+      "kind": "mace",
+      "attack_anim": "seq.human_blunt_pound",
+      "defend_anim": "seq.human_blunt_block"
+    },
+    "11789": {
+      "kind": "battleaxe",
+      "attack_anim": "seq.human_axe_chop",
+      "defend_anim": "seq.human_axe_block"
+    },
+    "42326": {
+      "kind": "dagger",
+      "attack_anim": "seq.human_sword_stab",
+      "defend_anim": "seq.human_sword_def"
+    },
+    "51159": {
+      "kind": "crossbow",
+      "attack_anim": "seq.xbows_human_fire_and_reload",
+      "defend_anim": "seq.human_unarmedblock"
+    },
+    "6232": {
+      "kind": "staff",
+      "attack_anim": "seq.human_staff_pummel",
+      "defend_anim": "seq.human_staff_block",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "11788": {
+      "kind": "greataxe",
+      "attack_anim": "seq.barrow_dharok_crush",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "25685": {
+      "kind": "sword",
+      "attack_anim": "seq.human_sword_slash",
+      "defend_anim": "seq.human_sword_def",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "43173": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54036": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54056": {
+      "kind": "godsword",
+      "attack_anim": "seq.dh_sword_update_slash",
+      "defend_anim": "seq.dh_sword_update_defend",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "54042": {
+      "kind": "greataxe",
+      "attack_anim": "seq.barrow_dharok_crush",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: decoded native mesh; canonical matching weapon class and native standing grip."
+    },
+    "25652": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
+    },
+    "25703": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
+    },
+    "25704": {
+      "kind": "bare_hand",
+      "attack_anim": "seq.human_unarmedpunch",
+      "defend_anim": "seq.human_unarmedblock",
+      "evidence": "remaining-held-models.png: the rigid hand mesh contains fingers only, no weapon."
+    }
+  }
+}

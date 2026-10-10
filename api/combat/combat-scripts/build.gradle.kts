@@ -10,6 +10,10 @@ kotlin {
 
 dependencies {
     testImplementation("org.mockito:mockito-core:5.14.2")
+    testImplementation(projects.api.registry)
+    testImplementation(projects.engine.coroutine)
+    testImplementation(projects.engine.routefinder)
+    testImplementation(projects.engine.annotations)
     implementation(libs.guice)
     implementation(projects.api.areaChecker)
     implementation(projects.api.combat.combatCommons)

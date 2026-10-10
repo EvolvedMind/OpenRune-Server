@@ -1,6 +1,6 @@
 # Project overview
 
-Reviewed **2026-10-09**. This is the source for current status and priorities.
+Reviewed **2026-10-10**. This is the source for current status and priorities.
 Implementation details: [custom documentation](docs/custom/README.md).
 Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
@@ -220,7 +220,7 @@ Acceptance below applies to the recorded scope. A merged change does not establi
 | 🟡 | [Interfaces](docs/custom/interfaces.md) | Implemented; remaining fixed/resizable scrolling and visual edge cases need in-game verification. |
 | 🟡 | [Boss-item crafting](docs/custom/boss-item-crafting.md) | Native atomic recipes implemented; user authorized merge. New recipes still need in-game acceptance. |
 | 🟡 | [Slayer menus and helmet crafting](docs/custom/slayer.md) | Source audit: existing task/unlock/extension handlers and ordinary helmet recipes. Fix Trade routing, task state, purchases, block slots, toggles and Suqah mapping; complete the requested menu and conversion paths. |
-| 🟡 | [Ordinary NPC combat animations](docs/custom/combat.md#ordinary-npc-combat-animations) | Initial source audit found missing explicit combat-animation configuration for the reported Armadylean/Bandosian clue guards and Tlati candidates. Verify resolved cache data, repair affected NPC families and test in-game; preserve accepted bosses and guardian progression. |
+| 🟡 | [NPC combat animation import](docs/custom/combat.md#ordinary-npc-combat-animations) | Work round closed on 2026-10-10 at the owner's request; implementation remains Started. 97.15% technical attack/block/death coverage across 3,993 Attack-option types; 3,844 types have all three roles accounted for. Pack: 3,749 definitions / 10,671 missing parameters. Runtime: 56 spawn forms, 11 combat transitions, 29 multipart deaths (24 Maiden corpse forms) and 40 non-retaliating props. Verified: 370 Kotlin tests, 8 importer checks, 225 lifecycle bindings, build, cache preservation and isolated boot. Tested code: `925f17d4e` on local `feature/npc-combat-animations`. Owner installed lifecycle package; login regression reproduced from a 32,768 shift in varp reference IDs. Recovery: `outputs/npc-animations-login-fix-20261010/INSTALLEREN.cmd`, one servercache file with rollback. All NPC data/JAR retained; original file IDs, 19,438 varbit bases, real new/existing-account flag writes, eight metadata fixtures and isolated boot pass. Owner accepted the installed recovery and authorized merge on 2026-10-10; the bounded animation import is accepted, while the listed remaining scope stays Started. Remaining: 341 action slots across 149 types, secondary attack styles, specials/phase integration and native-client visual acceptance. Accepted controllers and unrelated files are preserved. |
 | 🔴 | [Persistence warning follow-up](docs/custom/upstream-review-20261006.md) | Recorded concurrent database-close/save-drain warning; investigate separately from accepted encounter scope. |
 | 🟢 | Upstream research (review only) | [Test harness PR #282](docs/custom/upstream-pr-282-test-harness.md) and [level-up PR #286](docs/custom/upstream-level-up-779b81b.md) reviewed; not imported. Implementation has not started. Any adoption requires a scoped revision-240 port. |
 
