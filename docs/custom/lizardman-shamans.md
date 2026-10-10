@@ -106,3 +106,13 @@ rollback. It does not modify client/cache revision, RSA or playerdata.
 Owner paired-client checks: normal ranged/prayer, acid with no/partial/full T5,
 move out of spit/jump/spawns, repeated attacks after landing, leave/re-enter,
 and loot/KC/log progression. No owner visual acceptance is claimed yet.
+
+
+## Merge evidence
+
+[PR #34](https://github.com/EvolvedMind/OpenRune-Server/pull/34) merged as
+`d5f5cc3d0f619ff278b88859a29e89419f92956a` from head
+`02361e283f8f7f83e131e890cc77e0ba2f1668d7`. Both resolve to tree
+`577a086c7579c1753dc3cc510e61aa9ed66a96e1`. GitHub reported mergeable/clean,
+zero commit statuses and zero Actions runs; the validation above is local.
+Live installation remains the owner's next step using the guarded package.

@@ -6,7 +6,13 @@ Detected modules and references: [technical inventory](CONTENT_INVENTORY.md).
 
 **Status:** 🟢 Complete · 🟡 Started · 🔴 Not started
 
-## 🟡 Started: Lizardman Shamans — combat, rewards and test commands
+## 🟡 Started: Lizardman Shamans — PR #34 merged; client acceptance pending
+
+[PR #34](https://github.com/EvolvedMind/OpenRune-Server/pull/34) merged on
+2026-10-10 as `d5f5cc3d0f619ff278b88859a29e89419f92956a`; its complete tree
+matches tested head `02361e283f8f7f83e131e890cc77e0ba2f1668d7`. GitHub reports
+no commit statuses or workflow runs, so no online CI pass is claimed.
+The guarded test package is ready; the merge does not install it live.
 
 The five ordinary canyon/cave/Temple variants now have a Boss DSL controller:
 melee, normal ranged spit, dodgeable green acid spit, jump/landing and three
